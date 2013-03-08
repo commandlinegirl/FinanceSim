@@ -1152,7 +1152,7 @@ containing a value of this type.
         public static final int main=0x7f0c0009;
     }
     public static final class string {
-        public static final int about_text=0x7f090091;
+        public static final int about_text=0x7f09008f;
         /**  Content description for the action bar "home" affordance. [CHAR LIMIT=NONE] 
          */
         public static final int abs__action_bar_home_description=0x7f090000;
@@ -1226,8 +1226,8 @@ containing a value of this type.
         public static final int expense_name_text=0x7f09003a;
         public static final int expensesLabelText=0x7f090037;
         public static final int expensesTipText=0x7f090038;
-        public static final int feedback_text1=0x7f09008f;
-        public static final int feedback_text2=0x7f090090;
+        public static final int feedback_text1=0x7f09008d;
+        public static final int feedback_text2=0x7f09008e;
         public static final int incomeLabelText=0x7f090040;
         public static final int incomeTipText=0x7f090041;
         public static final int income_installments_input=0x7f090048;
@@ -1309,19 +1309,17 @@ containing a value of this type.
         public static final int show_predictions=0x7f090028;
         public static final int summaryControl=0x7f09001d;
         public static final int tableControl=0x7f09001f;
-        public static final int title_activity_about=0x7f09008d;
+        public static final int title_activity_about=0x7f09008b;
         public static final int title_activity_add_debt=0x7f09001b;
         public static final int title_activity_add_expense=0x7f090019;
         public static final int title_activity_add_income=0x7f09001a;
         public static final int title_activity_add_investment=0x7f090018;
-        public static final int title_activity_add_investment401k=0x7f09008a;
-        public static final int title_activity_add_investment_bond=0x7f09008c;
-        public static final int title_activity_add_investment_stock=0x7f09008b;
-        public static final int title_activity_chart_fragment=0x7f090088;
+        public static final int title_activity_add_investment401k=0x7f090088;
+        public static final int title_activity_add_investment_bond=0x7f09008a;
+        public static final int title_activity_add_investment_stock=0x7f090089;
         public static final int title_activity_display_message=0x7f090017;
         public static final int title_activity_display_pred=0x7f09001c;
-        public static final int title_activity_feedback=0x7f09008e;
-        public static final int title_activity_fragment_icons=0x7f090089;
+        public static final int title_activity_feedback=0x7f09008c;
         public static final int title_activity_list_fragment=0x7f090086;
         public static final int title_activity_main=0x7f090016;
         public static final int yearly_income_input=0x7f090044;
