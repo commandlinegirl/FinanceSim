@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.codelemma.finances"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="17" />
+
+    <application
+        android:name="com.codelemma.finances.Finances"
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/Theme.finances" >
+        <activity
+            android:name="com.codelemma.finances.Main"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
+        <activity
+            android:name="com.codelemma.finances.AddIncome"
+            android:label="@string/title_activity_add_income"
+            android:parentActivityName="com.codelemma.finances.Main"
+            android:windowSoftInputMode="stateHidden" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.codelemma.finances.Main" />
+        </activity>
+        <activity
+            android:name="com.codelemma.finances.AddInvestmentSavAcct"
+            android:label="@string/title_activity_add_investment"
+            android:parentActivityName="com.codelemma.finances.Main"
+            android:windowSoftInputMode="stateHidden" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.codelemma.finances.Main" />
+        </activity>
+        <activity
+            android:name="com.codelemma.finances.AddExpense"
+            android:label="@string/title_activity_add_expense"
+            android:parentActivityName="com.codelemma.finances.Main"
+            android:windowSoftInputMode="stateHidden" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.codelemma.finances.Main" />
+        </activity>
+        <activity
+            android:name="com.codelemma.finances.AddDebt"
+            android:label="@string/title_activity_add_debt"
+            android:parentActivityName="com.codelemma.finances.Main"
+            android:windowSoftInputMode="stateHidden" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.codelemma.finances.Main" />
+        </activity>
+        <activity
+            android:name="com.codelemma.finances.AddInvestment401k"
+            android:label="@string/title_activity_add_investment401k"
+            android:parentActivityName="com.codelemma.finances.Main"
+            android:windowSoftInputMode="stateHidden" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.codelemma.finances.Main" />
+        </activity>
+        <activity
+            android:name="com.codelemma.finances.AddInvestmentStock"
+            android:label="@string/title_activity_add_investment_stock"
+            android:parentActivityName="com.codelemma.finances.Main"
+            android:windowSoftInputMode="stateHidden" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.codelemma.finances.Main" />
+        </activity>
+        <activity
+            android:name="com.codelemma.finances.AddInvestmentBond"
+            android:label="@string/title_activity_add_investment_bond"
+            android:parentActivityName="com.codelemma.finances.Main"
+            android:windowSoftInputMode="stateHidden" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.codelemma.finances.Main" />
+        </activity>
+        <activity
+            android:name="com.codelemma.finances.About"
+            android:label="@string/title_activity_about"
+            android:parentActivityName="com.codelemma.finances.Main" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.codelemma.finances.Main" />
+        </activity>
+        <activity
+            android:name="com.codelemma.finances.Feedback"
+            android:label="@string/title_activity_feedback"
+            android:parentActivityName="com.codelemma.finances.Main" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.codelemma.finances.Main" />
+        </activity>
+    </application>
+
+</manifest>

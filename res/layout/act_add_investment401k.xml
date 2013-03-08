@@ -1,0 +1,301 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context=".AddInvestment401k" >
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:orientation="vertical">
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">    
+    
+    <TextView
+        android:text="@string/investment401k_name_input"                        
+        android:layout_weight="5"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:padding="3dip" />        
+    
+    <EditText
+        android:id="@+id/investment401k_name"   
+        android:layout_weight="6"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/investment401k_name_text"
+        android:inputType="text" />
+
+    <TextView
+        android:text=""                        
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"/>     
+        
+</LinearLayout>        
+    
+    
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">        
+    
+    <TextView
+        android:text="@string/investment401k_init_amount_input"                
+        android:layout_weight="5"  
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:padding="3dip" />
+    
+    <EditText
+        android:id="@+id/investment401k_init_amount"   
+        android:layout_weight="6"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/investment401k_init_amount_text"        
+        android:inputType="numberDecimal" />
+
+    <TextView
+        android:text=""                        
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"/>         
+            
+</LinearLayout>
+
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">    
+        
+    <TextView
+        android:text="@string/investment401k_salary_input"                        
+        android:layout_weight="5"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:padding="3dip" />        
+    
+    <EditText
+        android:id="@+id/investment401k_salary"   
+        android:layout_weight="6"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/investment401k_salary_text"
+        android:inputType="numberDecimal" />
+
+    <TextView
+        android:text=""                        
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"/>        
+    
+</LinearLayout> 
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">    
+        
+    <TextView
+        android:text="@string/investment401k_percontrib_input"                        
+        android:layout_weight="5"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:padding="3dip" />        
+    
+    <EditText
+        android:id="@+id/investment401k_percontrib"   
+        android:layout_weight="6"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/investment401k_percontrib_text"
+        android:inputType="numberDecimal" />
+
+    <TextView
+        android:text="@string/percent"                        
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"/>        
+    
+</LinearLayout> 
+
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">    
+        
+    <TextView
+        android:text="@string/investment401k_payrise_input"                        
+        android:layout_weight="5"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:padding="3dip" />        
+    
+    <EditText
+        android:id="@+id/investment401k_payrise"   
+        android:layout_weight="6"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/investment401k_payrise_text"
+        android:inputType="numberDecimal" />
+
+    <TextView
+        android:text="@string/percent"                        
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"/>        
+    
+</LinearLayout> 
+
+     
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">    
+        
+    <TextView
+        android:text="@string/investment401k_period_input"                        
+        android:layout_weight="5"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:padding="3dip" />        
+    
+    <EditText
+        android:id="@+id/investment401k_period"   
+        android:layout_weight="6"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/investment401k_period_text"
+        android:inputType="numberDecimal" />
+
+    <TextView
+        android:text="yrs"                        
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"/>            
+</LinearLayout> 
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">        
+    
+    <TextView
+        android:text="@string/investment401k_withdrawal_tax_rate_input"                
+        android:layout_weight="5"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:padding="3dip" />
+    
+    <EditText
+        android:id="@+id/investment401k_withdrawal_tax_rate"   
+        android:layout_weight="6"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/investment401k_withdrawal_tax_rate_text"        
+        android:inputType="numberDecimal" />
+
+    <TextView
+        android:text="@string/percent"                        
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"/>         
+        
+</LinearLayout>   
+
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">    
+        
+    <TextView
+        android:text="@string/investment401k_employer_match_input"                        
+        android:layout_weight="5"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:padding="3dip" />        
+    
+    <EditText
+        android:id="@+id/investment401k_employer_match"   
+        android:layout_weight="6"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/investment401k_employer_match_text"
+        android:inputType="numberDecimal" />
+
+    <TextView
+        android:text=""                        
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"/>        
+    
+</LinearLayout>       
+    
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">    
+        
+    <TextView
+        android:text="@string/investment401k_interest_rate_input"                        
+        android:layout_weight="5"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:padding="3dip" />        
+    
+    <EditText
+        android:id="@+id/investment401k_interest_rate"   
+        android:layout_weight="6"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/investment401k_interest_rate_text"
+        android:inputType="numberDecimal" />
+
+    <TextView
+        android:text="@string/percent"                        
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"/>        
+    
+</LinearLayout>  
+
+    <LinearLayout 
+        android:id="@+id/submitInvestmentButtons"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"          
+        android:gravity="center"        
+        android:orientation="horizontal">
+    
+    <Button        
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="48dp"
+            android:layout_gravity="center"
+            android:text="@string/cancel"
+            android:background="@drawable/button_cancel"                
+            android:layout_marginRight="5dp"             
+            android:onClick="cancelAdding"/>     
+
+    <Button
+            android:layout_width="0dp"
+            android:layout_weight="3"
+            android:layout_height="48dp"
+            android:layout_gravity="center"
+            android:text="@string/add_investment401k"
+            android:background="@drawable/button_green"                        
+            android:layout_marginLeft="5dp"           
+            android:onClick="addInvestment" /> 
+     </LinearLayout>
+</LinearLayout>
+</ScrollView>

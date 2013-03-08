@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- File created by the Android Action Bar Style Generator
+
+     Copyright (C) 2012 readyState Software Ltd
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+  
+          http://www.apache.org/licenses/LICENSE-2.0
+  
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+
+<resources>
+
+    <style name="Theme.finances" parent="@style/Theme.Sherlock.Light">
+        <item name="actionBarItemBackground">@drawable/selectable_background_finances</item>
+        <item name="popupMenuStyle">@style/finances_PopupMenu</item>
+        <item name="dropDownListViewStyle">@style/finances_DropDownListView</item>
+        <item name="actionBarTabStyle">@style/finances_ActionBarTabStyle</item>
+        <item name="actionDropDownStyle">@style/finances_DropDownNav</item>
+        <item name="actionBarStyle">@style/finances_solid_ActionBar</item>
+
+        <item name="android:actionBarItemBackground">@drawable/selectable_background_finances</item>
+        <item name="android:popupMenuStyle">@style/finances_PopupMenu</item>
+        <item name="android:dropDownListViewStyle">@style/finances_DropDownListView</item>
+        <item name="android:actionBarTabStyle">@style/finances_ActionBarTabStyle</item>
+        <item name="android:actionDropDownStyle">@style/finances_DropDownNav</item>
+        <item name="android:actionBarStyle">@style/finances_solid_ActionBar</item>
+        <item name="android:panelBackground">@drawable/menu_hardkey_panel_finances</item>
+        
+        
+    </style>
+
+    <style name="finances_solid_ActionBar" parent="@style/Widget.Sherlock.Light.ActionBar.Solid">
+        <item name="background">@drawable/ab_solid_finances</item>
+        <item name="backgroundStacked">@drawable/ab_stacked_solid_finances</item>
+        <item name="backgroundSplit">@drawable/ab_bottom_solid_finances</item>
+        <item name="progressBarStyle">@style/finances_ProgressBar</item>
+
+        <item name="android:background">@drawable/ab_solid_finances</item>
+        <item name="android:backgroundStacked">@drawable/ab_stacked_solid_finances</item>
+        <item name="android:backgroundSplit">@drawable/ab_bottom_solid_finances</item>
+        <item name="android:progressBarStyle">@style/finances_ProgressBar</item>
+    </style>
+
+    <style name="finances_transparent_ActionBar" parent="@style/Widget.Sherlock.Light.ActionBar">
+        <item name="background">@drawable/ab_transparent_finances</item>
+        <item name="progressBarStyle">@style/finances_ProgressBar</item>
+        
+        <item name="android:background">@drawable/ab_transparent_finances</item>
+        <item name="android:progressBarStyle">@style/finances_ProgressBar</item>
+    </style>
+	
+    <style name="finances_PopupMenu" parent="@style/Widget.Sherlock.Light.ListPopupWindow">	
+        <item name="android:popupBackground">@drawable/menu_dropdown_panel_finances</item>	
+    </style>
+	
+    <style name="finances_DropDownListView" parent="@style/Widget.Sherlock.Light.ListView.DropDown">
+        <item name="android:listSelector">@drawable/selectable_background_finances</item>
+    </style>
+
+    <style name="finances_ActionBarTabStyle" parent="@style/Widget.Sherlock.Light.ActionBar.TabView">
+        <item name="background">@drawable/tab_indicator_ab_finances</item>
+
+        <item name="android:background">@drawable/tab_indicator_ab_finances</item>
+    </style>
+	
+    <style name="finances_DropDownNav" parent="@style/Widget.Sherlock.Light.Spinner.DropDown.ActionBar">
+        <item name="background">@drawable/spinner_background_ab_finances</item>
+
+        <item name="android:background">@drawable/spinner_background_ab_finances</item>
+        <item name="android:popupBackground">@drawable/menu_dropdown_panel_finances</item>
+        <item name="android:dropDownSelector">@drawable/selectable_background_finances</item>
+    </style>
+    
+    <style name="finances_ProgressBar" parent="@style/Widget.Sherlock.Light.ProgressBar.Horizontal">
+        <item name="android:progressDrawable">@drawable/progress_horizontal_finances</item>
+    </style>
+    
+    <!-- this style is only referenced in a Light.DarkActionBar based theme -->
+    <style name="Theme.finances.widget" parent="@style/Theme.Sherlock">
+        <item name="popupMenuStyle">@style/finances_PopupMenu</item>
+        <item name="dropDownListViewStyle">@style/finances_DropDownListView</item>
+        
+        <item name="android:popupMenuStyle">@style/finances_PopupMenu</item>
+        <item name="android:dropDownListViewStyle">@style/finances_DropDownListView</item>
+    </style>
+
+</resources>

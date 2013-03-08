@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<string-array name="compounding_spinner">
+        <item>Monthly</item>
+        <item>Quarterly</item>
+        <item>Semiannually</item>
+        <item>Annually</item>
+        <item>Biannually</item>
+    </string-array>
+</resources>

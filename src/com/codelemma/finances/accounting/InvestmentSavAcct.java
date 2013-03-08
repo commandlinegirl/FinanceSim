@@ -1,0 +1,180 @@
+package com.codelemma.finances.accounting;
+import java.math.BigDecimal;
+
+
+import com.codelemma.finances.ParseException;
+import com.codelemma.finances.TypedContainer;
+import java.util.NoSuchElementException;
+
+public class InvestmentSavAcct extends Investment 
+                                   implements NamedValue {
+	
+	private int id;
+	private String name;	
+    private BigDecimal init_amount;
+    private BigDecimal tax_rate;    
+    private BigDecimal tax_rate_decimal;     
+    private BigDecimal percontrib; // percentage of excess money
+    private BigDecimal interest_rate;
+    private int capitalization;
+    private BigDecimal amount;
+    private BigDecimal hidden_amount;
+    private int capitalization_counter = 1;
+    private BigDecimal interest_rate_decimal;
+    
+    private BigDecimal interests_gross = new BigDecimal(0);
+    private BigDecimal tax_on_interests = new BigDecimal(0);
+    private BigDecimal interests_net = new BigDecimal(0);
+    
+    private BigDecimal comp_factor_28;
+    private BigDecimal comp_factor_30;
+    private BigDecimal comp_factor_31;
+    private int[] months = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+    
+    
+    public InvestmentSavAcct(String name,
+    		          BigDecimal init_amount,
+    		          BigDecimal tax_rate,
+    		          BigDecimal percontrib,
+    		          int capitalization,
+    		          BigDecimal interest_rate) {
+    	this.name = name;
+        this.init_amount = Money.scale(init_amount);
+        this.amount = this.init_amount;
+        this.hidden_amount = this.init_amount;        
+        this.tax_rate = Money.scaleRate(tax_rate);
+        this.tax_rate_decimal = tax_rate.divide(Money.HUNDRED, Money.RATE_DECIMALS, Money.ROUNDING_MODE);        
+        this.percontrib = Money.scaleRate(percontrib);
+        this.capitalization = capitalization;
+        this.interest_rate = Money.scaleRate(interest_rate);
+        this.interest_rate_decimal = this.interest_rate.divide(Money.HUNDRED, Money.RATE_DECIMALS, Money.ROUNDING_MODE);  
+        comp_factor_28 = new BigDecimal(Math.exp(this.interest_rate_decimal.doubleValue() * 28.0/365));
+        comp_factor_30 = new BigDecimal(Math.exp(this.interest_rate_decimal.doubleValue() * 30.0/365));
+        comp_factor_31 = new BigDecimal(Math.exp(this.interest_rate_decimal.doubleValue() * 31.0/365));        		        
+    }   
+
+       
+	public BigDecimal getTaxRate() {
+		return tax_rate;
+	}
+		
+	public BigDecimal getInterestRate() {
+		return interest_rate;
+	}
+
+	
+	public int getCapitalization() {
+		return capitalization;
+	}
+ 
+    private BigDecimal getCompoundingFactor(int month_length) {   
+    	switch(month_length) {
+    	case 30:
+            return comp_factor_30;            	
+    	case 31:
+        	return comp_factor_31;
+    	case 28:
+        	return comp_factor_28;
+        default:
+        	throw new NoSuchElementException("Only factor 28, 30 or 31 is possible.");
+        }
+    }  
+        
+    public BigDecimal getTax() {    
+    	return tax_on_interests;
+    }    
+        
+    public BigDecimal getInterestsNet() {
+    	return interests_net;
+    }   
+    
+    public BigDecimal getInterestsGross() {
+        return interests_gross;
+    } 
+    
+    @Override
+    public int getId() {
+        return id;
+    }    
+
+	@Override
+	public BigDecimal getInitAmount() {
+		return init_amount;
+	}
+	
+	@Override
+	public BigDecimal getAmount() {
+		return amount;
+	}
+	
+	@Override
+	public BigDecimal getPercontrib() {
+		return percontrib;
+	}
+
+    @Override
+    public String getName() {
+        return name;
+    }    
+    
+    @Override
+    public BigDecimal getValue() {
+        return init_amount; // init_amount or amount?
+    }   
+
+    @Override
+    public void launchModifyUi(ModifyUiVisitor modifyUiVisitor) {
+    	modifyUiVisitor.launchModifyUiForInvestment(this);
+    }
+               
+    @Override
+    public void advance(int month, BigDecimal excess) {
+    	
+        interests_gross = new BigDecimal(0);
+        tax_on_interests = new BigDecimal(0);
+        interests_net = new BigDecimal(0);
+    	 	
+    	/* Add monthly contribution (a given percentage of excess money) to the hidden_amount  */
+        amount = amount.add(Money.getPercentage(excess, percontrib)); 
+    	hidden_amount = hidden_amount.add(Money.getPercentage(excess, percontrib));   
+    	
+    	/* Calculate the interests of hidden_amount (and add to principal)  */
+    	hidden_amount = Money.scale(hidden_amount.multiply(getCompoundingFactor(months[month])));
+  	
+    	if (capitalization == capitalization_counter) {
+    		/* calculate and subtract tax on interests */
+    		BigDecimal hidden_interests_gross = hidden_amount.subtract(amount);
+    		BigDecimal hidden_interests_gross_tax = Money.getPercentage(hidden_interests_gross, tax_rate_decimal);
+    		hidden_amount = hidden_amount.subtract(hidden_interests_gross_tax);
+  
+            interests_gross = hidden_interests_gross;
+            tax_on_interests = hidden_interests_gross_tax;
+            interests_net = interests_gross.subtract(tax_on_interests);    
+            
+            amount = hidden_amount;
+        	capitalization_counter = 1;        	
+    	} else {
+    		capitalization_counter++;
+    	}
+    }
+    
+	@Override
+	public void initialize() {
+		amount = init_amount;
+	}
+
+	@Override
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	@Override
+	public TypedContainer getFieldContainer(PackToContainerVisitor saver) throws ParseException {
+		return saver.packInvestmentSavAcct(this);		
+	}
+	
+	@Override
+	public HistoryNew createHistory() {
+		return new HistoryInvestmentSavAcct(this);
+	}
+}

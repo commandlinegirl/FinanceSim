@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<string-array name="expense_frequency_spinner">
+        <item>Monthly</item>
+        <item>Quarterly</item>
+        <item>Twice a year</item>
+        <item>Once a year</item>
+        <item>Every two years</item>
+    </string-array>
+</resources>
