@@ -95,7 +95,7 @@ public class PackToContainerLauncher implements PackToContainerVisitor {
 	public TypedContainer packDebtMortgage(DebtMortgage debtmortgage) {
     	TypedContainer container = new TypedContainer();
         container.put(TypedKey.DEBTMORTGAGE_ID, debtmortgage.getId());
-        container.put(TypedKey.DEBTMORTGAGE_AMOUNT, debtmortgage.getValue());
+        container.put(TypedKey.DEBTMORTGAGE_PURCHASE_PRICE, debtmortgage.getPurchasePrice());
         container.put(TypedKey.DEBTMORTGAGE_NAME, debtmortgage.getName());               
     	return container;
 	}

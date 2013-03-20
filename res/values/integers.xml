@@ -1,0 +1,5 @@
+<resources>
+    <integer name="form_text_weight">10</integer>
+    <integer name="form_edit_weight">8</integer>
+    <integer name="form_suffix_weight">1</integer>    
+</resources>

@@ -2,7 +2,6 @@ package com.codelemma.finances;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
-import java.util.Map;
 
 import org.achartengine.ChartFactory;
 import org.achartengine.GraphicalView;
@@ -19,21 +18,18 @@ import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.codelemma.finances.accounting.HistoryDebtLoan;
 import com.codelemma.finances.accounting.HistoryDebtMortgage;
 import com.codelemma.finances.accounting.HistoryExpenseGeneric;
-import com.codelemma.finances.accounting.HistoryIncome;
 import com.codelemma.finances.accounting.HistoryIncomeGeneric;
 import com.codelemma.finances.accounting.HistoryInvestment401k;
 import com.codelemma.finances.accounting.HistoryInvestmentBond;
 import com.codelemma.finances.accounting.HistoryInvestmentSavAcct;
 import com.codelemma.finances.accounting.HistoryInvestmentStock;
-import com.codelemma.finances.accounting.HistoryNew;
 import com.codelemma.finances.accounting.PlotVisitor;
 
 public class Plotter implements PlotVisitor {
 
 	private SherlockFragmentActivity frgActivity;
     private int currentColor = 0;
-    private String[] colors = {"#ffffff00", "#ffcccccc", "#ff00ff00", "#ff8C489F", "#ffFF0080", "#ff9CAA9C", "#ff66CCFF"};    
-    private String[] titles = {"Income", "Expense", "Investment", "Debt"};
+    private String[] colors = {"#ff00ff00", "#ff0099ff", "#ffFF0080", "#ff8C489F", "#ff66CCFF", "#ffffff00", "#ffcccccc",  "#ff9CAA9C",};    
     private String[] dates;
     private int numberOfMonths;
     
@@ -98,7 +94,7 @@ public class Plotter implements PlotVisitor {
 
     	mRenderer.setMargins(new int[] {Utils.px(frgActivity, 8), 
     			leftMargin, 
-    			20, //Utils.px(frgActivity, 20), 
+    			50, 
     			rightMargin}); // top, left, bottom, right
     		
     	int screenWidthDips = Utils.dip(frgActivity, frgActivity.getResources().getDisplayMetrics().widthPixels);
@@ -114,8 +110,8 @@ public class Plotter implements PlotVisitor {
 	        mRenderer.addXTextLabel(i, date.replaceFirst(" ", "\n"));
         }
                 
-        //mRenderer.setShowLegend(true);
-        mRenderer.setLegendHeight(40);
+        mRenderer.setShowLegend(true);
+        mRenderer.setLegendHeight(50);
         mRenderer.setLegendTextSize(Utils.px(frgActivity, 10));
         mRenderer.setInScroll(true);
     	mRenderer.setYAxisMin(0);

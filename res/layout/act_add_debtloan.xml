@@ -13,10 +13,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
     
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="This is the most typical loan payment type (a fully amortizing payment) with non-variable value of monthly rate over time." />
+
 
 <LinearLayout
     android:layout_width="match_parent"
@@ -25,14 +22,14 @@
     
     <TextView
         android:text="@string/debtloan_name_input"                        
-        android:layout_weight="5"
+        android:layout_weight="@integer/form_text_weight"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:padding="3dip" />        
     
     <EditText
         android:id="@+id/debtloan_name"   
-        android:layout_weight="6"
+        android:layout_weight="@integer/form_edit_weight"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/debtloan_name_text"
@@ -40,7 +37,7 @@
 
     <TextView
         android:text=""                        
-        android:layout_weight="1"
+        android:layout_weight="@integer/form_suffix_weight"
         android:layout_width="0dp"
         android:layout_height="wrap_content"/>     
         
@@ -53,14 +50,14 @@
     
     <TextView
         android:text="@string/debtloan_amount_input"                        
-        android:layout_weight="5"
+        android:layout_weight="@integer/form_text_weight"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:padding="3dip" />        
     
     <EditText
         android:id="@+id/debtloan_amount"   
-        android:layout_weight="6"
+        android:layout_weight="@integer/form_edit_weight"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/debtloan_amount_text"
@@ -68,7 +65,7 @@
 
     <TextView
         android:text=""                        
-        android:layout_weight="1"
+        android:layout_weight="@integer/form_suffix_weight"
         android:layout_width="0dp"
         android:layout_height="wrap_content"/>     
         
@@ -81,14 +78,14 @@
     
     <TextView
         android:text="@string/debtloan_interest_rate_input"                        
-        android:layout_weight="5"
+        android:layout_weight="@integer/form_text_weight"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:padding="3dip" />        
     
     <EditText
         android:id="@+id/debtloan_interest_rate"   
-        android:layout_weight="6"
+        android:layout_weight="@integer/form_edit_weight"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/debtloan_interest_rate_text"
@@ -96,7 +93,7 @@
 
     <TextView
         android:text="@string/percent"                        
-        android:layout_weight="1"
+        android:layout_weight="@integer/form_suffix_weight"
         android:layout_width="0dp"
         android:layout_height="wrap_content"/>             
 </LinearLayout>        
@@ -110,14 +107,14 @@
     
     <TextView
         android:text="@string/debtloan_term_input"                        
-        android:layout_weight="5"
+        android:layout_weight="@integer/form_text_weight"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:padding="3dip" />        
     
     <EditText
         android:id="@+id/debtloan_term"   
-        android:layout_weight="6"
+        android:layout_weight="@integer/form_edit_weight"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/debtloan_term_text"
@@ -125,7 +122,7 @@
 
     <TextView
         android:text=""                        
-        android:layout_weight="1"
+        android:layout_weight="@integer/form_suffix_weight"
         android:layout_width="0dp"
         android:layout_height="wrap_content"/>             
 </LinearLayout> 
@@ -139,14 +136,14 @@
     
     <TextView
         android:text="@string/debtloan_extra_payment_input"                        
-        android:layout_weight="5"
+        android:layout_weight="@integer/form_text_weight"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:padding="3dip" />        
     
     <EditText
         android:id="@+id/debtloan_extra_payment"   
-        android:layout_weight="6"
+        android:layout_weight="@integer/form_edit_weight"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/debtloan_extra_payment_text"
@@ -154,7 +151,7 @@
 
     <TextView
         android:text=""                        
-        android:layout_weight="1"
+        android:layout_weight="@integer/form_suffix_weight"
         android:layout_width="0dp"
         android:layout_height="wrap_content"/>             
 </LinearLayout> 
@@ -174,7 +171,7 @@
             android:layout_gravity="center"
             android:text="@string/cancel"
             android:background="@drawable/button_cancel"                
-            android:layout_marginRight="5dp"          
+            android:layout_marginRight="2dp"          
             android:onClick="cancelAdding"/>     
     <Button
             android:layout_width="0dp"
@@ -182,7 +179,7 @@
             android:layout_height="48dp"
             android:layout_gravity="center"
             android:text="@string/add_debtloan"
-            android:layout_marginLeft="5dp"                
+            android:layout_marginLeft="2dp"                
             android:background="@drawable/button_green"    
             android:onClick="addDebt" /> 
 

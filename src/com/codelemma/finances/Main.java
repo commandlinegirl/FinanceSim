@@ -13,7 +13,6 @@ import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
-import com.actionbarsherlock.view.Window;
 import com.codelemma.finances.accounting.Account;
 import com.codelemma.finances.accounting.History;
 import com.codelemma.finances.accounting.HistoryNew;
@@ -207,13 +206,13 @@ public class Main extends SherlockFragmentActivity
 		actionbar.setDisplayShowTitleEnabled(false);
 		actionbar.setDisplayHomeAsUpEnabled(true);						
         actionbar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);		 	    
-  	    ActionBar.Tab tab0 = actionbar.newTab().setText(getResources().getString(R.string.incomeTitle)).setTabListener(this);
+  	    ActionBar.Tab tab0 = actionbar.newTab().setText(getResources().getString(R.string.income_title)).setTabListener(this);
         actionbar.addTab(tab0);	
-  	    ActionBar.Tab tab1 = actionbar.newTab().setText(getResources().getString(R.string.expensesTitle)).setTabListener(this);
+  	    ActionBar.Tab tab1 = actionbar.newTab().setText(getResources().getString(R.string.expenses_title)).setTabListener(this);
         actionbar.addTab(tab1);	
-  	    ActionBar.Tab tab2 = actionbar.newTab().setText(getResources().getString(R.string.investmentsTitle)).setTabListener(this);
+  	    ActionBar.Tab tab2 = actionbar.newTab().setText(getResources().getString(R.string.investments_title)).setTabListener(this);
         actionbar.addTab(tab2);	
-  	    ActionBar.Tab tab3 = actionbar.newTab().setText(getResources().getString(R.string.debtsTitle)).setTabListener(this);
+  	    ActionBar.Tab tab3 = actionbar.newTab().setText(getResources().getString(R.string.debts_title)).setTabListener(this);
         actionbar.addTab(tab3);
 	}
 	
@@ -326,35 +325,6 @@ public class Main extends SherlockFragmentActivity
 	public void showChartForNYears(View view) {		
 	    FrgChart frgChart = (FrgChart) getSupportFragmentManager().findFragmentById(R.id.main_container);
 	    frgChart.onPredYrsSelection(view, currentElement);
-	}
-	
-    public void pickControl(View view) {
-        FrgControls frgControls = (FrgControls) getSupportFragmentManager().findFragmentById(R.id.frg_controls);
-        frgControls.selectControl(view);    
-    }   
-
-	public void pickResultType(View view) {
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-		switch(view.getId()) {
-	    case R.id.show_table:    
-            recalculate(); 
-            ft.replace(R.id.main_container, new FrgList());            
-            ft.commit();
-            currentIcon = 2;
-    	    menuAdd.setIcon(R.drawable.ico_add);
-    	    menuChart.setIcon(R.drawable.ico_chart);
-    	    menuTable.setIcon(R.drawable.ico_table_on);   
-            break;
-        case R.id.show_chart:
-            recalculate();
-            ft.replace(R.id.main_container, new FrgChart());
-            ft.commit();
-            currentIcon = 1;
-    	    menuAdd.setIcon(R.drawable.ico_add);
-    	    menuChart.setIcon(R.drawable.ico_chart_on);
-    	    menuTable.setIcon(R.drawable.ico_table);   
-            break;		
-		}
 	}
 	
 	public String[] getDates(){

@@ -20,14 +20,14 @@
     
     <TextView
         android:text="@string/investment401k_name_input"                        
-        android:layout_weight="5"
+        android:layout_weight="@integer/form_text_weight"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:padding="3dip" />        
     
     <EditText
         android:id="@+id/investment401k_name"   
-        android:layout_weight="6"
+        android:layout_weight="@integer/form_edit_weight"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/investment401k_name_text"
@@ -35,7 +35,7 @@
 
     <TextView
         android:text=""                        
-        android:layout_weight="1"
+        android:layout_weight="@integer/form_suffix_weight"
         android:layout_width="0dp"
         android:layout_height="wrap_content"/>     
         
@@ -49,14 +49,14 @@
     
     <TextView
         android:text="@string/investment401k_init_amount_input"                
-        android:layout_weight="5"  
+        android:layout_weight="@integer/form_text_weight"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:padding="3dip" />
     
     <EditText
         android:id="@+id/investment401k_init_amount"   
-        android:layout_weight="6"
+        android:layout_weight="@integer/form_edit_weight"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/investment401k_init_amount_text"        
@@ -64,7 +64,7 @@
 
     <TextView
         android:text=""                        
-        android:layout_weight="1"
+        android:layout_weight="@integer/form_suffix_weight"
         android:layout_width="0dp"
         android:layout_height="wrap_content"/>         
             
@@ -78,14 +78,14 @@
         
     <TextView
         android:text="@string/investment401k_salary_input"                        
-        android:layout_weight="5"
+        android:layout_weight="@integer/form_text_weight"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:padding="3dip" />        
     
     <EditText
         android:id="@+id/investment401k_salary"   
-        android:layout_weight="6"
+        android:layout_weight="@integer/form_edit_weight"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/investment401k_salary_text"
@@ -93,40 +93,11 @@
 
     <TextView
         android:text=""                        
-        android:layout_weight="1"
+        android:layout_weight="@integer/form_suffix_weight"
         android:layout_width="0dp"
         android:layout_height="wrap_content"/>        
     
 </LinearLayout> 
-
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal">    
-        
-    <TextView
-        android:text="@string/investment401k_percontrib_input"                        
-        android:layout_weight="5"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:padding="3dip" />        
-    
-    <EditText
-        android:id="@+id/investment401k_percontrib"   
-        android:layout_weight="6"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/investment401k_percontrib_text"
-        android:inputType="numberDecimal" />
-
-    <TextView
-        android:text="@string/percent"                        
-        android:layout_weight="1"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"/>        
-    
-</LinearLayout> 
-
 
 <LinearLayout
     android:layout_width="match_parent"
@@ -135,14 +106,14 @@
         
     <TextView
         android:text="@string/investment401k_payrise_input"                        
-        android:layout_weight="5"
+        android:layout_weight="@integer/form_text_weight"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:padding="3dip" />        
     
     <EditText
         android:id="@+id/investment401k_payrise"   
-        android:layout_weight="6"
+        android:layout_weight="@integer/form_edit_weight"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/investment401k_payrise_text"
@@ -150,13 +121,70 @@
 
     <TextView
         android:text="@string/percent"                        
-        android:layout_weight="1"
+        android:layout_weight="@integer/form_suffix_weight"
         android:layout_width="0dp"
         android:layout_height="wrap_content"/>        
     
 </LinearLayout> 
 
      
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">    
+        
+    <TextView
+        android:text="@string/investment401k_percontrib_input"                        
+        android:layout_weight="@integer/form_text_weight"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:padding="3dip" />        
+    
+    <EditText
+        android:id="@+id/investment401k_percontrib"   
+        android:layout_weight="@integer/form_edit_weight"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/investment401k_percontrib_text"
+        android:inputType="numberDecimal" />
+
+    <TextView
+        android:text="@string/percent"                        
+        android:layout_weight="@integer/form_suffix_weight"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"/>        
+    
+</LinearLayout> 
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">    
+        
+    <TextView
+        android:text="@string/investment401k_employer_match_input"                        
+        android:layout_weight="@integer/form_text_weight"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:padding="3dip" />        
+    
+    <EditText
+        android:id="@+id/investment401k_employer_match"   
+        android:layout_weight="@integer/form_edit_weight"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/investment401k_employer_match_text"
+        android:inputType="numberDecimal" />
+
+    <TextView
+        android:text="%"                        
+        android:layout_weight="@integer/form_suffix_weight"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"/>        
+    
+</LinearLayout> 
+
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -164,22 +192,22 @@
         
     <TextView
         android:text="@string/investment401k_period_input"                        
-        android:layout_weight="5"
+        android:layout_weight="@integer/form_text_weight"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:padding="3dip" />        
     
     <EditText
         android:id="@+id/investment401k_period"   
-        android:layout_weight="6"
+        android:layout_weight="@integer/form_edit_weight"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/investment401k_period_text"
         android:inputType="numberDecimal" />
 
     <TextView
-        android:text="yrs"                        
-        android:layout_weight="1"
+        android:text=""                        
+        android:layout_weight="@integer/form_suffix_weight"
         android:layout_width="0dp"
         android:layout_height="wrap_content"/>            
 </LinearLayout> 
@@ -191,14 +219,14 @@
     
     <TextView
         android:text="@string/investment401k_withdrawal_tax_rate_input"                
-        android:layout_weight="5"
+        android:layout_weight="@integer/form_text_weight"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:padding="3dip" />
     
     <EditText
         android:id="@+id/investment401k_withdrawal_tax_rate"   
-        android:layout_weight="6"
+        android:layout_weight="@integer/form_edit_weight"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/investment401k_withdrawal_tax_rate_text"        
@@ -206,40 +234,14 @@
 
     <TextView
         android:text="@string/percent"                        
-        android:layout_weight="1"
+        android:layout_weight="@integer/form_suffix_weight"
         android:layout_width="0dp"
         android:layout_height="wrap_content"/>         
         
 </LinearLayout>   
 
 
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal">    
-        
-    <TextView
-        android:text="@string/investment401k_employer_match_input"                        
-        android:layout_weight="5"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:padding="3dip" />        
-    
-    <EditText
-        android:id="@+id/investment401k_employer_match"   
-        android:layout_weight="6"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/investment401k_employer_match_text"
-        android:inputType="numberDecimal" />
-
-    <TextView
-        android:text=""                        
-        android:layout_weight="1"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"/>        
-    
-</LinearLayout>       
+      
     
 
 <LinearLayout
@@ -249,14 +251,14 @@
         
     <TextView
         android:text="@string/investment401k_interest_rate_input"                        
-        android:layout_weight="5"
+        android:layout_weight="@integer/form_text_weight"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:padding="3dip" />        
     
     <EditText
         android:id="@+id/investment401k_interest_rate"   
-        android:layout_weight="6"
+        android:layout_weight="@integer/form_edit_weight"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/investment401k_interest_rate_text"
@@ -264,7 +266,7 @@
 
     <TextView
         android:text="@string/percent"                        
-        android:layout_weight="1"
+        android:layout_weight="@integer/form_suffix_weight"
         android:layout_width="0dp"
         android:layout_height="wrap_content"/>        
     
@@ -285,7 +287,7 @@
             android:layout_gravity="center"
             android:text="@string/cancel"
             android:background="@drawable/button_cancel"                
-            android:layout_marginRight="5dp"             
+            android:layout_marginRight="2dp"             
             android:onClick="cancelAdding"/>     
 
     <Button
@@ -295,7 +297,7 @@
             android:layout_gravity="center"
             android:text="@string/add_investment401k"
             android:background="@drawable/button_green"                        
-            android:layout_marginLeft="5dp"           
+            android:layout_marginLeft="2dp"           
             android:onClick="addInvestment" /> 
      </LinearLayout>
 </LinearLayout>

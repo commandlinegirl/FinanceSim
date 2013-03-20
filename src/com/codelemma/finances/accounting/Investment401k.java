@@ -223,8 +223,19 @@ public class Investment401k extends Investment
         
 	@Override
 	public void initialize() {
-		amount = init_amount;
-		salary = init_salary;		
+		amount = Money.scale(init_amount);
+		salary = Money.scale(init_salary);	
+		hidden_interests = Money.scale(new BigDecimal(0));
+		counter = 0;
+				
+        yearly_employee_contribution = Money.getPercentage(salary, percontrib_decimal);
+        monthly_employee_contribution = yearly_employee_contribution.divide(new BigDecimal(12), Money.DECIMALS, Money.ROUNDING_MODE);
+
+        employer_match = Money.scaleRate(employer_match);
+        employer_match_decimal = employer_match.divide(Money.HUNDRED, Money.RATE_DECIMALS, Money.ROUNDING_MODE);
+        yearly_employer_contribution = Money.getPercentage(yearly_employee_contribution, employer_match_decimal);
+        monthly_employer_contribution = yearly_employer_contribution.divide(new BigDecimal(12), Money.DECIMALS, Money.ROUNDING_MODE);
+ 
 	}
 
 	@Override

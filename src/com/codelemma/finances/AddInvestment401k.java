@@ -1,6 +1,5 @@
 package com.codelemma.finances;
 
-import java.math.BigDecimal;
 
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.Menu;
@@ -10,6 +9,7 @@ import com.codelemma.finances.accounting.History;
 import com.codelemma.finances.accounting.Investment401k;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -174,38 +174,65 @@ public class AddInvestment401k extends SherlockActivity {
 
 	    EditText name = (EditText) findViewById(R.id.investment401k_name);
 	    String nameData = name.getText().toString();
+	    if (Utils.alertIfEmpty(this, nameData, getResources().getString(R.string.investment401k_name_input))) {
+	    	return;	    	
+	    }		    
         intent.putExtra("investment401k_name", nameData);  
         
 		EditText init_amount = (EditText) findViewById(R.id.investment401k_init_amount);
 		String init_amountData = init_amount.getText().toString();
+	    if (Utils.alertIfEmpty(this, init_amountData, getResources().getString(R.string.investment401k_init_amount_input))) {
+	    	return;	    	
+	    }	
 	    intent.putExtra("investment401k_init_amount", init_amountData);
    	
 	    EditText percontrib = (EditText) findViewById(R.id.investment401k_percontrib);
 		String percontribData = percontrib.getText().toString();
+	    if (Utils.alertIfEmpty(this, percontribData, getResources().getString(R.string.investment401k_percontrib_input))) {
+	    	return;	    	
+	    }	
 	    intent.putExtra("investment401k_percontrib", percontribData);		     
 	    
 	    EditText period = (EditText) findViewById(R.id.investment401k_period);
 	    String withdrawalData = period.getText().toString();
+	    if (Utils.alertIfEmpty(this, withdrawalData, getResources().getString(R.string.investment401k_period_input))) {
+	    	return;	    	
+	    }	
         intent.putExtra("investment401k_period", withdrawalData); 
         
 	    EditText interestRate = (EditText) findViewById(R.id.investment401k_interest_rate);
 	    String interestRateData = interestRate.getText().toString();
+	    if (Utils.alertIfEmpty(this, interestRateData, getResources().getString(R.string.investment401k_interest_rate_input))) {
+	    	return;	    	
+	    }	
         intent.putExtra("investment401k_interest_rate", interestRateData);  
 	    
 	    EditText salary = (EditText) findViewById(R.id.investment401k_salary);
 		String salaryData = salary.getText().toString();
+	    if (Utils.alertIfEmpty(this, salaryData, getResources().getString(R.string.investment401k_salary_input))) {
+	    	return;	    	
+	    }	
 	    intent.putExtra("investment401k_salary", salaryData);	  
 	    
 	    EditText payrise = (EditText) findViewById(R.id.investment401k_payrise);
 		String payriseData = payrise.getText().toString();
+	    if (Utils.alertIfEmpty(this, payriseData, getResources().getString(R.string.investment401k_payrise_input))) {
+	    	return;	    	
+	    }	
 	    intent.putExtra("investment401k_payrise", payriseData);	
 	    
 	    EditText withdrawalTax = (EditText) findViewById(R.id.investment401k_withdrawal_tax_rate);
 	    String withdrawalTaxData = withdrawalTax.getText().toString();
+	    if (Utils.alertIfEmpty(this, withdrawalTaxData, getResources().getString(R.string.investment401k_withdrawal_tax_rate_input))) {
+	    	return;	    	
+	    }	
         intent.putExtra("investment401k_withdrawal_tax_rate", withdrawalTaxData);  	
         
 	    EditText match = (EditText) findViewById(R.id.investment401k_employer_match);
 	    String matchData = match.getText().toString();
+	    if (Utils.alertIfEmpty(this, matchData, getResources().getString(R.string.investment401k_employer_match_input))) {
+	    	return;	    	
+	    }	
         intent.putExtra("investment401k_employer_match", matchData);  	
                 
         if (requestCode.equals(AcctElements.UPDATE.toString())) {
@@ -217,6 +244,8 @@ public class AddInvestment401k extends SherlockActivity {
         finish();	
     }	
 
+
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getSupportMenuInflater().inflate(R.menu.add_investment401k, menu);
@@ -229,7 +258,13 @@ public class AddInvestment401k extends SherlockActivity {
 		case android.R.id.home:
 			NavUtils.navigateUpFromSameTask(this);
 			return true;
-		}
+		case R.id.menu_help:
+			Dialog dialog = new Dialog(this, R.style.FullHeightDialog);			
+			dialog.setContentView(R.layout.help_investment401k);
+			dialog.setCanceledOnTouchOutside(true);
+			dialog.show();			
+			return true;					
+		}						
 		return super.onOptionsItemSelected(item);
 	}
 

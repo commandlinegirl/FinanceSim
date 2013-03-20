@@ -1,5 +1,6 @@
 package com.codelemma.finances;
 
+import android.app.AlertDialog;
 import android.content.Context;
 
 public class Utils {
@@ -25,5 +26,16 @@ public class Utils {
 	        }
 	    }
 		return -1;
+	}
+	
+	static public boolean alertIfEmpty(Context context, String fieldData, String fieldName) {
+	    if (fieldData.trim().length() == 0) {
+	    	new AlertDialog.Builder(context).setTitle("\""+ fieldName +"\" empty")
+	        	                             .setMessage("Please, fill in the field.")
+	        	                             .setNeutralButton("Close", null)
+	        	                             .show();
+	    	return true;
+	    }
+	    return false;
 	}
 }

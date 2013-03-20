@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragment;
 import com.codelemma.finances.accounting.Account;
@@ -53,12 +54,17 @@ public class FrgExpense extends SherlockFragment {
     	LinearLayout tip = (LinearLayout) getSherlockActivity().findViewById(R.id.expense_summary);
     	tip.removeAllViews();
     	
+        TextView tv = new TextView(getSherlockActivity());
+        tv.setText(R.string.expenses_description);
+        tv.setGravity(Gravity.CENTER);
+        tv.setTextColor(Color.parseColor("#FF771100"));
+        tv.setPadding(0, 10, 0, 10);
+        tip.addView(tv);
 		
 		if (account.getExpensesSize() > 0) {	 
 		   	Iterable<? extends NamedValue> values = (Iterable<? extends NamedValue>) account.getExpenses();
 		   	updateInputListing(values);		    
 		} else {
-	        TextView tv = new TextView(getSherlockActivity());
 	        tv = new TextView(getSherlockActivity());
 	        tv.setText(R.string.no_expense_info);
 	        tv.setGravity(Gravity.CENTER);
@@ -91,7 +97,8 @@ public class FrgExpense extends SherlockFragment {
     			                      inflation_rate, 
     			                      expense_frequency);
     	account.addExpense(expense);
-    	
+        Toast.makeText(getSherlockActivity(), "Use top CHART or TABLE icons to see results.", Toast.LENGTH_SHORT).show();
+
 	}
 	
     private void updateInputListing(Iterable<? extends NamedValue> values) {        
@@ -101,13 +108,6 @@ public class FrgExpense extends SherlockFragment {
         } 		   		       
     }
 	    
-		private void addUnderline(LinearLayout underline) {	    
-		    View v = new View(getActivity());		
-		 	LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, 
-		 			                                                        Utils.px(getActivity(), 1));	
-			v.setLayoutParams(param);
-			v.setBackgroundColor(0xFFCCCCCC);	    
-		    underline.addView(v);
-	    }	
+
 
 }

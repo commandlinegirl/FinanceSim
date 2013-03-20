@@ -10,7 +10,6 @@
         
         <TextView 
             android:id="@+id/show_chart"
-            android:text="@string/chartControl"
             android:gravity="center"            
             android:textSize="10sp"
             android:layout_height="32dp"
@@ -24,7 +23,6 @@
         
         <TextView 
             android:id="@+id/show_table"
-            android:text="@string/tableControl"
             android:textSize="10sp"
             android:gravity="center"            
             android:layout_height="32dp"

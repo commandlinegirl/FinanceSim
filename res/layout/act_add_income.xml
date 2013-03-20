@@ -12,11 +12,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
-    
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="" />
 
 <LinearLayout
     android:layout_width="match_parent"
@@ -25,14 +20,14 @@
     
     <TextView
         android:text="@string/income_name_input"                        
-        android:layout_weight="5"
+        android:layout_weight="@integer/form_text_weight"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:padding="3dip" />        
     
     <EditText
         android:id="@+id/income_name"   
-        android:layout_weight="6"
+        android:layout_weight="@integer/form_edit_weight"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/income_name_text"
@@ -40,7 +35,7 @@
 
     <TextView
         android:text=""                        
-        android:layout_weight="1"
+        android:layout_weight="@integer/form_suffix_weight"
         android:layout_width="0dp"
         android:layout_height="wrap_content"/>     
         
@@ -54,14 +49,14 @@
     
     <TextView
         android:text="@string/yearly_income_input"                        
-        android:layout_weight="5"
+        android:layout_weight="@integer/form_text_weight"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:padding="3dip" />        
     
     <EditText
         android:id="@+id/yearly_income"   
-        android:layout_weight="6"
+        android:layout_weight="@integer/form_edit_weight"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/yearly_income_text"
@@ -69,7 +64,7 @@
 
     <TextView
         android:text=""                        
-        android:layout_weight="1"
+        android:layout_weight="@integer/form_suffix_weight"
         android:layout_width="0dp"
         android:layout_height="wrap_content"/>     
         
@@ -82,14 +77,14 @@
         
     <TextView
         android:text="@string/yearly_income_rise_input"                        
-        android:layout_weight="5"
+        android:layout_weight="@integer/form_text_weight"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:padding="3dip" />        
     
     <EditText
         android:id="@+id/yearly_income_rise"   
-        android:layout_weight="6"
+        android:layout_weight="@integer/form_edit_weight"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/yearly_income_rise_text"
@@ -97,7 +92,7 @@
 
     <TextView
         android:text="@string/percent"
-        android:layout_weight="1"
+        android:layout_weight="@integer/form_suffix_weight"
         android:layout_width="0dp"
         android:layout_height="wrap_content"/>     
     
@@ -110,14 +105,14 @@
         
     <TextView
         android:text="@string/income_tax_rate_input"                
-        android:layout_weight="5"
+        android:layout_weight="@integer/form_text_weight"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:padding="3dip" />
     
     <EditText
         android:id="@+id/income_tax_rate"   
-        android:layout_weight="6"
+        android:layout_weight="@integer/form_edit_weight"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/income_tax_rate_text"        
@@ -125,7 +120,7 @@
 
     <TextView
         android:text="@string/percent"
-        android:layout_weight="1"
+        android:layout_weight="@integer/form_suffix_weight"
         android:layout_width="0dp"
         android:layout_height="wrap_content"/>         
     
@@ -139,19 +134,19 @@
         
     <TextView
         android:text="@string/income_installments_input"                        
-        android:layout_weight="5"
+        android:layout_weight="@integer/form_text_weight"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:padding="3dip" />        
       
     <Spinner android:id="@+id/income_installments"          
         android:layout_height="wrap_content"
-        android:layout_weight="6"
+        android:layout_weight="@integer/form_edit_weight"
         android:layout_width="0dp" />        
     
         <TextView
         android:text=""
-        android:layout_weight="1"
+        android:layout_weight="@integer/form_suffix_weight"
         android:layout_width="0dp"
         android:layout_height="wrap_content"/>    
     
@@ -172,7 +167,7 @@
             android:layout_gravity="center"
             android:text="@string/cancel"
             android:background="@drawable/button_cancel"              
-            android:layout_marginRight="5dp"              
+            android:layout_marginRight="2dp"              
             android:onClick="cancelAdding"/>      
         
         <Button        
@@ -182,10 +177,12 @@
             android:layout_gravity="center"
             android:text="@string/add_income"
             android:background="@drawable/button_green"                          
-            android:layout_marginLeft="5dp"                   
+            android:layout_marginLeft="2dp"                   
             android:onClick="addIncome" /> 
                 
     </LinearLayout>
 
+    
 </LinearLayout>
+
 </ScrollView>

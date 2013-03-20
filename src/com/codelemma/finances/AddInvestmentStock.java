@@ -10,6 +10,7 @@ import com.codelemma.finances.accounting.Money;
 
 import android.os.Bundle;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -205,7 +206,13 @@ public class AddInvestmentStock extends SherlockActivity {
 		case android.R.id.home:
 			NavUtils.navigateUpFromSameTask(this);
 			return true;
-		}
+		case R.id.menu_help:
+			Dialog dialog = new Dialog(this, R.style.FullHeightDialog);			
+			dialog.setContentView(R.layout.help_investmentstock);
+			dialog.setCanceledOnTouchOutside(true);
+			dialog.show();			
+			return true;					
+		}	
 		return super.onOptionsItemSelected(item);
 	}
 

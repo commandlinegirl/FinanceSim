@@ -28,8 +28,7 @@ public class DebtMortgage extends Debt
     private BigDecimal additional_cost_with_pmi; 
     private BigDecimal additional_cost_without_pmi; 
     private BigDecimal total_additional_cost = new BigDecimal(0);
-
-    
+  
     private BigDecimal principal_paid = new BigDecimal(0);
     private BigDecimal interests_paid = new BigDecimal(0);
     private BigDecimal total_interests = new BigDecimal(0);
@@ -40,7 +39,7 @@ public class DebtMortgage extends Debt
     private BigDecimal pmi_decimal_monthly;
     
     private BigDecimal outstanding_loan;   
-    private BigDecimal loan;
+    private BigDecimal loan_amount;
     private int month_counter = 1;
     private String name;
     private int id;
@@ -60,8 +59,8 @@ public class DebtMortgage extends Debt
     	name = _name;
     	purchase_price = _purchase_price;
     	downpayment = Money.scale(_downpayment);
-    	loan = Money.scale(_purchase_price.subtract(_downpayment));
-    	outstanding_loan = loan; //TODO check if not < 0!
+    	loan_amount = Money.scale(_purchase_price.subtract(_downpayment));
+    	outstanding_loan = loan_amount; //TODO check if not < 0!
     	
     	init_interest_rate = _interest_rate;  
         interest_rate_decimal_monthly = _interest_rate.divide(new BigDecimal(1200), Money.RATE_DECIMALS, Money.ROUNDING_MODE);
@@ -76,9 +75,9 @@ public class DebtMortgage extends Debt
     	
     	pmi = _pmi;
     	pmi_decimal_monthly = _pmi.divide(new BigDecimal(1200), Money.RATE_DECIMALS, Money.ROUNDING_MODE);
-    	pmi_amount = Money.getPercentage(loan,  pmi_decimal_monthly);
+    	pmi_amount = Money.getPercentage(loan_amount,  pmi_decimal_monthly);
     	
-    	term = _term;
+    	term = _term * 12; //TODO: here convert years into months?
 
     	additional_cost_without_pmi = insurance_amount.add(tax_amount);
     	additional_cost_with_pmi = insurance_amount.add(tax_amount).add(pmi_amount);
@@ -99,7 +98,7 @@ public class DebtMortgage extends Debt
     	}
     	   	
     	BigDecimal monthly_payment = Money.scale(interest_rate_decimal_monthly.multiply(
-    			loan.multiply(factor.divide(factor_minus_one, Money.RATE_DECIMALS, Money.ROUNDING_MODE))));
+    			loan_amount.multiply(factor.divide(factor_minus_one, Money.RATE_DECIMALS, Money.ROUNDING_MODE))));
     	return monthly_payment; 
     }
     
@@ -197,6 +196,23 @@ public class DebtMortgage extends Debt
     	return pmi;
     }
 
+    public BigDecimal getPropertyInsuranceAmount() {
+    	return insurance_amount;
+    }
+
+    public BigDecimal getPropertyTaxAmount() {
+    	return tax_amount;
+    }
+
+    public BigDecimal getPMIAmount() {
+    	return pmi_amount;
+    }
+
+    public BigDecimal getTotalPayment() {
+    	return total_additional_cost.add(loan_amount).add(total_interests);
+    }
+
+    
     public BigDecimal getDownpayment() {
     	return downpayment;
     }
@@ -239,6 +255,10 @@ public class DebtMortgage extends Debt
 	public BigDecimal getAmount() {
 		return monthly_payment;
 	}
+		
+	public BigDecimal getLoanAmount() {
+		return loan_amount;
+	}
 
 	@Override
 	public HistoryDebtMortgage getHistory() {
@@ -248,10 +268,12 @@ public class DebtMortgage extends Debt
 	public BigDecimal getPurchasePrice() {
 		return purchase_price;
 	}
+	
+	
 
 	@Override
 	public void initialize() {
-		outstanding_loan = loan;
+		outstanding_loan = loan_amount;
 		month_counter = 1;
     	base_monthly_payment = calculateMonthlyPayment();
     	monthly_payment = base_monthly_payment;

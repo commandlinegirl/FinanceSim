@@ -25,14 +25,14 @@
     
     <TextView
         android:text="@string/debtmortgage_name_input"                        
-        android:layout_weight="5"
+        android:layout_weight="@integer/form_text_weight"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:padding="3dip"/>        
     
     <EditText
         android:id="@+id/debtmortgage_name"   
-        android:layout_weight="6"
+        android:layout_weight="@integer/form_edit_weight"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/debtmortgage_name_text"
@@ -40,7 +40,7 @@
 
     <TextView
         android:text=""                        
-        android:layout_weight="1"
+        android:layout_weight="@integer/form_suffix_weight"
         android:layout_width="0dp"
         android:layout_height="wrap_content"/>     
         
@@ -53,14 +53,14 @@
     
     <TextView
         android:text="@string/debtmortgage_purchase_price_input"                        
-        android:layout_weight="5"
+        android:layout_weight="@integer/form_text_weight"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:padding="3dip" />        
     
     <EditText
         android:id="@+id/debtmortgage_purchase_price"   
-        android:layout_weight="6"
+        android:layout_weight="@integer/form_edit_weight"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/debtmortgage_purchase_price_text"
@@ -68,7 +68,7 @@
 
     <TextView
         android:text=""                        
-        android:layout_weight="1"
+        android:layout_weight="@integer/form_suffix_weight"
         android:layout_width="0dp"
         android:layout_height="wrap_content"/>     
         
@@ -81,14 +81,14 @@
     
     <TextView
         android:text="@string/debtmortgage_downpayment_input"                        
-        android:layout_weight="5"
+        android:layout_weight="@integer/form_text_weight"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:padding="3dip" />        
     
     <EditText
         android:id="@+id/debtmortgage_downpayment"   
-        android:layout_weight="6"
+        android:layout_weight="@integer/form_edit_weight"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/debtmortgage_downpayment_text"
@@ -96,7 +96,7 @@
 
     <TextView
         android:text=""                        
-        android:layout_weight="1"
+        android:layout_weight="@integer/form_suffix_weight"
         android:layout_width="0dp"
         android:layout_height="wrap_content"/>     
         
@@ -110,14 +110,14 @@
     
     <TextView
         android:text="@string/debtmortgage_interest_rate_input"                        
-        android:layout_weight="5"
+        android:layout_weight="@integer/form_text_weight"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:padding="3dip" />        
     
     <EditText
         android:id="@+id/debtmortgage_interest_rate"   
-        android:layout_weight="6"
+        android:layout_weight="@integer/form_edit_weight"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/debtmortgage_interest_rate_text"
@@ -125,7 +125,7 @@
 
     <TextView
         android:text="@string/percent"                        
-        android:layout_weight="1"
+        android:layout_weight="@integer/form_suffix_weight"
         android:layout_width="0dp"
         android:layout_height="wrap_content"/>             
 </LinearLayout>        
@@ -139,14 +139,14 @@
     
     <TextView
         android:text="@string/debtmortgage_term_input"                        
-        android:layout_weight="5"
+        android:layout_weight="@integer/form_text_weight"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:padding="3dip" />        
     
     <EditText
         android:id="@+id/debtmortgage_term"   
-        android:layout_weight="6"
+        android:layout_weight="@integer/form_edit_weight"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/debtmortgage_term_text"
@@ -154,7 +154,7 @@
 
     <TextView
         android:text=""                        
-        android:layout_weight="1"
+        android:layout_weight="@integer/form_suffix_weight"
         android:layout_width="0dp"
         android:layout_height="wrap_content"/>             
 </LinearLayout> 
@@ -166,22 +166,22 @@
     
     <TextView
         android:text="@string/debtmortgage_property_insurance_input"                        
-        android:layout_weight="5"
+        android:layout_weight="@integer/form_text_weight"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:padding="3dip" />        
     
     <EditText
         android:id="@+id/debtmortgage_property_insurance"   
-        android:layout_weight="6"
+        android:layout_weight="@integer/form_edit_weight"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/debtmortgage_property_insurance_text"
         android:inputType="numberDecimal" />
 
     <TextView
-        android:text=""                        
-        android:layout_weight="1"
+        android:text="%"                        
+        android:layout_weight="@integer/form_suffix_weight"
         android:layout_width="0dp"
         android:layout_height="wrap_content"/>             
 </LinearLayout> 
@@ -193,22 +193,22 @@
     
     <TextView
         android:text="@string/debtmortgage_property_tax_input"                        
-        android:layout_weight="5"
+        android:layout_weight="@integer/form_text_weight"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:padding="3dip" />        
     
     <EditText
         android:id="@+id/debtmortgage_property_tax"   
-        android:layout_weight="6"
+        android:layout_weight="@integer/form_edit_weight"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/debtmortgage_property_tax_text"
         android:inputType="numberDecimal" />
 
     <TextView
-        android:text=""                        
-        android:layout_weight="1"
+        android:text="%"                        
+        android:layout_weight="@integer/form_suffix_weight"
         android:layout_width="0dp"
         android:layout_height="wrap_content"/>             
 </LinearLayout> 
@@ -220,26 +220,26 @@
     
     <TextView
         android:text="@string/debtmortgage_pmi_input"                        
-        android:layout_weight="5"
+        android:layout_weight="@integer/form_text_weight"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:padding="3dip" />        
     
     <EditText
         android:id="@+id/debtmortgage_pmi"   
-        android:layout_weight="6"
+        android:layout_weight="@integer/form_edit_weight"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/debtmortgage_pmi_text"
         android:inputType="numberDecimal" />
 
     <TextView
-        android:text=""                        
-        android:layout_weight="1"
+        android:text="%"                        
+        android:layout_weight="@integer/form_suffix_weight"
         android:layout_width="0dp"
         android:layout_height="wrap_content"/>             
-</LinearLayout> 
-     <LinearLayout 
+    </LinearLayout> 
+    <LinearLayout 
         android:id="@+id/submitDebtButtons"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -254,7 +254,7 @@
             android:layout_gravity="center"
             android:text="@string/cancel"
             android:background="@drawable/button_cancel"                
-            android:layout_marginRight="5dp"          
+            android:layout_marginRight="2dp"          
             android:onClick="cancelAdding"/>     
     <Button
             android:layout_width="0dp"
@@ -262,7 +262,7 @@
             android:layout_height="48dp"
             android:layout_gravity="center"
             android:text="@string/add_debtmortgage"
-            android:layout_marginLeft="5dp"                
+            android:layout_marginLeft="2dp"                
             android:background="@drawable/button_green"    
             android:onClick="addDebt" /> 
 

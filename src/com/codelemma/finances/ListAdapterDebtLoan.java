@@ -61,8 +61,7 @@ public class ListAdapterDebtLoan extends BaseExpandableListAdapter {
 		tv = (TextView) view.findViewById(R.id.date);
 		tv.setText(group.getDate().toString());
 				
-		tv = (TextView) view.findViewById(R.id.monthly_payment);
-		tv.setText(group.getMonthlyPayment().toString());
+
 										
 		tv = (TextView) view.findViewById(R.id.interests_paid);
 		tv.setText(group.getInterestsPaid().toString());

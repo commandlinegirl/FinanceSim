@@ -19,12 +19,13 @@
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name="com.codelemma.finances.AddIncomeGeneric"
-            android:label="@string/title_activity_add_income"
+            android:label="@string/title_activity_add_incomegeneric"
             android:parentActivityName="com.codelemma.finances.Main"
             android:windowSoftInputMode="stateHidden" >
             <meta-data
@@ -33,7 +34,7 @@
         </activity>
         <activity
             android:name="com.codelemma.finances.AddInvestmentSavAcct"
-            android:label="@string/title_activity_add_investment"
+            android:label="@string/title_activity_add_investmentsavacct"
             android:parentActivityName="com.codelemma.finances.Main"
             android:windowSoftInputMode="stateHidden" >
             <meta-data
@@ -42,7 +43,7 @@
         </activity>
         <activity
             android:name="com.codelemma.finances.AddExpenseGeneric"
-            android:label="@string/title_activity_add_expense"
+            android:label="@string/title_activity_add_expensegeneric"
             android:parentActivityName="com.codelemma.finances.Main"
             android:windowSoftInputMode="stateHidden" >
             <meta-data
@@ -51,7 +52,7 @@
         </activity>
         <activity
             android:name="com.codelemma.finances.AddDebtLoan"
-            android:label="@string/title_activity_add_debt"
+            android:label="@string/title_activity_add_debtloan"
             android:parentActivityName="com.codelemma.finances.Main"
             android:windowSoftInputMode="stateHidden" >
             <meta-data
@@ -60,9 +61,9 @@
         </activity>
         <activity
             android:name="com.codelemma.finances.AddDebtMortgage"
-            android:label="@string/title_activity_add_debt_mortgage"
+            android:label="@string/title_activity_add_debtmortgage"
             android:parentActivityName="com.codelemma.finances.Main"
-            android:windowSoftInputMode="stateHidden"  >
+            android:windowSoftInputMode="stateHidden" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.codelemma.finances.Main" />
@@ -78,7 +79,7 @@
         </activity>
         <activity
             android:name="com.codelemma.finances.AddInvestmentStock"
-            android:label="@string/title_activity_add_investment_stock"
+            android:label="@string/title_activity_add_investmentstock"
             android:parentActivityName="com.codelemma.finances.Main"
             android:windowSoftInputMode="stateHidden" >
             <meta-data
@@ -87,7 +88,7 @@
         </activity>
         <activity
             android:name="com.codelemma.finances.AddInvestmentBond"
-            android:label="@string/title_activity_add_investment_bond"
+            android:label="@string/title_activity_add_investmentbond"
             android:parentActivityName="com.codelemma.finances.Main"
             android:windowSoftInputMode="stateHidden" >
             <meta-data
@@ -110,6 +111,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.codelemma.finances.Main" />
         </activity>
+
     </application>
 
 </manifest>

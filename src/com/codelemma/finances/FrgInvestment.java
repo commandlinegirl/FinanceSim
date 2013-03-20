@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragment;
 import com.codelemma.finances.accounting.Account;
@@ -50,12 +51,19 @@ public class FrgInvestment extends SherlockFragment {
 		
 	   	LinearLayout tip = (LinearLayout) getSherlockActivity().findViewById(R.id.investment_summary);
     	tip.removeAllViews();
+    	
+        TextView tv = new TextView(getSherlockActivity());
+        tv.setText(R.string.investments_description);
+        tv.setGravity(Gravity.CENTER);
+        tv.setTextColor(Color.parseColor("#FF771100"));
+        tv.setPadding(0, 10, 0, 10);
+        tip.addView(tv);
+
 		
 		if (account.getInvestmentsSize() > 0) {	 
 		   	Iterable<? extends NamedValue> values = (Iterable<? extends NamedValue>) account.getInvestments();
 		   	updateInputListing(values);		    
 		} else {
-	        TextView tv = new TextView(getSherlockActivity());
 	        tv = new TextView(getSherlockActivity());
 	        tv.setText(R.string.no_investment_info);
 	        tv.setGravity(Gravity.CENTER);
@@ -112,7 +120,9 @@ public class FrgInvestment extends SherlockFragment {
                 percontrib,
                 capitalization,
                 interest_rate);
-        account.addInvestment(investment);			    		
+        account.addInvestment(investment);		
+        Toast.makeText(getSherlockActivity(), "Use top CHART or TABLE icons to see results.", Toast.LENGTH_SHORT).show();
+
 	}
 	
 	public void onInvestment401kResult(Intent data, int requestCode) {
@@ -142,7 +152,9 @@ public class FrgInvestment extends SherlockFragment {
                 payrise,
                 withdrawal_tax_rate,
                 employer_match);
-        account.addInvestment(investment);			    		
+        account.addInvestment(investment);		
+        Toast.makeText(getSherlockActivity(), "Use top CHART or TABLE icons to see results.", Toast.LENGTH_SHORT).show();
+
 	}
 	
 	public void onInvestmentBondResult(Intent data, int requestCode) {
@@ -162,7 +174,9 @@ public class FrgInvestment extends SherlockFragment {
     			init_amount,
                 percontrib,
                 tax_rate);
-        account.addInvestment(investment);			    		
+        account.addInvestment(investment);		
+        Toast.makeText(getSherlockActivity(), "Use top CHART or TABLE icons to see results.", Toast.LENGTH_SHORT).show();
+
 	}
 	
 	public void onInvestmentStockResult(Intent data, int requestCode) {
@@ -186,7 +200,9 @@ public class FrgInvestment extends SherlockFragment {
                 tax_rate,
                 dividends,
                 appreciation);
-        account.addInvestment(investment);			    		
+        account.addInvestment(investment);		
+        Toast.makeText(getSherlockActivity(), "Use top CHART or TABLE icons to see results.", Toast.LENGTH_SHORT).show();
+
 	}
 	
     private void updateInputListing(Iterable<? extends NamedValue> values) {        
@@ -196,12 +212,4 @@ public class FrgInvestment extends SherlockFragment {
         } 		   		       
     }
     
-	private void addUnderline(LinearLayout underline) {	    
-	    View v = new View(getActivity());		
-	 	LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, 
-	 			                                                        Utils.px(getActivity(), 1));	
-		v.setLayoutParams(param);
-		v.setBackgroundColor(0xFFCCCCCC);	    
-	    underline.addView(v);
-    }	
 }

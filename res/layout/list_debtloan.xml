@@ -8,7 +8,7 @@
     android:paddingBottom="10dp" >
 
                       
-    <LinearLayout
+   <LinearLayout
         android:id="@+id/tvGroup"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -22,14 +22,7 @@
         android:layout_gravity="left"
         android:textColor="#FF771100"
         android:textSize="@dimen/list_text_size"
-        android:textStyle="bold"/>        
-       
-    <TextView
-        android:id="@+id/monthly_payment"
-        android:layout_width="0dp"
-        android:layout_weight="1"
-        android:textSize="@dimen/list_text_size"
-        android:layout_height="wrap_content"/>        
+        android:textStyle="bold"/>               
 
     <TextView
         android:id="@+id/principal_paid"

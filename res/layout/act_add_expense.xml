@@ -20,14 +20,14 @@
     
     <TextView
         android:text="@string/expense_name_input"                        
-        android:layout_weight="5"
+        android:layout_weight="@integer/form_text_weight"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:padding="3dip" />        
     
     <EditText
         android:id="@+id/expense_name"   
-        android:layout_weight="6"
+        android:layout_weight="@integer/form_edit_weight"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/expense_name_text"
@@ -35,7 +35,7 @@
 
     <TextView
         android:text=""                        
-        android:layout_weight="1"
+        android:layout_weight="@integer/form_suffix_weight"
         android:layout_width="0dp"
         android:layout_height="wrap_content"/>     
         
@@ -49,14 +49,14 @@
     
     <TextView
         android:text="@string/init_expense_input"                
-        android:layout_weight="5"
+        android:layout_weight="@integer/form_text_weight"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:padding="3dip" />
     
     <EditText
         android:id="@+id/init_expense"   
-        android:layout_weight="6"
+        android:layout_weight="@integer/form_edit_weight"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/init_expense_text"        
@@ -64,7 +64,7 @@
 
     <TextView
         android:text=""                        
-        android:layout_weight="1"
+        android:layout_weight="@integer/form_suffix_weight"
         android:layout_width="0dp"
         android:layout_height="wrap_content"/>         
             
@@ -77,14 +77,14 @@
     
     <TextView
         android:text="@string/inflation_rate_input"                
-        android:layout_weight="5"
+        android:layout_weight="@integer/form_text_weight"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:padding="3dip" />
     
     <EditText
         android:id="@+id/inflation_rate"   
-        android:layout_weight="6"
+        android:layout_weight="@integer/form_edit_weight"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/inflation_rate_text"        
@@ -92,7 +92,7 @@
 
     <TextView
         android:text="@string/percent"
-        android:layout_weight="1"
+        android:layout_weight="@integer/form_suffix_weight"
         android:layout_width="0dp"
         android:layout_height="wrap_content"/>         
     
@@ -107,19 +107,19 @@
         
     <TextView
         android:text="@string/expense_frequency_input"                        
-        android:layout_weight="5"
+        android:layout_weight="@integer/form_text_weight"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:padding="3dip" />        
       
     <Spinner android:id="@+id/expense_frequency"          
         android:layout_height="wrap_content"
-        android:layout_weight="6"
+        android:layout_weight="@integer/form_edit_weight"
         android:layout_width="0dp" />        
     
         <TextView
         android:text=""
-        android:layout_weight="1"
+        android:layout_weight="@integer/form_suffix_weight"
         android:layout_width="0dp"
         android:layout_height="wrap_content"/>    
     
@@ -141,7 +141,7 @@
             android:layout_gravity="center"
             android:text="@string/cancel"
             android:background="@drawable/button_cancel"                
-            android:layout_marginRight="5dp"           
+            android:layout_marginRight="2dp"           
             android:onClick="cancelAdding"/>     
             
     <Button
@@ -151,9 +151,14 @@
             android:layout_gravity="center"
             android:text="@string/add_expense"
             android:background="@drawable/button_green"                        
-            android:layout_marginLeft="5dp"                 
+            android:layout_marginLeft="2dp"                 
             android:onClick="addExpense" /> 
 
     </LinearLayout>
+    
+
+    
+  
+     
 </LinearLayout>
 </ScrollView>

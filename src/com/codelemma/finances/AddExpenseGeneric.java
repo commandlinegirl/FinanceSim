@@ -6,9 +6,9 @@ import com.actionbarsherlock.view.MenuItem;
 import com.codelemma.finances.accounting.Account;
 import com.codelemma.finances.accounting.ExpenseGeneric;
 import com.codelemma.finances.accounting.History;
-import com.codelemma.finances.accounting.Money;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -25,7 +25,6 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 
 public class AddExpenseGeneric extends SherlockActivity 
@@ -179,14 +178,23 @@ public class AddExpenseGeneric extends SherlockActivity
 
 	    EditText expenseName = (EditText) findViewById(R.id.expense_name);
 	    String expenseNameData = expenseName.getText().toString();
+	    if (Utils.alertIfEmpty(this, expenseNameData, getResources().getString(R.string.expense_name_input))) {
+	    	return;	    	
+	    }
         intent.putExtra("expense_name", expenseNameData);  	
 		
 		EditText init_expense = (EditText) findViewById(R.id.init_expense);
 		String init_expenseData = init_expense.getText().toString();
+	    if (Utils.alertIfEmpty(this, init_expenseData, getResources().getString(R.string.init_expense_input))) {
+	    	return;	    	
+	    }		
 	    intent.putExtra("init_expense", init_expenseData);	  
         
 		EditText inflationRate = (EditText) findViewById(R.id.inflation_rate);
 		String inflationRateData = inflationRate.getText().toString();
+	    if (Utils.alertIfEmpty(this, inflationRateData, getResources().getString(R.string.inflation_rate_input))) {
+	    	return;	    	
+	    }		
 	    intent.putExtra("inflation_rate", inflationRateData);
 	    
 	    intent.putExtra("expense_frequency", String.valueOf(frequency));
@@ -205,10 +213,9 @@ public class AddExpenseGeneric extends SherlockActivity
 	}
 	
 
-
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		getSupportMenuInflater().inflate(R.menu.add_expense, menu);
+		getSupportMenuInflater().inflate(R.menu.add_expensegeneric, menu);
 		return true;
 	}
 
@@ -216,8 +223,13 @@ public class AddExpenseGeneric extends SherlockActivity
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case android.R.id.home:
-			NavUtils.navigateUpFromSameTask(this);
-			return true;
+			NavUtils.navigateUpFromSameTask(this);						
+			return true;			
+		case R.id.menu_help:
+			Dialog dialog = new Dialog(this, R.style.FullHeightDialog);			
+			dialog.setContentView(R.layout.help_expensegeneric);
+			dialog.show();			
+			return true;	
 		}
 		return super.onOptionsItemSelected(item);
 	}		

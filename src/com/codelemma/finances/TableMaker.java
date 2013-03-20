@@ -498,13 +498,6 @@ public class TableMaker implements TableVisitor {
 		tv.setLayoutParams(params);
 		tv.setGravity(Gravity.CENTER);
 		header.addView(tv);
-				
-		tv = new TextView(frgActivity);
-		tv.setText("Payment");
-		tv.setTextSize(11);
-		tv.setLayoutParams(params);
-		tv.setGravity(Gravity.CENTER);
-		header.addView(tv); 
 
 		tv = new TextView(frgActivity);
 		tv.setText("Principal");
@@ -554,7 +547,6 @@ public class TableMaker implements TableVisitor {
     	ArrayList<ListChildDebtMortgage> list2 = new ArrayList<ListChildDebtMortgage>();
 
     	String[] dates = ((Main) frgActivity).getDates();
-    	BigDecimal[] monthlyPayment = historyDebtMortgage.getMonthlyPaymentHistory();
     	BigDecimal[] interestsPaid = historyDebtMortgage.getInterestsPaidHistory();
     	BigDecimal[] totalInterests = historyDebtMortgage.getTotalInterestsHistory();
     	BigDecimal[] principalPaid = historyDebtMortgage.getPrincipalPaidHistory();
@@ -567,7 +559,6 @@ public class TableMaker implements TableVisitor {
     	ListGroupDebtMortgage gru1 = new ListGroupDebtMortgage();
     	int i = 0;
     	gru1.setDate(dates[i]);
-		gru1.setMonthlyPayment(monthlyPayment[i].toString());
 		gru1.setInterestsPaid(interestsPaid[i].toString()); 
 		gru1.setTotalInterests(totalInterests[i].toString()); 
 		gru1.setPrincipalPaid(principalPaid[i].toString()); 
@@ -579,7 +570,6 @@ public class TableMaker implements TableVisitor {
     		if (prevYear.equals(currYear)) {
     		    ListChildDebtMortgage ch1_1 = new ListChildDebtMortgage();
     		    ch1_1.setDate(dates[i]);
-    		    ch1_1.setMonthlyPayment(monthlyPayment[i].toString());
     		    ch1_1.setInterestsPaid(interestsPaid[i].toString()); 
     		    ch1_1.setTotalInterests(totalInterests[i].toString()); 
     		    ch1_1.setPrincipalPaid(principalPaid[i].toString()); 
@@ -592,7 +582,6 @@ public class TableMaker implements TableVisitor {
     			list2 = new ArrayList<ListChildDebtMortgage>();
     			gru1 = new ListGroupDebtMortgage();
     			gru1.setDate(dates[i]);
-    			gru1.setMonthlyPayment(monthlyPayment[i].toString());
     			gru1.setInterestsPaid(interestsPaid[i].toString()); 
     			gru1.setTotalInterests(totalInterests[i].toString()); 
     			gru1.setPrincipalPaid(principalPaid[i].toString()); 
@@ -622,13 +611,6 @@ public class TableMaker implements TableVisitor {
 		tv.setGravity(Gravity.CENTER);
 		header.addView(tv);
 				
-		tv = new TextView(frgActivity);
-		tv.setText("Payment");
-		tv.setTextSize(11);
-		tv.setLayoutParams(params);
-		tv.setGravity(Gravity.CENTER);
-		header.addView(tv); 
-
 		tv = new TextView(frgActivity);
 		tv.setText("Principal");
 		tv.setTextSize(11);
@@ -668,7 +650,6 @@ public class TableMaker implements TableVisitor {
     	ArrayList<ListChildDebtLoan> list2 = new ArrayList<ListChildDebtLoan>();
 
     	String[] dates = ((Main) frgActivity).getDates();
-    	BigDecimal[] monthlyPayment = historyDebtLoan.getMonthlyPaymentHistory();
     	BigDecimal[] interestsPaid = historyDebtLoan.getInterestsPaidHistory();
     	BigDecimal[] totalInterests = historyDebtLoan.getTotalInterestsHistory();
     	BigDecimal[] principalPaid = historyDebtLoan.getPrincipalPaidHistory();
@@ -680,7 +661,6 @@ public class TableMaker implements TableVisitor {
     	ListGroupDebtLoan gru1 = new ListGroupDebtLoan();
     	int i = 0;
     	gru1.setDate(dates[i]);
-		gru1.setMonthlyPayment(monthlyPayment[i].toString());
 		gru1.setInterestsPaid(interestsPaid[i].toString()); 
 		gru1.setTotalInterests(totalInterests[i].toString()); 
 		gru1.setPrincipalPaid(principalPaid[i].toString()); 
@@ -692,7 +672,6 @@ public class TableMaker implements TableVisitor {
     		if (prevYear.equals(currYear)) {
     			ListChildDebtLoan ch1_1 = new ListChildDebtLoan();
     		    ch1_1.setDate(dates[i]);
-    		    ch1_1.setMonthlyPayment(monthlyPayment[i].toString());
     		    ch1_1.setInterestsPaid(interestsPaid[i].toString()); 
     		    ch1_1.setTotalInterests(totalInterests[i].toString()); 
     		    ch1_1.setPrincipalPaid(principalPaid[i].toString()); 
@@ -704,7 +683,6 @@ public class TableMaker implements TableVisitor {
     			list2 = new ArrayList<ListChildDebtLoan>();
     			gru1 = new ListGroupDebtLoan();
     			gru1.setDate(dates[i]);
-    			gru1.setMonthlyPayment(monthlyPayment[i].toString());
     			gru1.setInterestsPaid(interestsPaid[i].toString()); 
     			gru1.setTotalInterests(totalInterests[i].toString()); 
     			gru1.setPrincipalPaid(principalPaid[i].toString()); 

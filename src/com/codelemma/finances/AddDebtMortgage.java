@@ -8,6 +8,7 @@ import com.codelemma.finances.accounting.DebtMortgage;
 import com.codelemma.finances.accounting.History;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -164,34 +165,58 @@ public class AddDebtMortgage extends SherlockActivity {
 		
 	    EditText debtName = (EditText) findViewById(R.id.debtmortgage_name);
 	    String debtNameData = debtName.getText().toString();
+	    if (Utils.alertIfEmpty(this, debtNameData, getResources().getString(R.string.debtloan_name_input))) {
+	    	return;	    	
+	    }	
         intent.putExtra("debtmortgage_name", debtNameData);        
 
 	    EditText debtAmount = (EditText) findViewById(R.id.debtmortgage_purchase_price);
 	    String debtAmountData = debtAmount.getText().toString();
+	    if (Utils.alertIfEmpty(this, debtAmountData, getResources().getString(R.string.debtmortgage_purchase_price_input))) {
+	    	return;	    	
+	    }	
         intent.putExtra("debtmortgage_purchase_price", debtAmountData);   
         
 	    EditText downpayment = (EditText) findViewById(R.id.debtmortgage_downpayment);
 	    String downpaymentData = downpayment.getText().toString();
+	    if (Utils.alertIfEmpty(this, downpaymentData, getResources().getString(R.string.debtmortgage_downpayment_input))) {
+	    	return;	    	
+	    }	
         intent.putExtra("debtmortgage_downpayment", downpaymentData);   
         
 	    EditText interestRate = (EditText) findViewById(R.id.debtmortgage_interest_rate);
 	    String interestRateData = interestRate.getText().toString();
+	    if (Utils.alertIfEmpty(this, interestRateData, getResources().getString(R.string.debtmortgage_interest_rate_input))) {
+	    	return;	    	
+	    }	
         intent.putExtra("debtmortgage_interest_rate", interestRateData);   
         
 	    EditText term = (EditText) findViewById(R.id.debtmortgage_term);
 	    String termData = term.getText().toString();
+	    if (Utils.alertIfEmpty(this, termData, getResources().getString(R.string.debtmortgage_term_input))) {
+	    	return;	    	
+	    }	
         intent.putExtra("debtmortgage_term", termData);   
         
 	    EditText propertyInsurance = (EditText) findViewById(R.id.debtmortgage_property_insurance);
 	    String propertyInsuranceData = propertyInsurance.getText().toString();
+	    if (Utils.alertIfEmpty(this, propertyInsuranceData, getResources().getString(R.string.debtmortgage_property_insurance_input))) {
+	    	return;	    	
+	    }	
         intent.putExtra("debtmortgage_property_insurance", propertyInsuranceData);   
         
 	    EditText propertyTax = (EditText) findViewById(R.id.debtmortgage_property_tax);
 	    String propertyTaxData = propertyTax.getText().toString();
+	    if (Utils.alertIfEmpty(this, propertyTaxData, getResources().getString(R.string.debtmortgage_property_tax_input))) {
+	    	return;	    	
+	    }	
         intent.putExtra("debtmortgage_property_tax", propertyTaxData);   
 
 	    EditText pmi = (EditText) findViewById(R.id.debtmortgage_pmi);
 	    String pmiData = pmi.getText().toString();
+	    if (Utils.alertIfEmpty(this, pmiData, getResources().getString(R.string.debtmortgage_pmi_input))) {
+	    	return;	    	
+	    }	
         intent.putExtra("debtmortgage_pmi", pmiData);  
         
         if (requestCode.equals(AcctElements.UPDATE.toString())) {
@@ -202,10 +227,12 @@ public class AddDebtMortgage extends SherlockActivity {
         setResult(AcctElements.DEBTMORTGAGE.getNumber(), intent);
         finish();
 	}
-			
+		
+
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		getSupportMenuInflater().inflate(R.menu.add_debt, menu);
+		getSupportMenuInflater().inflate(R.menu.add_debtloan, menu);
 		return true;
 	}
 
@@ -215,7 +242,12 @@ public class AddDebtMortgage extends SherlockActivity {
 		case android.R.id.home:
 			NavUtils.navigateUpFromSameTask(this);
 			return true;
-		}
+		case R.id.menu_help:
+			Dialog dialog = new Dialog(this, R.style.FullHeightDialog);			
+			dialog.setContentView(R.layout.help_debtmortgage);
+			dialog.show();			
+			return true;					
+		}	
 		return super.onOptionsItemSelected(item);
 	}
 }

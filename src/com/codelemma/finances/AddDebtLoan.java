@@ -8,6 +8,7 @@ import com.codelemma.finances.accounting.DebtLoan;
 import com.codelemma.finances.accounting.History;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -157,22 +158,37 @@ public class AddDebtLoan extends SherlockActivity {
 		
 	    EditText debtName = (EditText) findViewById(R.id.debtloan_name);
 	    String debtNameData = debtName.getText().toString();
+	    if (Utils.alertIfEmpty(this, debtNameData, getResources().getString(R.string.debtloan_name_input))) {
+	    	return;	    	
+	    }	
         intent.putExtra("debtloan_name", debtNameData);        
 
 	    EditText debtAmount = (EditText) findViewById(R.id.debtloan_amount);
 	    String debtAmountData = debtAmount.getText().toString();
+	    if (Utils.alertIfEmpty(this, debtAmountData, getResources().getString(R.string.debtloan_amount_input))) {
+	    	return;	    	
+	    }	
         intent.putExtra("debtloan_amount", debtAmountData);   
 
 	    EditText interestRate = (EditText) findViewById(R.id.debtloan_interest_rate);
 	    String interestRateData = interestRate.getText().toString();
+	    if (Utils.alertIfEmpty(this, interestRateData, getResources().getString(R.string.debtloan_interest_rate_input))) {
+	    	return;	    	
+	    }	
         intent.putExtra("debtloan_interest_rate", interestRateData);  
         
 	    EditText term = (EditText) findViewById(R.id.debtloan_term);
 	    String termData = term.getText().toString();
+	    if (Utils.alertIfEmpty(this, termData, getResources().getString(R.string.debtloan_term_input))) {
+	    	return;	    	
+	    }	
         intent.putExtra("debtloan_term", termData);  
         
 	    EditText extra = (EditText) findViewById(R.id.debtloan_extra_payment);
 	    String extraData = extra.getText().toString();
+	    if (Utils.alertIfEmpty(this, extraData, getResources().getString(R.string.debtloan_extra_payment_input))) {
+	    	return;	    	
+	    }	
         intent.putExtra("debtloan_extra_payment", extraData);  
         
         if (requestCode.equals(AcctElements.UPDATE.toString())) {
@@ -184,9 +200,11 @@ public class AddDebtLoan extends SherlockActivity {
         finish();
 	}
 			
+
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		getSupportMenuInflater().inflate(R.menu.add_debt, menu);
+		getSupportMenuInflater().inflate(R.menu.add_debtloan, menu);
 		return true;
 	}
 
@@ -196,7 +214,13 @@ public class AddDebtLoan extends SherlockActivity {
 		case android.R.id.home:
 			NavUtils.navigateUpFromSameTask(this);
 			return true;
-		}
+		case R.id.menu_help:
+			Dialog dialog = new Dialog(this, R.style.FullHeightDialog);			
+			dialog.setContentView(R.layout.help_debtloan);
+			dialog.setCanceledOnTouchOutside(true);
+			dialog.show();			
+			return true;					
+		}	
 		return super.onOptionsItemSelected(item);
 	}
 }

@@ -67,7 +67,7 @@ public class TypedKey<T> {
 	
 	public static final TypedKey<Integer> DEBTMORTGAGE_ID = of("debtmortgage_id", Integer.class);
 	public static final TypedKey<String> DEBTMORTGAGE_NAME = of("debtmortgage_name", String.class);
-	public static final TypedKey<BigDecimal> DEBTMORTGAGE_AMOUNT = of("debtmortgage_purchase_price", BigDecimal.class);
+	public static final TypedKey<BigDecimal> DEBTMORTGAGE_PURCHASE_PRICE = of("debtmortgage_purchase_price", BigDecimal.class);
 	public static final TypedKey<BigDecimal> DEBTMORTGAGE_DOWNPAYMENT = of("debtmortgage_downpayment", BigDecimal.class);
 	public static final TypedKey<BigDecimal> DEBTMORTGAGE_INTEREST_RATE = of("debtmortgage_interest_rate", BigDecimal.class);
 	public static final TypedKey<Integer> DEBTMORTGAGE_TERM = of("debtmortgage_term", Integer.class);

@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragment;
 import com.codelemma.finances.accounting.Account;
@@ -48,12 +49,18 @@ public class FrgDebt extends SherlockFragment {
 		Log.d("FrgDebt.onStart()", "called");	
 		LinearLayout tip = (LinearLayout) getSherlockActivity().findViewById(R.id.debt_summary);
     	tip.removeAllViews();
+    	
+        TextView tv = new TextView(getSherlockActivity());
+        tv.setText(R.string.debt_description);
+        tv.setGravity(Gravity.CENTER);
+        tv.setTextColor(Color.parseColor("#FF771100"));
+        tv.setPadding(0, 10, 0, 10);
+        tip.addView(tv);
+        
 		if (account.getDebtsSize() > 0) {	 
 		   	Iterable<? extends NamedValue> values = account.getDebts();
 		   	updateInputListing(values);		    
 		} else {
-
-	        TextView tv = new TextView(getSherlockActivity());
 	        tv = new TextView(getSherlockActivity());
 	        tv.setText(R.string.no_debt_info);
 	        tv.setGravity(Gravity.CENTER);
@@ -107,7 +114,9 @@ public class FrgDebt extends SherlockFragment {
 	    		interest_rate,
 	    		term,
 	    		extra_payment); 
-	    account.addDebt(debt);	   		
+	    account.addDebt(debt);	 
+        Toast.makeText(getSherlockActivity(), "Use top CHART or TABLE icons to see results.", Toast.LENGTH_SHORT).show();
+
 	}	
 	
 	public void onDebtMortgageResult(Intent data, int requestCode) {		
@@ -139,6 +148,8 @@ public class FrgDebt extends SherlockFragment {
 	    		 pmi);
 				
 	    account.addDebt(debt);	   		
+        Toast.makeText(getSherlockActivity(), "Use top CHART or TABLE icons to see results.", Toast.LENGTH_SHORT).show();
+
 	}	
 		
     private void updateInputListing(Iterable<? extends NamedValue> values) {        

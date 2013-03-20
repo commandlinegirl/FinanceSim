@@ -305,7 +305,7 @@ public class InputListingUpdater implements InputListingVisitor {
 	    relativeParams = new RelativeLayout.LayoutParams(0, 
 	    		RelativeLayout.LayoutParams.WRAP_CONTENT);
 		TextView tv2 = new TextView(frgActivity);
-		tv2.setText("Loan: " + debt.getInitAmount());
+		tv2.setText("Amount: " + debt.getLoanAmount());
 		tv2.setId(102);
 		tv.setTextColor(Color.parseColor("#FF771100"));
 		relativeParams.addRule(RelativeLayout.BELOW, 100);
@@ -356,6 +356,69 @@ public class InputListingUpdater implements InputListingVisitor {
 	    tv5.setLayoutParams(relativeParams);	    
 	    rLayout.addView(tv5);
 	                        
+	    relativeParams = new RelativeLayout.LayoutParams(0, 0);
+		TextView tv7 = new TextView(frgActivity);
+		tv7.setId(107);
+		relativeParams.addRule(RelativeLayout.BELOW, 104);
+		relativeParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
+	    tv7.setLayoutParams(relativeParams);	    
+	    rLayout.addView(tv7);
+	    	    
+	    relativeParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.FILL_PARENT, 
+	    		RelativeLayout.LayoutParams.WRAP_CONTENT);
+	    TextView tv8 = new TextView(frgActivity);
+		tv8.setText("Monthly PMI: " + debt.getPMIAmount());
+		tv8.setId(108);
+		relativeParams.addRule(RelativeLayout.BELOW, 105);
+		relativeParams.addRule(RelativeLayout.ALIGN_RIGHT, 107);
+		relativeParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+	    tv8.setLayoutParams(relativeParams);	    
+	    rLayout.addView(tv8);
+	    	    
+	    relativeParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.FILL_PARENT, 
+	    		RelativeLayout.LayoutParams.WRAP_CONTENT);
+	    TextView tv9 = new TextView(frgActivity);
+		tv9.setText("Total payment: " + debt.getTotalPayment());
+		tv9.setId(109);
+		relativeParams.addRule(RelativeLayout.BELOW, 106);
+		relativeParams.addRule(RelativeLayout.ALIGN_LEFT, 107);
+		relativeParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);	
+	    tv9.setLayoutParams(relativeParams);	    
+	    rLayout.addView(tv9);
+	    	    
+	    relativeParams = new RelativeLayout.LayoutParams(0, 0);
+		TextView tv10 = new TextView(frgActivity);
+		tv10.setId(110);
+		relativeParams.addRule(RelativeLayout.BELOW, 104);
+		relativeParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
+	    tv10.setLayoutParams(relativeParams);	    
+	    rLayout.addView(tv10);
+	    	    
+	    relativeParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.FILL_PARENT, 
+	    		RelativeLayout.LayoutParams.WRAP_CONTENT);	   
+		TextView tv11 = new TextView(frgActivity);
+		tv11.setText("Monthly Tax: " + debt.getPropertyTaxAmount());
+		tv11.setId(111);
+		relativeParams.addRule(RelativeLayout.BELOW, 108);
+		relativeParams.addRule(RelativeLayout.ALIGN_RIGHT, 110);
+		relativeParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+	    tv11.setLayoutParams(relativeParams);	    
+	    rLayout.addView(tv11);
+	    	    
+	    relativeParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.FILL_PARENT, 
+	    		RelativeLayout.LayoutParams.WRAP_CONTENT);
+		TextView tv12 = new TextView(frgActivity);
+		tv12.setText("Monthly insurance: " + debt.getPropertyInsuranceAmount());
+		tv12.setId(112);
+		relativeParams.addRule(RelativeLayout.BELOW, 109);
+		relativeParams.addRule(RelativeLayout.ALIGN_LEFT, 110);
+		relativeParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);	
+	    tv12.setLayoutParams(relativeParams);	    
+	    rLayout.addView(tv12);	    
+	    
+	    
+	    
+	    
         tip.addView(rLayout);
         addUnderline(tip); 
 

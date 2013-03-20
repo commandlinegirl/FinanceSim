@@ -8,6 +8,7 @@ import com.codelemma.finances.accounting.History;
 import com.codelemma.finances.accounting.InvestmentSavAcct;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -24,7 +25,6 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 
 public class AddInvestmentSavAcct extends SherlockActivity 
@@ -85,7 +85,6 @@ public class AddInvestmentSavAcct extends SherlockActivity
     }
 
     public void onNothingSelected(AdapterView<?> parent) {
-        // Another interface callback
     	parent.setSelection(1);
     }
 
@@ -186,24 +185,39 @@ public class AddInvestmentSavAcct extends SherlockActivity
 	
 	    EditText investmentName = (EditText) findViewById(R.id.investmentsav_name);
 	    String investmentNameData = investmentName.getText().toString();
+	    if (Utils.alertIfEmpty(this, investmentNameData, getResources().getString(R.string.investmentsav_name_input))) {
+	    	return;	    	
+	    }	
         intent.putExtra("investmentsav_name", investmentNameData);  
 
 		EditText investmentAmount = (EditText) findViewById(R.id.investmentsav_init_amount);
 		String investmentAmountData = investmentAmount.getText().toString();
+		if (Utils.alertIfEmpty(this, investmentAmountData, getResources().getString(R.string.investmentsav_init_amount_input))) {
+	    	return;	    	
+	    }	
 	    intent.putExtra("investmentsav_init_amount", investmentAmountData);
         
 	    EditText investmentTaxRate = (EditText) findViewById(R.id.investmentsav_tax_rate);
 		String investmentTaxRateData = investmentTaxRate.getText().toString();
+		if (Utils.alertIfEmpty(this, investmentTaxRateData, getResources().getString(R.string.investmentsav_tax_rate_input))) {
+	    	return;	    	
+	    }	
 	    intent.putExtra("investmentsav_tax_rate", investmentTaxRateData);
 		
 	    EditText percontrib = (EditText) findViewById(R.id.investmentsav_percontrib);
 	    String percontribData = percontrib.getText().toString();
+	    if (Utils.alertIfEmpty(this, percontribData, getResources().getString(R.string.investmentsav_percontrib_input))) {
+	    	return;	    	
+	    }	
         intent.putExtra("investmentsav_percontrib", percontribData);  	
 			    	   
         intent.putExtra("investmentsav_capitalization", String.valueOf(capitalization));  	
         
 		EditText investmentInterestRate = (EditText) findViewById(R.id.investmentsav_interest_rate);
 		String investmentInterestRateData = investmentInterestRate.getText().toString();
+		if (Utils.alertIfEmpty(this, investmentInterestRateData, getResources().getString(R.string.investmentsav_interest_rate_input))) {
+	    	return;	    	
+	    }	
 	    intent.putExtra("investmentsav_interest_rate", investmentInterestRateData);	  
 	    
         if (requestCode.equals(AcctElements.UPDATE.toString())) {
@@ -215,6 +229,7 @@ public class AddInvestmentSavAcct extends SherlockActivity
         finish();	
     }	
 
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getSupportMenuInflater().inflate(R.menu.add_investmentsavacct, menu);
@@ -227,7 +242,13 @@ public class AddInvestmentSavAcct extends SherlockActivity
 		case android.R.id.home:
 			NavUtils.navigateUpFromSameTask(this);
 			return true;
-		}
+		case R.id.menu_help:
+			Dialog dialog = new Dialog(this, R.style.FullHeightDialog);			
+			dialog.setContentView(R.layout.help_investmentsavacct);
+			dialog.setCanceledOnTouchOutside(true);
+			dialog.show();			
+			return true;					
+		}	
 		return super.onOptionsItemSelected(item);
 	}
 

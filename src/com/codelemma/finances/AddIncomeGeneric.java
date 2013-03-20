@@ -1,6 +1,5 @@
 package com.codelemma.finances;
 
-import java.math.BigDecimal;
 
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.Menu;
@@ -10,6 +9,7 @@ import com.codelemma.finances.accounting.History;
 import com.codelemma.finances.accounting.IncomeGeneric;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -26,7 +26,6 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 import android.widget.AdapterView.OnItemSelectedListener;
 
 public class AddIncomeGeneric extends SherlockActivity
@@ -224,7 +223,7 @@ public class AddIncomeGeneric extends SherlockActivity
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getSupportMenuInflater().inflate(R.menu.add_income, menu);
+		getSupportMenuInflater().inflate(R.menu.add_incomegeneric, menu);
 		return true;
 	}
 
@@ -234,7 +233,13 @@ public class AddIncomeGeneric extends SherlockActivity
 		case android.R.id.home:
 			NavUtils.navigateUpFromSameTask(this);
 			return true;
-		}
+		case R.id.menu_help:
+			Dialog dialog = new Dialog(this, R.style.FullHeightDialog);			
+			dialog.setContentView(R.layout.help_incomegeneric);
+			dialog.setCanceledOnTouchOutside(true);
+			dialog.show();			
+			return true;					
+		}		
 		return super.onOptionsItemSelected(item);
 	}
 	
@@ -243,30 +248,30 @@ public class AddIncomeGeneric extends SherlockActivity
 		
 	    EditText incomeName = (EditText) findViewById(R.id.income_name);
 	    String incomeNameData = incomeName.getText().toString();
-	    if (alertIfEmpty(incomeNameData, "Name")) {
+	    if (Utils.alertIfEmpty(this, incomeNameData, getResources().getString(R.string.income_name_input))) {
 	    	return;	    	
 	    }
         intent.putExtra("income_name", incomeNameData);                
         				
         EditText income = (EditText) findViewById(R.id.yearly_income);
 	    String incomeData = income.getText().toString();
-	    if (alertIfEmpty(incomeData, "Yearly income")) {
+	    if (Utils.alertIfEmpty(this, incomeData, getResources().getString(R.string.yearly_income_input))) {
 	    	return;
 	    }
         intent.putExtra("yearly_income", incomeData);
             
 	    EditText incomeRise = (EditText) findViewById(R.id.yearly_income_rise);
 	    String incomeRiseData = incomeRise.getText().toString();
-	    if (alertIfEmpty(incomeRiseData, "Rise per year")) {
+	    if (Utils.alertIfEmpty(this, incomeRiseData, getResources().getString(R.string.yearly_income_rise_input))) {
 	    	return;	    	
 	    }	    
         intent.putExtra("yearly_income_rise", incomeRiseData);
 
 	    EditText incomeTaxRate = (EditText) findViewById(R.id.income_tax_rate);
 	    String incomeTaxRateData = incomeTaxRate.getText().toString();
-	    if (alertIfEmpty(incomeTaxRateData, "Income tax rate")) {
+	    if (Utils.alertIfEmpty(this, incomeTaxRateData, getResources().getString(R.string.income_tax_rate_input))) {
 	    	return;	    	
-	    }
+	    }	    
         intent.putExtra("income_tax_rate", incomeTaxRateData);
 
         intent.putExtra("income_installments", String.valueOf(installments));        
@@ -282,14 +287,5 @@ public class AddIncomeGeneric extends SherlockActivity
         finish();
 	}
 	
-	private boolean alertIfEmpty(String fieldData, String fieldName) {
-	    if (fieldData.trim().length() == 0) {
-	    	new AlertDialog.Builder(this).setTitle("Field \""+ fieldName +"\" empty")
-	        	                             .setMessage("Please, fill in field")
-	        	                             .setNeutralButton("Close", null)
-	        	                             .show();
-	    	return true;
-	    }
-	    return false;
-	}
+
 }

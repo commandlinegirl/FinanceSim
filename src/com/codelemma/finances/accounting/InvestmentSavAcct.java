@@ -193,6 +193,9 @@ public class InvestmentSavAcct extends Investment
 	@Override
 	public void initialize() {
 		amount = init_amount;
+		capitalization_counter = 1;
+		hidden_amount = init_amount;  
+		contribution = new BigDecimal(0);
 	}
 
 	@Override

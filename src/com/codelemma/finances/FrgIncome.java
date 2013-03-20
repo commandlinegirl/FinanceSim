@@ -13,11 +13,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragment;
 import com.codelemma.finances.accounting.Account;
 import com.codelemma.finances.accounting.IncomeGeneric;
-import com.codelemma.finances.accounting.ModifyUiVisitor;
 import com.codelemma.finances.accounting.NamedValue;
 
 public class FrgIncome extends SherlockFragment {
@@ -27,7 +27,6 @@ public class FrgIncome extends SherlockFragment {
 	
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Inflate the layout for this fragment    	
         View frView = inflater.inflate(R.layout.frg_income, container, false);        
         return frView;
 	}
@@ -36,7 +35,6 @@ public class FrgIncome extends SherlockFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 		Log.d("FrgIncome.onActivityCreated()", "called");		
-        // Inflate the layout for this fragment 
 	}
 
 	@Override
@@ -49,13 +47,17 @@ public class FrgIncome extends SherlockFragment {
     	LinearLayout tip = (LinearLayout) getSherlockActivity().findViewById(R.id.income_summary);
     	tip.removeAllViews();
     	
-
+        TextView tv = new TextView(getSherlockActivity());
+        tv.setText(R.string.income_description);
+        tv.setGravity(Gravity.CENTER);
+        tv.setTextColor(Color.parseColor("#FF771100"));
+        tv.setPadding(0, 10, 0, 10);
+        tip.addView(tv);
     	
 		if (account.getIncomesSize() > 0) {	 
 		   	Iterable<? extends NamedValue> values = (Iterable<? extends NamedValue>) account.getIncomes();
 		   	updateInputListing(values);		    
 		} else {
-	        TextView tv = new TextView(getSherlockActivity());
 	        tv = new TextView(getSherlockActivity());
 	        tv.setText(R.string.no_income_info);
 	        tv.setPadding(0, Utils.px(getSherlockActivity(), 30), 0, 0);
@@ -70,39 +72,81 @@ public class FrgIncome extends SherlockFragment {
 	    startActivityForResult(intent, AcctElements.ADD.getNumber());
 	}
 	
-	private void showAlertDialog() {
+	private void showNotANumberAlertDialog() {
     	new AlertDialog.Builder(getActivity()).setTitle("Not a number")
-        .setMessage("Please, fill in field with a number")
+        .setMessage("Please, fill in the field with a number.")
         .setNeutralButton("Close", null)
-        .show();		
+        .show();		    	
 	}
 	
 	public void onIncomeResult(Intent data, int requestCode) {
+		String income_name;
 		BigDecimal yearly_income;
 		BigDecimal income_tax_rate;
         BigDecimal yearly_income_rise;
         BigDecimal income_installments;
 		
-		try {
-			yearly_income = new BigDecimal(data.getStringExtra("yearly_income"));
-			income_tax_rate = new BigDecimal(data.getStringExtra("income_tax_rate"));
-	        yearly_income_rise = new BigDecimal(data.getStringExtra("yearly_income_rise"));
-	        income_installments = new BigDecimal(data.getStringExtra("income_installments"));			
-		} catch (NumberFormatException e) {
-			showAlertDialog();
-	    	return; //TODO: return?
+
+		try {		
+    	    income_name = data.getStringExtra("income_name");     	
+		} catch (NullPointerException npe) {
+			npe.printStackTrace();
+		    return;
 		}
 		
-    	String income_name = data.getStringExtra("income_name");     	
-    	
+		try {
+			yearly_income = new BigDecimal(data.getStringExtra("yearly_income"));
+		} catch (NullPointerException npe) {
+			npe.printStackTrace();
+		    return;
+		} catch (NumberFormatException nfe) {
+		    nfe.printStackTrace();
+		    showNotANumberAlertDialog();
+		    return;
+		}	
+		
+		try {
+			income_tax_rate = new BigDecimal(data.getStringExtra("income_tax_rate"));
+		} catch (NullPointerException npe) {
+			npe.printStackTrace();
+		    return;
+		} catch (NumberFormatException nfe) {
+		    nfe.printStackTrace();
+		    showNotANumberAlertDialog();
+		    return;
+		}
+		
+		try {
+	        yearly_income_rise = new BigDecimal(data.getStringExtra("yearly_income_rise"));
+		} catch (NullPointerException npe) {
+			npe.printStackTrace();
+		    return;
+		} catch (NumberFormatException nfe) {
+		    nfe.printStackTrace();
+		    showNotANumberAlertDialog();
+		    return;
+		}
+	     
+		try {
+	        income_installments = new BigDecimal(data.getStringExtra("income_installments"));
+		} catch (NullPointerException npe) {
+			npe.printStackTrace();
+		    return;
+		} catch (NumberFormatException nfe) {
+		    nfe.printStackTrace();
+		    showNotANumberAlertDialog();
+		    return;
+		}
+	     
+		
     	if (income_installments.compareTo(new BigDecimal(1)) ==  -1) {
-        	new AlertDialog.Builder(getActivity()).setTitle("Installments must be > 0")
-            .setMessage("Please, set installments > 0.")
+        	new AlertDialog.Builder(getActivity()).setTitle("Payment frequency must be larger than 0")
+            .setMessage("Please, set frequency to a positive number.")
             .setNeutralButton("Close", null)
             .show();
         	return;
     	}
-    	  	
+	
     	if (requestCode == AcctElements.UPDATE.getNumber()) {
     		int income_id = data.getIntExtra("income_id", -1);    		
     		IncomeGeneric income = (IncomeGeneric) account.getIncomeById(income_id); 
@@ -112,9 +156,11 @@ public class FrgIncome extends SherlockFragment {
 		IncomeGeneric newIncome = new IncomeGeneric(yearly_income, 
                 income_tax_rate, 
                 yearly_income_rise,
-                income_installments, //TODO: cannot be ZERO! DivisionByzeroException
+                income_installments, 
                 income_name);            
         account.addIncome(newIncome);
+        
+        Toast.makeText(getSherlockActivity(), "Use top CHART or TABLE icons to see results.", Toast.LENGTH_SHORT).show();
 	}	
 	
 	
@@ -125,13 +171,5 @@ public class FrgIncome extends SherlockFragment {
         } 		   		       
     }	
     
-	private void addUnderline(LinearLayout underline) {	    
-	    View v = new View(getActivity());		
-	 	LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, 
-	 			                                                        Utils.px(getActivity(), 1));	
-		v.setLayoutParams(param);
-		v.setBackgroundColor(0xFFCCCCCC);	    
-	    underline.addView(v);
-    }	
 	
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 <string-array name="installments_spinner">
-        <item>12</item>
-        <item>13</item>
+        <item>12 per year</item>
+        <item>13 per year</item>
     </string-array>
 </resources>
