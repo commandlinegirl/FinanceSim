@@ -1,10 +1,16 @@
 package com.codelemma.finances.accounting;
 
 public interface PlotVisitor {
-	public void plotDebt(HistoryDebt debts);
-	public void plotExpense(HistoryExpense expenses);
-	public void plotIncome(HistoryIncome incomes);
-	public void plotInvestment(HistoryInvestment401k historyInvestment401k);
-	public void plotInvestment(HistoryInvestmentSavAcct historyInvestmentSavAcct);
-	
+
+	public void plotIncomeGeneric(HistoryIncomeGeneric incomes);	
+	public void plotExpenseGeneric(HistoryExpenseGeneric expenses);			
+	public void plotInvestment401k(HistoryInvestment401k historyInvestment401k);
+	public void plotInvestmentSavAcct(HistoryInvestmentSavAcct historyInvestmentSavAcct);
+	public void plotInvestmentBond(HistoryInvestmentBond historyInvestmentBond);
+	public void plotInvestmentStock(HistoryInvestmentStock historyInvestmentStock);	
+	public void plotDebtMortgage(HistoryDebtMortgage historyDebtMortgage);
+	public void plotDebtLoan(HistoryDebtLoan historyDebtConsumerLoan);
+
+	public void setNumberOfMonths(int i);
+
 }

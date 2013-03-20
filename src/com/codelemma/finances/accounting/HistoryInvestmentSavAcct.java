@@ -2,27 +2,29 @@ package com.codelemma.finances.accounting;
 
 import java.math.BigDecimal;
 
-public class HistoryInvestmentSavAcct implements HistoryNew {
+public class HistoryInvestmentSavAcct extends HistoryInvestment {
 
-	private BigDecimal[] amount;
+	private BigDecimal[] amountHistory;
 	private BigDecimal[] interests_net;
-	private BigDecimal[] interests_gross;
+	private BigDecimal[] contribution;
 	private BigDecimal[] tax;
 	private int listSize = 360; //TODO: take from
+	private String name;
 	
 	public HistoryInvestmentSavAcct(InvestmentSavAcct investment_savacct) {		
-		amount = new BigDecimal[listSize];
+		amountHistory = new BigDecimal[listSize];
 		interests_net = new BigDecimal[listSize];
-		interests_gross = new BigDecimal[listSize];
+		contribution = new BigDecimal[listSize];
 		tax = new BigDecimal[listSize];
+		name = investment_savacct.getName();
 	}
 
 	@Override
-	public void add(int i, Object acctElement) {
+	public void add(int i, NamedValue acctElement) {
 		InvestmentSavAcct investment = (InvestmentSavAcct) acctElement;
 		try {		    
-		    amount[i] = investment.getAmount();
-		    interests_gross[i] = investment.getInterestsGross();
+			amountHistory[i] = investment.getAmount();
+			contribution[i] = investment.getContribution();
 		    interests_net[i] = investment.getInterestsNet();
 		    tax[i] = investment.getTax();
 		} catch (IndexOutOfBoundsException e) {
@@ -30,7 +32,46 @@ public class HistoryInvestmentSavAcct implements HistoryNew {
 		}
 	}
 
-	public void plot(PlotVisitor plotter) {
-		plotter.plotInvestment(this);		
+	public void makeTable(TableVisitor visitor) {
+		visitor.makeTableInvestmentSavAcct(this);		
 	}    
+	
+	@Override
+	public BigDecimal[] getAmountHistory() {
+		return amountHistory;
+	}
+	
+	public BigDecimal[] getTaxHistory() {
+		return tax;
+	}
+	
+	public BigDecimal[] getContributionHistory() {
+		return contribution;
+	}
+
+	public BigDecimal[] getNetInterestsHistory() {
+		return interests_net;
+	}
+
+	
+	@Override
+	public String getName() {
+		return name;
+	}
+	
+	@Override
+    public String toString() {
+		return name;
+	}
+
+	@Override
+	public boolean isNonEmpty() {
+		return amountHistory.length > 0;
+	}
+
+	@Override
+	public void plot(PlotVisitor visitor) {
+		visitor.plotInvestmentSavAcct(this);								
+		
+	}
 }

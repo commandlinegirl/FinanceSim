@@ -7,11 +7,27 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical" >
-
+    
+    <LinearLayout
+        android:id="@+id/header"
+        android:layout_width="fill_parent"      
+        android:layout_height="32dp"  
+        android:orientation="horizontal"
+        android:paddingLeft="10dp"
+        android:gravity="center"        
+        android:background="@drawable/button_delete"/>
+  
     <ExpandableListView
         android:id="@+id/exp_list"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:layout_width="match_parent"
+        android:layout_weight="1"
         android:groupIndicator="@null" />   
 
+    <Spinner
+        android:id="@+id/exp_spinner"
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent">        
+    </Spinner>
+    
 </LinearLayout>

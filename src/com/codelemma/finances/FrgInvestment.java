@@ -3,8 +3,10 @@ package com.codelemma.finances;
 import java.math.BigDecimal;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +16,6 @@ import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockFragment;
 import com.codelemma.finances.accounting.Account;
-import com.codelemma.finances.accounting.History;
 import com.codelemma.finances.accounting.Investment401k;
 import com.codelemma.finances.accounting.InvestmentBond;
 import com.codelemma.finances.accounting.InvestmentSavAcct;
@@ -25,23 +26,6 @@ import com.codelemma.finances.accounting.NamedValue;
 public class FrgInvestment extends SherlockFragment {
 	
 	private Account account;
-	private History history;
-	private ModifyUiVisitor modifyUiLauncher;
-				
-	private OnClickListener modifyListener = new OnClickListener() {
-    	@Override
-	    public void onClick(View view) {
-            TextView textView = (TextView) view;
-	        textView.setBackgroundColor(0xFFE7C39C);	        
-	        NamedValue value = (NamedValue) view.getTag(R.string.acct_object);
-	        if (value != null) {
-	            Log.d("FrgInvestment.onClick()", value.getName());
-	        } else {
-	        	Log.d("FrgInvestment.updateAcctElementListing()", "value is null");
-	        }	        
-	        value.launchModifyUi(modifyUiLauncher);	        
-	    }
-	};
 	
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -55,9 +39,6 @@ public class FrgInvestment extends SherlockFragment {
 		super.onActivityCreated(savedInstanceState);
 		Log.d("FrgInvestment.onActivityCreated()", "called");		
         // Inflate the layout for this fragment 
-		Finances appState = Finances.getInstance();
-		history = appState.getHistory();
-		modifyUiLauncher = new ModifyUiLauncher(getActivity());
 	}
 	
 	@Override
@@ -67,12 +48,19 @@ public class FrgInvestment extends SherlockFragment {
 		Finances appState = Finances.getInstance();
 		account = appState.getAccount();	
 		
+	   	LinearLayout tip = (LinearLayout) getSherlockActivity().findViewById(R.id.investment_summary);
+    	tip.removeAllViews();
+		
 		if (account.getInvestmentsSize() > 0) {	 
 		   	Iterable<? extends NamedValue> values = (Iterable<? extends NamedValue>) account.getInvestments();
-		   	updateAcctElementListing(values, R.id.investment_summary);		    
+		   	updateInputListing(values);		    
 		} else {
-	    	LinearLayout tip = (LinearLayout) getActivity().findViewById(R.id.investment_summary);
-	        tip.removeAllViews();
+	        TextView tv = new TextView(getSherlockActivity());
+	        tv = new TextView(getSherlockActivity());
+	        tv.setText(R.string.no_investment_info);
+	        tv.setGravity(Gravity.CENTER);
+	        tv.setPadding(0, Utils.px(getSherlockActivity(), 30), 0, 0);
+	        tip.addView(tv);
 	    }
 	}
 	
@@ -182,7 +170,7 @@ public class FrgInvestment extends SherlockFragment {
 		BigDecimal init_amount = new BigDecimal(data.getStringExtra("investmentstock_init_amount"));
 		BigDecimal percontrib = new BigDecimal(data.getStringExtra("investmentstock_percontrib"));
 		BigDecimal tax_rate = new BigDecimal(data.getStringExtra("investmentstock_tax_rate"));
-		BigDecimal dividend = new BigDecimal(data.getStringExtra("investmentstock_dividend"));
+		BigDecimal dividends = new BigDecimal(data.getStringExtra("investmentstock_dividends"));
 		BigDecimal appreciation = new BigDecimal(data.getStringExtra("investmentstock_appreciation"));
 		
     	if (requestCode == AcctElements.UPDATE.getNumber()) {
@@ -196,33 +184,17 @@ public class FrgInvestment extends SherlockFragment {
     			init_amount,
                 percontrib,
                 tax_rate,
-                dividend,
+                dividends,
                 appreciation);
         account.addInvestment(investment);			    		
 	}
 	
-    private void updateAcctElementListing(Iterable<? extends NamedValue> values, int tipId) {
-        
-    	LinearLayout tip = (LinearLayout) getActivity().findViewById(tipId);
-        tip.removeAllViews();
-        
-        LinearLayout.LayoutParams layoutParam = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, 
-        	                                                                  LinearLayout.LayoutParams.WRAP_CONTENT);                  
-        
-        for(NamedValue value : values) {        	                
-            TextView tv = new TextView(getActivity());
-            tv.setText(value.getName() + " " + (value.getValue()).toString());
-            tv.setLayoutParams(layoutParam);
-            int padding = Utils.px(getActivity(), 6);
-            tv.setPadding(padding, padding, padding, padding); // int left, int top, int right, int bottom     
-            tv.setOnClickListener(modifyListener);
-            tv.setTag(R.string.acct_object, value);
-            Log.d("FrgInvestment.updateAcctElementListing()", value.getName());
-                                                         
-            tip.addView(tv);
-            addUnderline(tip);
-        } 		   		
-    }	
+    private void updateInputListing(Iterable<? extends NamedValue> values) {        
+        InputListingUpdater modifier = new  InputListingUpdater(getSherlockActivity());
+        for(NamedValue value : values) {        	
+        	value.updateInputListing(modifier);        	
+        } 		   		       
+    }
     
 	private void addUnderline(LinearLayout underline) {	    
 	    View v = new View(getActivity());		

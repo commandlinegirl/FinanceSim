@@ -1,8 +1,9 @@
 package com.codelemma.finances;
 
-import com.codelemma.finances.accounting.Debt;
-import com.codelemma.finances.accounting.Expense;
-import com.codelemma.finances.accounting.Income;
+import com.codelemma.finances.accounting.DebtLoan;
+import com.codelemma.finances.accounting.DebtMortgage;
+import com.codelemma.finances.accounting.ExpenseGeneric;
+import com.codelemma.finances.accounting.IncomeGeneric;
 import com.codelemma.finances.accounting.Investment401k;
 import com.codelemma.finances.accounting.InvestmentBond;
 import com.codelemma.finances.accounting.InvestmentSavAcct;
@@ -12,12 +13,12 @@ import com.codelemma.finances.accounting.PackToContainerVisitor;
 public class PackToContainerLauncher implements PackToContainerVisitor {
 	
 	@Override
-	public TypedContainer packIncome(Income income) {
+	public TypedContainer packIncomeGeneric(IncomeGeneric income) {
     	TypedContainer container = new TypedContainer();
         container.put(TypedKey.YEARLY_INCOME, income.getValue());
-        container.put(TypedKey.INCOME_TAX_RATE, income.getTaxRate());
-        container.put(TypedKey.YEARLY_INCOME_RISE, income.getRiseRate());
-        container.put(TypedKey.INCOME_INSTALLMENTS, income.getInstallments());
+        container.put(TypedKey.INCOME_TAX_RATE, income.getInitTaxRate());
+        container.put(TypedKey.YEARLY_INCOME_RISE, income.getInitRiseRate());
+        container.put(TypedKey.INCOME_INSTALLMENTS, income.getInitInstallments());
         container.put(TypedKey.INCOME_NAME, income.getName());
     	return container;
 	}
@@ -56,7 +57,7 @@ public class PackToContainerLauncher implements PackToContainerVisitor {
         container.put(TypedKey.INVESTMENTSTOCK_PERCONTRIB, investmentstock.getPercontrib());
         container.put(TypedKey.INVESTMENTSTOCK_TAX_RATE, investmentstock.getTaxRate());
         container.put(TypedKey.INVESTMENTSTOCK_APPRECIATION, investmentstock.getAppreciation());
-        container.put(TypedKey.INVESTMENTSTOCK_DIVIDEND, investmentstock.getDividend());
+        container.put(TypedKey.INVESTMENTSTOCK_DIVIDENDS, investmentstock.getDividends());
     	return container;
 	}
 	
@@ -71,22 +72,31 @@ public class PackToContainerLauncher implements PackToContainerVisitor {
 	}
 
 	@Override
-	public TypedContainer packDebt(Debt debt) {
+	public TypedContainer packDebtLoan(DebtLoan debtloan) {
     	TypedContainer container = new TypedContainer();
-        container.put(TypedKey.DEBT_ID, debt.getId());
-        container.put(TypedKey.DEBT_AMOUNT, debt.getValue());
-        container.put(TypedKey.DEBT_NAME, debt.getName());               
+        container.put(TypedKey.DEBTLOAN_ID, debtloan.getId());
+        container.put(TypedKey.DEBTLOAN_AMOUNT, debtloan.getValue());
+        container.put(TypedKey.DEBTLOAN_NAME, debtloan.getName());               
     	return container;
 	}
 
 	@Override
-	public TypedContainer packExpense(Expense expense) {
+	public TypedContainer packExpenseGeneric(ExpenseGeneric expense) {
     	TypedContainer container = new TypedContainer();
         container.put(TypedKey.EXPENSE_ID, expense.getId());
         container.put(TypedKey.EXPENSE_NAME, expense.getName());
         container.put(TypedKey.INIT_EXPENSE, expense.getValue());
-        container.put(TypedKey.INFLATION_RATE, expense.getInflationRate());
+        container.put(TypedKey.INFLATION_RATE, expense.getInitInflationRate());
         container.put(TypedKey.EXPENSE_FREQUENCY, expense.getFrequency());                    
     	return container;    	
+	}
+
+	@Override
+	public TypedContainer packDebtMortgage(DebtMortgage debtmortgage) {
+    	TypedContainer container = new TypedContainer();
+        container.put(TypedKey.DEBTMORTGAGE_ID, debtmortgage.getId());
+        container.put(TypedKey.DEBTMORTGAGE_AMOUNT, debtmortgage.getValue());
+        container.put(TypedKey.DEBTMORTGAGE_NAME, debtmortgage.getName());               
+    	return container;
 	}
 }

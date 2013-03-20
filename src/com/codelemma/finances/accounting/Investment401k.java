@@ -2,6 +2,7 @@ package com.codelemma.finances.accounting;
 import java.math.BigDecimal;
 
 
+import com.codelemma.finances.InputListingUpdater;
 import com.codelemma.finances.ParseException;
 import com.codelemma.finances.TypedContainer;
 
@@ -10,7 +11,12 @@ public class Investment401k extends Investment
 	
 	private int id;
 	private String name;	
-    private BigDecimal init_amount;   
+    private BigDecimal init_amount;
+    private BigDecimal init_percontrib;  
+    private BigDecimal init_interest_rate;  
+    private BigDecimal init_payrise;  
+    private BigDecimal init_withdrawal_tax_rate;  
+    private BigDecimal init_employer_match;  
     private BigDecimal percontrib; // percentage of salary
     private BigDecimal percontrib_decimal; // percentage of salary
     private int period;
@@ -31,6 +37,7 @@ public class Investment401k extends Investment
     private BigDecimal employer_match;
     private BigDecimal employer_match_decimal;
     private BigDecimal hidden_interests = Money.scale(new BigDecimal(0));
+    private HistoryInvestment401k history;
 
     private BigDecimal payrise_decimal;
     int counter = 0;
@@ -49,6 +56,12 @@ public class Investment401k extends Investment
         
     	this.init_amount = Money.scale(init_amount);
         this.amount = this.init_amount;
+        
+        this.init_percontrib =  percontrib;  
+        this.init_interest_rate =  interest_rate;  
+        this.init_payrise =  payrise;  
+        this.init_withdrawal_tax_rate =  withdrawal_tax_rate;  
+        this.init_employer_match =  employer_match;  
         
         this.period = period;
         this.period_months = period * 12;
@@ -73,7 +86,9 @@ public class Investment401k extends Investment
         this.monthly_employer_contribution = yearly_employer_contribution.divide(new BigDecimal(12), Money.DECIMALS, Money.ROUNDING_MODE);
         
         this.withdrawal_tax_rate = Money.scaleRate(withdrawal_tax_rate);
-        this.withdrawal_tax_rate_decimal = withdrawal_tax_rate.divide(Money.HUNDRED, Money.RATE_DECIMALS, Money.ROUNDING_MODE);        
+        this.withdrawal_tax_rate_decimal = withdrawal_tax_rate.divide(Money.HUNDRED, Money.RATE_DECIMALS, Money.ROUNDING_MODE);   
+        
+        history = new HistoryInvestment401k(this);
     }   
        		
 	public BigDecimal getInterestRate() {
@@ -86,6 +101,26 @@ public class Investment401k extends Investment
  
 	public BigDecimal getInitSalary() {
 		return init_salary;
+	}
+
+	public BigDecimal getInitInterestRate() {
+		return init_interest_rate;
+	}
+		
+	public BigDecimal getInitPayrise() {
+		return init_payrise;
+	}
+	
+	public BigDecimal getInitPercontrib() {
+		return init_percontrib;
+	}
+	
+	public BigDecimal getInitWithdrawalTaxRate() {
+		return init_withdrawal_tax_rate;
+	}
+	
+	public BigDecimal getInitEmployerMatch() {
+		return init_employer_match;
 	}
 	
 	public BigDecimal getSalary() {
@@ -157,7 +192,7 @@ public class Investment401k extends Investment
 
     @Override
     public void launchModifyUi(ModifyUiVisitor modifyUiVisitor) {
-    	modifyUiVisitor.launchModifyUiForInvestment(this);
+    	modifyUiVisitor.launchModifyUiForInvestment401k(this);
     }
 	          
     @Override
@@ -189,6 +224,7 @@ public class Investment401k extends Investment
 	@Override
 	public void initialize() {
 		amount = init_amount;
+		salary = init_salary;		
 	}
 
 	@Override
@@ -201,8 +237,12 @@ public class Investment401k extends Investment
 		return saver.packInvestment401k(this);		
 	}
 	
+	public HistoryInvestment401k getHistory() {
+		return history;
+	}
+
 	@Override
-	public HistoryNew createHistory() {
-		return new HistoryInvestment401k(this);
+	public void updateInputListing(InputListingUpdater modifier) {
+		modifier.updateInputListingForInvestment401k(this);				
 	}
 }

@@ -1,29 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Finances</string>
+    <string name="app_name">FinanceSim</string>
     <string name="menu_settings">Settings</string>
     <string name="menu_about">About</string>
     <string name="menu_feedback">Feedback</string>
-    <string name="button_send">Check</string>
-    <string name="button_graph">Graph</string>
-    <string name="button_table">Table</string>
+    <string name="menu_add">Input</string>
+    <string name="menu_chart">Chart</string>
+    <string name="menu_table">Table</string>
+        
+    
     <string name="title_activity_main">Main</string>
     <string name="title_activity_display_message">Financial Model</string>
     <string name="title_activity_add_investment">Investment</string>
     <string name="title_activity_add_expense">Expense</string>
     <string name="title_activity_add_income">Income</string>
     <string name="title_activity_add_debt">Debt</string>
-    <string name="title_activity_display_pred">Add/update</string>
-    <string name="summaryControl">SUMMARY</string>
+    <string name="no_investment_info"><i>No investments have yet been added.</i></string>
+    <string name="no_income_info"><i>No income has yet been added.</i></string>
+    <string name="no_expense_info"><i>No expenses have yet been added.</i></string>
+    <string name="no_debt_info"><i>No debts have yet been added.</i></string>
     <string name="chartControl">CHART</string>
     <string name="tableControl">TABLE</string>
-    <string name="select_balance">Select balance</string>
-    <string name="select_investment">Select investment</string>
-    <string name="select_expense">Select expense</string>
-    <string name="select_income">Select income</string>
-    <string name="select_debt">select debt</string>
-    <string name="current_savings_input">Current savings</string>
+    <string name="show_table">SHOW TABLE</string>
+    <string name="show_chart">SHOW CHART</string>
     <string name="cancel">Cancel</string>
     <string name="percent">%</string>
     <string name="show_predictions">Show predictions</string>
@@ -32,16 +32,46 @@
     <string name="add_investment401k">Add 401(k)</string>
     <string name="add_investmentbond">Add bond</string>
     <string name="add_investmentstock">Add stock</string>
-    <string name="add_debt">Add debt</string>
+    <string name="add_debtloan">Add loan</string>
+    <string name="add_debtmortgage">Add mortgage</string>
     <string name="add_expense">Add expense</string>
-    <string name="debtLabelText">DEBTS</string>
-    <string name="debtTipText">Mortgage, loans, etc.</string>
+    <string name="debtsTitle">DEBTS</string>
+    <string name="debtTipText">Mortgage, consumer loans, etc.</string>
+    
     <string name="debt_name_input">Name</string>
     <string name="debt_name_text">Mortgage</string>
     <string name="debt_amount_input">Amount</string>
     <string name="debt_amount_text">100000</string>
-    <string name="balanceLabelText">BALANCE</string>
-    <string name="expensesLabelText">EXPENSES</string>
+
+    <string name="debtloan_name_input">Name</string>
+    <string name="debtloan_name_text">Car loan</string>
+    <string name="debtloan_amount_input">Amount</string>
+    <string name="debtloan_amount_text">5000</string>
+    <string name="debtloan_interest_rate_input">Interest rate (per yr)</string>
+    <string name="debtloan_interest_rate_text">12</string>
+    <string name="debtloan_term_input">Loan term</string>
+    <string name="debtloan_term_text">12</string>
+    <string name="debtloan_extra_payment_input">Monthly extra payment</string>
+    <string name="debtloan_extra_payment_text">0</string>
+    
+    <string name="debtmortgage_name_input">Name</string>
+    <string name="debtmortgage_name_text">Mortgage</string>
+    <string name="debtmortgage_purchase_price_input">Purchase price</string>
+    <string name="debtmortgage_purchase_price_text">200000</string>
+    <string name="debtmortgage_downpayment_input">Down payment</string>
+    <string name="debtmortgage_downpayment_text">20000</string>
+    <string name="debtmortgage_interest_rate_input">Interest rate (per yr)</string>
+    <string name="debtmortgage_interest_rate_text">4.25</string>
+    <string name="debtmortgage_term_input">Mortgage	 term</string>
+    <string name="debtmortgage_term_text">360</string>
+    <string name="debtmortgage_property_insurance_input">Property insurance</string>
+    <string name="debtmortgage_property_insurance_text">0</string>
+    <string name="debtmortgage_property_tax_input">Property tax</string>
+    <string name="debtmortgage_property_tax_text">0</string>    
+    <string name="debtmortgage_pmi_input">PMI</string>
+    <string name="debtmortgage_pmi_text">0.52</string>    
+    
+    <string name="expensesTitle">EXPENSES</string>
     <string name="expensesTipText">Total monthly expenses estimate</string>
     <string name="expense_name_input">Name</string>
     <string name="expense_name_text">Monthly expenses</string>
@@ -50,7 +80,7 @@
     <string name="inflation_rate_input">Inflation (yr)</string>
     <string name="inflation_rate_text">2</string>
     <string name="expense_frequency_input">Frequency of expense</string>
-    <string name="incomeLabelText">INCOME</string>
+    <string name="incomeTitle">INCOME</string>
     <string name="incomeTipText">Salary, other regular income sources</string>
     <string name="income_name_input">Name</string>
     <string name="income_name_text">Salary</string>
@@ -62,8 +92,8 @@
     <string name="income_installments_text">12</string>
     <string name="yearly_income_rise_input">Rise per year</string>
     <string name="yearly_income_rise_text">5</string>
-    <string name="investmentsLabelText">INVESTMENTS</string>
-    <string name="investmentsLabelTextShort">INVESTMTS</string>
+    
+    <string name="investmentsTitle">INVESTMENTS</string>
     <string name="investmentsTipText">Savings accounts, bonds, shares, etc.</string>
     <string name="investmentsav_name_input">Name</string>
     <string name="investmentsav_name_text">Savings account</string>
@@ -77,6 +107,7 @@
     <string name="investmentsav_capitalization_text">12</string>
     <string name="investmentsav_percontrib_input">Percent contribution (of excess money)</string>
     <string name="investmentsav_percontrib_text">0</string>
+    
     <string name="investment401k_name_input">Name</string>
     <string name="investment401k_name_text">401(k)</string>
     <string name="investment401k_init_amount_input">Current balance</string>
@@ -95,44 +126,65 @@
     <string name="investment401k_employer_match_text">50</string>
     <string name="investment401k_interest_rate_input">Return </string>
     <string name="investment401k_interest_rate_text">8</string>
+    
     <string name="investmentbond_name_input">Name</string>
     <string name="investmentbond_name_text">Bonds</string>
     <string name="investmentbond_init_amount_input">Invested amount</string>
     <string name="investmentbond_init_amount_text">5029.85</string>
     <string name="investmentbond_interest_rate_input">Interest rate</string>
     <string name="investmentbond_interest_rate_text">3.5</string>
+    <string name="investmentbond_percontrib_input">Percent contribution</string>
+    <string name="investmentbond_percontrib_text">10</string>
     <string name="investmentbond_tax_rate_input">Tax rate</string>
     <string name="investmentbond_tax_rate_text">19</string>
     <string name="investmentbond_appreciation_input">Pay time</string>
     <string name="investmentbond_appreciation_text">12</string>
     <string name="investmentbond_dividend_input">Percent contribution (of excess money)</string>
     <string name="investmentbond_dividend_text">0</string>
+    
     <string name="investmentstock_name_input">Name</string>
     <string name="investmentstock_name_text">Stocks</string>
     <string name="investmentstock_init_amount_input">Invested amount</string>
     <string name="investmentstock_init_amount_text">5029.85</string>
     <string name="investmentstock_interest_rate_input">Interest rate</string>
     <string name="investmentstock_interest_rate_text">3.5</string>
+    <string name="investmentstock_percontrib_input">Percent contribution</string>
+    <string name="investmentstock_percontrib_text">10</string>
     <string name="investmentstock_tax_rate_input">Tax rate</string>
     <string name="investmentstock_tax_rate_text">19</string>
     <string name="investmentstock_appreciation_input">Pay time</string>
     <string name="investmentstock_appreciation_text">12</string>
-    <string name="investmentstock_dividend_input">Percent contribution (of excess money)</string>
-    <string name="investmentstock_dividend_text">0</string>
+    <string name="investmentstock_dividends_input">Percent contribution (of excess money)</string>
+    <string name="investmentstock_dividends_text">0</string>
+    
     <string name="acct_object">acct_object</string>
     <string name="title_activity_list_fragment">ListFragment</string>
     <string name="action_settings">Settings</string>
-    
-
-    <string name="title_activity_add_investment401k">Add 401k</string>
-    <string name="title_activity_add_investment_stock">Add Stock</string>
-    <string name="title_activity_add_investment_bond">Add Bond</string>
+    <string name="title_activity_add_investment401k">401k</string>
+    <string name="title_activity_add_investment_stock">Stock</string>
+    <string name="title_activity_add_investment_bond">Bond</string>
     <string name="title_activity_about">About</string>
     <string name="title_activity_feedback">Feedback</string>
-    
     <string name="feedback_text1">If you have any comments, questions, complaints please send an email to: <b>finances@codelemma.com</b>.</string>
     <string name="feedback_text2">We will answer you back as soon as we can.</string>
-         
-    <string name="about_text"></string>
+    <string name="about_title1"><b>Financial simulator</b></string>
+    <string name="about_text1">The app will simulate your future incomes, expenses, investments (assets), and debts.
+        It will show you: \n
+         -  when you are going to get your (first) million \n
+         -  how fast will your 401k grow \n
+         -  what is the comparative return of all your assets (investments) \n
+        and more </string>
+    <string name="about_title2"><b>Assumptions</b></string>
+    <string name="about_text2">Constant inflation, constant return from 401k investments.</string>
+    <string name="about_title3"><b>What this app is not</b></string>
+    <string name="about_text3">This app is not: an expense or income tracker.</string>
+    <string name="about_title4"><b>Questions</b></string>
+    <string name="about_text4">Please send an email to: <b>finances@codelemma.com</b></string>
+    <string name="title_activity_add_debt_mortgage">Mortgage</string>
+    <string name="chart_no_data_info_text">Chart empty.\n No %s data has yet been added.</string>
+    <string name="no_data_info_text">Table empty.\n No %s data has yet been added.</string>    
+    <string name="no_data_info_button">Add %s data</string>
+    <string name="years">Years: </string>
+     
     
 </resources>

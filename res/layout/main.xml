@@ -12,9 +12,9 @@
         android:layout_height="0dp" >
     </LinearLayout>
    
-    <fragment android:name="com.codelemma.finances.FrgControls"
+    <LinearLayout
         android:id="@+id/frg_controls"
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"/>
     
 </LinearLayout>

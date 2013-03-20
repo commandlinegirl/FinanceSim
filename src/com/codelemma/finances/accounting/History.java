@@ -2,6 +2,8 @@ package com.codelemma.finances.accounting;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import android.util.Log;
+
 public class History {	
 	private int month;  
 	private int year; 
@@ -85,5 +87,28 @@ public class History {
     	expenses.clear();  	
     	investments.clear();
     	debts.clear();    	    	
-    }     
+    }
+
+	public void removeIncomeHistory(HistoryIncome inc) {
+		boolean t = incomes.remove(inc);
+		Log.d("Income hist removed", String.valueOf(t));		
+	}
+
+	public void removeExpenseHistory(HistoryExpense hex) {
+		boolean t = expenses.remove(hex);
+		Log.d("Expense hist removed", String.valueOf(t));
+	}
+
+	public void removeInvestmentHistory(HistoryInvestment inv) {
+		boolean t = investments.remove(inv);
+		Log.d("Investment hist removed", String.valueOf(t));
+	}
+	
+	public void removeDebtHistory(HistoryDebt deb) {
+		boolean t = debts.remove(deb);
+		Log.d("Debt hist removed", String.valueOf(t));
+	}
+	
+	
+	
 }   

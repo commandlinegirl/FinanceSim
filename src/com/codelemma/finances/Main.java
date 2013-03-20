@@ -2,49 +2,54 @@ package com.codelemma.finances;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.Locale;
 
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.ActionBar.Tab;
 import com.actionbarsherlock.app.ActionBar.TabListener;
+import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
+import com.actionbarsherlock.view.Window;
 import com.codelemma.finances.accounting.Account;
 import com.codelemma.finances.accounting.History;
+import com.codelemma.finances.accounting.HistoryNew;
 import com.codelemma.finances.Finances;
 import com.codelemma.finances.ParseException;
 import com.codelemma.finances.StorageFactory;
+
 
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.app.NavUtils;
 import android.util.Log;
 import android.view.View;
 
 
 public class Main extends SherlockFragmentActivity 
-                  implements TabListener,
-                             FrgControls.OnControlSelectedListener {
+                  implements TabListener, 
+                             DirectToHomeListener.OnClickOnEmptyListener {
 
 	private Storage storage;
 	private Account account;
 	private History history;
     private Finances appState;
-	private AcctElements currentElement;
 	private int currentYrsPred = 60;
 	private View selectedYrsView;
-	private View toggleChart;
-	private View toggleTable;
-	private View toggleSummary;
-	private int currentTab;
+	private int currentElement = 0;
+	private int currentIcon = 0;
+	private Iterable<HistoryNew> currentHistory;
+	private MenuItem menuChart;
+	private MenuItem menuTable;
+	private MenuItem menuAdd;	
+	
+	private SherlockFragment[] frgMap = new SherlockFragment[4];
+	private SherlockFragment[] iconMap = new SherlockFragment[3];
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +57,13 @@ public class Main extends SherlockFragmentActivity
 		Log.d("Main.onCreate()", "called");
 		setContentView(R.layout.main);		
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        
+		
+        frgMap[0] = new FrgIncome();
+        frgMap[1] = new FrgExpense();
+        frgMap[2] = new FrgInvestment();
+        frgMap[3] = new FrgDebt();  
+    
         setupActionBar();
         
 	    appState = Finances.getInstance();
@@ -72,44 +84,44 @@ public class Main extends SherlockFragmentActivity
 	    }
 	    	    	    	    	    	   
 	    account = appState.getAccount();
-	    history = appState.getHistory();
-       	toggleChart = (View) findViewById(R.id.ico_chart);       	
-    	toggleTable = (View) findViewById(R.id.ico_table);
-    	toggleSummary = (View) findViewById(R.id.ico_summary);
-    	toggleSummary.setSelected(true);	    
+	    history = appState.getHistory();    
 	}
-
-
 
 	@Override
 	public void onTabReselected(Tab tab, FragmentTransaction ft) {		
 	}
+		
+	private SherlockFragment getFragment(int index, int element) {
+	    if (index == 0)	{
+	    	if (element == 0) {
+	    		return new FrgIncome();
+	    	}
+	    	if (element == 1) {
+	    		return new FrgExpense();
+	    	}
+	    	if (element == 2) {
+	    		return new FrgInvestment();
+	    	}
+	    	if (element == 3) {
+	    		return new FrgDebt();
+	    	}
+	    }
+	    if (index == 1) {
+	    	return new FrgChart();
+	    }
+	    if (index == 2) {
+	    	return new FrgList();
+	    }
+	    else {
+	    	throw new IllegalArgumentException();
+	    }
+	}
+   
 
 	@Override
 	public void onTabSelected(Tab tab, FragmentTransaction ft) {
-		// TODO Auto-generated method stub
-		toggleSummary = (View) findViewById(R.id.ico_summary);
-		if(tab.getPosition() == 0) {	
-	        ft.replace(R.id.main_container, new FrgIncome(), AcctElements.INCOME.toString()); 	        
-	        currentTab = 0;
-	        currentElement = AcctElements.INCOME;
-	        toggleControlSelection(toggleSummary);
-        } else if(tab.getPosition() == 1){		
-            ft.replace(R.id.main_container, new FrgExpense(), AcctElements.EXPENSE.toString());
-            currentTab = 1;
-            currentElement = AcctElements.EXPENSE;
-            toggleControlSelection(toggleSummary);
-        } else if(tab.getPosition() == 2){		
-            ft.replace(R.id.main_container, new FrgInvestment(), AcctElements.INVESTMENT.toString());
-            currentTab = 2;
-            currentElement = AcctElements.INVESTMENT;
-            toggleControlSelection(toggleSummary);
-        } else if(tab.getPosition() == 3){		
-            ft.replace(R.id.main_container, new FrgDebt(), AcctElements.DEBT.toString());
-            currentTab = 3;
-            currentElement = AcctElements.DEBT;
-            toggleControlSelection(toggleSummary);
-        }
+		currentElement = tab.getPosition();
+		ft.replace(R.id.main_container, getFragment(currentIcon, currentElement));		
 	 }
 
 	@Override
@@ -132,9 +144,47 @@ public class Main extends SherlockFragmentActivity
 	}	
 	
 	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		super.onCreateOptionsMenu(menu);
+	    MenuInflater inflater = getSupportMenuInflater();
+	    inflater.inflate(R.menu.main, menu);
+		menuChart = menu.findItem(R.id.menu_chart);
+		menuTable = menu.findItem(R.id.menu_table);
+		menuAdd = menu.findItem(R.id.menu_add);
+		menuAdd.setIcon(R.drawable.ico_add_on);
+	    return true;
+	}
+	
+	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		
+		FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
 		switch (item.getItemId()) {
+		case R.id.menu_add:
+            currentIcon = 0;    	
+    	    ft.replace(R.id.main_container, getFragment(currentIcon, currentElement));
+    	    item.setIcon(R.drawable.ico_add_on);
+    	    menuChart.setIcon(R.drawable.ico_chart);
+    	    menuTable.setIcon(R.drawable.ico_table);    	    
+    	    ft.commit();    	    
+			return true;
+		case R.id.menu_chart:
+            currentIcon = 1;
+            recalculate();
+    	    ft.replace(R.id.main_container, new FrgChart());     	    
+    	    ft.commit();		
+    	    item.setIcon(R.drawable.ico_chart_on);
+    	    menuAdd.setIcon(R.drawable.ico_add);
+    	    menuTable.setIcon(R.drawable.ico_table);    
+			return true;
+		case R.id.menu_table:
+            currentIcon = 2;    
+            recalculate();
+    	    ft.replace(R.id.main_container, new FrgList()); 
+    	    ft.commit();
+    	    item.setIcon(R.drawable.ico_table_on);
+    	    menuAdd.setIcon(R.drawable.ico_add);
+    	    menuChart.setIcon(R.drawable.ico_chart);    
+			return true;			
 		case R.id.menu_settings:
 			Log.d("User pressed", "Settings");
 			return true;
@@ -146,32 +196,25 @@ public class Main extends SherlockFragmentActivity
 			Intent intent2 = new Intent(this, Feedback.class);					
 		    startActivity(intent2);	
 			return true;			
-		}							
+		}						
 		return super.onOptionsItemSelected(item);
-	}
-	
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		super.onCreateOptionsMenu(menu);
-	    MenuInflater inflater = getSupportMenuInflater();
-	    inflater.inflate(R.menu.main, menu);
-	    return true;
 	}
 	
 
 	
 	private void setupActionBar() {
 		ActionBar actionbar = getSupportActionBar();		
-		actionbar.setDisplayHomeAsUpEnabled(true);				
+		actionbar.setDisplayShowTitleEnabled(false);
+		actionbar.setDisplayHomeAsUpEnabled(true);						
         actionbar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);		 	    
-  	    ActionBar.Tab tab0 = actionbar.newTab().setText("Income").setTabListener(this);
+  	    ActionBar.Tab tab0 = actionbar.newTab().setText(getResources().getString(R.string.incomeTitle)).setTabListener(this);
         actionbar.addTab(tab0);	
-  	    ActionBar.Tab tab1 = actionbar.newTab().setText("Expenses").setTabListener(this);
+  	    ActionBar.Tab tab1 = actionbar.newTab().setText(getResources().getString(R.string.expensesTitle)).setTabListener(this);
         actionbar.addTab(tab1);	
-  	    ActionBar.Tab tab2 = actionbar.newTab().setText("Investments").setTabListener(this);
+  	    ActionBar.Tab tab2 = actionbar.newTab().setText(getResources().getString(R.string.investmentsTitle)).setTabListener(this);
         actionbar.addTab(tab2);	
-  	    ActionBar.Tab tab3 = actionbar.newTab().setText("Debts").setTabListener(this);
-        actionbar.addTab(tab3);		
+  	    ActionBar.Tab tab3 = actionbar.newTab().setText(getResources().getString(R.string.debtsTitle)).setTabListener(this);
+        actionbar.addTab(tab3);
 	}
 	
 	private void setupDate() {
@@ -195,21 +238,6 @@ public class Main extends SherlockFragmentActivity
 		FrgInvestment frgInvestment = (FrgInvestment) getSupportFragmentManager().findFragmentById(R.id.main_container);
 		frgInvestment.add(view);
 	}
-
-	public void addInvestment401k(View view) {
-		FrgInvestment frgInvestment = (FrgInvestment) getSupportFragmentManager().findFragmentById(R.id.main_container);
-		frgInvestment.add(view);
-	}
-	
-	public void addInvestmentBond(View view) {
-		FrgInvestment frgInvestment = (FrgInvestment) getSupportFragmentManager().findFragmentById(R.id.main_container);
-		frgInvestment.add(view);
-	}
-	
-	public void addInvestmentStock(View view) {
-		FrgInvestment frgInvestment = (FrgInvestment) getSupportFragmentManager().findFragmentById(R.id.main_container);
-		frgInvestment.add(view);
-	}
 	
 	public void addExpense(View view) {
 		FrgExpense frgExpense = (FrgExpense) getSupportFragmentManager().findFragmentById(R.id.main_container);
@@ -220,6 +248,7 @@ public class Main extends SherlockFragmentActivity
 		FrgDebt frgDebt = (FrgDebt) getSupportFragmentManager().findFragmentById(R.id.main_container);
 		frgDebt.add(view);
 	}
+
 	
 	@Override	
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -253,10 +282,14 @@ public class Main extends SherlockFragmentActivity
         	FrgExpense frgExpense = (FrgExpense) getSupportFragmentManager().findFragmentById(R.id.main_container);
         	frgExpense.onExpenseResult(data, requestCode);
         }
-        if (resultCode == AcctElements.DEBT.getNumber()) {      
+        if (resultCode == AcctElements.DEBTLOAN.getNumber()) {      
         	FrgDebt frgDebt = (FrgDebt) getSupportFragmentManager().findFragmentById(R.id.main_container);
-        	frgDebt.onDebtResult(data, requestCode);
+        	frgDebt.onDebtLoanResult(data, requestCode);
         }
+        if (resultCode == AcctElements.DEBTMORTGAGE.getNumber()) {      
+        	FrgDebt frgDebt = (FrgDebt) getSupportFragmentManager().findFragmentById(R.id.main_container);
+        	frgDebt.onDebtMortgageResult(data, requestCode);
+        }        
         appState.needToRecalculate(true);
 	}	
 	
@@ -266,18 +299,16 @@ public class Main extends SherlockFragmentActivity
 			return;
 		}		
                                 
-        storage.clearHistory();
         //history.clear();
         account.setInitDebt();
         account.setInitExpense();
         account.setInitIncome();
         account.setInitInvestment();
+        account.clearHistory(history);
                                    
         int month = appState.getMonth();
         int year = appState.getYear();                
-        
-        // new CalculationTask().execute(appState); 
-                
+                        
         for (int i = 0; i < appState.getListSize(); i++) { 
         	account.advance(i, month); //TODO: this call should be done in BKG
             if (month == 11) {
@@ -287,110 +318,51 @@ public class Main extends SherlockFragmentActivity
                 month++;
             }            	                
         }
-        account.addHistoriesToHistory(history);        
-        storage.saveHistory(history);    
+        account.addToHistory(history);
+        //storage.saveHistory(history);    
         appState.needToRecalculate(false);
+	}		
+		
+	public void showChartForNYears(View view) {		
+	    FrgChart frgChart = (FrgChart) getSupportFragmentManager().findFragmentById(R.id.main_container);
+	    frgChart.onPredYrsSelection(view, currentElement);
 	}
 	
-	public void selectFragment(View view, Fragment fragment) {				
-			
-		FragmentTransaction ft = getSupportFragmentManager().beginTransaction();			
-		
-		switch (view.getId()) {
-		case R.id.ico_summary:
-			ft.replace(R.id.main_container, fragment);
-			ft.commit();
-		    break;
-		case R.id.ico_table:	
-			recalculate(); //TODO: only recalc if data changed!
-			ft.replace(R.id.main_container, new FrgExpandableList());
-			ft.commit();
-			break;
-		case R.id.ico_chart:
-			recalculate();//TODO: only recalc if data changed!
-			ft.replace(R.id.main_container, new FrgChart());
-			ft.commit();
-			break;
-		default:			
-			break;
-		}							
-		
-	}	
-	
-	public void onControlSelected(View view) {
-		
-		HashMap<Integer, Fragment> m = new HashMap<Integer, Fragment>();
-		
-		switch (currentTab) {
-		case 0:			
-			selectFragment(view, new FrgBalance());
-			break;		
-	    case 1:
-	    	
-			selectFragment(view, new FrgIncome());		
-			break;
-	    case 2:
-	    	
-			selectFragment(view, new FrgExpense());		
-			break;
-	    case 3:
-			selectFragment(view, new FrgInvestment());		
-			break;
-	    case 4:
-	    	
-			selectFragment(view, new FrgDebt());		
-			break;			
+    public void pickControl(View view) {
+        FrgControls frgControls = (FrgControls) getSupportFragmentManager().findFragmentById(R.id.frg_controls);
+        frgControls.selectControl(view);    
+    }   
+
+	public void pickResultType(View view) {
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+		switch(view.getId()) {
+	    case R.id.show_table:    
+            recalculate(); 
+            ft.replace(R.id.main_container, new FrgList());            
+            ft.commit();
+            currentIcon = 2;
+    	    menuAdd.setIcon(R.drawable.ico_add);
+    	    menuChart.setIcon(R.drawable.ico_chart);
+    	    menuTable.setIcon(R.drawable.ico_table_on);   
+            break;
+        case R.id.show_chart:
+            recalculate();
+            ft.replace(R.id.main_container, new FrgChart());
+            ft.commit();
+            currentIcon = 1;
+    	    menuAdd.setIcon(R.drawable.ico_add);
+    	    menuChart.setIcon(R.drawable.ico_chart_on);
+    	    menuTable.setIcon(R.drawable.ico_table);   
+            break;		
 		}
 	}
-	
-	public void pickControl(View view) {
-		toggleControlSelection(view);
-		FrgControls frgControls = (FrgControls) getSupportFragmentManager().findFragmentById(R.id.frg_controls);
-		frgControls.selectControl(view); 			
-	}
-	
-	public void pred1yrs(View view) {
-		currentYrsPred = 1*12;	 
-		selectedYrsView = view;
-	    FrgChart FrgChart = (FrgChart) getSupportFragmentManager().findFragmentById(R.id.main_container);
-	    FrgChart.onPredYrsSelection(view, currentYrsPred, currentElement);
-	}
-
-	public void pred5yrs(View view) {
-		currentYrsPred = 5*12;
-		selectedYrsView = view;
-	    FrgChart FrgChart = (FrgChart) getSupportFragmentManager().findFragmentById(R.id.main_container);
-	    FrgChart.onPredYrsSelection(view, currentYrsPred, currentElement);	    
-	}
-
-	public void pred10yrs(View view) {
-		currentYrsPred = 10*12;	    
-		selectedYrsView = view;
-	    FrgChart FrgChart = (FrgChart) getSupportFragmentManager().findFragmentById(R.id.main_container);
-	    FrgChart.onPredYrsSelection(view, currentYrsPred, currentElement);	    
-	}
-
-	public void pred20yrs(View view) {
-		currentYrsPred = 20*12;	    
-		selectedYrsView = view;
-	    FrgChart FrgChart = (FrgChart) getSupportFragmentManager().findFragmentById(R.id.main_container);
-	    FrgChart.onPredYrsSelection(view, currentYrsPred, currentElement);
-	}
-
-	public void pred30yrs(View view) {
-		currentYrsPred = 30*12;
-		selectedYrsView = view;
-	    FrgChart FrgChart = (FrgChart) getSupportFragmentManager().findFragmentById(R.id.main_container);
-	    FrgChart.onPredYrsSelection(view, currentYrsPred, currentElement);
-	}
-	
 	
 	public String[] getDates(){
 	    return history.getDates();
 	}			
 
-	public String[] getValues(){
-	    return history.getDates();
+	public Iterable<HistoryNew> getCurrentHistory(){
+	    return currentHistory;
 	}	
 	
 	public int getCurrentYrsPred(){
@@ -401,17 +373,19 @@ public class Main extends SherlockFragmentActivity
 	    return selectedYrsView;
 	}
 	
-	public AcctElements getCurrentElement(){
+	public int getCurrentElement(){
 	    return currentElement;
 	}
-	
-	private void toggleControlSelection(View view) {
-       	toggleChart = (View) findViewById(R.id.ico_chart);       	
-    	toggleTable = (View) findViewById(R.id.ico_table);
-    	toggleSummary = (View) findViewById(R.id.ico_summary);
-        toggleChart.setSelected(false);
-        toggleTable.setSelected(false);
-        toggleSummary.setSelected(false);		        
-	    view.setSelected(true);
-	}	
+
+	@Override
+	public void onClickOnEmptySelected(View view, int element) {
+        currentIcon = 0;    	
+       // Log.d("getFragment(currentIcon, currentElement))", getFragment(currentIcon, currentElement).toString());
+		FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+	    ft.replace(R.id.main_container, getFragment(currentIcon, currentElement));
+	    menuAdd.setIcon(R.drawable.ico_add_on);
+	    menuChart.setIcon(R.drawable.ico_chart);
+	    menuTable.setIcon(R.drawable.ico_table);    	    
+	    ft.commit();		
+	}
 }

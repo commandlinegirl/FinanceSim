@@ -3,8 +3,10 @@ package com.codelemma.finances;
 import java.math.BigDecimal;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,32 +16,13 @@ import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockFragment;
 import com.codelemma.finances.accounting.Account;
-import com.codelemma.finances.accounting.Expense;
-import com.codelemma.finances.accounting.History;
-import com.codelemma.finances.accounting.InvestmentSavAcct;
+import com.codelemma.finances.accounting.ExpenseGeneric;
 import com.codelemma.finances.accounting.ModifyUiVisitor;
 import com.codelemma.finances.accounting.NamedValue;
 
 public class FrgExpense extends SherlockFragment {
 	
 	private Account account;
-	private History history;
-	private ModifyUiVisitor modifyUiLauncher;
-				
-	private OnClickListener modifyListener = new OnClickListener() {
-    	@Override
-	    public void onClick(View view) {
-            TextView textView = (TextView) view;
-	        textView.setBackgroundColor(0xFFE7C39C);	        
-	        NamedValue value = (NamedValue) view.getTag(R.string.acct_object);
-	        if (value != null) {
-	            Log.d("FrgExpense.onClick()", value.getName());
-	        } else {
-	        	Log.d("FrgExpense.updateAcctElementListing()", "value is null");
-	        }
-	        value.launchModifyUi(modifyUiLauncher);	        
-	    }
-	};
 
 	
 	@Override
@@ -56,7 +39,7 @@ public class FrgExpense extends SherlockFragment {
         // Inflate the layout for this fragment 
 		Finances appState = Finances.getInstance();
 		account = appState.getAccount();	
-		modifyUiLauncher = new ModifyUiLauncher(getActivity());
+		
 
 	}
 
@@ -67,17 +50,25 @@ public class FrgExpense extends SherlockFragment {
 		Finances appState = Finances.getInstance();
 		account = appState.getAccount();	
 		
+    	LinearLayout tip = (LinearLayout) getSherlockActivity().findViewById(R.id.expense_summary);
+    	tip.removeAllViews();
+    	
+		
 		if (account.getExpensesSize() > 0) {	 
-		   	Iterable<? extends NamedValue> values = account.getExpenses();
-		   	updateAcctElementListing(values, R.id.expense_summary);		    
+		   	Iterable<? extends NamedValue> values = (Iterable<? extends NamedValue>) account.getExpenses();
+		   	updateInputListing(values);		    
 		} else {
-	    	LinearLayout tip = (LinearLayout) getActivity().findViewById(R.id.expense_summary);
-	        tip.removeAllViews();
+	        TextView tv = new TextView(getSherlockActivity());
+	        tv = new TextView(getSherlockActivity());
+	        tv.setText(R.string.no_expense_info);
+	        tv.setGravity(Gravity.CENTER);
+	        tv.setPadding(0, Utils.px(getSherlockActivity(), 30), 0, 0);
+	        tip.addView(tv);
 	    }
 	}
 
 	public void add(View view) {
-		Intent intent = new Intent(getActivity(), AddExpense.class);		
+		Intent intent = new Intent(getActivity(), AddExpenseGeneric.class);		
 		intent.putExtra("request", AcctElements.ADD.toString());
 	    startActivityForResult(intent, AcctElements.ADD.getNumber());
 	}
@@ -90,12 +81,12 @@ public class FrgExpense extends SherlockFragment {
 		
         if (requestCode == AcctElements.UPDATE.getNumber()) {
         	int expense_id = data.getIntExtra("expense_id", -1);    		
-    		Expense expense = account.getExpenseById(expense_id); 
+    		ExpenseGeneric expense = (ExpenseGeneric) account.getExpenseById(expense_id); 
     		account.removeExpense(expense);
     		Log.d("FrgExpense.onExpenseResult()", "removed Expense No. "+expense_id);
       	}	    		
     		
-    	Expense expense = new Expense(expense_name,
+    	ExpenseGeneric expense = new ExpenseGeneric(expense_name,
     			                      init_expense, 
     			                      inflation_rate, 
     			                      expense_frequency);
@@ -103,29 +94,12 @@ public class FrgExpense extends SherlockFragment {
     	
 	}
 	
-	   private void updateAcctElementListing(Iterable<? extends NamedValue> values, int tipId) {
-	        
-	    	LinearLayout tip = (LinearLayout) getActivity().findViewById(tipId);
-	        tip.removeAllViews();
-	        
-	        LinearLayout.LayoutParams layoutParam = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, 
-	        	                                                                  LinearLayout.LayoutParams.WRAP_CONTENT);                  
-	        
-	        for(NamedValue value : values) {
-	        	                
-	            TextView tv = new TextView(getActivity());
-	            tv.setText(value.getName() + " " + (value.getValue()).toString());
-	            tv.setLayoutParams(layoutParam);
-	            int padding = Utils.px(getActivity(), 6);
-	            tv.setPadding(padding, padding, padding, padding); // int left, int top, int right, int bottom     
-	            tv.setOnClickListener(modifyListener);
-	            tv.setTag(R.string.acct_object, value);
-	            Log.d("FrgExpense.updateAcctElementListing()", value.getName());
-	                                                         
-	            tip.addView(tv);
-	            addUnderline(tip);
-	        } 		   		
-	    }	
+    private void updateInputListing(Iterable<? extends NamedValue> values) {        
+        InputListingUpdater modifier = new  InputListingUpdater(getSherlockActivity());
+        for(NamedValue value : values) {        	
+        	value.updateInputListing(modifier);        	
+        } 		   		       
+    }
 	    
 		private void addUnderline(LinearLayout underline) {	    
 		    View v = new View(getActivity());		

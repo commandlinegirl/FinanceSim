@@ -2,22 +2,76 @@ package com.codelemma.finances.accounting;
 
 import java.math.BigDecimal;
 
-public class HistoryInvestmentStock implements HistoryNew {
+public class HistoryInvestmentStock extends HistoryInvestment {
 
-	private BigDecimal[] amount;
+	private BigDecimal[] amountHistory;
+	private BigDecimal[] capitalGainYieldHistory;
+	private BigDecimal[] dividendsHistory;
+	private BigDecimal[] taxHistory;
 	private int listSize = 360; //TODO: take from
 	private String name;
 	
 	public HistoryInvestmentStock(InvestmentStock investmentstock) {		
-		amount = new BigDecimal[listSize];
-
+		amountHistory = new BigDecimal[listSize];
+		taxHistory = new BigDecimal[listSize];
+		dividendsHistory = new BigDecimal[listSize];
+		capitalGainYieldHistory = new BigDecimal[listSize];
 		name = investmentstock.getName();
 	}
 	
 	@Override
-	public void add(int index, Object acctElement) {
-		// TODO Auto-generated method stub
-
+	public void add(int i, NamedValue acctElement) {
+		InvestmentStock investment = (InvestmentStock) acctElement;
+		try {		    
+			amountHistory[i] = investment.getAmount();
+			taxHistory[i] = investment.getTax();
+			dividendsHistory[i] = investment.getDividends();
+			capitalGainYieldHistory[i] = investment.getCapitalGainYield();
+		} catch (IndexOutOfBoundsException e) {
+			e.printStackTrace();
+		}
 	}
 
+
+	@Override
+	public BigDecimal[] getAmountHistory() {
+		return amountHistory;
+	}
+
+	public BigDecimal[] getTaxHistory() {
+		return taxHistory;
+	}
+	
+	public BigDecimal[] getDividendsHistory() {
+		return dividendsHistory;
+	}
+	
+	public BigDecimal[] getCapitalGainYieldHistory() {
+		return capitalGainYieldHistory;
+	}
+	
+	@Override
+	public String getName() {
+		return name;
+	}
+	
+	@Override
+    public String toString() {
+		return name;
+	}
+
+	@Override
+	public boolean isNonEmpty() {
+		return amountHistory.length > 0;
+	}
+
+	@Override
+	public void plot(PlotVisitor visitor) {
+		visitor.plotInvestmentStock(this);										
+	}
+
+	@Override
+	public void makeTable(TableVisitor visitor) {
+		visitor.makeTableInvestmentStock(this);		
+	}
 }

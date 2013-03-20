@@ -2,6 +2,7 @@ package com.codelemma.finances.accounting;
 
 import java.math.BigDecimal;
 
+import com.codelemma.finances.InputListingUpdater;
 import com.codelemma.finances.ParseException;
 import com.codelemma.finances.TypedContainer;
 
@@ -18,7 +19,8 @@ public class InvestmentStock extends Investment
     private BigDecimal tax_rate_decimal;
     private BigDecimal appreciation;
     private BigDecimal dividend;
-	
+    private HistoryInvestmentStock history;
+    
     public InvestmentStock(String name,
 	          BigDecimal init_amount,
 	          BigDecimal percontrib,
@@ -38,6 +40,8 @@ public class InvestmentStock extends Investment
         this.appreciation = appreciation;
         
         this.dividend = dividend;
+        
+        history = new HistoryInvestmentStock(this);
     }
         
 	@Override
@@ -85,9 +89,19 @@ public class InvestmentStock extends Investment
 		return appreciation;
 	}
 	
-	public BigDecimal getDividend() {
+	public BigDecimal getDividends() {
 		return dividend;
 	}
+	
+	public BigDecimal getTax() {
+		return new BigDecimal(0); // return tax
+	}
+	
+	
+	public BigDecimal getCapitalGainYield() {
+		return new BigDecimal(0); // return cgy
+	}
+	
 	
 	@Override
 	public void initialize() {
@@ -105,19 +119,24 @@ public class InvestmentStock extends Investment
 	}
 
 	@Override
-	public HistoryNew createHistory() {
-	    return new HistoryInvestmentStock(this);
-	}
-	
-	@Override
 	public void launchModifyUi(ModifyUiVisitor modifyUiVisitor) {
-    	modifyUiVisitor.launchModifyUiForInvestment(this);		
+    	modifyUiVisitor.launchModifyUiForInvestmentStock(this);		
 	}
 	
 	@Override
 	public TypedContainer getFieldContainer(PackToContainerVisitor saver)
 			throws ParseException {
 		return saver.packInvestmentStock(this);
+	}
+
+	@Override
+	public HistoryInvestmentStock getHistory() {
+		return history;
+	}
+
+	@Override
+	public void updateInputListing(InputListingUpdater modifier) {
+		modifier.updateInputListingForInvestmentStock(this);						
 	}
 
 }

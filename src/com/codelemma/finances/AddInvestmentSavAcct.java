@@ -4,6 +4,7 @@ import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.codelemma.finances.accounting.Account;
+import com.codelemma.finances.accounting.History;
 import com.codelemma.finances.accounting.InvestmentSavAcct;
 
 import android.app.AlertDialog;
@@ -30,12 +31,21 @@ public class AddInvestmentSavAcct extends SherlockActivity
                                   implements OnItemSelectedListener {
 
 	private Account account;	
+	private History history;
 	private String requestCode;
 	private int investmentId;
     private int[] capitalization_items = {1, 3, 6, 12, 24}; 
     private int capitalization = 1;
 	private Finances appState;    
     	
+    private OnClickListener clickCancelListener = new OnClickListener() {
+    	
+    	@Override
+	    public void onClick(View v) {
+	        finish();	             	        
+	    }
+    };	
+	
 	private OnClickListener clickDeleteListener = new OnClickListener() {
     	
     	@Override
@@ -47,13 +57,14 @@ public class AddInvestmentSavAcct extends SherlockActivity
             .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                public void onClick(DialogInterface dialog, int id) {
             	   account.removeInvestment(investment); 
+            	   history.removeInvestmentHistory(investment.getHistory());
             	   appState.needToRecalculate(true);
             	   finish();
                }
             })
             .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                public void onClick(DialogInterface dialog, int id) {
-                   // User cancelled the dialog
+                   finish();
                }
            })
           .show();	        	         
@@ -65,15 +76,12 @@ public class AddInvestmentSavAcct extends SherlockActivity
     	@Override
 	    public void onClick(View v) {
 	    	Log.d("saving investment", "Saving ");
-	        addInvestment(null);	             	        
+	    	addInvestment(null);	             	        
 	    }
     };	
 	
     public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-        // An item was selected. You can retrieve the selected item using
     	capitalization = capitalization_items[pos];
-        Toast.makeText(getBaseContext(), "You have selected : " + capitalization_items[pos], 
-                Toast.LENGTH_SHORT).show();
     }
 
     public void onNothingSelected(AdapterView<?> parent) {
@@ -85,12 +93,13 @@ public class AddInvestmentSavAcct extends SherlockActivity
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.act_add_investmentsav);
+		setContentView(R.layout.act_add_investmentsavacct);
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		Log.d("AddInvestment.onCreate()", "called");
 		appState = Finances.getInstance();
 	    account = appState.getAccount();  		
+	    history = appState.getHistory();
 	    
 	    Intent intent = getIntent(); //TODO: check if there are 
 	    requestCode = intent.getStringExtra("request");
@@ -117,18 +126,18 @@ public class AddInvestmentSavAcct extends SherlockActivity
 	    	amount.setText(investment.getInitAmount().toString(), TextView.BufferType.EDITABLE);
 	    	
 			EditText tax = (EditText) findViewById(R.id.investmentsav_tax_rate);
-			tax.setText(investment.getTaxRate().toString(), TextView.BufferType.EDITABLE);
+			tax.setText(investment.getInitTaxRate().toString(), TextView.BufferType.EDITABLE);
 	    	
 			EditText percontrib = (EditText) findViewById(R.id.investmentsav_percontrib);
-			percontrib.setText(String.valueOf(investment.getPercontrib()), TextView.BufferType.EDITABLE);
+			percontrib.setText(investment.getInitPercontrib().toString(), TextView.BufferType.EDITABLE);
 			
-			int capt_index = getIndex(capitalization_items, investment.getCapitalization());
+			int capt_index = Utils.getIndex(capitalization_items, investment.getCapitalization());
 			if (capt_index != -1) {
 			    spinner.setSelection(capt_index);
 			}
 			
 			EditText interest_rate = (EditText) findViewById(R.id.investmentsav_interest_rate);
-			interest_rate.setText(investment.getInterestRate().toString(), TextView.BufferType.EDITABLE);
+			interest_rate.setText(investment.getInitInterestRate().toString(), TextView.BufferType.EDITABLE);
 					
 	        // Add Save & Delete button view
 			
@@ -141,13 +150,21 @@ public class AddInvestmentSavAcct extends SherlockActivity
 			
             int px = Utils.px(this, 5); // convert from dp to pixels (since setMargins takes pixels)
 			
+            Button cancel = new Button(this);
+            cancel.setText("Cancel");
+            params.setMargins(px, 0, 0, 0);            
+            cancel.setLayoutParams(params);
+            cancel.setOnClickListener(clickCancelListener);
+            cancel.setBackgroundResource(R.drawable.button_cancel);                      
+			buttons.addView(cancel);
+            
 			Button delete = new Button(this);
             delete.setText("Delete");
             params.setMargins(0, 0, px, 0);
             delete.setLayoutParams(params);
             delete.setTag(R.string.acct_object, investment);
             delete.setOnClickListener(clickDeleteListener);
-            delete.setBackgroundResource(R.drawable.button_cancel);            
+            delete.setBackgroundResource(R.drawable.button_delete);            
             buttons.addView(delete);
             
             Button update = new Button(this);
@@ -162,15 +179,6 @@ public class AddInvestmentSavAcct extends SherlockActivity
 	
 	public void cancelAdding(View view) {
 		finish();
-	}
-	
-	private int getIndex(int[] a, int x) {
-		for (int i = 0; (i < a.length); i++) {
-	        if (a[i] == x) {
-	            return i;
-	        }
-	    }
-		return -1;
 	}
 	
 	public void addInvestment(View view) {
@@ -209,7 +217,7 @@ public class AddInvestmentSavAcct extends SherlockActivity
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		getSupportMenuInflater().inflate(R.menu.add_investment, menu);
+		getSupportMenuInflater().inflate(R.menu.add_investmentsavacct, menu);
 		return true;
 	}
 

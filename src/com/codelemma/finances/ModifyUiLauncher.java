@@ -4,9 +4,10 @@ import android.app.Activity;
 import android.content.Intent;
 import android.util.Log;
 
-import com.codelemma.finances.accounting.Debt;
-import com.codelemma.finances.accounting.Expense;
-import com.codelemma.finances.accounting.Income;
+import com.codelemma.finances.accounting.DebtLoan;
+import com.codelemma.finances.accounting.DebtMortgage;
+import com.codelemma.finances.accounting.ExpenseGeneric;
+import com.codelemma.finances.accounting.IncomeGeneric;
 import com.codelemma.finances.accounting.Investment401k;
 import com.codelemma.finances.accounting.InvestmentBond;
 import com.codelemma.finances.accounting.InvestmentSavAcct;
@@ -20,67 +21,74 @@ public class ModifyUiLauncher implements ModifyUiVisitor {
 	public ModifyUiLauncher(Activity activity) {
 		this.activity = activity;
 	}
-	
+		
 	@Override
-	public void launchModifyUiForDebt(Debt debt) {
-    	Intent intent = new Intent(activity.getApplicationContext(), AddDebt.class);
+	public void launchModifyUiForDebtLoan(DebtLoan debt) {
+    	Intent intent = new Intent(activity.getApplicationContext(), AddDebtLoan.class);
         intent.putExtra("debt_id", debt.getId());
-        Log.d("ModifyUiLauncher.launchModifyUiForDebt(debt)", String.valueOf(debt.getId()));
+        Log.d("debt LOAN id", String.valueOf(debt.getId()));
         intent.putExtra("request", AcctElements.UPDATE.toString());   
 	    activity.startActivityForResult(intent, AcctElements.UPDATE.getNumber());
 	}
 	
 	@Override
-	public void launchModifyUiForExpense(Expense expense) {
-    	Intent intent = new Intent(activity.getApplicationContext(), AddExpense.class);
+	public void launchModifyUiForDebtMortgage(DebtMortgage debt) {
+    	Intent intent = new Intent(activity.getApplicationContext(), AddDebtMortgage.class);
+        intent.putExtra("debt_id", debt.getId());
+        Log.d("debt MORTGAGE id", String.valueOf(debt.getId()));
+        intent.putExtra("request", AcctElements.UPDATE.toString());   
+	    activity.startActivityForResult(intent, AcctElements.UPDATE.getNumber());
+	}
+	
+	
+	@Override
+	public void launchModifyUiForExpense(ExpenseGeneric expense) {
+    	Intent intent = new Intent(activity.getApplicationContext(), AddExpenseGeneric.class);
         intent.putExtra("expense_id", expense.getId());
-        Log.d("ModifyUiLauncher.launchModifyUiForExpense(expense)", String.valueOf(expense.getId()));
         intent.putExtra("request", AcctElements.UPDATE.toString());   
 	    activity.startActivityForResult(intent, AcctElements.UPDATE.getNumber());
 	}
 	
 	@Override
-    public void launchModifyUiForIncome(Income income) {
-    	Intent intent = new Intent(activity.getApplicationContext(), AddIncome.class);
+    public void launchModifyUiForIncome(IncomeGeneric income) {
+    	Intent intent = new Intent(activity.getApplicationContext(), AddIncomeGeneric.class);
         intent.putExtra("income_id", income.getId());
-        Log.d("ModifyUiLauncher.launchModifyUiForIncome(income)", String.valueOf(income.getId()));
         intent.putExtra("request", AcctElements.UPDATE.toString());   
 	    activity.startActivityForResult(intent, AcctElements.UPDATE.getNumber());
 	}
 	
 	@Override
-    public void launchModifyUiForInvestment(InvestmentSavAcct investment) {
+    public void launchModifyUiForInvestmentSavAcct(InvestmentSavAcct investment) {
     	Intent intent = new Intent(activity.getApplicationContext(), AddInvestmentSavAcct.class);
         intent.putExtra("investment_id", investment.getId());
-        Log.d("ModifyUiLauncher.launchModifyUiForInvestment(investment)", String.valueOf(investment.getId()));
         intent.putExtra("request", AcctElements.UPDATE.toString());   
 	    activity.startActivityForResult(intent, AcctElements.UPDATE.getNumber());
 	}
 
 	@Override
-	public void launchModifyUiForInvestment(Investment401k investment) {
+	public void launchModifyUiForInvestment401k(Investment401k investment) {
     	Intent intent = new Intent(activity.getApplicationContext(), AddInvestment401k.class);
         intent.putExtra("investment_id", investment.getId());
-        Log.d("ModifyUiLauncher.launchModifyUiForInvestment(investment)", String.valueOf(investment.getId()));
         intent.putExtra("request", AcctElements.UPDATE.toString());   
 	    activity.startActivityForResult(intent, AcctElements.UPDATE.getNumber());
 	}
 	
 	@Override
-	public void launchModifyUiForInvestment(InvestmentBond investment) {
+	public void launchModifyUiForInvestmentBond(InvestmentBond investment) {
     	Intent intent = new Intent(activity.getApplicationContext(), AddInvestmentBond.class);
         intent.putExtra("investment_id", investment.getId());
-        Log.d("ModifyUiLauncher.launchModifyUiForInvestment(investment)", String.valueOf(investment.getId()));
         intent.putExtra("request", AcctElements.UPDATE.toString());   
 	    activity.startActivityForResult(intent, AcctElements.UPDATE.getNumber());
 	}
 	
 	@Override
-	public void launchModifyUiForInvestment(InvestmentStock investment) {
+	public void launchModifyUiForInvestmentStock(InvestmentStock investment) {
     	Intent intent = new Intent(activity.getApplicationContext(), AddInvestmentStock.class);
         intent.putExtra("investment_id", investment.getId());
-        Log.d("ModifyUiLauncher.launchModifyUiForInvestment(investment)", String.valueOf(investment.getId()));
         intent.putExtra("request", AcctElements.UPDATE.toString());   
 	    activity.startActivityForResult(intent, AcctElements.UPDATE.getNumber());
 	}
+
+
+
 }

@@ -1,5 +1,10 @@
 package com.codelemma.finances.accounting;
 
-public interface HistoryDebt {
+import java.math.BigDecimal;
 
+public abstract class HistoryDebt implements HistoryNew {
+
+	public abstract String getName();
+	public abstract BigDecimal[] getAmountHistory();
+	public abstract void makeTable(TableVisitor visitor);
 }

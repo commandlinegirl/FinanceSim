@@ -11,7 +11,8 @@
     android:id="@+id/frg_income" >
               
     <ScrollView 
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:layout_width="fill_parent">
         
         <LinearLayout
@@ -27,17 +28,56 @@
             </LinearLayout>
             
             <Button        
+                android:id="@+id/income_add"                  
                 android:layout_width="wrap_content"
                 android:layout_height="48dp"        
-                android:layout_gravity="right"
+                android:layout_gravity="center"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
-                android:layout_marginTop="10dp"
-                android:text="Add income"       
-                android:textColor="#FFFFFFFF" 
-                android:background="@drawable/chart_bkg"                                         
+                android:layout_marginTop="16dp"
+                android:text="@string/add_income"       
+                android:background="@drawable/button_green"                                         
                 android:onClick="addIncome" />
             
         </LinearLayout>                         
-    </ScrollView>           
+    </ScrollView>   
+    <RelativeLayout
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent">
+        
+
+            
+            <View android:id="@+id/strut3"
+                android:layout_width="0dp"
+                android:layout_height="0dp" 
+                android:layout_centerHorizontal="true"/>
+            
+            <Button        
+                android:id="@+id/show_chart" 
+                android:layout_width="0dp"
+                android:layout_height="30dp"                        
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="2dp"
+                android:text="@string/show_chart"
+                android:textSize="10sp"       
+                android:background="@drawable/button_cancel"  
+                android:layout_below="@id/income_add"       
+                android:layout_alignRight="@id/strut3"          
+                android:layout_alignParentLeft="true"                      
+                android:onClick="pickResultType" />
+                
+            <Button
+                android:id="@+id/show_table"                         
+                android:layout_width="0dp"
+                android:layout_height="30dp"        
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="2dp"
+                android:text="@string/show_table"
+                android:textSize="10sp"       
+                android:background="@drawable/button_cancel"
+                android:layout_below="@id/income_add"       
+                android:layout_alignLeft="@id/strut3"
+                android:layout_alignParentRight="true"                                                                                   
+                android:onClick="pickResultType" />
+     </RelativeLayout>           
 </LinearLayout>

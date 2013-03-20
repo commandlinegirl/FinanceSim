@@ -8,11 +8,9 @@ import android.app.Application;
 import android.util.Log;
 
 import com.codelemma.finances.accounting.Account;
-import com.codelemma.finances.accounting.Debt;
-import com.codelemma.finances.accounting.Expense;
+import com.codelemma.finances.accounting.ExpenseGeneric;
 import com.codelemma.finances.accounting.History;
-import com.codelemma.finances.accounting.Income;
-import com.codelemma.finances.accounting.InvestmentSavAcct;
+import com.codelemma.finances.accounting.IncomeGeneric;
 
 public class Finances extends Application {
 	      
@@ -23,6 +21,7 @@ public class Finances extends Application {
     private int listSize = 360;// 30*12;
     private static Finances appInstance;
 	private boolean needToRecalculate = true;
+	private int currentMenuItem;
 
     @Override
     public void onCreate() {        
@@ -90,7 +89,7 @@ public class Finances extends Application {
     	    BigDecimal income_installments = tc.get(TypedKey.INCOME_INSTALLMENTS);
     	    String income_name = tc.get(TypedKey.INCOME_NAME);
     	    
-		    Income income = new Income(yearly_income, 
+		    IncomeGeneric income = new IncomeGeneric(yearly_income, 
                 income_tax_rate, 
                 yearly_income_rise,
                 income_installments, //TODO: cannot be ZERO! DivisionByzeroException
@@ -132,7 +131,7 @@ public class Finances extends Application {
             BigDecimal inflation_rate = tc.get(TypedKey.INFLATION_RATE);        
     	    int frequency = tc.get(TypedKey.EXPENSE_FREQUENCY);
     	    
-        	Expense expense = new Expense(expense_name,
+        	ExpenseGeneric expense = new ExpenseGeneric(expense_name,
         			                      init_expense, 
                                           inflation_rate,                                           
                                           frequency);
@@ -142,7 +141,8 @@ public class Finances extends Application {
 
 	public void restoreDebts(String debts) throws ParseException {
 		TypedContainer debtsCont = Serializer.parseToMap(debts);		
-		Iterator<Entry<TypedKey<?>, Object>> i = debtsCont.iterator();		
+		Iterator<Entry<TypedKey<?>, Object>> i = debtsCont.iterator();	
+		/*
 		while (i.hasNext()) {
 			TypedContainer tc = ((TypedContainer) i.next().getValue());
 		    BigDecimal debt_amount = tc.get(TypedKey.DEBT_AMOUNT);
@@ -152,6 +152,7 @@ public class Finances extends Application {
 		                         debt_amount);
             account.addDebt(debt);	   		
 		}
+		*/
 	}	
 
 	
@@ -179,4 +180,8 @@ public class Finances extends Application {
 	public History getHistory(){
 	    return history;
 	}				
+	
+	public void setCurrentMenuItem(int id) {
+		currentMenuItem = id;
+	}
 }

@@ -1,11 +1,17 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
     tools:context=".FrgChart"
     android:id="@+id/frg_chart" >
       
+
+    
     <LinearLayout
         android:id="@+id/predNumYears"
         android:orientation="horizontal"
@@ -21,7 +27,7 @@
              android:layout_height="wrap_content"
              android:layout_width="wrap_content"
              android:layout_weight="2"
-             android:text="Years: "
+             android:text="@string/years"
              android:layout_gravity="center"
              android:layout_margin="10dip">
          </TextView>
@@ -37,7 +43,7 @@
              android:paddingRight="13dip" 
              android:gravity="center"
              android:clickable="true"
-             android:onClick="pred1yrs"
+             android:onClick="showChartForNYears"
              android:background="@drawable/pred_years">             
          </TextView>
          <TextView
@@ -52,7 +58,7 @@
              android:paddingRight="13dip"                    
              android:gravity="center"   
              android:clickable="true"
-             android:onClick="pred5yrs"
+             android:onClick="showChartForNYears"
              android:background="@drawable/pred_years">
          </TextView>
          <TextView
@@ -64,7 +70,7 @@
              android:padding="10dip"                         
              android:gravity="center"
              android:clickable="true"
-             android:onClick="pred10yrs"
+             android:onClick="showChartForNYears"
              android:background="@drawable/pred_years">             
          </TextView>
          <TextView
@@ -76,7 +82,7 @@
              android:padding="10dip"
              android:gravity="center"
              android:clickable="true"
-             android:onClick="pred20yrs"
+             android:onClick="showChartForNYears"
              android:background="@drawable/pred_years">
          </TextView>
          <TextView
@@ -88,19 +94,28 @@
              android:padding="10dip"
              android:gravity="center"
              android:clickable="true"
-             android:onClick="pred30yrs"             
+             android:onClick="showChartForNYears"             
              android:background="@drawable/pred_years">                         
          </TextView>    
      </LinearLayout>
-  
-        
+     
+
      <LinearLayout
         android:id="@+id/pred_chart"
         android:orientation="vertical"
         android:layout_width="fill_parent"
         android:layout_height="0dp"
-        android:layout_margin="0dp"
         android:layout_weight="1"
-        android:background="@drawable/chart_bkg">
-     </LinearLayout>                                       
+        android:layout_margin="0dp"
+        
+        android:background="@drawable/chart_bkg"
+        >
+     </LinearLayout>       
+          
+     <Spinner
+        android:id="@+id/chart_spinner"
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent">
+    </Spinner>
+         
 </LinearLayout>

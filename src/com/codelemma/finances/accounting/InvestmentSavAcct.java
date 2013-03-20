@@ -2,6 +2,7 @@ package com.codelemma.finances.accounting;
 import java.math.BigDecimal;
 
 
+import com.codelemma.finances.InputListingUpdater;
 import com.codelemma.finances.ParseException;
 import com.codelemma.finances.TypedContainer;
 import java.util.NoSuchElementException;
@@ -12,9 +13,15 @@ public class InvestmentSavAcct extends Investment
 	private int id;
 	private String name;	
     private BigDecimal init_amount;
+    private BigDecimal init_tax_rate;
+    private BigDecimal init_percontrib;
+    private BigDecimal init_interest_rate;
+    
     private BigDecimal tax_rate;    
     private BigDecimal tax_rate_decimal;     
     private BigDecimal percontrib; // percentage of excess money
+    private BigDecimal contribution;
+    
     private BigDecimal interest_rate;
     private int capitalization;
     private BigDecimal amount;
@@ -30,6 +37,7 @@ public class InvestmentSavAcct extends Investment
     private BigDecimal comp_factor_30;
     private BigDecimal comp_factor_31;
     private int[] months = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+    private HistoryInvestmentSavAcct history;
     
     
     public InvestmentSavAcct(String name,
@@ -40,6 +48,9 @@ public class InvestmentSavAcct extends Investment
     		          BigDecimal interest_rate) {
     	this.name = name;
         this.init_amount = Money.scale(init_amount);
+        this.init_interest_rate = interest_rate;
+        this.init_percontrib = percontrib;
+        this.init_tax_rate = tax_rate;
         this.amount = this.init_amount;
         this.hidden_amount = this.init_amount;        
         this.tax_rate = Money.scaleRate(tax_rate);
@@ -50,7 +61,9 @@ public class InvestmentSavAcct extends Investment
         this.interest_rate_decimal = this.interest_rate.divide(Money.HUNDRED, Money.RATE_DECIMALS, Money.ROUNDING_MODE);  
         comp_factor_28 = new BigDecimal(Math.exp(this.interest_rate_decimal.doubleValue() * 28.0/365));
         comp_factor_30 = new BigDecimal(Math.exp(this.interest_rate_decimal.doubleValue() * 30.0/365));
-        comp_factor_31 = new BigDecimal(Math.exp(this.interest_rate_decimal.doubleValue() * 31.0/365));        		        
+        comp_factor_31 = new BigDecimal(Math.exp(this.interest_rate_decimal.doubleValue() * 31.0/365));        	
+        
+        history = new HistoryInvestmentSavAcct(this);
     }   
 
        
@@ -61,7 +74,6 @@ public class InvestmentSavAcct extends Investment
 	public BigDecimal getInterestRate() {
 		return interest_rate;
 	}
-
 	
 	public int getCapitalization() {
 		return capitalization;
@@ -97,6 +109,19 @@ public class InvestmentSavAcct extends Investment
         return id;
     }    
 
+
+	public BigDecimal getInitTaxRate() {
+		return init_tax_rate;
+	}
+	
+	public BigDecimal getInitPercontrib() {
+		return init_percontrib;
+	}
+	
+	public BigDecimal getInitInterestRate() {
+		return init_interest_rate;
+	}
+	
 	@Override
 	public BigDecimal getInitAmount() {
 		return init_amount;
@@ -112,6 +137,10 @@ public class InvestmentSavAcct extends Investment
 		return percontrib;
 	}
 
+	public BigDecimal getContribution() {
+		return contribution;
+	}
+	
     @Override
     public String getName() {
         return name;
@@ -124,7 +153,7 @@ public class InvestmentSavAcct extends Investment
 
     @Override
     public void launchModifyUi(ModifyUiVisitor modifyUiVisitor) {
-    	modifyUiVisitor.launchModifyUiForInvestment(this);
+    	modifyUiVisitor.launchModifyUiForInvestmentSavAcct(this);
     }
                
     @Override
@@ -134,9 +163,12 @@ public class InvestmentSavAcct extends Investment
         tax_on_interests = new BigDecimal(0);
         interests_net = new BigDecimal(0);
     	 	
+        BigDecimal excess_decimal = excess.divide(Money.HUNDRED, Money.RATE_DECIMALS, Money.ROUNDING_MODE); 
+        
     	/* Add monthly contribution (a given percentage of excess money) to the hidden_amount  */
-        amount = amount.add(Money.getPercentage(excess, percontrib)); 
-    	hidden_amount = hidden_amount.add(Money.getPercentage(excess, percontrib));   
+        amount = amount.add(Money.getPercentage(excess_decimal, percontrib)); 
+        contribution = Money.getPercentage(excess_decimal, percontrib);
+    	hidden_amount = hidden_amount.add(contribution);   
     	
     	/* Calculate the interests of hidden_amount (and add to principal)  */
     	hidden_amount = Money.scale(hidden_amount.multiply(getCompoundingFactor(months[month])));
@@ -174,7 +206,14 @@ public class InvestmentSavAcct extends Investment
 	}
 	
 	@Override
-	public HistoryNew createHistory() {
-		return new HistoryInvestmentSavAcct(this);
+	public HistoryInvestmentSavAcct getHistory() {
+		return history;
+	}
+
+
+	@Override
+	public void updateInputListing(InputListingUpdater modifier) {
+		modifier.updateInputListingForInvestmentSavAcct(this);				
+		
 	}
 }

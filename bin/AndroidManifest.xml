@@ -19,13 +19,11 @@
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
         <activity
-            android:name="com.codelemma.finances.AddIncome"
+            android:name="com.codelemma.finances.AddIncomeGeneric"
             android:label="@string/title_activity_add_income"
             android:parentActivityName="com.codelemma.finances.Main"
             android:windowSoftInputMode="stateHidden" >
@@ -43,7 +41,7 @@
                 android:value="com.codelemma.finances.Main" />
         </activity>
         <activity
-            android:name="com.codelemma.finances.AddExpense"
+            android:name="com.codelemma.finances.AddExpenseGeneric"
             android:label="@string/title_activity_add_expense"
             android:parentActivityName="com.codelemma.finances.Main"
             android:windowSoftInputMode="stateHidden" >
@@ -52,10 +50,19 @@
                 android:value="com.codelemma.finances.Main" />
         </activity>
         <activity
-            android:name="com.codelemma.finances.AddDebt"
+            android:name="com.codelemma.finances.AddDebtLoan"
             android:label="@string/title_activity_add_debt"
             android:parentActivityName="com.codelemma.finances.Main"
             android:windowSoftInputMode="stateHidden" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.codelemma.finances.Main" />
+        </activity>
+        <activity
+            android:name="com.codelemma.finances.AddDebtMortgage"
+            android:label="@string/title_activity_add_debt_mortgage"
+            android:parentActivityName="com.codelemma.finances.Main"
+            android:windowSoftInputMode="stateHidden"  >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.codelemma.finances.Main" />

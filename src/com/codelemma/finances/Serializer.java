@@ -1,14 +1,7 @@
 package com.codelemma.finances;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
-
-
-
-import android.util.Log;
-
-import com.codelemma.finances.accounting.Money;
 
 public final class Serializer {
 

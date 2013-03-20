@@ -2,6 +2,7 @@ package com.codelemma.finances.accounting;
 
 import java.math.BigDecimal;
 
+import com.codelemma.finances.InputListingUpdater;
 import com.codelemma.finances.ParseException;
 import com.codelemma.finances.TypedContainer;
 
@@ -13,6 +14,7 @@ public class InvestmentBond extends Investment
 	private BigDecimal init_amount;
 	private BigDecimal amount;
 	private BigDecimal tax_rate;
+	private HistoryInvestmentBond history;
 	
     public InvestmentBond(String name,
 	          BigDecimal init_amount,
@@ -22,19 +24,19 @@ public class InvestmentBond extends Investment
         this.init_amount = Money.scale(init_amount);
         this.amount = init_amount;
         this.tax_rate = tax_rate;
+        
+        history = new HistoryInvestmentBond(this);
     }
     
 	
 	@Override
 	public BigDecimal getValue() {
-		// TODO Auto-generated method stub
-		return null;
+		return amount;
 	}
 
 	@Override
 	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
+		return name;
 	}
 
 	@Override
@@ -89,10 +91,18 @@ public class InvestmentBond extends Investment
 		
 	}
 
+
 	@Override
-	public HistoryNew createHistory() {
-		// TODO Auto-generated method stub
-		return null;
+	public HistoryInvestmentBond getHistory() {
+		return history;
 	}
+
+
+	@Override
+	public void updateInputListing(InputListingUpdater modifier) {
+		modifier.updateInputListingForInvestmentBond(this);				
+		
+	}
+
 
 }

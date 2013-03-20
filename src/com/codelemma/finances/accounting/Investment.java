@@ -1,16 +1,13 @@
 package com.codelemma.finances.accounting;
 import java.math.BigDecimal;
 
-abstract class Investment  {
+public abstract class Investment implements NamedValue {
 	             
-    abstract public BigDecimal getInitAmount();
-    abstract public BigDecimal getPercontrib();
-    abstract public BigDecimal getAmount();  
-    abstract public void initialize();     
-    abstract public int getId();
-    abstract public void setId(int id);
+	public abstract  BigDecimal getInitAmount();
+    public abstract  BigDecimal getPercontrib();
+    public abstract  void initialize();     
+    public abstract  void setId(int id);
     public void advance(int month, BigDecimal excess) {};  
-    public void advance(int month) {}; 
-    
-    public abstract HistoryNew createHistory();
+    public void advance(int month) {};     
+
 }

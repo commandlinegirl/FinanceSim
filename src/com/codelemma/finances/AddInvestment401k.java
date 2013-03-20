@@ -6,6 +6,7 @@ import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.codelemma.finances.accounting.Account;
+import com.codelemma.finances.accounting.History;
 import com.codelemma.finances.accounting.Investment401k;
 
 import android.app.AlertDialog;
@@ -25,11 +26,22 @@ import android.widget.TextView;
 
 public class AddInvestment401k extends SherlockActivity {
 
+	private History history;
 	private Account account;	
 	private String requestCode;
 	private int investmentId;
 	private Finances appState;	
     
+
+	
+    private OnClickListener clickCancelListener = new OnClickListener() {
+    	
+    	@Override
+	    public void onClick(View v) {
+	        finish();	             	        
+	    }
+    };	
+	
 	private OnClickListener clickDeleteListener = new OnClickListener() {
     	
     	@Override
@@ -41,13 +53,14 @@ public class AddInvestment401k extends SherlockActivity {
             .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                public void onClick(DialogInterface dialog, int id) {
             	   account.removeInvestment(investment); 
+            	   history.removeInvestmentHistory(investment.getHistory()); 
             	   appState.needToRecalculate(true);
             	   finish();
                }
             })
             .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                public void onClick(DialogInterface dialog, int id) {
-                   // User cancelled the dialog
+                   finish();
                }
            })
           .show();	        	         
@@ -72,6 +85,7 @@ public class AddInvestment401k extends SherlockActivity {
 		Log.d("AddInvestment.onCreate()", "called");
 		appState = Finances.getInstance();
 	    account = appState.getAccount();  		
+	    history = appState.getHistory();
 	    
 	    Intent intent = getIntent(); //TODO: check if there are 
 	    requestCode = intent.getStringExtra("request");
@@ -90,25 +104,25 @@ public class AddInvestment401k extends SherlockActivity {
 	    	init_amount.setText(investment.getInitAmount().toString(), TextView.BufferType.EDITABLE);
 	    	
 			EditText percontrib = (EditText) findViewById(R.id.investment401k_percontrib);
-			percontrib.setText(investment.getPercontrib().toString(), TextView.BufferType.EDITABLE);
+			percontrib.setText(investment.getInitPercontrib().toString(), TextView.BufferType.EDITABLE);
 			
 			EditText period = (EditText) findViewById(R.id.investment401k_period);
 			period.setText(String.valueOf(investment.getPeriod()), TextView.BufferType.EDITABLE);
 			
 			EditText interestRate = (EditText) findViewById(R.id.investment401k_interest_rate);
-			interestRate.setText(investment.getInterestRate().toString(), TextView.BufferType.EDITABLE);
+			interestRate.setText(investment.getInitInterestRate().toString(), TextView.BufferType.EDITABLE);
 
 			EditText salary = (EditText) findViewById(R.id.investment401k_salary);
 			salary.setText(investment.getInitSalary().toString(), TextView.BufferType.EDITABLE);
 			
 			EditText payrise = (EditText) findViewById(R.id.investment401k_payrise);
-			payrise.setText(investment.getPayrise().toString(), TextView.BufferType.EDITABLE);
+			payrise.setText(investment.getInitPayrise().toString(), TextView.BufferType.EDITABLE);
 			
 			EditText withdrawal_tax_rate = (EditText) findViewById(R.id.investment401k_withdrawal_tax_rate);
-			withdrawal_tax_rate.setText(investment.getWithdrawalTaxRate().toString(), TextView.BufferType.EDITABLE);
+			withdrawal_tax_rate.setText(investment.getInitWithdrawalTaxRate().toString(), TextView.BufferType.EDITABLE);
 						
 			EditText employer_match = (EditText) findViewById(R.id.investment401k_employer_match);
-			employer_match.setText(investment.getEmployerMatch().toString(), TextView.BufferType.EDITABLE);
+			employer_match.setText(investment.getInitEmployerMatch().toString(), TextView.BufferType.EDITABLE);
 						
 	        // Add Save & Delete button view
 			
@@ -121,13 +135,21 @@ public class AddInvestment401k extends SherlockActivity {
 			
             int px = Utils.px(this, 5); // convert from dp to pixels (since setMargins takes pixels)
 			
+            Button cancel = new Button(this);
+            cancel.setText("Cancel");
+            params.setMargins(px, 0, 0, 0);            
+            cancel.setLayoutParams(params);
+            cancel.setOnClickListener(clickCancelListener);
+            cancel.setBackgroundResource(R.drawable.button_cancel);                      
+			buttons.addView(cancel);
+            
 			Button delete = new Button(this);
             delete.setText("Delete");
             params.setMargins(0, 0, px, 0);
             delete.setLayoutParams(params);
             delete.setTag(R.string.acct_object, investment);
             delete.setOnClickListener(clickDeleteListener);
-            delete.setBackgroundResource(R.drawable.button_cancel);            
+            delete.setBackgroundResource(R.drawable.button_delete);            
             buttons.addView(delete);
             
             Button update = new Button(this);
@@ -136,7 +158,10 @@ public class AddInvestment401k extends SherlockActivity {
             update.setLayoutParams(params);
             update.setOnClickListener(clickSaveListener);
             update.setBackgroundResource(R.drawable.button_green);                      
-			buttons.addView(update);									
+			buttons.addView(update);
+			
+	
+			
 	    }
 	}
 	

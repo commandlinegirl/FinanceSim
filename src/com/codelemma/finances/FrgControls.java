@@ -1,6 +1,5 @@
 package com.codelemma.finances;
 
-import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.app.SherlockFragment;
 
 import android.app.Activity;
@@ -57,7 +56,6 @@ public class FrgControls extends SherlockFragment {
     }        
     
     public void selectControl(View view) {
-        // Send the event to the host activity
-        eListener.onControlSelected(view);
+        eListener.onControlSelected(view);      
     }
 }

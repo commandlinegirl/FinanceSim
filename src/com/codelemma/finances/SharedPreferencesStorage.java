@@ -7,7 +7,6 @@ import java.util.Map;
 import android.content.SharedPreferences;
 
 import com.codelemma.finances.accounting.Account;
-import com.codelemma.finances.accounting.History;
 import com.codelemma.finances.accounting.NamedValue;
 import com.codelemma.finances.accounting.PackToContainerVisitor;
 
@@ -15,11 +14,6 @@ class SharedPreferencesStorage implements Storage {
 	
 	private SharedPreferences preferences;
 	private SharedPreferences.Editor editor;
-	private String inc = "history_incomes";
-	private String inv = "history_netGainInvestments";
-	private String exp = "history_expenses";
-	private String deb = "history_debts";
-	private String bal = "history_balances";
 	private PackToContainerVisitor packToContainerVisitor;
 	
 	SharedPreferencesStorage(SharedPreferences sharedPreferences) {
@@ -27,26 +21,13 @@ class SharedPreferencesStorage implements Storage {
         editor = preferences.edit();		
 	}
 	
-	private void saveList(String key, String[] list) {
-	  	editor.putString(key, Serializer.stringifyList(list));
-	  	editor.commit();
-	}
-		
 	private void saveMap(HashMap<String,String> map) {
 		for (Map.Entry<String,String> entry: map.entrySet()) {
 			editor.putString(entry.getKey(), entry.getValue());
 		}		
 		editor.commit();
 	}
-	
-	@Override
-	public void saveHistory(History history) {
-		//saveList(inc, history.getIncomes());                        
-		//saveList(inv, history.getNetInvestmentsGain()); 
-		//saveList(exp, history.getExpenses());
-		//saveList(deb, history.getDebts());
-		//saveList(bal, history.getBalances()); 
-	}		
+		
 		
 	private String saveElements(Iterable<? extends NamedValue> element) throws ParseException {
 		PackToContainerVisitor packToContainerVisitor = new PackToContainerLauncher();
@@ -60,16 +41,16 @@ class SharedPreferencesStorage implements Storage {
 	@Override
 	public void saveAccount(Account account) throws ParseException {
 				
-		Iterable<? extends NamedValue> incomes = account.getIncomes();
+		Iterable<? extends NamedValue> incomes = (Iterable<? extends NamedValue>) account.getIncomes();
 	    String incomesStr = saveElements(incomes); //TODO: check size!
 		
 		Iterable<? extends NamedValue> investments = (Iterable<? extends NamedValue>) account.getInvestments();		
 		String investmentsStr = saveElements(investments);
 
-		Iterable<? extends NamedValue> expenses = account.getExpenses();		
+		Iterable<? extends NamedValue> expenses = (Iterable<? extends NamedValue>) account.getExpenses();		
 		String expensesStr = saveElements(expenses);
 		
-		Iterable<? extends NamedValue> debts = account.getDebts();		
+		Iterable<? extends NamedValue> debts = (Iterable<? extends NamedValue>) account.getDebts();		
 		String debtsStr = saveElements(debts);
 		
 	  	editor.putString(TypedKey.INCOMES.getKeyword(), incomesStr);
@@ -79,14 +60,6 @@ class SharedPreferencesStorage implements Storage {
 	  	editor.commit();	  	
 	}
 	
-	@Override
-	public void clearHistory() {
-		editor.remove(inc);                        
-		editor.remove(inv); 
-		editor.remove(exp);
-		editor.remove(deb);
-		editor.remove(bal); 
-	}	
 	    
 	@Override
 	public void saveInput(HashMap<String,String> input) {
@@ -109,30 +82,6 @@ class SharedPreferencesStorage implements Storage {
 		return input;
 	}	
 	
-	@Override
-	public ArrayList<String> getNetIncomes() {    	 
-		return Serializer.parseToList(preferences.getString(inc, ""));		
-	}
-
-	@Override
-	public ArrayList<String> getNetInvestmentsGain() {    	 
-		return Serializer.parseToList(preferences.getString(inv, ""));
-	}
-
-	@Override
-	public ArrayList<String> getExpenses() {    	 
-		return Serializer.parseToList(preferences.getString(exp, ""));
-	}    
-
-	@Override
-	public ArrayList<String> getDebts() {    	 
-		return Serializer.parseToList(preferences.getString(deb, ""));
-	}
-	
-	@Override
-	public ArrayList<String> getBalances() {    	 
-		return Serializer.parseToList(preferences.getString(bal, ""));
-	}
 	
 	@Override
 	public void remove(String key) {
@@ -160,6 +109,5 @@ class SharedPreferencesStorage implements Storage {
 	public Map <String,?> getAll() {
 		return preferences.getAll();
 	}
-
 }
  

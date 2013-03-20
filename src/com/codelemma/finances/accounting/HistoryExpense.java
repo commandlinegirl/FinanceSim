@@ -1,11 +1,12 @@
 package com.codelemma.finances.accounting;
 
-public class HistoryExpense implements HistoryNew {
+import java.math.BigDecimal;
 
-	@Override
-	public void add(int index, Object acctElement) {
-		// TODO Auto-generated method stub
+public abstract class HistoryExpense implements HistoryNew {
 
-	}
+	public abstract String getName();
+	public abstract BigDecimal[] getAmountHistory();
+	public abstract void makeTable(TableVisitor visitor);
+	
 
 }

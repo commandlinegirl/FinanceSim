@@ -1,4 +1,4 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout  xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
@@ -7,77 +7,133 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin">
-              
-    <ScrollView 
-        android:layout_height="wrap_content"
-        android:layout_width="fill_parent">
         
-        <LinearLayout
+    
+    <ScrollView
+        android:layout_height="0dp"
+        android:layout_weight="1"  
+        android:layout_width="fill_parent">                
+        
+
+
+    
+    <RelativeLayout
             android:layout_height="wrap_content"
-            android:layout_width="fill_parent"
-            android:orientation="vertical">
-        
-            <LinearLayout
+            android:layout_width="fill_parent">
+             
+        <LinearLayout
                 android:id="@+id/investment_summary"            
-                android:orientation="vertical" 
+                android:orientation="vertical"                               
                 android:layout_height="wrap_content"
-                android:layout_width="fill_parent">      
-            </LinearLayout>
+                android:layout_width="fill_parent">                
+        </LinearLayout>
+        
+            <View android:id="@+id/strut"
+                android:layout_width="0dp"
+                android:layout_height="0dp" 
+                android:layout_centerHorizontal="true"/>
             
             <Button        
                 android:id="@+id/investment_savacct" 
-                android:layout_width="wrap_content"
-                android:layout_height="48dp"        
-                android:layout_gravity="right"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:layout_marginTop="10dp"
+                android:layout_width="0dp"
+                android:layout_height="48dp"                        
+                android:layout_marginTop="16dp"
+                android:layout_marginRight="2dp"
                 android:text="@string/add_investmentsav"       
-                android:textColor="#FFFFFFFF" 
-                android:background="@drawable/chart_bkg"                                         
+                android:background="@drawable/button_green"  
+                android:layout_below="@id/investment_summary"       
+                android:layout_alignRight="@id/strut"          
+                android:layout_alignParentLeft="true"                      
                 android:onClick="addInvestment" />
-            
+                
             <Button
                 android:id="@+id/investment_401k"                         
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="48dp"        
-                android:layout_gravity="right"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginLeft="2dp"
                 android:text="@string/add_investment401k"       
-                android:textColor="#FFFFFFFF" 
-                android:background="@drawable/chart_bkg"                                         
-                android:onClick="addInvestment401k" />
+                android:background="@drawable/button_green"
+                android:layout_below="@id/investment_summary"       
+                android:layout_alignLeft="@id/strut"
+                android:layout_alignParentRight="true"                                                                                   
+                android:onClick="addInvestment" />
+           
+           <View android:id="@+id/strut2"
+                android:layout_width="0dp"
+                android:layout_height="0dp" 
+                android:layout_centerHorizontal="true"/>
             
            <Button
                 android:id="@+id/investment_bond"                         
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="48dp"        
-                android:layout_gravity="right"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginRight="2dp"
                 android:text="@string/add_investmentbond"       
-                android:textColor="#FFFFFFFF" 
-                android:background="@drawable/chart_bkg"                                         
-                android:onClick="addInvestmentBond" />
+                android:background="@drawable/button_green" 
+                android:layout_below="@id/investment_savacct"       
+                android:layout_alignRight="@id/strut2"          
+                android:layout_alignParentLeft="true"                                            
+                android:onClick="addInvestment" />
             
            <Button
                 android:id="@+id/investment_stock"                         
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="48dp"        
-                android:layout_gravity="right"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginLeft="2dp"
                 android:text="@string/add_investmentstock"       
-                android:textColor="#FFFFFFFF" 
-                android:background="@drawable/chart_bkg"                                         
-                android:onClick="addInvestmentStock" />
-                        
-
+                android:background="@drawable/button_green"   
+                android:layout_below="@id/investment_401k"       
+                android:layout_alignLeft="@id/strut2"
+                android:layout_alignParentRight="true"               
+                android:onClick="addInvestment" />
+          
+         </RelativeLayout>
+           
+            </ScrollView>
             
-        </LinearLayout>                         
-    </ScrollView>           
+    
+    <RelativeLayout 
+                        android:layout_width="fill_parent"
+                android:layout_height="wrap_content"  
+        >
+        
+                    <View android:id="@+id/strut3"
+                android:layout_width="0dp"
+                android:layout_height="0dp" 
+                android:layout_centerHorizontal="true"/>
+            
+            <Button        
+                android:id="@+id/show_chart" 
+                android:layout_width="0dp"
+                android:layout_height="30dp"                        
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="2dp"
+                android:text="@string/show_chart"
+                android:textSize="10sp"       
+                android:background="@drawable/button_cancel"  
+                android:layout_below="@id/investment_bond"       
+                android:layout_alignRight="@id/strut3"          
+                android:layout_alignParentLeft="true"                      
+                android:onClick="pickResultType" />
+                
+            <Button
+                android:id="@+id/show_table"                         
+                android:layout_width="0dp"
+                android:layout_height="30dp"        
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="2dp"
+                android:text="@string/show_table"
+                android:textSize="10sp"       
+                android:background="@drawable/button_cancel"
+                android:layout_below="@id/investment_stock"       
+                android:layout_alignLeft="@id/strut3"
+                android:layout_alignParentRight="true"                                                                                   
+                android:onClick="pickResultType" />
+                      
+        </RelativeLayout>  
+        
+    
 </LinearLayout>

@@ -6,24 +6,10 @@
         android:layout_marginBottom="10dp"
         android:layout_marginTop="10dp"
         android:padding="10dp"        
-        android:id="@+id/frg_controls"
         tools:context=".FrgControls">
-
-        <TextView
-            android:id="@+id/ico_summary"
-            android:text="@string/summaryControl" 
-            android:textSize="10sp"
-            android:gravity="center"            
-            android:layout_height="32dp"
-            android:layout_weight="1"               
-            android:layout_width="0dp"
-            android:layout_marginRight="4dip"
-            android:background="@drawable/controls"
-            android:clickable="true"
-            android:onClick="pickControl"/>
         
         <TextView 
-            android:id="@+id/ico_chart"
+            android:id="@+id/show_chart"
             android:text="@string/chartControl"
             android:gravity="center"            
             android:textSize="10sp"
@@ -37,7 +23,7 @@
             android:onClick="pickControl"/>
         
         <TextView 
-            android:id="@+id/ico_table"
+            android:id="@+id/show_table"
             android:text="@string/tableControl"
             android:textSize="10sp"
             android:gravity="center"            

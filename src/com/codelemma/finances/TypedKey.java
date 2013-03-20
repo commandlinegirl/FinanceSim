@@ -4,6 +4,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.math.BigDecimal;
 import java.util.HashMap;
 
+
 import com.codelemma.finances.accounting.Investment401k;
 
 
@@ -30,7 +31,7 @@ public class TypedKey<T> {
 	public static final TypedKey<String> INVESTMENT401K_NAME = of("investment401k_name", String.class);	
 	public static final TypedKey<BigDecimal> INVESTMENT401K_INIT_AMOUNT = of("investment401k_init_amount", BigDecimal.class);
 	public static final TypedKey<BigDecimal> INVESTMENT401K_PERCONTRIB = of("investment401k_percontrib", BigDecimal.class);	
-	public static final TypedKey<BigDecimal> INVESTMENT401K_PERIOD = of("investment401k_period", BigDecimal.class);
+	public static final TypedKey<Integer> INVESTMENT401K_PERIOD = of("investment401k_period", Integer.class);
 	public static final TypedKey<BigDecimal> INVESTMENT401K_INTEREST_RATE = of("investment401k_interest_rate", BigDecimal.class);	
 	public static final TypedKey<BigDecimal> INVESTMENT401K_SALARY = of("investment401k_salary", BigDecimal.class);	
 	public static final TypedKey<BigDecimal> INVESTMENT401K_PAYRISE = of("investment401k_payrise", BigDecimal.class);
@@ -48,7 +49,7 @@ public class TypedKey<T> {
 	public static final TypedKey<BigDecimal> INVESTMENTSTOCK_INIT_AMOUNT = of("investmentstock_init_amount", BigDecimal.class);
 	public static final TypedKey<BigDecimal> INVESTMENTSTOCK_TAX_RATE = of("investmentstock_tax_rate", BigDecimal.class);
 	public static final TypedKey<BigDecimal> INVESTMENTSTOCK_PERCONTRIB = of("investmentstock_percontrib", BigDecimal.class);			
-	public static final TypedKey<BigDecimal> INVESTMENTSTOCK_DIVIDEND = of("investmentstock_dividend", BigDecimal.class);
+	public static final TypedKey<BigDecimal> INVESTMENTSTOCK_DIVIDENDS = of("investmentstock_dividends", BigDecimal.class);
 	public static final TypedKey<BigDecimal> INVESTMENTSTOCK_APPRECIATION = of("investmentstock_appreciation", BigDecimal.class);
 	
 	public static final TypedKey<Integer> EXPENSE_ID = of("expense_id", Integer.class);
@@ -57,9 +58,22 @@ public class TypedKey<T> {
 	public static final TypedKey<BigDecimal> INFLATION_RATE = of("inflation_rate", BigDecimal.class);
 	public static final TypedKey<Integer> EXPENSE_FREQUENCY = of("expense_frequency", Integer.class);
 	
-	public static final TypedKey<Integer> DEBT_ID = of("debt_id", Integer.class);
-	public static final TypedKey<String> DEBT_NAME = of("debt_name", String.class);
-	public static final TypedKey<BigDecimal> DEBT_AMOUNT = of("debt_amount", BigDecimal.class);
+	public static final TypedKey<Integer> DEBTLOAN_ID = of("debtloan_id", Integer.class);
+	public static final TypedKey<String> DEBTLOAN_NAME = of("debtloan_name", String.class);
+	public static final TypedKey<BigDecimal> DEBTLOAN_AMOUNT = of("debtloan_amount", BigDecimal.class);
+	public static final TypedKey<BigDecimal> DEBTLOAN_INTEREST_RATE = of("debtloan_interest_rate", BigDecimal.class);
+	public static final TypedKey<Integer> DEBTLOAN_TERM = of("debtloan_term", Integer.class);
+	public static final TypedKey<BigDecimal> DEBTLOAN_EXTRA_PAYMENT = of("debtloan_extra_payment", BigDecimal.class);
+	
+	public static final TypedKey<Integer> DEBTMORTGAGE_ID = of("debtmortgage_id", Integer.class);
+	public static final TypedKey<String> DEBTMORTGAGE_NAME = of("debtmortgage_name", String.class);
+	public static final TypedKey<BigDecimal> DEBTMORTGAGE_AMOUNT = of("debtmortgage_purchase_price", BigDecimal.class);
+	public static final TypedKey<BigDecimal> DEBTMORTGAGE_DOWNPAYMENT = of("debtmortgage_downpayment", BigDecimal.class);
+	public static final TypedKey<BigDecimal> DEBTMORTGAGE_INTEREST_RATE = of("debtmortgage_interest_rate", BigDecimal.class);
+	public static final TypedKey<Integer> DEBTMORTGAGE_TERM = of("debtmortgage_term", Integer.class);
+	public static final TypedKey<BigDecimal> DEBTMORTGAGE_PROPERTY_INSURANCE = of("debtmortgage_property_insurance", BigDecimal.class);
+	public static final TypedKey<BigDecimal> DEBTMORTGAGE_PROPERTY_TAX = of("debtmortgage_property_tax", BigDecimal.class);
+	public static final TypedKey<BigDecimal> DEBTMORTGAGE_PMI = of("debtmortgage_pmi", BigDecimal.class);
 	
 	public static final TypedKey<TypedContainer> INCOMES  = of("incomes", TypedContainer.class);
 	public static final TypedKey<TypedContainer> INVESTMENTS  = of("investments", TypedContainer.class);
