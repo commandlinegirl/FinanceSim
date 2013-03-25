@@ -1,6 +1,9 @@
 package com.codelemma.finances;
 
+import java.util.Calendar;
+
 import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.codelemma.finances.accounting.Account;
@@ -13,6 +16,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.NavUtils;
 import android.util.Log;
 import android.view.View;
@@ -21,14 +25,15 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 
-public class AddExpenseGeneric extends SherlockActivity 
-                        implements OnItemSelectedListener {
+public class AddExpenseGeneric extends SherlockFragmentActivity 
+                        implements OnItemSelectedListener, FrgDatePicker.OnDateSelectedListener {
 
 	private Account account;
 	private History history;
@@ -37,6 +42,8 @@ public class AddExpenseGeneric extends SherlockActivity
 	private Finances appState;
 	private int[] frequency_items = {1, 3, 6, 12}; // in months
 	int frequency = 1;
+	private int setMonth;
+	private int setYear;
 	
     private OnClickListener clickCancelListener = new OnClickListener() {
     	
@@ -80,6 +87,23 @@ public class AddExpenseGeneric extends SherlockActivity
 	    }
     };
 	
+    public void showDatePickerDialog(View v) {
+        DialogFragment newFragment = new FrgDatePicker();
+        Bundle b = new Bundle();
+        b.putInt("setMonth", setMonth);
+        b.putInt("setYear", setYear);        
+        newFragment.show(getSupportFragmentManager(), "datePicker");
+    }
+    
+	@Override
+	public void onDateSet(DatePicker view, int year, int month, int day) {
+		EditText edit = (EditText) findViewById(R.id.expensegeneric_start_date);
+		edit.setText((month+1)+"/"+year);	
+		setYear = year;
+		setMonth = month;
+	}
+	
+    
     public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
     	frequency = frequency_items[pos];
     }
@@ -87,7 +111,6 @@ public class AddExpenseGeneric extends SherlockActivity
     public void onNothingSelected(AdapterView<?> parent) {
     	parent.setSelection(0);
     }
-
     
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -113,6 +136,13 @@ public class AddExpenseGeneric extends SherlockActivity
 	    Intent intent = getIntent(); //TODO: check if there are 
 	    requestCode = intent.getStringExtra("request");
 	    
+		EditText start_date = (EditText) findViewById(R.id.expensegeneric_start_date);
+        final Calendar c = Calendar.getInstance();
+        setYear = c.get(Calendar.YEAR);
+        setMonth = c.get(Calendar.MONTH);
+        int day = c.get(Calendar.DAY_OF_MONTH);
+		start_date.setText((setMonth+1)+"/"+setYear, TextView.BufferType.EDITABLE);
+	    
 	    if (requestCode.equals(AcctElements.UPDATE.toString())) {
 	    	
 	    	int id = intent.getIntExtra("expense_id", -1);
@@ -134,6 +164,10 @@ public class AddExpenseGeneric extends SherlockActivity
 			    spinner.setSelection(index);
 			}			
 	    
+			setYear = expense.getStartYear();
+			setMonth = expense.getStartMonth() ;			
+			start_date.setText((setMonth+1)+"/"+setYear, TextView.BufferType.EDITABLE);
+			
 	        // - add Save & Delete button view
 			
 			LinearLayout buttons = (LinearLayout) findViewById(R.id.submitExpenseButtons);
@@ -199,6 +233,9 @@ public class AddExpenseGeneric extends SherlockActivity
 	    
 	    intent.putExtra("expense_frequency", String.valueOf(frequency));
 		         
+        intent.putExtra("expensegeneric_start_year",  String.valueOf(setYear));
+        intent.putExtra("expensegeneric_start_month",  String.valueOf(setMonth));
+	    
         if (requestCode.equals(AcctElements.UPDATE.toString())) {
     		Log.d("AddExpense.addExpense() requestCode", requestCode);
 	        intent.putExtra("expense_id", expenseId);
@@ -232,5 +269,7 @@ public class AddExpenseGeneric extends SherlockActivity
 			return true;	
 		}
 		return super.onOptionsItemSelected(item);
-	}		
+	}
+
+	
 }

@@ -1,7 +1,9 @@
 package com.codelemma.finances;
 
 
-import com.actionbarsherlock.app.SherlockActivity;
+import java.util.Calendar;
+
+import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.codelemma.finances.accounting.Account;
@@ -15,6 +17,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.NavUtils;
 import android.util.Log;
 import android.view.View;
@@ -22,14 +25,16 @@ import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.LinearLayout;
 import android.widget.AdapterView.OnItemSelectedListener;
 
-public class AddIncomeGeneric extends SherlockActivity
-                       implements OnItemSelectedListener{
+public class AddIncomeGeneric extends SherlockFragmentActivity
+                       implements OnItemSelectedListener,
+                                  FrgDatePicker.OnDateSelectedListener {
 	
 	private Account account;
 	private History history;
@@ -38,6 +43,8 @@ public class AddIncomeGeneric extends SherlockActivity
 	private Finances appState;	
 	private int[] installments_items = {12, 13}; // in months
 	private int installments;
+	private int setMonth;
+	private int setYear;
 	
     private OnClickListener clickCancelListener = new OnClickListener() {
     	
@@ -82,6 +89,22 @@ public class AddIncomeGeneric extends SherlockActivity
 	    }
     };	
     
+    public void showDatePickerDialog(View v) {
+        DialogFragment newFragment = new FrgDatePicker();
+        Bundle b = new Bundle();
+        b.putInt("setMonth", setMonth);
+        b.putInt("setYear", setYear);        
+        newFragment.show(getSupportFragmentManager(), "datePicker");
+    }
+    
+	@Override
+	public void onDateSet(DatePicker view, int year, int month, int day) {
+		EditText edit = (EditText) findViewById(R.id.incomegeneric_start_date);
+		edit.setText((month+1)+"/"+year);	
+		setYear = year;
+		setMonth = month;
+	}
+    
     public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
     	installments = installments_items[pos];
     }
@@ -114,13 +137,22 @@ public class AddIncomeGeneric extends SherlockActivity
 	    Intent intent = getIntent(); //TODO: check if there are 
 	    requestCode = intent.getStringExtra("request");
 	    
+		EditText start_date = (EditText) findViewById(R.id.incomegeneric_start_date);
+        final Calendar c = Calendar.getInstance();
+        setYear = c.get(Calendar.YEAR);
+        setMonth = c.get(Calendar.MONTH);
+		start_date.setText((setMonth+1)+"/"+setYear, TextView.BufferType.EDITABLE);
+	    
 	    if (requestCode.equals(AcctElements.UPDATE.toString())) {
 	    	
 	    	int id = intent.getIntExtra("income_id", -1);
 	    	IncomeGeneric income = (IncomeGeneric) account.getIncomeById(id); // TODO: if id == -1
 	    	
 	    	incomeId = income.getId();	    
-
+			
+			EditText incomeName = (EditText) findViewById(R.id.income_name);
+			incomeName.setText(income.getName().toString(), TextView.BufferType.EDITABLE);
+			
 	    	EditText yearly_income = (EditText) findViewById(R.id.yearly_income);
 		    yearly_income.setText(income.getValue().toString(), TextView.BufferType.EDITABLE);
 		    	     
@@ -135,10 +167,12 @@ public class AddIncomeGeneric extends SherlockActivity
 			} else {
 				spinner.setSelection(0);
 			}
-			
-			EditText incomeName = (EditText) findViewById(R.id.income_name);
-			incomeName.setText(income.getName().toString(), TextView.BufferType.EDITABLE);
+
 	    
+			setYear = income.getStartYear();
+			setMonth = income.getStartMonth() ;			
+			start_date.setText((setMonth+1)+"/"+setYear, TextView.BufferType.EDITABLE);
+			
 	        // - add Save & Delete button view
 			
 			LinearLayout buttons = (LinearLayout) findViewById(R.id.submitIncomeButtons);
@@ -276,9 +310,13 @@ public class AddIncomeGeneric extends SherlockActivity
 
         intent.putExtra("income_installments", String.valueOf(installments));        
 
+        intent.putExtra("incomegeneric_start_year",  String.valueOf(setYear));
+        intent.putExtra("incomegeneric_start_month",  String.valueOf(setMonth));
+        
  	    //TODO: verify if text is alphanumeric
 	    //InputValidator.validateName(incomeNameData); 
 	    
+        
     	if (requestCode.equals(AcctElements.UPDATE.toString())) {
 	        intent.putExtra("income_id", incomeId);
 	    }

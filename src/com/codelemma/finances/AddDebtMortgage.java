@@ -1,6 +1,9 @@
 package com.codelemma.finances;
 
+import java.util.Calendar;
+
 import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.codelemma.finances.accounting.Account;
@@ -13,22 +16,27 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.NavUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-public class AddDebtMortgage extends SherlockActivity {
-
+public class AddDebtMortgage extends SherlockFragmentActivity 
+                             implements FrgDatePicker.OnDateSelectedListener {
+	
 	private Account account;
 	private History history;
 	private String requestCode;
 	private int debtId;
 	private Finances appState;	
+	private int setMonth;
+	private int setYear;
 	
     private OnClickListener clickCancelListener = new OnClickListener() {
     	
@@ -72,6 +80,22 @@ public class AddDebtMortgage extends SherlockActivity {
 	    }
     };
 	
+    public void showDatePickerDialog(View v) {
+        DialogFragment newFragment = new FrgDatePicker();
+        Bundle b = new Bundle();
+        b.putInt("setMonth", setMonth);
+        b.putInt("setYear", setYear);        
+        newFragment.show(getSupportFragmentManager(), "datePicker");
+    }
+    
+	@Override
+	public void onDateSet(DatePicker view, int year, int month, int day) {
+		EditText edit = (EditText) findViewById(R.id.debtmortgage_start_date);
+		edit.setText((month+1)+"/"+year);	
+		setYear = year;
+		setMonth = month;
+	}
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -87,6 +111,13 @@ public class AddDebtMortgage extends SherlockActivity {
 	    
 	    Intent intent = getIntent(); //TODO: check if there are 
 	    requestCode = intent.getStringExtra("request");
+	    
+		EditText start_date = (EditText) findViewById(R.id.debtmortgage_start_date);
+        final Calendar c = Calendar.getInstance();
+        setYear = c.get(Calendar.YEAR);
+        setMonth = c.get(Calendar.MONTH);
+        int day = c.get(Calendar.DAY_OF_MONTH);
+		start_date.setText((setMonth+1)+"/"+setYear, TextView.BufferType.EDITABLE);
 	    
 	    if (requestCode.equals(AcctElements.UPDATE.toString())) {
 	    	
@@ -118,6 +149,10 @@ public class AddDebtMortgage extends SherlockActivity {
 
 			EditText pmi = (EditText) findViewById(R.id.debtmortgage_pmi);
 			pmi.setText(debt.getPMI().toString(), TextView.BufferType.EDITABLE);
+						
+			setYear = debt.getStartYear();
+			setMonth = debt.getStartMonth() ;			
+			start_date.setText((setMonth+1)+"/"+setYear, TextView.BufferType.EDITABLE);
 			
 	        // - add Save & Delete button view
 			
@@ -165,7 +200,7 @@ public class AddDebtMortgage extends SherlockActivity {
 		
 	    EditText debtName = (EditText) findViewById(R.id.debtmortgage_name);
 	    String debtNameData = debtName.getText().toString();
-	    if (Utils.alertIfEmpty(this, debtNameData, getResources().getString(R.string.debtloan_name_input))) {
+	    if (Utils.alertIfEmpty(this, debtNameData, getResources().getString(R.string.debtmortgage_name_input))) {
 	    	return;	    	
 	    }	
         intent.putExtra("debtmortgage_name", debtNameData);        
@@ -218,6 +253,9 @@ public class AddDebtMortgage extends SherlockActivity {
 	    	return;	    	
 	    }	
         intent.putExtra("debtmortgage_pmi", pmiData);  
+        
+        intent.putExtra("debtmortgage_start_year",  String.valueOf(setYear));
+        intent.putExtra("debtmortgage_start_month",  String.valueOf(setMonth));
         
         if (requestCode.equals(AcctElements.UPDATE.toString())) {
     		Log.d("AddDebt.addDebt() requestCode", requestCode);

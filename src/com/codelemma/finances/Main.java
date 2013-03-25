@@ -1,9 +1,9 @@
 package com.codelemma.finances;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
-
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.ActionBar.Tab;
@@ -15,11 +15,9 @@ import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.codelemma.finances.accounting.Account;
 import com.codelemma.finances.accounting.History;
-import com.codelemma.finances.accounting.HistoryNew;
 import com.codelemma.finances.Finances;
 import com.codelemma.finances.ParseException;
 import com.codelemma.finances.StorageFactory;
-
 
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -29,7 +27,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.View;
 
-
 public class Main extends SherlockFragmentActivity 
                   implements TabListener, 
                              DirectToHomeListener.OnClickOnEmptyListener {
@@ -38,17 +35,12 @@ public class Main extends SherlockFragmentActivity
 	private Account account;
 	private History history;
     private Finances appState;
-	private int currentYrsPred = 60;
-	private View selectedYrsView;
 	private int currentElement = 0;
 	private int currentIcon = 0;
-	private Iterable<HistoryNew> currentHistory;
 	private MenuItem menuChart;
 	private MenuItem menuTable;
 	private MenuItem menuAdd;	
-	
-	private SherlockFragment[] frgMap = new SherlockFragment[4];
-	private SherlockFragment[] iconMap = new SherlockFragment[3];
+
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -57,18 +49,13 @@ public class Main extends SherlockFragmentActivity
 		setContentView(R.layout.main);		
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         
-		
-        frgMap[0] = new FrgIncome();
-        frgMap[1] = new FrgExpense();
-        frgMap[2] = new FrgInvestment();
-        frgMap[3] = new FrgDebt();  
     
         setupActionBar();
         
 	    appState = Finances.getInstance();
         storage = StorageFactory.create(PreferenceManager.getDefaultSharedPreferences(this));	    
 	                    
-        setupDate();
+        setupCurrentDate();
 	    
 	    if (appState.getHistory() == null) {
 		    appState.setHistory();
@@ -89,33 +76,37 @@ public class Main extends SherlockFragmentActivity
 	@Override
 	public void onTabReselected(Tab tab, FragmentTransaction ft) {		
 	}
-		
-	private SherlockFragment getFragment(int index, int element) {
-	    if (index == 0)	{
-	    	if (element == 0) {
-	    		return new FrgIncome();
-	    	}
-	    	if (element == 1) {
-	    		return new FrgExpense();
-	    	}
-	    	if (element == 2) {
-	    		return new FrgInvestment();
-	    	}
-	    	if (element == 3) {
-	    		return new FrgDebt();
-	    	}
-	    }
-	    if (index == 1) {
-	    	return new FrgChart();
-	    }
-	    if (index == 2) {
-	    	return new FrgList();
-	    }
-	    else {
-	    	throw new IllegalArgumentException();
-	    }
+
+	private static final ArrayList<Class<? extends SherlockFragment>> TAB_FRG_CLASSES = new ArrayList<Class<? extends SherlockFragment>>();
+	private static final ArrayList<Class<? extends SherlockFragment>> DATA_FRG_CLASSES = new ArrayList<Class<? extends SherlockFragment>>();
+			
+	static {
+		TAB_FRG_CLASSES.add(FrgIncome.class);
+		TAB_FRG_CLASSES.add(FrgExpense.class);
+		TAB_FRG_CLASSES.add(FrgInvestment.class);
+		TAB_FRG_CLASSES.add(FrgDebt.class);
+		TAB_FRG_CLASSES.add(FrgCashflow.class);
+		TAB_FRG_CLASSES.add(FrgNetWorth.class);
+		DATA_FRG_CLASSES.add(FrgChart.class);
+		DATA_FRG_CLASSES.add(FrgList.class);
 	}
-   
+	
+	private SherlockFragment getFragment(int iconIndex, int tabIndex) {
+		try {
+    		if (iconIndex == 0) {
+				return TAB_FRG_CLASSES.get(tabIndex).newInstance();
+    		} else {
+    			return DATA_FRG_CLASSES.get(iconIndex - 1).newInstance();
+    		}
+		} catch (InstantiationException e) {
+			e.printStackTrace();
+			throw new IllegalArgumentException(e);
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+			throw new IllegalArgumentException(e);
+		}
+	}
+
 
 	@Override
 	public void onTabSelected(Tab tab, FragmentTransaction ft) {
@@ -214,17 +205,19 @@ public class Main extends SherlockFragmentActivity
         actionbar.addTab(tab2);	
   	    ActionBar.Tab tab3 = actionbar.newTab().setText(getResources().getString(R.string.debts_title)).setTabListener(this);
         actionbar.addTab(tab3);
+  	    ActionBar.Tab tab4 = actionbar.newTab().setText(getResources().getString(R.string.cashflow_title)).setTabListener(this);
+        actionbar.addTab(tab4);
+  	    ActionBar.Tab tab5 = actionbar.newTab().setText(getResources().getString(R.string.net_worth_title)).setTabListener(this);
+        actionbar.addTab(tab5);        
 	}
 	
-	private void setupDate() {
-		if (appState.getMonth() == -1 || appState.getYear() == -1) {
-	    	Calendar cal = Calendar.getInstance();
-	        SimpleDateFormat year = new SimpleDateFormat("yyyy", Locale.US);
-	        int yearNum = Integer.parseInt(year.format(cal.getTime()));
-	        SimpleDateFormat month = new SimpleDateFormat("MM", Locale.US);
-	        int monthNum = Integer.parseInt(month.format(cal.getTime()));
-		    appState.setYear(yearNum);		        
-		    appState.setMonth(monthNum);	    
+	private void setupCurrentDate() {
+		if (appState.getCalculationStartMonth() == -1 || appState.getCalculationStartYear() == -1) {
+	        final Calendar c = Calendar.getInstance();	        
+		    appState.setCalculationStartYear(c.get(Calendar.YEAR));		        
+		    appState.setCalculationStartMonth(c.get(Calendar.MONTH));
+		    appState.setSimulationStartYear(c.get(Calendar.YEAR));		        
+		    appState.setSimulationStartMonth(c.get(Calendar.MONTH));	
 	    }
 	}
 	
@@ -298,27 +291,57 @@ public class Main extends SherlockFragmentActivity
 			return;
 		}		
                                 
-        //history.clear();
         account.setInitDebt();
         account.setInitExpense();
         account.setInitIncome();
         account.setInitInvestment();
+        account.setInitCashflow();
+        account.setInitNetworth();
         account.clearHistory(history);
                                    
-        int month = appState.getMonth();
-        int year = appState.getYear();                
-                        
-        for (int i = 0; i < appState.getListSize(); i++) { 
-        	account.advance(i, month); //TODO: this call should be done in BKG
+        int month = appState.getCalculationStartMonth();
+        int year = appState.getCalculationStartYear();
+        
+        int simStartYear = appState.getSimulationStartYear();
+        int simStartMonth = appState.getSimulationStartMonth();
+        
+        
+        Log.d("appState.getCalculationStartMonth()", String.valueOf(month));
+        Log.d("appState.getCalculationStartYear()", String.valueOf(year));
+        Log.d("simStartYear", String.valueOf(simStartYear));
+        Log.d("simStartMonth", String.valueOf(simStartMonth));
+        
+        appState.computeCalculationLength();
+        
+        
+        int totalCalculationLength = appState.getTotalCalculationLength();
+        int preCalculationLength = appState.getPreCalculationLength(); 
+        
+        
+        Log.d("preCalculationLength", String.valueOf(preCalculationLength));
+        Log.d("totalCalculationLength", String.valueOf(totalCalculationLength));
+        Log.d("simStartYear", String.valueOf(simStartYear));
+        Log.d("simStartMonth", String.valueOf(simStartMonth));
+
+        
+        int index = -1;
+        for (int i = 0; i < totalCalculationLength; i++) {
+        	if (i >= preCalculationLength) {    
+                index++;
+        	}           
+        	account.advance(index, year, month); //TODO: dates - should be minimum dates
             if (month == 11) {
                 month = 0;
                 year += 1;
             } else {
                 month++;
-            }            	                
+            }
+            
+            
+            
         }
+        
         account.addToHistory(history);
-        //storage.saveHistory(history);    
         appState.needToRecalculate(false);
 	}		
 		
@@ -330,25 +353,16 @@ public class Main extends SherlockFragmentActivity
 	public String[] getDates(){
 	    return history.getDates();
 	}			
-
-	public Iterable<HistoryNew> getCurrentHistory(){
-	    return currentHistory;
-	}	
-	
-	public int getCurrentYrsPred(){
-	    return currentYrsPred;
-	}
-	
-	public View getSelectedYrsView(){
-	    return selectedYrsView;
-	}
 	
 	public int getCurrentElement(){
 	    return currentElement;
 	}
 
+
 	@Override
 	public void onClickOnEmptySelected(View view, int element) {
+		/* Called when used clicks on CHART or TABLE icons while there is no input data
+		 * so instead of showing empty chart/table, the user is directed to HOME (input) view */
         currentIcon = 0;    	
        // Log.d("getFragment(currentIcon, currentElement))", getFragment(currentIcon, currentElement).toString());
 		FragmentTransaction ft = getSupportFragmentManager().beginTransaction();

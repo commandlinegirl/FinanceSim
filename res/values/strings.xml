@@ -59,6 +59,10 @@
     <string name="no_data_info_text">Table empty.\n No %s data has yet been added.</string>
     <string name="no_data_info_button">Add %s data</string>
     <string name="years">Years: </string>
+    <string name="start_date_input">Start date</string>
+    
+    
+    
     <string name="debts_title">DEBTS</string>
     <string name="debt_description">Mortgage, consumer loans, etc.</string>
     <string name="expenses_title">EXPENSES</string>
@@ -66,6 +70,11 @@
     <string name="income_title">INCOME</string>
     <string name="income_description">Salary, other regular income sources.</string>
     <string name="investments_title">INVESTMENTS</string>
+    
+    <string name="cashflow_title">CASHFLOW</string>
+    <string name="net_worth_title">NET WORTH</string>
+    
+    
     <string name="investments_description">Savings accounts, 401(k), etc.</string>
     <string name="income_name_input">Name</string>
     <string name="income_name_text">Salary</string>
@@ -109,7 +118,7 @@
     <string name="debtmortgage_interest_rate_input">Interest rate (per yr)</string>
     <string name="debtmortgage_interest_rate_text">4.25</string>
     <string name="debtmortgage_term_input">Mortgage term (in years)</string>
-    <string name="debtmortgage_term_text">360</string>
+    <string name="debtmortgage_term_text">30</string>
     <string name="debtmortgage_property_insurance_input">Property insurance</string>
     <string name="debtmortgage_property_insurance_text">0</string>
     <string name="debtmortgage_property_tax_input">Property tax</string>

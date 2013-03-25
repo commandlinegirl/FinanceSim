@@ -10,7 +10,11 @@ public interface TableVisitor {
 	public void makeTableInvestmentSavAcct(HistoryInvestmentSavAcct historyInvestmentSavAcct);
 	public void makeTableInvestmentBond(HistoryInvestmentBond historyInvestmentBond);
 	public void makeTableInvestmentStock(HistoryInvestmentStock historyInvestmentStock);
-	
+
 	public void makeTableDebtMortgage(HistoryDebtMortgage historyDebtMortgage);
 	public void makeTableDebtLoan(HistoryDebtLoan historyDebtConsumerLoan);
+	
+	public void makeTableCashflowsAggregates(HistoryCashflows historyCashflows);
+	public void makeTableNetWorthAggregates(HistoryNetWorth historyNetWorth);
+
 }

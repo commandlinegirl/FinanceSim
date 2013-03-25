@@ -2,6 +2,8 @@ package com.codelemma.finances.accounting;
 import java.math.BigDecimal;
 
 
+import android.util.Log;
+
 import com.codelemma.finances.InputListingUpdater;
 import com.codelemma.finances.ParseException;
 import com.codelemma.finances.TypedContainer;
@@ -39,13 +41,17 @@ public class InvestmentSavAcct extends Investment
     private int[] months = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
     private HistoryInvestmentSavAcct history;
     
+    private int start_year;
+    private int start_month;
     
     public InvestmentSavAcct(String name,
     		          BigDecimal init_amount,
     		          BigDecimal tax_rate,
     		          BigDecimal percontrib,
     		          int capitalization,
-    		          BigDecimal interest_rate) {
+    		          BigDecimal interest_rate,
+                      int _start_year,
+              	      int _start_month) {
     	this.name = name;
         this.init_amount = Money.scale(init_amount);
         this.init_interest_rate = interest_rate;
@@ -64,6 +70,8 @@ public class InvestmentSavAcct extends Investment
         comp_factor_31 = new BigDecimal(Math.exp(this.interest_rate_decimal.doubleValue() * 31.0/365));        	
         
         history = new HistoryInvestmentSavAcct(this);
+    	start_year = _start_year;
+    	start_month = _start_month;
     }   
 
        
@@ -141,6 +149,10 @@ public class InvestmentSavAcct extends Investment
 		return contribution;
 	}
 	
+	public BigDecimal getAccumulatedSavings() {
+		return amount;
+	}
+	
     @Override
     public String getName() {
         return name;
@@ -157,12 +169,12 @@ public class InvestmentSavAcct extends Investment
     }
                
     @Override
-    public void advance(int month, BigDecimal excess) {
+    public void advance(int year, int month, BigDecimal excess) {
     	
         interests_gross = new BigDecimal(0);
         tax_on_interests = new BigDecimal(0);
         interests_net = new BigDecimal(0);
-    	 	
+        
         BigDecimal excess_decimal = excess.divide(Money.HUNDRED, Money.RATE_DECIMALS, Money.ROUNDING_MODE); 
         
     	/* Add monthly contribution (a given percentage of excess money) to the hidden_amount  */
@@ -172,7 +184,7 @@ public class InvestmentSavAcct extends Investment
     	
     	/* Calculate the interests of hidden_amount (and add to principal)  */
     	hidden_amount = Money.scale(hidden_amount.multiply(getCompoundingFactor(months[month])));
-  	
+  	    
     	if (capitalization == capitalization_counter) {
     		/* calculate and subtract tax on interests */
     		BigDecimal hidden_interests_gross = hidden_amount.subtract(amount);
@@ -213,10 +225,18 @@ public class InvestmentSavAcct extends Investment
 		return history;
 	}
 
-
+	@Override
+	public int getStartYear() {
+		return start_year;
+	}
+	
+	@Override
+	public int getStartMonth() {
+		return start_month;
+	}
+	
 	@Override
 	public void updateInputListing(InputListingUpdater modifier) {
-		modifier.updateInputListingForInvestmentSavAcct(this);				
-		
+		modifier.updateInputListingForInvestmentSavAcct(this);						
 	}
 }

@@ -21,12 +21,16 @@ public class IncomeGeneric extends Income
     private BigDecimal num_of_extras;
     private BigDecimal yearly_income;
     private HistoryIncomeGeneric history;
+    private int start_year;
+    private int start_month;
     
     public IncomeGeneric(BigDecimal _init_income, 
     		      BigDecimal _tax_rate, 
     		      BigDecimal _rise_rate, 
     		      BigDecimal _installments,
-                  String _name) {
+                  String _name,
+                  int _start_year,
+          	      int _start_month) {
         installments = _installments; // 12 or 13
         init_income = _init_income;
         init_tax_rate = _tax_rate;
@@ -39,6 +43,9 @@ public class IncomeGeneric extends Income
         name = _name;
         num_of_extras = installments.subtract(new BigDecimal(12));
         history = new HistoryIncomeGeneric(this);
+        
+    	start_year = _start_year;
+    	start_month = _start_month;
     } 
 
     public void initialize() {
@@ -60,7 +67,7 @@ public class IncomeGeneric extends Income
         }
     }
     
-    
+    @Override
     public BigDecimal getNetIncome() {
         return income_monthly.subtract(getTax());
     }
@@ -130,6 +137,16 @@ public class IncomeGeneric extends Income
 	
 	public HistoryIncomeGeneric getHistory() {
 		return history;
+	}
+	
+	@Override
+	public int getStartYear() {
+		return start_year;
+	}
+	
+	@Override
+	public int getStartMonth() {
+		return start_month;
 	}
 
 	@Override

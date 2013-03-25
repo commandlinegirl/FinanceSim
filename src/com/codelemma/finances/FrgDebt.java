@@ -11,7 +11,6 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,13 +19,12 @@ import com.actionbarsherlock.app.SherlockFragment;
 import com.codelemma.finances.accounting.Account;
 import com.codelemma.finances.accounting.DebtLoan;
 import com.codelemma.finances.accounting.DebtMortgage;
-import com.codelemma.finances.accounting.ModifyUiVisitor;
 import com.codelemma.finances.accounting.NamedValue;
 
 public class FrgDebt extends SherlockFragment {
 	
 	private Account account;
-
+    private Finances appState;
 	
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -39,7 +37,7 @@ public class FrgDebt extends SherlockFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
         // Inflate the layout for this fragment 
-		Finances appState = Finances.getInstance();
+		appState = Finances.getInstance();
 		account = appState.getAccount();	
 	}
 
@@ -54,8 +52,15 @@ public class FrgDebt extends SherlockFragment {
         tv.setText(R.string.debt_description);
         tv.setGravity(Gravity.CENTER);
         tv.setTextColor(Color.parseColor("#FF771100"));
-        tv.setPadding(0, 10, 0, 10);
+        tv.setPadding(0, 5, 0, 10);
         tip.addView(tv);
+        
+	    View line = new View( getSherlockActivity());		
+	 	LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, 
+	 			                                                        Utils.px(getSherlockActivity(), 1));	
+	 	line.setLayoutParams(param);
+	 	line.setBackgroundColor(0xFFCCCCCC);	    
+		tip.addView(line);
         
 		if (account.getDebtsSize() > 0) {	 
 		   	Iterable<? extends NamedValue> values = account.getDebts();
@@ -100,6 +105,8 @@ public class FrgDebt extends SherlockFragment {
     	BigDecimal interest_rate = new BigDecimal(data.getStringExtra("debtloan_interest_rate"));
     	int term = Integer.parseInt((data.getStringExtra("debtloan_term")));
     	BigDecimal extra_payment = new BigDecimal(data.getStringExtra("debtloan_extra_payment"));
+    	int start_year = Integer.parseInt((data.getStringExtra("debtloan_start_year")));
+    	int start_month = Integer.parseInt((data.getStringExtra("debtloan_start_month")));
     	
 		if (requestCode == AcctElements.UPDATE.getNumber()) {
       	
@@ -113,8 +120,16 @@ public class FrgDebt extends SherlockFragment {
 	    		amount,
 	    		interest_rate,
 	    		term,
-	    		extra_payment); 
-	    account.addDebt(debt);	 
+	    		extra_payment,
+	    		start_year,
+	    		start_month); 
+	    account.addDebt(debt);
+	    	    
+        if ((appState.getCalculationStartYear() == start_year && appState.getCalculationStartMonth() >= start_month) 
+        			|| (appState.getCalculationStartYear() > start_year)) {    
+        	appState.setCalculationStartYear(start_year);
+        	appState.setCalculationStartMonth(start_month);
+        }
         Toast.makeText(getSherlockActivity(), "Use top CHART or TABLE icons to see results.", Toast.LENGTH_SHORT).show();
 
 	}	
@@ -128,7 +143,9 @@ public class FrgDebt extends SherlockFragment {
     	BigDecimal property_insurance = new BigDecimal(data.getStringExtra("debtmortgage_property_insurance"));
     	BigDecimal property_tax = new BigDecimal(data.getStringExtra("debtmortgage_property_tax"));
     	BigDecimal pmi = new BigDecimal(data.getStringExtra("debtmortgage_pmi"));
-
+    	int start_year = Integer.parseInt((data.getStringExtra("debtmortgage_start_year")));
+    	int start_month = Integer.parseInt((data.getStringExtra("debtmortgage_start_month")));
+    	
 		if (requestCode == AcctElements.UPDATE.getNumber()) {
       	
 		    int debt_id = data.getIntExtra("debt_id", -1);    		
@@ -145,11 +162,16 @@ public class FrgDebt extends SherlockFragment {
 	    		 term,
 	    		 property_insurance,
 	    		 property_tax,
-	    		 pmi);
-				
+	    		 pmi,
+		         start_year,
+		    	 start_month); 
 	    account.addDebt(debt);	   		
         Toast.makeText(getSherlockActivity(), "Use top CHART or TABLE icons to see results.", Toast.LENGTH_SHORT).show();
-
+        if ((appState.getCalculationStartYear() == start_year && appState.getCalculationStartMonth() >= start_month) 
+    			|| (appState.getCalculationStartYear() > start_year)) {    
+    	    appState.setCalculationStartYear(start_year);
+    	    appState.setCalculationStartMonth(start_month);
+        }
 	}	
 		
     private void updateInputListing(Iterable<? extends NamedValue> values) {        

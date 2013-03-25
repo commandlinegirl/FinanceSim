@@ -53,28 +53,10 @@ public class FrgList extends SherlockFragment
 
         currentElement = ((Main) getSherlockActivity()).getCurrentElement();
         
-        switch(currentElement) {
-        case 0:
-            for (HistoryNew i : history.getIncomeHistory()) {
-            	historyItems.add(i);
-            }
-            break;
-	    case 1:
-            for (HistoryNew i : history.getExpenseHistory()) {
-            	historyItems.add(i);
-            }
-            break;    
-        case 2:
-        	for (HistoryNew i : history.getInvestmentHistory()) {
-            	historyItems.add(i);
-            }
-        	break;            
-        case 3:    	
-            for (HistoryNew i : history.getDebtHistory()) {
-            	historyItems.add(i);
-            }
-            break;
+        for (HistoryNew i : history.getHistory(currentElement)) {
+        	historyItems.add(i);
         }
+        
     	if (historyItems.size() != 0) {
     		return inflater.inflate(R.layout.frg_explist, container, false);	
     	} 

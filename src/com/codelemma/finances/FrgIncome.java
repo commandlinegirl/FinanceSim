@@ -23,6 +23,7 @@ import com.codelemma.finances.accounting.NamedValue;
 public class FrgIncome extends SherlockFragment {
 	
 	private Account account;
+	private Finances appState;
 
 	
 	@Override
@@ -41,7 +42,7 @@ public class FrgIncome extends SherlockFragment {
 	public void onStart() {
 		super.onStart();
 		Log.d("FrgIncome.onStart()", "called");
-		Finances appState = Finances.getInstance();
+		appState = Finances.getInstance();
 		account = appState.getAccount();
 		
     	LinearLayout tip = (LinearLayout) getSherlockActivity().findViewById(R.id.income_summary);
@@ -51,9 +52,16 @@ public class FrgIncome extends SherlockFragment {
         tv.setText(R.string.income_description);
         tv.setGravity(Gravity.CENTER);
         tv.setTextColor(Color.parseColor("#FF771100"));
-        tv.setPadding(0, 10, 0, 10);
+        tv.setPadding(0, 5, 0, 10);
         tip.addView(tv);
     	
+	    View line = new View( getSherlockActivity());		
+	 	LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, 
+	 			                                                        Utils.px(getSherlockActivity(), 1));	
+	 	line.setLayoutParams(param);
+	 	line.setBackgroundColor(0xFFCCCCCC);	    
+		tip.addView(line);
+		
 		if (account.getIncomesSize() > 0) {	 
 		   	Iterable<? extends NamedValue> values = (Iterable<? extends NamedValue>) account.getIncomes();
 		   	updateInputListing(values);		    
@@ -85,7 +93,8 @@ public class FrgIncome extends SherlockFragment {
 		BigDecimal income_tax_rate;
         BigDecimal yearly_income_rise;
         BigDecimal income_installments;
-		
+       	int start_year = Integer.parseInt((data.getStringExtra("incomegeneric_start_year")));
+    	int start_month = Integer.parseInt((data.getStringExtra("incomegeneric_start_month")));
 
 		try {		
     	    income_name = data.getStringExtra("income_name");     	
@@ -157,10 +166,18 @@ public class FrgIncome extends SherlockFragment {
                 income_tax_rate, 
                 yearly_income_rise,
                 income_installments, 
-                income_name);            
+                income_name,
+		        start_year,
+		    	start_month);                 
         account.addIncome(newIncome);
         
         Toast.makeText(getSherlockActivity(), "Use top CHART or TABLE icons to see results.", Toast.LENGTH_SHORT).show();
+        
+        if ((appState.getCalculationStartYear() == start_year && appState.getCalculationStartMonth() >= start_month) 
+    			|| (appState.getCalculationStartYear() > start_year)) {    
+    	    appState.setCalculationStartYear(start_year);
+    	    appState.setCalculationStartMonth(start_month);
+        }
 	}	
 	
 	

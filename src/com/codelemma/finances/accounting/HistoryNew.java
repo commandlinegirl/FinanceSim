@@ -1,14 +1,14 @@
 package com.codelemma.finances.accounting;
 
-import java.math.BigDecimal;
 
-public interface HistoryNew {
+public abstract class HistoryNew {
 
-	public void add(int index, NamedValue acctElement);
-	public void makeTable(TableVisitor visitor);
-	public void plot(PlotVisitor visitor);
-	public BigDecimal[] getAmountHistory();
-	public String getName();
-	public String toString();	
-	public boolean isNonEmpty();
+	public void add(int index, NamedValue acctElement) {};
+	public void add(int index, NamedValue acctElement, HistoryCashflows cashflows) {};	
+	public void add(int index, NamedValue acctElement, HistoryCashflows cashflows, HistoryNetWorth net_worth) {};	
+	public abstract void makeTable(TableVisitor visitor);
+	public abstract void plot(PlotVisitor visitor);
+	public abstract String getName();
+	public abstract String toString();	
+	public abstract boolean isNonEmpty();	
 }

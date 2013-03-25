@@ -15,6 +15,7 @@ public class DebtMortgage extends Debt
     private BigDecimal init_interest_rate;
     private BigDecimal interest_rate_decimal_monthly;
     private int term; // in months
+    private int term_months; // in months
     private BigDecimal downpayment;
     private BigDecimal base_monthly_payment;
     private BigDecimal monthly_payment;
@@ -47,6 +48,8 @@ public class DebtMortgage extends Debt
     
     private HistoryDebtMortgage history;
     
+    private int start_year;
+    private int start_month;
     
     public DebtMortgage(String _name, 
     		BigDecimal _purchase_price,
@@ -55,7 +58,9 @@ public class DebtMortgage extends Debt
     		int _term,
     		BigDecimal _property_insurance,
     		BigDecimal _property_tax,
-    		BigDecimal _pmi) {
+    		BigDecimal _pmi,
+            int _start_year,
+    	    int _start_month) {
     	name = _name;
     	purchase_price = _purchase_price;
     	downpayment = Money.scale(_downpayment);
@@ -77,7 +82,8 @@ public class DebtMortgage extends Debt
     	pmi_decimal_monthly = _pmi.divide(new BigDecimal(1200), Money.RATE_DECIMALS, Money.ROUNDING_MODE);
     	pmi_amount = Money.getPercentage(loan_amount,  pmi_decimal_monthly);
     	
-    	term = _term * 12; //TODO: here convert years into months?
+    	term = _term; 
+    	term_months = _term * 12; 
 
     	additional_cost_without_pmi = insurance_amount.add(tax_amount);
     	additional_cost_with_pmi = insurance_amount.add(tax_amount).add(pmi_amount);
@@ -86,10 +92,12 @@ public class DebtMortgage extends Debt
     	monthly_payment = base_monthly_payment;
     	
     	history = new HistoryDebtMortgage(this);
+    	start_year = _start_year;
+    	start_month = _start_month;
     }
     
     private BigDecimal calculateMonthlyPayment() {
-    	BigDecimal factor = (interest_rate_decimal_monthly.add(Money.ONE)).pow(term);
+    	BigDecimal factor = (interest_rate_decimal_monthly.add(Money.ONE)).pow(term_months);
     	BigDecimal factor_minus_one = factor.subtract(Money.ONE);
     	try {
     		factor.divide(factor_minus_one, Money.RATE_DECIMALS, Money.ROUNDING_MODE);
@@ -102,8 +110,9 @@ public class DebtMortgage extends Debt
     	return monthly_payment; 
     }
     
+    @Override
     public void advance(int month) {
-    	if (month_counter <= term) {    		
+    	if (month_counter <= term_months) {    		
                 		
         	Log.d("outstanding_loan", outstanding_loan.toString());
             interests_paid = Money.scale(outstanding_loan.multiply(interest_rate_decimal_monthly));
@@ -149,7 +158,7 @@ public class DebtMortgage extends Debt
     	}      
     }
 
-    
+	@Override
     public BigDecimal getMonthlyPayment() {
     	return monthly_payment;
     }
@@ -294,4 +303,16 @@ public class DebtMortgage extends Debt
 		modifier.updateInputListingForDebtMortgage(this);				
 		
 	}
+
+	@Override
+	public int getStartYear() {
+		return start_year;
+	}
+	
+	@Override
+	public int getStartMonth() {
+		return start_month;
+	}
+
+
 }

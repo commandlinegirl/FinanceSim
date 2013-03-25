@@ -37,6 +37,8 @@ public class Investment401kTest extends AndroidTestCase {
         BigDecimal payrise = new BigDecimal("5");
         BigDecimal withdrawal_tax_rate = new BigDecimal("30");
         BigDecimal employer_match = new BigDecimal("50");
+        int start_year = 2013;
+        int start_month = 2;
 
         		
     	Investment401k inv = new Investment401k(name,
@@ -47,9 +49,11 @@ public class Investment401kTest extends AndroidTestCase {
                 salary,
                 payrise,
                 withdrawal_tax_rate,
-                employer_match);
+                employer_match,
+			       start_year,
+			       start_month); 
     
-	    inv.advance(0, null);
+	    inv.advance(2013, 0, null);
 	    
 	    Log.d("inv.getAmount()", inv.getAmount().toString());
 	    Log.d("inv.getSalary()", inv.getSalary().toString());
@@ -73,6 +77,8 @@ public class Investment401kTest extends AndroidTestCase {
         BigDecimal payrise = new BigDecimal("5");
         BigDecimal withdrawal_tax_rate = new BigDecimal("30");
         BigDecimal employer_match = new BigDecimal("50");
+        int start_year = 2013;
+        int start_month = 2;
 
         		
     	Investment401k inv = new Investment401k(name,
@@ -83,9 +89,11 @@ public class Investment401kTest extends AndroidTestCase {
                 salary,
                 payrise,
                 withdrawal_tax_rate,
-                employer_match);
+                employer_match,
+			       start_year,
+			       start_month); 
     
-	    inv.advance(1, null);
+	    inv.advance(2013, 1, null);
 	    
 	    Log.d("inv.getAmount()", inv.getAmount().toString());
 	    Log.d("inv.getSalary()", inv.getSalary().toString());

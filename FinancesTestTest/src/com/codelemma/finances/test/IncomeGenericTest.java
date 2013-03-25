@@ -19,14 +19,17 @@ public class IncomeGenericTest extends AndroidTestCase {
         BigDecimal rise_rate = new BigDecimal("10");
         
         BigDecimal installments = new BigDecimal("50000");
+        int start_year = 2013;
+        int start_month = 2;
 
         		
     	IncomeGeneric inv = new IncomeGeneric(init_income,
     			tax_rate,
                 rise_rate,
                 installments,
-                name);
-    
+                name,
+			       start_year,
+			       start_month); 
 	    inv.advance(0);
   
 	}

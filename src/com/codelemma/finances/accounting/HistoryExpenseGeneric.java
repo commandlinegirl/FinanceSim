@@ -3,7 +3,7 @@ package com.codelemma.finances.accounting;
 import java.math.BigDecimal;
 
 
-public class HistoryExpenseGeneric extends HistoryExpense {
+public class HistoryExpenseGeneric extends HistoryNew {
 
 	private BigDecimal[] amountHistory;
 	private int listSize = 360; //TODO: take from
@@ -15,11 +15,13 @@ public class HistoryExpenseGeneric extends HistoryExpense {
 	}
 	
 	@Override
-	public void add(int index, NamedValue acctElement) {
+	public void add(int index, NamedValue acctElement, HistoryCashflows cashflows) {
 		// TODO Auto-generated method stub
 		ExpenseGeneric expense = (ExpenseGeneric) acctElement;
 		try {		    
 		    amountHistory[index] = expense.getAmount();
+		    
+		    cashflows.addExpenseGeneric(index, expense);
 		} catch (IndexOutOfBoundsException e) {
 			e.printStackTrace();
 		}
@@ -30,7 +32,6 @@ public class HistoryExpenseGeneric extends HistoryExpense {
 		visitor.makeTableExpense(this);		
 	}
 
-	@Override
 	public BigDecimal[] getAmountHistory() {
 		return amountHistory;
 	}

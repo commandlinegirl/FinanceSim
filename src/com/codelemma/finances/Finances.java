@@ -14,14 +14,19 @@ import com.codelemma.finances.accounting.IncomeGeneric;
 
 public class Finances extends Application {
 	      
-    private int month = -1; // not set yet
-    private int year = -1;  // not set yet
+    private int simStartMonth = -1; // not set yet
+    private int simStartYear = -1;  // not set yet
+    private int calcStartMonth = -1; // not set yet
+    private int calcStartYear = -1;  // not set yet
+	private int preCalculationLength = 0; // number of months for pre calculatoins (until simulation (for history) starts)
+    private int simulationLength = 360;// 30*12;
+	private int totalCalculationLength = 0; // number of months for total calculatoins (simulation + precalculations)	
     private Account account;  
     private History history;    
-    private int listSize = 360;// 30*12;
     private static Finances appInstance;
 	private boolean needToRecalculate = true;
 	private int currentMenuItem;
+	private int numberOfMonthsInChart = 5*12;
 
     @Override
     public void onCreate() {        
@@ -32,14 +37,75 @@ public class Finances extends Application {
     public static Finances getInstance() {
          return appInstance;
     }
-       
-	public void setYear(int year){
-	    this.year = year;
+    
+	public void setNumberOfMonthsInChart(int months) {
+		numberOfMonthsInChart = months;
+	}
+
+	public int getNumberOfMonthsInChart() {
+		return numberOfMonthsInChart;
+	}
+	
+	public void setSimulationStartYear(int simStartYear){
+	    this.simStartYear = simStartYear;
 	}		
 
-	public void setMonth(int month){
-	    this.month = month;
+	public void setSimulationStartMonth(int simStartMonth){
+	    this.simStartMonth = simStartMonth;
 	}			
+	
+	public int getSimulationStartYear(){
+	    return simStartYear;
+	}		
+	
+	public int getSimulationStartMonth(){
+	    return simStartMonth;
+	}	
+	
+	public void setCalculationStartYear(int calcStartYear){
+	    this.calcStartYear = calcStartYear;
+	}		
+
+	public void setCalculationStartMonth(int calcStartMonth){
+	    this.calcStartMonth = calcStartMonth;
+	}			
+	
+	public int getCalculationStartYear(){
+	    return calcStartYear;
+	}		
+	
+	public int getCalculationStartMonth(){
+	    return calcStartMonth;
+	}	
+	
+	public int getTotalCalculationLength() {
+		return totalCalculationLength;
+	}
+
+	public int getPreCalculationLength() {
+		return preCalculationLength;
+	}
+	
+	public void computeCalculationLength() {
+		/* Get the total number of months the calculation (ie. advance iteration in Account)
+		 * needs to proceed for. It is the sum of simulation time (eg. 30 years) and 
+		 * precalculation time (in months) */
+        int _preCalculationLength = 0;
+        
+        int year = calcStartYear;
+        int month = calcStartMonth;
+        while ((year < simStartYear) || (year == simStartYear && month < simStartMonth)) {  
+        	_preCalculationLength++;
+        	if (month == 11) {
+                month = 0;
+                year += 1;
+            } else {
+                month++;
+            }
+    	} 
+        preCalculationLength = _preCalculationLength;        
+        totalCalculationLength =  simulationLength + preCalculationLength;
+	}
 	
 	public boolean needToRecalculate() {
 		return needToRecalculate;
@@ -51,7 +117,7 @@ public class Finances extends Application {
 
 	
 	public void setAccount(Storage storage) throws ParseException {
-		account = new Account();
+		account = new Account(simStartYear, simStartMonth);
 		
 		String incomes = storage.get(TypedKey.INCOMES.getKeyword(), null);
 		
@@ -80,7 +146,8 @@ public class Finances extends Application {
 	
 	public void restoreIncomes(String incomes) throws ParseException {
 		TypedContainer incomesCont = Serializer.parseToMap(incomes);		
-		Iterator<Entry<TypedKey<?>, Object>> i = incomesCont.iterator();		
+		Iterator<Entry<TypedKey<?>, Object>> i = incomesCont.iterator();	
+		/*
 		while (i.hasNext()) {
 			TypedContainer tc = ((TypedContainer) i.next().getValue());
 		    BigDecimal yearly_income = tc.get(TypedKey.YEARLY_INCOME);
@@ -93,9 +160,12 @@ public class Finances extends Application {
                 income_tax_rate, 
                 yearly_income_rise,
                 income_installments, //TODO: cannot be ZERO! DivisionByzeroException
-                income_name);
+                income_name,
+		        start_year,
+		    	start_month);                 
 		    account.addIncome(income);
 		}
+		*/
 	}
 	
 	public void restoreInvestments(String investments) throws ParseException {
@@ -123,7 +193,8 @@ public class Finances extends Application {
 	
 	public void restoreExpenses(String expenses) throws ParseException {
 		TypedContainer expensesCont = Serializer.parseToMap(expenses);		
-		Iterator<Entry<TypedKey<?>, Object>> i = expensesCont.iterator();		
+		Iterator<Entry<TypedKey<?>, Object>> i = expensesCont.iterator();	
+		/*
 		while (i.hasNext()) {
 			TypedContainer tc = ((TypedContainer) i.next().getValue());
     	    String expense_name = tc.get(TypedKey.EXPENSE_NAME);			
@@ -137,6 +208,7 @@ public class Finances extends Application {
                                           frequency);
             account.addExpense(expense);
 		}
+		*/
 	}	
 
 	public void restoreDebts(String debts) throws ParseException {
@@ -157,20 +229,14 @@ public class Finances extends Application {
 
 	
 	public void setHistory() {
-		history = new History(year, month, listSize);
+		history = new History(simStartYear, simStartMonth, simulationLength);
 	}
 	
 	
-	public int getYear(){
-	    return year;
-	}		
-	
-	public int getMonth(){
-	    return month;
-	}			
+		
 
-	public int getListSize() {
-		return listSize;
+	public int getSimulationLength() {
+		return simulationLength;
 	}
 	
 	public Account getAccount(){

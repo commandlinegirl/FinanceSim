@@ -2,7 +2,7 @@ package com.codelemma.finances.accounting;
 
 import java.math.BigDecimal;
 
-public class HistoryInvestmentStock extends HistoryInvestment {
+public class HistoryInvestmentStock extends HistoryNew {
 
 	private BigDecimal[] amountHistory;
 	private BigDecimal[] capitalGainYieldHistory;
@@ -10,7 +10,7 @@ public class HistoryInvestmentStock extends HistoryInvestment {
 	private BigDecimal[] taxHistory;
 	private int listSize = 360; //TODO: take from
 	private String name;
-	
+
 	public HistoryInvestmentStock(InvestmentStock investmentstock) {		
 		amountHistory = new BigDecimal[listSize];
 		taxHistory = new BigDecimal[listSize];
@@ -20,20 +20,19 @@ public class HistoryInvestmentStock extends HistoryInvestment {
 	}
 	
 	@Override
-	public void add(int i, NamedValue acctElement) {
+	public void add(int index, NamedValue acctElement, HistoryCashflows cashflows, HistoryNetWorth net_worth) {
 		InvestmentStock investment = (InvestmentStock) acctElement;
 		try {		    
-			amountHistory[i] = investment.getAmount();
-			taxHistory[i] = investment.getTax();
-			dividendsHistory[i] = investment.getDividends();
-			capitalGainYieldHistory[i] = investment.getCapitalGainYield();
+			amountHistory[index] = investment.getAmount();
+			taxHistory[index] = investment.getTax();
+			dividendsHistory[index] = investment.getDividends();
+			capitalGainYieldHistory[index] = investment.getCapitalGainYield();
 		} catch (IndexOutOfBoundsException e) {
 			e.printStackTrace();
 		}
 	}
 
 
-	@Override
 	public BigDecimal[] getAmountHistory() {
 		return amountHistory;
 	}

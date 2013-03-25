@@ -2,7 +2,7 @@ package com.codelemma.finances.accounting;
 
 import java.math.BigDecimal;
 
-public class HistoryInvestmentSavAcct extends HistoryInvestment {
+public class HistoryInvestmentSavAcct extends HistoryNew {
 
 	private BigDecimal[] amountHistory;
 	private BigDecimal[] interests_net;
@@ -10,6 +10,7 @@ public class HistoryInvestmentSavAcct extends HistoryInvestment {
 	private BigDecimal[] tax;
 	private int listSize = 360; //TODO: take from
 	private String name;
+
 	
 	public HistoryInvestmentSavAcct(InvestmentSavAcct investment_savacct) {		
 		amountHistory = new BigDecimal[listSize];
@@ -17,16 +18,21 @@ public class HistoryInvestmentSavAcct extends HistoryInvestment {
 		contribution = new BigDecimal[listSize];
 		tax = new BigDecimal[listSize];
 		name = investment_savacct.getName();
+
 	}
 
 	@Override
-	public void add(int i, NamedValue acctElement) {
+	public void add(int index, NamedValue acctElement, HistoryCashflows cashflows, HistoryNetWorth net_worth) {
 		InvestmentSavAcct investment = (InvestmentSavAcct) acctElement;
 		try {		    
-			amountHistory[i] = investment.getAmount();
-			contribution[i] = investment.getContribution();
-		    interests_net[i] = investment.getInterestsNet();
-		    tax[i] = investment.getTax();
+			amountHistory[index] = investment.getAmount();
+			contribution[index] = investment.getContribution();
+		    interests_net[index] = investment.getInterestsNet();
+		    tax[index] = investment.getTax();
+		    
+		    cashflows.addInvestmentSavAcct(index, investment);
+		    net_worth.addInvestmentSavAcct(index, investment);
+
 		} catch (IndexOutOfBoundsException e) {
 			e.printStackTrace();
 		}
@@ -36,7 +42,6 @@ public class HistoryInvestmentSavAcct extends HistoryInvestment {
 		visitor.makeTableInvestmentSavAcct(this);		
 	}    
 	
-	@Override
 	public BigDecimal[] getAmountHistory() {
 		return amountHistory;
 	}

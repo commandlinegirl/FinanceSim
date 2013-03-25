@@ -16,4 +16,6 @@ public interface NamedValue {
 	public void launchModifyUi(ModifyUiVisitor modifyUiVisitor);
 	public TypedContainer getFieldContainer(PackToContainerVisitor saver) throws ParseException; 
 	public void updateInputListing(InputListingUpdater modifier);
+	public int getStartYear();
+	public int getStartMonth();
 }

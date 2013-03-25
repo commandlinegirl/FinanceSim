@@ -32,16 +32,20 @@ public class InvestmentSavAcctTest extends AndroidTestCase {
         BigDecimal tax_rate = new BigDecimal("19");
         BigDecimal percontrib = new BigDecimal("0");
         int capitalization = 1;
+        int start_year = 2013;
+        int start_month = 2;
         		
 	    InvestmentSavAcct sav_acct = new InvestmentSavAcct(name,
 		           init_amount,
 		           tax_rate,
 		           percontrib,
 		           capitalization,
-		           interest_rate);
+		           interest_rate,
+			       start_year,
+			       start_month); 
 	    
 	    BigDecimal excess = new BigDecimal("0");	    
-	    sav_acct.advance(0, excess);
+	    sav_acct.advance(2013, 0, excess);
 	    
 	    Log.d("sav_acct.getAmount()", sav_acct.getAmount().toString());
 	    Log.d("sav_acct.getInterestsGross()", sav_acct.getInterestsGross().toString());
@@ -63,16 +67,21 @@ public class InvestmentSavAcctTest extends AndroidTestCase {
         BigDecimal tax_rate = new BigDecimal("19");
         BigDecimal percontrib = new BigDecimal("0");
         int capitalization = 2;
-        		
+        int start_year = 2013;
+        int start_month = 2;
+		
+        
 	    InvestmentSavAcct sav_acct = new InvestmentSavAcct(name,
 		           init_amount,
 		           tax_rate,
 		           percontrib,
 		           capitalization,
-		           interest_rate);
+		           interest_rate,
+			       start_year,
+			       start_month); 
 	    
 	    BigDecimal excess = new BigDecimal("0");	    
-	    sav_acct.advance(0, excess);
+	    sav_acct.advance(2013, 0, excess);
 	    
 	    Log.d("sav_acct.getAmount()", sav_acct.getAmount().toString());
 	    Log.d("sav_acct.getInterestsGross()", sav_acct.getInterestsGross().toString());
@@ -84,7 +93,7 @@ public class InvestmentSavAcctTest extends AndroidTestCase {
 	    Assert.assertTrue(sav_acct.getTax().compareTo(new BigDecimal("0")) == 0);
 	    Assert.assertTrue(sav_acct.getInterestsNet().compareTo(new BigDecimal("0")) == 0);
 	    	    
-	    sav_acct.advance(1, excess);	 
+	    sav_acct.advance(2013, 1, excess);	 
 	    
 	    Log.d("sav_acct.getAmount()", sav_acct.getAmount().toString());
 	    Log.d("sav_acct.getInterestsGross()", sav_acct.getInterestsGross().toString());

@@ -56,7 +56,7 @@ public class InvestmentStock extends Investment
 
 	
     @Override
-    public void advance(int month, BigDecimal excess) {
+    public void advance(int year, int month, BigDecimal excess) {
     	         
     	/* Add monthly contribution (a given percentage of excess money) to the hidden_amount  */
         amount = amount.add(Money.getPercentage(excess, percontrib));
@@ -137,6 +137,18 @@ public class InvestmentStock extends Investment
 	@Override
 	public void updateInputListing(InputListingUpdater modifier) {
 		modifier.updateInputListingForInvestmentStock(this);						
+	}
+
+	@Override
+	public int getStartYear() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getStartMonth() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }

@@ -19,10 +19,15 @@ public class ExpenseGeneric extends Expense
     private HistoryExpenseGeneric history;
     private int[] monthNumbersForDisplay = {12, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11};    
     
+    private int start_year;
+    private int start_month;
+    
     public ExpenseGeneric(String _name,
     		BigDecimal _init_expense, 
     		BigDecimal _inflation_rate,
-    		int _frequency) {
+    		int _frequency,
+            int _start_year,
+    	    int _start_month) {
         name = _name;    	
         init_expense = _init_expense;        
         init_inflation_rate = _inflation_rate;
@@ -34,6 +39,8 @@ public class ExpenseGeneric extends Expense
                                                                     Money.ROUNDING_MODE);
         frequency = _frequency;
         history = new HistoryExpenseGeneric(this);
+    	start_year = _start_year;
+    	start_month = _start_month;
     }
 
     public void initialize() { 
@@ -101,6 +108,16 @@ public class ExpenseGeneric extends Expense
 	public void updateInputListing(InputListingUpdater modifier) {
 		modifier.updateInputListingForExpenseGeneric(this);				
 		
+	}
+	
+	@Override
+	public int getStartYear() {
+		return start_year;
+	}
+	
+	@Override
+	public int getStartMonth() {
+		return start_month;
 	}
 
 }

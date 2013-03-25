@@ -2,7 +2,7 @@ package com.codelemma.finances.accounting;
 
 import java.math.BigDecimal;
 
-public class HistoryDebtMortgage extends HistoryDebt {
+public class HistoryDebtMortgage extends HistoryNew {
 
 	private BigDecimal[] monthlyPaymentHistory;
 	private BigDecimal[] interestsPaidHistory;
@@ -24,7 +24,7 @@ public class HistoryDebtMortgage extends HistoryDebt {
 	}
 	
 	@Override
-	public void add(int index, NamedValue acctElement) {
+	public void add(int index, NamedValue acctElement, HistoryCashflows cashflows, HistoryNetWorth net_worth) {
 		// TODO Auto-generated method stub
 		DebtMortgage debt = (DebtMortgage) acctElement;
 		try {		    
@@ -34,6 +34,11 @@ public class HistoryDebtMortgage extends HistoryDebt {
 		    principalPaidHistory[index] = debt.getPrincipalPaid();
 		    additionalCostHistory[index] = debt.getAdditionalCost();
 		    remainingAmountHistory[index] = debt.getRemainingAmount();
+		    
+		    cashflows.addDebtMortgage(index, debt);
+		    net_worth.addDebtMortgage(index, debt);
+		    index++;
+		    
 		} catch (IndexOutOfBoundsException e) {
 			e.printStackTrace();
 		}
@@ -84,10 +89,6 @@ public class HistoryDebtMortgage extends HistoryDebt {
 		return remainingAmountHistory.length > 0;	
     }
 
-	@Override
-	public BigDecimal[] getAmountHistory() {
-		return principalPaidHistory; //TODO: check if this is what you want
-	}
 
 	@Override
 	public void plot(PlotVisitor visitor) {

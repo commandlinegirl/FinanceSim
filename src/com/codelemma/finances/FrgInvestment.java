@@ -27,6 +27,7 @@ import com.codelemma.finances.accounting.NamedValue;
 public class FrgInvestment extends SherlockFragment {
 	
 	private Account account;
+	private Finances appState;
 	
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -46,7 +47,7 @@ public class FrgInvestment extends SherlockFragment {
 	public void onStart() {
 		super.onStart();
 		Log.d("FrgInvestment.onStart()", "called");
-		Finances appState = Finances.getInstance();
+		appState = Finances.getInstance();
 		account = appState.getAccount();	
 		
 	   	LinearLayout tip = (LinearLayout) getSherlockActivity().findViewById(R.id.investment_summary);
@@ -56,9 +57,15 @@ public class FrgInvestment extends SherlockFragment {
         tv.setText(R.string.investments_description);
         tv.setGravity(Gravity.CENTER);
         tv.setTextColor(Color.parseColor("#FF771100"));
-        tv.setPadding(0, 10, 0, 10);
+        tv.setPadding(0, 5, 0, 10);
         tip.addView(tv);
 
+	    View line = new View( getSherlockActivity());		
+	 	LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, 
+	 			                                                        Utils.px(getSherlockActivity(), 1));	
+	 	line.setLayoutParams(param);
+	 	line.setBackgroundColor(0xFFCCCCCC);	    
+		tip.addView(line);
 		
 		if (account.getInvestmentsSize() > 0) {	 
 		   	Iterable<? extends NamedValue> values = (Iterable<? extends NamedValue>) account.getInvestments();
@@ -106,7 +113,9 @@ public class FrgInvestment extends SherlockFragment {
 		BigDecimal percontrib = new BigDecimal(data.getStringExtra("investmentsav_percontrib"));
 		int capitalization = Integer.parseInt(data.getStringExtra("investmentsav_capitalization"));
 		BigDecimal interest_rate = new BigDecimal(data.getStringExtra("investmentsav_interest_rate"));
-				
+    	int start_year = Integer.parseInt((data.getStringExtra("investmentsav_start_year")));
+    	int start_month = Integer.parseInt((data.getStringExtra("investmentsav_start_month")));
+    	
     	if (requestCode == AcctElements.UPDATE.getNumber()) {
     		int investment_id = data.getIntExtra("investmentsav_id", -1);    		
     		InvestmentSavAcct investment = (InvestmentSavAcct) account.getInvestmentById(investment_id); 
@@ -119,10 +128,18 @@ public class FrgInvestment extends SherlockFragment {
     			tax_rate,                
                 percontrib,
                 capitalization,
-                interest_rate);
+                interest_rate,
+		        start_year,
+		    	start_month);                 
         account.addInvestment(investment);		
+        
         Toast.makeText(getSherlockActivity(), "Use top CHART or TABLE icons to see results.", Toast.LENGTH_SHORT).show();
-
+        
+        if ((appState.getCalculationStartYear() == start_year && appState.getCalculationStartMonth() >= start_month) 
+    			|| (appState.getCalculationStartYear() > start_year)) {    
+    	appState.setCalculationStartYear(start_year);
+    	appState.setCalculationStartMonth(start_month);
+    }
 	}
 	
 	public void onInvestment401kResult(Intent data, int requestCode) {
@@ -135,7 +152,9 @@ public class FrgInvestment extends SherlockFragment {
 		BigDecimal payrise = new BigDecimal(data.getStringExtra("investment401k_payrise"));
 		BigDecimal withdrawal_tax_rate = new BigDecimal(data.getStringExtra("investment401k_withdrawal_tax_rate"));
 		BigDecimal employer_match = new BigDecimal(data.getStringExtra("investment401k_employer_match"));
-		
+    	int start_year = Integer.parseInt((data.getStringExtra("investment401k_start_year")));
+    	int start_month = Integer.parseInt((data.getStringExtra("investment401k_start_month")));
+    	
     	if (requestCode == AcctElements.UPDATE.getNumber()) {
     		int investment_id = data.getIntExtra("investment401k_id", -1);    		
     		Investment401k investment = (Investment401k) account.getInvestmentById(investment_id); 
@@ -151,10 +170,17 @@ public class FrgInvestment extends SherlockFragment {
                 salary,
                 payrise,
                 withdrawal_tax_rate,
-                employer_match);
+                employer_match,
+		        start_year,
+		    	start_month);                 
         account.addInvestment(investment);		
         Toast.makeText(getSherlockActivity(), "Use top CHART or TABLE icons to see results.", Toast.LENGTH_SHORT).show();
-
+        
+        if ((appState.getCalculationStartYear() == start_year && appState.getCalculationStartMonth() >= start_month) 
+    			|| (appState.getCalculationStartYear() > start_year)) {    
+    	    appState.setCalculationStartYear(start_year);
+    	    appState.setCalculationStartMonth(start_month);
+        }
 	}
 	
 	public void onInvestmentBondResult(Intent data, int requestCode) {

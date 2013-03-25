@@ -104,5 +104,14 @@ public class InvestmentBond extends Investment
 		
 	}
 
+	@Override
+	public int getStartYear() {
+		return 0;
+	}
+	
+	@Override
+	public int getStartMonth() {
+		return 0;
+	}
 
 }

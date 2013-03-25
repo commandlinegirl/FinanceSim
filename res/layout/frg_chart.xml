@@ -29,7 +29,8 @@
              android:layout_margin="10dip">
          </TextView>
          <TextView
-             android:id="@+id/pred1"             
+             android:id="@+id/pred1"   
+             android:tag="12"          
              android:layout_height="wrap_content"
              android:layout_width="wrap_content"
              android:layout_weight="1"
@@ -44,7 +45,8 @@
              android:background="@drawable/pred_years">             
          </TextView>
          <TextView
-             android:id="@+id/pred5"             
+             android:id="@+id/pred5"
+             android:tag="60"             
              android:layout_height="wrap_content"
              android:layout_width="wrap_content"
              android:layout_weight="1"
@@ -59,7 +61,8 @@
              android:background="@drawable/pred_years">
          </TextView>
          <TextView
-             android:id="@+id/pred10"             
+             android:id="@+id/pred10"
+             android:tag="120"             
              android:layout_height="wrap_content"
              android:layout_width="wrap_content"
              android:layout_weight="1"
@@ -71,7 +74,8 @@
              android:background="@drawable/pred_years">             
          </TextView>
          <TextView
-             android:id="@+id/pred20"             
+             android:id="@+id/pred20"
+             android:tag="240"             
              android:layout_height="wrap_content"
              android:layout_width="wrap_content"
              android:layout_weight="1"
@@ -83,7 +87,8 @@
              android:background="@drawable/pred_years">
          </TextView>
          <TextView
-             android:id="@+id/pred30"             
+             android:id="@+id/pred30"
+             android:tag="360"             
              android:layout_height="wrap_content"
              android:layout_width="wrap_content"
              android:layout_weight="1"
@@ -103,12 +108,18 @@
         android:layout_width="fill_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:layout_margin="0dp"
-        
-        android:background="@drawable/chart_bkg"
-        >
+        android:layout_margin="0dp"        
+        android:background="@drawable/chart_bkg">
      </LinearLayout>       
-          
+     
+     <TextView
+        android:id="@+id/legend"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textSize="10sp"
+        android:background="#FFFFFFFF">
+     </TextView>    
+     
      <Spinner
         android:id="@+id/chart_spinner"
         android:layout_height="wrap_content"

@@ -3,7 +3,6 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Map;
 
 import android.util.Log;
 
@@ -13,17 +12,27 @@ public class Account {
     private int expense_id = 0;
     private int investment_id = 0;
     private int debt_id = 0;
+    private int simStartYear;
+    private int simStartMonth;
     
-    private Map<Integer,Income> income_ids = new HashMap<Integer,Income>();
-    private Map<Integer,Expense> expense_ids = new HashMap<Integer,Expense>();
-    private Map<Integer,Investment> investment_ids = new HashMap<Integer,Investment>();
-    private Map<Integer,Debt> debt_ids = new HashMap<Integer,Debt>();
+    private HashMap<Integer,Income> income_ids = new HashMap<Integer,Income>();
+    private HashMap<Integer,Expense> expense_ids = new HashMap<Integer,Expense>();
+    private HashMap<Integer,Investment> investment_ids = new HashMap<Integer,Investment>();
+    private HashMap<Integer,Debt> debt_ids = new HashMap<Integer,Debt>();
                 
     private ArrayList<Income> incomes = new ArrayList<Income>();
     private ArrayList<Expense> expenses = new ArrayList<Expense>();
     private ArrayList<Investment> investments = new ArrayList<Investment>();
     private ArrayList<Debt> debts = new ArrayList<Debt>();
 
+    private HistoryCashflows cashflows = new HistoryCashflows("Aggregates");
+    private HistoryNetWorth net_worth = new HistoryNetWorth("Aggregates");
+
+    public Account(int year, int month) {
+    	simStartYear = year;
+    	simStartMonth = month;
+    }
+    
     public void addExpense(Expense expense) {
     	Preconditions.checkNotNull(expense, "Missing expenses");
     	expense.setId(expense_id);        
@@ -156,80 +165,128 @@ public class Account {
         }
     }
     
-    public BigDecimal advanceDebt(int month, int index) {
+    public void setInitCashflow() {
+    	cashflows.initialize();
+    }
+    
+    public void setInitNetworth() {
+    	net_worth.initialize();
+    }
+    
+    public BigDecimal advanceDebt(int index, int year, int month) {
     	BigDecimal total_debt = Money.scale(new BigDecimal(0));
         for (Debt debt: debts) {
-            debt.advance(month);
-            debt.getHistory().add(index, debt);
+        	
+        	int debtCalcStartYear = debt.getStartYear();
+        	int debtCalcStartMonth = debt.getStartMonth();
+
+        	if ((year > debtCalcStartYear) || (year == debtCalcStartYear && month >= debtCalcStartMonth)) {
+    		    debt.advance(month);
+        	}
+    		
+    		if ((year > simStartYear) || (year == simStartYear && month >= simStartMonth)) {
+        		debt.getHistory().add(index, debt, cashflows, net_worth);
+        	}
             total_debt = total_debt.add(debt.getAmount());
         }
         return total_debt;
     }  
     
-    public BigDecimal advanceExpense(int month, int index) {
+    public BigDecimal advanceExpense(int index, int year, int month) {
     	BigDecimal total_expense = Money.scale(new BigDecimal(0));
         for (Expense expense: expenses) {
-            expense.advance(month);
-            expense.getHistory().add(index, expense);
+        	int debtCalcStartYear = expense.getStartYear();
+        	int debtCalcStartMonth = expense.getStartMonth();
+
+        	if ((year > debtCalcStartYear) || (year == debtCalcStartYear && month >= debtCalcStartMonth)) {
+        		expense.advance(month);
+        	}        	
+    		if ((year > simStartYear) || (year == simStartYear && month >= simStartMonth)) {
+        		expense.getHistory().add(index, expense, cashflows);
+        	}
             total_expense = total_expense.add(expense.getAmount()); 
         }
         return total_expense;
     }
     
-    public BigDecimal advanceIncome(int month, int index) {
+    public BigDecimal advanceIncome(int index, int year, int month) {
     	BigDecimal total_income = Money.scale(new BigDecimal(0));
         for (Income income: incomes) {
-            income.advance(month);
-            income.getHistory().add(index, income);
+        	int debtCalcStartYear = income.getStartYear();
+        	int debtCalcStartMonth = income.getStartMonth();
+
+        	if ((year > debtCalcStartYear) || (year == debtCalcStartYear && month >= debtCalcStartMonth)) {
+        		income.advance(month);
+        	} 
+    		if ((year > simStartYear) || (year == simStartYear && month >= simStartMonth)) {
+        		income.getHistory().add(index, income, cashflows);
+        	}
             total_income = total_income.add(income.getAmount());
         }
         return total_income;
     }
     
-    public void advanceInvestment(int month, BigDecimal excess, int index) {
+    public void advanceInvestment(int index, BigDecimal excess, int year, int month) {
         for (Investment investment: investments) {
-            investment.advance(month, excess);
-            investment.getHistory().add(index, investment);            
+        	int investmentCalcStartYear = investment.getStartYear();
+        	int investmentCalcStartMonth = investment.getStartMonth();
+        	
+        	if ((year > investmentCalcStartYear) || (year == investmentCalcStartYear && month >= investmentCalcStartMonth)) {
+            	investment.advance(year, month, excess);
+
+        	}        	        	
+    		if ((year > simStartYear) || (year == simStartYear && month >= simStartMonth)) {
+        		investment.getHistory().add(index, investment, cashflows, net_worth);
+        		Log.d("investment", "ADDED TO HISTORY");
+        	}
         }
+    }
+        
+    public void advance(int index, int year, int month) {
+    	// year and month - starting date of predictions (saved to history here)
+        Preconditions.checkInBounds(month, 0, 11, "Month must be in 0..11");
+        BigDecimal excess = Money.scale(new BigDecimal(0));
+                 
+        Log.d("MAIN INDEX ..........", String.valueOf(index));
+        
+        //Log.d("Account index", String.valueOf(index));
+        //Log.d("Account year", String.valueOf(year));
+        //Log.d("Account month", String.valueOf(month));
+        
+        BigDecimal total_income = advanceIncome(index, year, month);
+        excess = excess.add(total_income);
+        
+        BigDecimal total_debt = advanceDebt(index, year, month);
+        excess = excess.subtract(total_debt);
+
+        BigDecimal total_expense = advanceExpense(index, year, month);        
+        excess = excess.subtract(total_expense);
+                
+        advanceInvestment(index, excess, year, month);        
     }
     
     public void addToHistory(History history) {
     	for (Investment investment: investments) {
-    		history.addInvestmentHistory((HistoryInvestment) investment.getHistory());
+    		history.addInvestmentHistory(investment.getHistory());
     	}
     	
     	for (Income income: incomes) {
-    		history.addIncomeHistory((HistoryIncome) income.getHistory());
+    		history.addIncomeHistory(income.getHistory());
     	}
     	
     	for (Expense expense: expenses) {
-    		history.addExpenseHistory((HistoryExpense) expense.getHistory());
+    		history.addExpenseHistory(expense.getHistory());
     	}
     	
     	for (Debt debt: debts) {
-    		history.addDebtHistory((HistoryDebt) debt.getHistory());
+    		history.addDebtHistory(debt.getHistory());
     	}
+    	
+    	history.addCashflowHistory(cashflows);
+    	history.addNetWorthHistory(net_worth);
     }
     
 	public void clearHistory(History history) {
 		history.clear();
 	}
-      
-    public void advance(int index, int month) {
-    	// year and month - starting date of predictions (saved to history here)
-        Preconditions.checkInBounds(month, 0, 11, "Month must be in 0..11");
-        BigDecimal excess = Money.scale(new BigDecimal(0));
-        
-        BigDecimal total_income = advanceIncome(month, index);
-        excess = excess.add(total_income);
-        
-        BigDecimal total_debt = advanceDebt(month, index);
-        excess = excess.subtract(total_debt);
-
-        BigDecimal total_expense = advanceExpense(month, index);        
-        excess = excess.subtract(total_expense);
-                
-        advanceInvestment(month, excess, index);
-    }
-
 }

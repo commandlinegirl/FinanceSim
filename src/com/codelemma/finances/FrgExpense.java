@@ -10,7 +10,6 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.View.OnClickListener;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,12 +17,12 @@ import android.widget.Toast;
 import com.actionbarsherlock.app.SherlockFragment;
 import com.codelemma.finances.accounting.Account;
 import com.codelemma.finances.accounting.ExpenseGeneric;
-import com.codelemma.finances.accounting.ModifyUiVisitor;
 import com.codelemma.finances.accounting.NamedValue;
 
 public class FrgExpense extends SherlockFragment {
 	
 	private Account account;
+	private Finances appState;
 
 	
 	@Override
@@ -48,7 +47,7 @@ public class FrgExpense extends SherlockFragment {
 	public void onStart() {
 		super.onStart();
 		Log.d("FrgExpense.onStart()", "called");
-		Finances appState = Finances.getInstance();
+		appState = Finances.getInstance();
 		account = appState.getAccount();	
 		
     	LinearLayout tip = (LinearLayout) getSherlockActivity().findViewById(R.id.expense_summary);
@@ -58,8 +57,15 @@ public class FrgExpense extends SherlockFragment {
         tv.setText(R.string.expenses_description);
         tv.setGravity(Gravity.CENTER);
         tv.setTextColor(Color.parseColor("#FF771100"));
-        tv.setPadding(0, 10, 0, 10);
+        tv.setPadding(0, 5, 0, 10);
         tip.addView(tv);
+		
+	    View line = new View( getSherlockActivity());		
+	 	LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, 
+	 			                                                        Utils.px(getSherlockActivity(), 1));	
+	 	line.setLayoutParams(param);
+	 	line.setBackgroundColor(0xFFCCCCCC);	    
+		tip.addView(line);
 		
 		if (account.getExpensesSize() > 0) {	 
 		   	Iterable<? extends NamedValue> values = (Iterable<? extends NamedValue>) account.getExpenses();
@@ -84,7 +90,9 @@ public class FrgExpense extends SherlockFragment {
 		BigDecimal init_expense = new BigDecimal(data.getStringExtra("init_expense"));
 		BigDecimal inflation_rate = new BigDecimal(data.getStringExtra("inflation_rate"));
 		int expense_frequency = Integer.parseInt(data.getStringExtra("expense_frequency"));
-		
+       	int start_year = Integer.parseInt((data.getStringExtra("expensegeneric_start_year")));
+    	int start_month = Integer.parseInt((data.getStringExtra("expensegeneric_start_month")));
+    	
         if (requestCode == AcctElements.UPDATE.getNumber()) {
         	int expense_id = data.getIntExtra("expense_id", -1);    		
     		ExpenseGeneric expense = (ExpenseGeneric) account.getExpenseById(expense_id); 
@@ -95,10 +103,17 @@ public class FrgExpense extends SherlockFragment {
     	ExpenseGeneric expense = new ExpenseGeneric(expense_name,
     			                      init_expense, 
     			                      inflation_rate, 
-    			                      expense_frequency);
+    			                      expense_frequency,
+    			     		          start_year,
+    			    		    	  start_month); 
     	account.addExpense(expense);
         Toast.makeText(getSherlockActivity(), "Use top CHART or TABLE icons to see results.", Toast.LENGTH_SHORT).show();
-
+        
+        if ((appState.getCalculationStartYear() == start_year && appState.getCalculationStartMonth() >= start_month) 
+    			|| (appState.getCalculationStartYear() > start_year)) {    
+    	    appState.setCalculationStartYear(start_year);
+    	    appState.setCalculationStartMonth(start_month);
+        }
 	}
 	
     private void updateInputListing(Iterable<? extends NamedValue> values) {        

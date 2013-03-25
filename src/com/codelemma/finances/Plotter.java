@@ -15,6 +15,7 @@ import android.graphics.Paint.Align;
 import android.widget.LinearLayout;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.codelemma.finances.accounting.HistoryCashflows;
 import com.codelemma.finances.accounting.HistoryDebtLoan;
 import com.codelemma.finances.accounting.HistoryDebtMortgage;
 import com.codelemma.finances.accounting.HistoryExpenseGeneric;
@@ -23,28 +24,28 @@ import com.codelemma.finances.accounting.HistoryInvestment401k;
 import com.codelemma.finances.accounting.HistoryInvestmentBond;
 import com.codelemma.finances.accounting.HistoryInvestmentSavAcct;
 import com.codelemma.finances.accounting.HistoryInvestmentStock;
+import com.codelemma.finances.accounting.HistoryNetWorth;
 import com.codelemma.finances.accounting.PlotVisitor;
 
 public class Plotter implements PlotVisitor {
 
 	private SherlockFragmentActivity frgActivity;
     private int currentColor = 0;
-    private String[] colors = {"#ff00ff00", "#ff0099ff", "#ffFF0080", "#ff8C489F", "#ff66CCFF", "#ffffff00", "#ffcccccc",  "#ff9CAA9C",};    
+    private String[] colors = {"#ff00ff00", "#ff0099ff", "#ffFF0080", "#ff8C489F", "#ff9CAA9C", "#ffffff00", "#ff66CCFF",  "#ffcccccc"};    
     private String[] dates;
-    private int numberOfMonths;
     
 	public Plotter(SherlockFragmentActivity sherlockFragmentActivity, String[] dates) {
 		this.frgActivity = sherlockFragmentActivity;
 		this.dates = dates;
 	}
-	
-	public void setNumberOfMonths(int years) {
-		numberOfMonths = years;
-	}
-	
+		
 	public void plot(HashMap<String,BigDecimal[]> lists, String title) {		
 		XYMultipleSeriesDataset dataset = new XYMultipleSeriesDataset();
-		XYMultipleSeriesRenderer mRenderer = createMultipleSeriesRenderer(title, 360);  
+		  
+		XYMultipleSeriesRenderer mRenderer = new XYMultipleSeriesRenderer();
+		
+		
+		int numberOfMonths = Finances.getInstance().getNumberOfMonthsInChart();
 		
         currentColor = 0; 
 		
@@ -92,9 +93,10 @@ public class Plotter implements PlotVisitor {
 	    	leftMargin += Utils.px(frgActivity, 4) * labelMinYLen;
 	    }	        
 
+	    
     	mRenderer.setMargins(new int[] {Utils.px(frgActivity, 8), 
     			leftMargin, 
-    			50, 
+    			Utils.px(frgActivity, 20), 
     			rightMargin}); // top, left, bottom, right
     		
     	int screenWidthDips = Utils.dip(frgActivity, frgActivity.getResources().getDisplayMetrics().widthPixels);
@@ -111,19 +113,25 @@ public class Plotter implements PlotVisitor {
         }
                 
         mRenderer.setShowLegend(true);
-        mRenderer.setLegendHeight(50);
+        mRenderer.setLegendHeight(Utils.px(frgActivity, 48));
         mRenderer.setLegendTextSize(Utils.px(frgActivity, 10));
         mRenderer.setInScroll(true);
-    	mRenderer.setYAxisMin(0);
-    	mRenderer.setYAxisMax(maxY + maxY/5);
+        
+        if (minY >= 0) { // set min and max only if Y values > 0
+    	    mRenderer.setYAxisMin(0);
+    	    mRenderer.setYAxisMax(maxY + maxY/5);
+        }
+        
+    	customizeMultipleSeriesRenderer(mRenderer, title, 360);
+    	
 		GraphicalView mChartView = ChartFactory.getLineChartView(frgActivity, dataset, mRenderer);	    	  		    	
-        LinearLayout layout = (LinearLayout) frgActivity.findViewById(R.id.pred_chart);;		       
+        LinearLayout layout = (LinearLayout) frgActivity.findViewById(R.id.pred_chart);	       
         layout.removeAllViews();
         layout.addView(mChartView); 
     }
 	
-	private XYMultipleSeriesRenderer createMultipleSeriesRenderer(String title, int seriesSize) {
-    	XYMultipleSeriesRenderer mRenderer = new XYMultipleSeriesRenderer();
+	private void customizeMultipleSeriesRenderer(XYMultipleSeriesRenderer mRenderer, String title, int seriesSize) {
+    	
     	mRenderer.setAxesColor(Color.WHITE);
         mRenderer.setAxisTitleTextSize(Utils.px(frgActivity, 10));    	
     	mRenderer.setMarginsColor(Color.argb(0xFF, 0xFF, 0xFF, 0xFF));    	
@@ -141,7 +149,7 @@ public class Plotter implements PlotVisitor {
         mRenderer.setPointSize(Utils.px(frgActivity, 2));          
     	int labelsTextSize = Utils.px(frgActivity, 10);
     	mRenderer.setLabelsTextSize(labelsTextSize);        
-        return mRenderer;
+        //return mRenderer;
 	}
 	
 	private TimeSeries getSeries(BigDecimal[] values, int item_count, String name) {
@@ -183,14 +191,14 @@ public class Plotter implements PlotVisitor {
 	public void plotExpenseGeneric(HistoryExpenseGeneric historyExpenseGeneric) {
 		HashMap<String,BigDecimal[]> values = new HashMap<String,BigDecimal[]>(1);
 		values.put(historyExpenseGeneric.getName(), historyExpenseGeneric.getAmountHistory());
-        plot(values, "Income"); 				
+        plot(values, "Expense"); 				
 	}
 
 	@Override
 	public void plotInvestment401k(HistoryInvestment401k historyInvestment401k) {
 		HashMap<String,BigDecimal[]> values = new HashMap<String,BigDecimal[]>(1);
 		values.put(historyInvestment401k.getName(), historyInvestment401k.getAmountHistory());
-        plot(values, "Income"); 				
+        plot(values, "Investment"); 				
 	}
 
 	@Override
@@ -198,14 +206,14 @@ public class Plotter implements PlotVisitor {
 			HistoryInvestmentSavAcct historyInvestmentSavAcct) {
 		HashMap<String,BigDecimal[]> values = new HashMap<String,BigDecimal[]>(1);
 		values.put(historyInvestmentSavAcct.getName(), historyInvestmentSavAcct.getAmountHistory());
-        plot(values, "Income"); 				
+        plot(values, "Investment"); 				
 	}
 
 	@Override
 	public void plotInvestmentBond(HistoryInvestmentBond historyInvestmentBond) {
 		HashMap<String,BigDecimal[]> values = new HashMap<String,BigDecimal[]>(1);
 		values.put(historyInvestmentBond.getName(), historyInvestmentBond.getAmountHistory());
-        plot(values, "Income"); 				
+        plot(values, "Investment"); 				
 	}
 
 	@Override
@@ -213,7 +221,7 @@ public class Plotter implements PlotVisitor {
 			HistoryInvestmentStock historyInvestmentStock) {
 		HashMap<String,BigDecimal[]> values = new HashMap<String,BigDecimal[]>(1);
 		values.put(historyInvestmentStock.getName(), historyInvestmentStock.getAmountHistory());
-        plot(values, "Income"); 				
+        plot(values, "Investment"); 				
 	}
 
 	@Override
@@ -231,6 +239,27 @@ public class Plotter implements PlotVisitor {
 		values.put("Interest", historyDebtLoan.getInterestsPaidHistory());
 		values.put("Principal", historyDebtLoan.getPrincipalPaidHistory());
 		values.put("Outstanding loan", historyDebtLoan.getRemainingAmountHistory());
-        plot(values, "Mortgage"); 		
+        plot(values, "Loan"); 		
+	}
+
+	@Override
+	public void plotCashflows(HistoryCashflows historyCashflows) {
+		HashMap<String,BigDecimal[]> values = new HashMap<String,BigDecimal[]>(1);
+		values.put("Income", historyCashflows.getIncomeHistory());
+		values.put("Capital gains", historyCashflows.getCapitalGainsHistory());
+		values.put("Expenses", historyCashflows.getExpensesHistory());
+		values.put("Debt rates", historyCashflows.getDebtRatesHistory());
+		values.put("Investment rates", historyCashflows.getInvestmentRatesHistory());
+        plot(values, "Cashflows"); 			
+	}
+
+
+	@Override
+	public void plotNetWorth(HistoryNetWorth historyNetWorth) {
+		HashMap<String,BigDecimal[]> values = new HashMap<String,BigDecimal[]>(1);
+		values.put("Savings", historyNetWorth.getSavingsHistory());
+		values.put("Outstanding debts", historyNetWorth.getOutstandingDebtsHistory());
+		values.put("Net worth", historyNetWorth.getNetWorthHistory());
+        plot(values, "Net worth");		
 	}	
 }

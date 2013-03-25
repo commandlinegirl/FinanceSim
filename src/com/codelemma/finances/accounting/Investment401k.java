@@ -2,6 +2,8 @@ package com.codelemma.finances.accounting;
 import java.math.BigDecimal;
 
 
+import android.util.Log;
+
 import com.codelemma.finances.InputListingUpdater;
 import com.codelemma.finances.ParseException;
 import com.codelemma.finances.TypedContainer;
@@ -43,6 +45,9 @@ public class Investment401k extends Investment
     int counter = 0;
     int period_months;
         
+    private int start_year;
+    private int start_month;
+    
     public Investment401k(String name,
     		          BigDecimal init_amount,
     		          BigDecimal percontrib,
@@ -51,7 +56,9 @@ public class Investment401k extends Investment
     		          BigDecimal salary,
     		          BigDecimal payrise,
     		          BigDecimal withdrawal_tax_rate,
-    		          BigDecimal employer_match) {
+    		          BigDecimal employer_match,
+                      int _start_year,
+              	      int _start_month) {
     	this.name = name;
         
     	this.init_amount = Money.scale(init_amount);
@@ -89,6 +96,8 @@ public class Investment401k extends Investment
         this.withdrawal_tax_rate_decimal = withdrawal_tax_rate.divide(Money.HUNDRED, Money.RATE_DECIMALS, Money.ROUNDING_MODE);   
         
         history = new HistoryInvestment401k(this);
+    	start_year = _start_year;
+    	start_month = _start_month;
     }   
        		
 	public BigDecimal getInterestRate() {
@@ -196,7 +205,8 @@ public class Investment401k extends Investment
     }
 	          
     @Override
-    public void advance(int month, BigDecimal excess_null_value) {
+    public void advance(int year, int month, BigDecimal excess_null_value) {
+    	   	
     	if (month == 0) {
     		/* Each January give a rise to employee */
     		BigDecimal rise = Money.getPercentage(salary, payrise_decimal);
@@ -221,6 +231,10 @@ public class Investment401k extends Investment
     	}
     }
         
+	public BigDecimal getAccumulatedSavings() {
+		return amount;
+	}
+    
 	@Override
 	public void initialize() {
 		amount = Money.scale(init_amount);
@@ -251,7 +265,17 @@ public class Investment401k extends Investment
 	public HistoryInvestment401k getHistory() {
 		return history;
 	}
-
+	
+	@Override
+	public int getStartYear() {
+		return start_year;
+	}
+	
+	@Override
+	public int getStartMonth() {
+		return start_month;
+	}
+	
 	@Override
 	public void updateInputListing(InputListingUpdater modifier) {
 		modifier.updateInputListingForInvestment401k(this);				

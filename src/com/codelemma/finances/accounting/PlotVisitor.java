@@ -10,7 +10,7 @@ public interface PlotVisitor {
 	public void plotInvestmentStock(HistoryInvestmentStock historyInvestmentStock);	
 	public void plotDebtMortgage(HistoryDebtMortgage historyDebtMortgage);
 	public void plotDebtLoan(HistoryDebtLoan historyDebtConsumerLoan);
-
-	public void setNumberOfMonths(int i);
+	public void plotCashflows(HistoryCashflows historyCashflows);
+	public void plotNetWorth(HistoryNetWorth historyNetWorth);
 
 }

@@ -21,14 +21,19 @@ public class DebtLoan extends Debt
     private BigDecimal remaining_amount;   
     private int month_counter = 1;
     private String name;
-    private int id;
+    private int id;    
+    private int start_year;
+    private int start_month;
+    
     private HistoryDebtLoan history;
     
     public DebtLoan(String _name, 
     		BigDecimal _amount,
     		BigDecimal _interest_rate,
     		int _term,
-    		BigDecimal _extra_payment) {
+    		BigDecimal _extra_payment,
+    		int _start_year,
+    		int _start_month) {
     	name = _name;
     	init_amount = _amount;
     	remaining_amount = Money.scale(_amount);
@@ -37,6 +42,8 @@ public class DebtLoan extends Debt
     	extra_payment = Money.scale(_extra_payment);
     	
     	term = _term;
+    	start_year = _start_year;
+    	start_month = _start_month;
     	
     	monthly_payment = calculateMonthlyPayment();
     	history = new HistoryDebtLoan(this);
@@ -60,6 +67,7 @@ public class DebtLoan extends Debt
     	return monthly_payment; 
     }
 
+    @Override
     public void advance(int month) {
     	if (month_counter <= term && remaining_amount.compareTo(new BigDecimal(0)) == 1) {
 
@@ -83,6 +91,7 @@ public class DebtLoan extends Debt
     	}
     }
     
+    @Override
     public BigDecimal getMonthlyPayment() {
     	return monthly_payment;
     }
@@ -119,6 +128,8 @@ public class DebtLoan extends Debt
         this.id = id;
     }
     
+ 
+   
     @Override
     public int getId() {
         return id;
@@ -173,5 +184,15 @@ public class DebtLoan extends Debt
 	public void updateInputListing(InputListingUpdater modifier) {
 		modifier.updateInputListingForDebtLoan(this);				
 		
+	}
+
+	@Override
+	public int getStartYear() {
+		return start_year;
+	}
+	
+	@Override
+	public int getStartMonth() {
+		return start_month;
 	}
 }

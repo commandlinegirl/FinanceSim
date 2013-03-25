@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.codelemma.finances.accounting.HistoryCashflows;
 import com.codelemma.finances.accounting.HistoryDebtLoan;
 import com.codelemma.finances.accounting.HistoryDebtMortgage;
 import com.codelemma.finances.accounting.HistoryExpenseGeneric;
@@ -19,6 +20,7 @@ import com.codelemma.finances.accounting.HistoryInvestment401k;
 import com.codelemma.finances.accounting.HistoryInvestmentBond;
 import com.codelemma.finances.accounting.HistoryInvestmentSavAcct;
 import com.codelemma.finances.accounting.HistoryInvestmentStock;
+import com.codelemma.finances.accounting.HistoryNetWorth;
 import com.codelemma.finances.accounting.TableVisitor;
 
 public class TableMaker implements TableVisitor {
@@ -650,6 +652,9 @@ public class TableMaker implements TableVisitor {
     	ArrayList<ListChildDebtLoan> list2 = new ArrayList<ListChildDebtLoan>();
 
     	String[] dates = ((Main) frgActivity).getDates();
+    	
+    	
+    	
     	BigDecimal[] interestsPaid = historyDebtLoan.getInterestsPaidHistory();
     	BigDecimal[] totalInterests = historyDebtLoan.getTotalInterestsHistory();
     	BigDecimal[] principalPaid = historyDebtLoan.getPrincipalPaidHistory();
@@ -693,4 +698,203 @@ public class TableMaker implements TableVisitor {
     	}    	    	        
         return list;
     }
+
+	@Override
+	public void makeTableCashflowsAggregates(HistoryCashflows historyCashflows) {
+    	// header
+		LinearLayout header = (LinearLayout) frgActivity.findViewById(R.id.header);
+		header.removeAllViews();
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, 
+                                                                         LinearLayout.LayoutParams.WRAP_CONTENT);                  
+        params.weight = 1;
+		TextView tv;
+		
+		tv = new TextView(frgActivity);
+		tv.setText("Date");
+		tv.setTextSize(11);
+		tv.setLayoutParams(params);
+		tv.setGravity(Gravity.CENTER);
+		header.addView(tv);
+				
+		tv = new TextView(frgActivity);
+		tv.setText("Net\nincome");
+		tv.setTextSize(11);
+		tv.setLayoutParams(params);
+		tv.setGravity(Gravity.CENTER);
+		header.addView(tv); 
+		
+		tv = new TextView(frgActivity);
+		tv.setText("Capital\ngains");
+		tv.setTextSize(11);
+		tv.setLayoutParams(params);
+		tv.setGravity(Gravity.CENTER);
+		header.addView(tv); 
+		
+		tv = new TextView(frgActivity);
+		tv.setText("Total\nExpenses");
+		tv.setTextSize(11);
+		tv.setLayoutParams(params);
+		tv.setGravity(Gravity.CENTER);
+		header.addView(tv); 
+				
+		tv = new TextView(frgActivity);
+		tv.setText("Debt\nrates");
+		tv.setTextSize(11);
+		tv.setLayoutParams(params);
+		tv.setGravity(Gravity.CENTER);
+		header.addView(tv); 
+
+		tv = new TextView(frgActivity);
+		tv.setText("Investments\nrates");
+		tv.setTextSize(11);
+		tv.setLayoutParams(params);
+		tv.setGravity(Gravity.CENTER);
+		header.addView(tv); 
+		
+    	ExpandableListView expandedList = (ExpandableListView) frgActivity.findViewById(R.id.exp_list);
+    	ArrayList<ListGroupCashflows> ExpListItems = setGroupsCashflows(historyCashflows);
+    	ListAdapterCashflows ExpAdapter = new ListAdapterCashflows(frgActivity, ExpListItems);
+        expandedList.setAdapter(ExpAdapter);
+	}
+	
+    public ArrayList<ListGroupCashflows> setGroupsCashflows(HistoryCashflows historyCashflows) {
+    	ArrayList<ListGroupCashflows> list = new ArrayList<ListGroupCashflows>();
+    	ArrayList<ListChildCashflows> list2 = new ArrayList<ListChildCashflows>();
+
+    	String[] dates = ((Main) frgActivity).getDates();
+    	BigDecimal[] income = historyCashflows.getIncomeHistory();
+    	BigDecimal[] capitalGains = historyCashflows.getCapitalGainsHistory();
+    	BigDecimal[] expenses = historyCashflows.getExpensesHistory();
+    	BigDecimal[] debtRates = historyCashflows.getDebtRatesHistory();
+    	BigDecimal[] investmentRates = historyCashflows.getInvestmentRatesHistory();
+   	
+    	int datesLen = dates.length;
+    	String prevYear = dates[0].substring(3);
+    	String currYear;
+    	ListGroupCashflows gru1 = new ListGroupCashflows();
+    	int i = 0;
+    	gru1.setDate(dates[i]);
+		gru1.setIncome(income[i].toString()); 
+		gru1.setCapitalGains(capitalGains[i].toString()); 
+		gru1.setExpenses(expenses[i].toString()); 
+		gru1.setDebtRates(debtRates[i].toString()); 
+		gru1.setInvestmentRates(investmentRates[i].toString()); 		
+        i++;
+    	while(i < datesLen) {    		
+    		currYear = dates[i].substring(3);
+    		if (prevYear.equals(currYear)) {
+    			ListChildCashflows ch1_1 = new ListChildCashflows();
+    		    ch1_1.setDate(dates[i]);
+    		    ch1_1.setIncome(income[i].toString()); 
+    			ch1_1.setCapitalGains(capitalGains[i].toString()); 
+    			ch1_1.setExpenses(expenses[i].toString()); 
+    			ch1_1.setDebtRates(debtRates[i].toString()); 
+    			ch1_1.setInvestmentRates(investmentRates[i].toString()); 
+	            list2.add(ch1_1);	    			    		    		    
+    		} else {
+    			gru1.setItems(list2);
+    			list.add(gru1);
+    			list2 = new ArrayList<ListChildCashflows>();
+    			gru1 = new ListGroupCashflows();
+    	    	gru1.setDate(dates[i]);    			
+    			gru1.setIncome(income[i].toString()); 
+    			gru1.setCapitalGains(capitalGains[i].toString()); 
+    			gru1.setExpenses(expenses[i].toString()); 
+    			gru1.setDebtRates(debtRates[i].toString()); 
+    			gru1.setInvestmentRates(investmentRates[i].toString()); 
+    		}
+    		i++;
+    		prevYear = currYear;
+    	}    	    	        
+        return list;
+    }
+
+	@Override
+	public void makeTableNetWorthAggregates(HistoryNetWorth historyNetWorth) {
+    	// header
+		LinearLayout header = (LinearLayout) frgActivity.findViewById(R.id.header);
+		header.removeAllViews();
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, 
+                                                                         LinearLayout.LayoutParams.WRAP_CONTENT);                  
+        params.weight = 1;
+		TextView tv;
+		
+		tv = new TextView(frgActivity);
+		tv.setText("Date");
+		tv.setTextSize(11);
+		tv.setLayoutParams(params);
+		tv.setGravity(Gravity.CENTER);
+		header.addView(tv);
+				
+		tv = new TextView(frgActivity);
+		tv.setText("Accumulated\nsavings");
+		tv.setTextSize(11);
+		tv.setLayoutParams(params);
+		tv.setGravity(Gravity.CENTER);
+		header.addView(tv); 
+
+		tv = new TextView(frgActivity);
+		tv.setText("Outstanding\ndebts");
+		tv.setTextSize(11);
+		tv.setLayoutParams(params);
+		tv.setGravity(Gravity.CENTER);
+		header.addView(tv); 
+
+		tv = new TextView(frgActivity);
+		tv.setText("Net\nworth");
+		tv.setTextSize(11);
+		tv.setLayoutParams(params);
+		tv.setGravity(Gravity.CENTER);
+		header.addView(tv); 
+		
+    	ExpandableListView expandedList = (ExpandableListView) frgActivity.findViewById(R.id.exp_list);
+    	ArrayList<ListGroupNetWorth> ExpListItems = setGroupsNetWorth(historyNetWorth);
+    	ListAdapterNetWorth ExpAdapter = new ListAdapterNetWorth(frgActivity, ExpListItems);
+        expandedList.setAdapter(ExpAdapter);
+	}
+	
+    public ArrayList<ListGroupNetWorth> setGroupsNetWorth(HistoryNetWorth historyNetWorth) {
+    	ArrayList<ListGroupNetWorth> list = new ArrayList<ListGroupNetWorth>();
+    	ArrayList<ListChildNetWorth> list2 = new ArrayList<ListChildNetWorth>();
+
+    	String[] dates = ((Main) frgActivity).getDates();
+    	BigDecimal[] savings = historyNetWorth.getSavingsHistory();
+    	BigDecimal[] debt = historyNetWorth.getOutstandingDebtsHistory();
+    	BigDecimal[] net_worth = historyNetWorth.getNetWorthHistory();
+    	
+    	int datesLen = dates.length;
+    	String prevYear = dates[0].substring(3);
+    	String currYear;
+    	ListGroupNetWorth gru1 = new ListGroupNetWorth();
+    	int i = 0;
+    	gru1.setDate(dates[i]);
+		gru1.setSavings(savings[i].toString()); 
+		gru1.setOutstandingDebts(debt[i].toString()); 	
+		gru1.setNetWorth(net_worth[i].toString());
+        i++;
+    	while(i < datesLen) {    		
+    		currYear = dates[i].substring(3);
+    		if (prevYear.equals(currYear)) {
+    			ListChildNetWorth ch1_1 = new ListChildNetWorth();
+    		    ch1_1.setDate(dates[i]);
+    		    ch1_1.setSavings(savings[i].toString()); 
+    		    ch1_1.setOutstandingDebts(debt[i].toString());
+    		    ch1_1.setNetWorth(net_worth[i].toString()); 
+	            list2.add(ch1_1);	    			    		    		    
+    		} else {
+    			gru1.setItems(list2);
+    			list.add(gru1);
+    			list2 = new ArrayList<ListChildNetWorth>();
+    			gru1 = new ListGroupNetWorth();
+    	    	gru1.setDate(dates[i]);
+    			gru1.setSavings(savings[i].toString()); 
+    			gru1.setOutstandingDebts(debt[i].toString());
+    			gru1.setNetWorth(net_worth[i].toString());
+    		}
+    		i++;
+    		prevYear = currYear;
+    	}    	    	        
+        return list;
+    }		
+	
 }

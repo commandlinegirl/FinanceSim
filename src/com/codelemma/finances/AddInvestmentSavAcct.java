@@ -1,6 +1,9 @@
 package com.codelemma.finances;
 
+import java.util.Calendar;
+
 import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.codelemma.finances.accounting.Account;
@@ -13,6 +16,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.NavUtils;
 import android.util.Log;
 import android.view.View;
@@ -21,14 +25,15 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 
-public class AddInvestmentSavAcct extends SherlockActivity 
-                                  implements OnItemSelectedListener {
+public class AddInvestmentSavAcct extends SherlockFragmentActivity 
+                                  implements OnItemSelectedListener, FrgDatePicker.OnDateSelectedListener {
 
 	private Account account;	
 	private History history;
@@ -37,7 +42,9 @@ public class AddInvestmentSavAcct extends SherlockActivity
     private int[] capitalization_items = {1, 3, 6, 12, 24}; 
     private int capitalization = 1;
 	private Finances appState;    
-    	
+	private int setMonth;
+	private int setYear;
+	
     private OnClickListener clickCancelListener = new OnClickListener() {
     	
     	@Override
@@ -80,6 +87,22 @@ public class AddInvestmentSavAcct extends SherlockActivity
 	    }
     };	
 	
+    public void showDatePickerDialog(View v) {
+        DialogFragment newFragment = new FrgDatePicker();
+        Bundle b = new Bundle();
+        b.putInt("setMonth", setMonth);
+        b.putInt("setYear", setYear);        
+        newFragment.show(getSupportFragmentManager(), "datePicker");
+    }
+    
+	@Override
+	public void onDateSet(DatePicker view, int year, int month, int day) {
+		EditText edit = (EditText) findViewById(R.id.investmentsav_start_date);
+		edit.setText((month+1)+"/"+year);	
+		setYear = year;
+		setMonth = month;
+	}
+    
     public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
     	capitalization = capitalization_items[pos];
     }
@@ -111,6 +134,13 @@ public class AddInvestmentSavAcct extends SherlockActivity
 	    spinner.setSelection(0);
 	    spinner.setOnItemSelectedListener(this);
 	    
+		EditText start_date = (EditText) findViewById(R.id.investmentsav_start_date);
+        final Calendar c = Calendar.getInstance();
+        setYear = c.get(Calendar.YEAR);
+        setMonth = c.get(Calendar.MONTH);
+        int day = c.get(Calendar.DAY_OF_MONTH);
+		start_date.setText((setMonth+1)+"/"+setYear, TextView.BufferType.EDITABLE);
+	    
         if (requestCode.equals(AcctElements.UPDATE.toString())) {
 	    	
 	    	int id = intent.getIntExtra("investment_id", -1);
@@ -138,6 +168,11 @@ public class AddInvestmentSavAcct extends SherlockActivity
 			EditText interest_rate = (EditText) findViewById(R.id.investmentsav_interest_rate);
 			interest_rate.setText(investment.getInitInterestRate().toString(), TextView.BufferType.EDITABLE);
 					
+			setYear = investment.getStartYear();
+			setMonth = investment.getStartMonth() ;			
+			start_date.setText((setMonth+1)+"/"+setYear, TextView.BufferType.EDITABLE);
+				
+		
 	        // Add Save & Delete button view
 			
 			LinearLayout buttons = (LinearLayout) findViewById(R.id.submitInvestmentButtons);
@@ -219,6 +254,9 @@ public class AddInvestmentSavAcct extends SherlockActivity
 	    	return;	    	
 	    }	
 	    intent.putExtra("investmentsav_interest_rate", investmentInterestRateData);	  
+	    
+        intent.putExtra("investmentsav_start_year",  String.valueOf(setYear));
+        intent.putExtra("investmentsav_start_month",  String.valueOf(setMonth));
 	    
         if (requestCode.equals(AcctElements.UPDATE.toString())) {
     		Log.d("AddInvestment.addInvestment() requestCode", requestCode);
