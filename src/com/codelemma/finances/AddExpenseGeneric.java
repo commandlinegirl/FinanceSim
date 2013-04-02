@@ -33,7 +33,7 @@ import android.widget.TextView;
 
 
 public class AddExpenseGeneric extends SherlockFragmentActivity 
-                        implements OnItemSelectedListener, FrgDatePicker.OnDateSelectedListener {
+                               implements OnItemSelectedListener, FrgDatePicker.OnDateSelectedListener {
 
 	private Account account;
 	private History history;
@@ -71,7 +71,7 @@ public class AddExpenseGeneric extends SherlockFragmentActivity
             })
             .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                public void onClick(DialogInterface dialog, int id) {
-                   finish();
+            	   dialog.cancel();
                }
            })
           .show();	 	        	         
@@ -97,17 +97,18 @@ public class AddExpenseGeneric extends SherlockFragmentActivity
     
 	@Override
 	public void onDateSet(DatePicker view, int year, int month, int day) {
-		EditText edit = (EditText) findViewById(R.id.expensegeneric_start_date);
+		TextView edit = (TextView) findViewById(R.id.expensegeneric_start_date);
 		edit.setText((month+1)+"/"+year);	
 		setYear = year;
 		setMonth = month;
 	}
 	
-    
+	@Override
     public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
     	frequency = frequency_items[pos];
     }
-
+	
+	@Override
     public void onNothingSelected(AdapterView<?> parent) {
     	parent.setSelection(0);
     }
@@ -115,7 +116,7 @@ public class AddExpenseGeneric extends SherlockFragmentActivity
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.act_add_expense);
+		setContentView(R.layout.act_add_expensegeneric);
 		
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -136,7 +137,7 @@ public class AddExpenseGeneric extends SherlockFragmentActivity
 	    Intent intent = getIntent(); //TODO: check if there are 
 	    requestCode = intent.getStringExtra("request");
 	    
-		EditText start_date = (EditText) findViewById(R.id.expensegeneric_start_date);
+	    TextView start_date = (TextView) findViewById(R.id.expensegeneric_start_date);
         final Calendar c = Calendar.getInstance();
         setYear = c.get(Calendar.YEAR);
         setMonth = c.get(Calendar.MONTH);
@@ -231,8 +232,7 @@ public class AddExpenseGeneric extends SherlockFragmentActivity
 	    }		
 	    intent.putExtra("inflation_rate", inflationRateData);
 	    
-	    intent.putExtra("expense_frequency", String.valueOf(frequency));
-		         
+	    intent.putExtra("expense_frequency", String.valueOf(frequency));		         
         intent.putExtra("expensegeneric_start_year",  String.valueOf(setYear));
         intent.putExtra("expensegeneric_start_month",  String.valueOf(setMonth));
 	    

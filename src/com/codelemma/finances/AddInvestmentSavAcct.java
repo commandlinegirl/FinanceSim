@@ -1,5 +1,6 @@
 package com.codelemma.finances;
 
+import java.math.BigDecimal;
 import java.util.Calendar;
 
 import com.actionbarsherlock.app.SherlockActivity;
@@ -63,7 +64,10 @@ public class AddInvestmentSavAcct extends SherlockFragmentActivity
             .setMessage("Do you want to delete this item?")                
             .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                public void onClick(DialogInterface dialog, int id) {
-            	   account.removeInvestment(investment); 
+            	   account.removeInvestment(investment);             	   
+       	    	   /* Remove specified percent of excess money from current total percent of excess money */
+       	    	   account.subtractFromInvestmentsPercontrib(investment.getPercontrib());
+       	    	   account.setCheckingAcctPercontrib();
             	   history.removeInvestmentHistory(investment.getHistory());
             	   appState.needToRecalculate(true);
             	   finish();
@@ -71,7 +75,7 @@ public class AddInvestmentSavAcct extends SherlockFragmentActivity
             })
             .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                public void onClick(DialogInterface dialog, int id) {
-                   finish();
+            	   dialog.cancel();
                }
            })
           .show();	        	         
@@ -97,7 +101,7 @@ public class AddInvestmentSavAcct extends SherlockFragmentActivity
     
 	@Override
 	public void onDateSet(DatePicker view, int year, int month, int day) {
-		EditText edit = (EditText) findViewById(R.id.investmentsav_start_date);
+		TextView edit = (TextView) findViewById(R.id.investmentsav_start_date);
 		edit.setText((month+1)+"/"+year);	
 		setYear = year;
 		setMonth = month;
@@ -134,13 +138,35 @@ public class AddInvestmentSavAcct extends SherlockFragmentActivity
 	    spinner.setSelection(0);
 	    spinner.setOnItemSelectedListener(this);
 	    
-		EditText start_date = (EditText) findViewById(R.id.investmentsav_start_date);
+	    TextView start_date = (TextView) findViewById(R.id.investmentsav_start_date);
         final Calendar c = Calendar.getInstance();
         setYear = c.get(Calendar.YEAR);
         setMonth = c.get(Calendar.MONTH);
-        int day = c.get(Calendar.DAY_OF_MONTH);
 		start_date.setText((setMonth+1)+"/"+setYear, TextView.BufferType.EDITABLE);
-	    
+		
+	    /*
+		picker = (DatePicker) findViewById(R.id.thePicker);
+		try {
+		    Field f[] = picker.getClass().getDeclaredFields();
+		    for (Field field : f) {
+		        if (field.getName().equals("mYearPicker")) {
+		            field.setAccessible(true);
+		            Object yearPicker = new Object();
+		            yearPicker = field.get(picker);
+		            ((View) yearPicker).setVisibility(View.GONE);
+            	}
+		    }
+		} catch (SecurityException e) {
+		    Log.d("ERROR", e.getMessage());
+		} 
+		    catch (IllegalArgumentException e) {
+		    Log.d("ERROR", e.getMessage());
+		} catch (IllegalAccessException e) {
+		    Log.d("ERROR", e.getMessage());
+		}}
+		*/
+		
+		
         if (requestCode.equals(AcctElements.UPDATE.toString())) {
 	    	
 	    	int id = intent.getIntExtra("investment_id", -1);
@@ -244,8 +270,14 @@ public class AddInvestmentSavAcct extends SherlockFragmentActivity
 	    if (Utils.alertIfEmpty(this, percontribData, getResources().getString(R.string.investmentsav_percontrib_input))) {
 	    	return;	    	
 	    }	
-        intent.putExtra("investmentsav_percontrib", percontribData);  	
-			    	   
+	    	    
+	    BigDecimal perc = new BigDecimal(percontribData);
+	    if ((perc.add(account.getInvestmentsPercontrib())).compareTo(new BigDecimal(100)) > 0) {
+	    	//TODO: dialog - excess exceeded 1
+	    } else {
+            intent.putExtra("investmentsav_percontrib", percontribData);  	
+	    }
+
         intent.putExtra("investmentsav_capitalization", String.valueOf(capitalization));  	
         
 		EditText investmentInterestRate = (EditText) findViewById(R.id.investmentsav_interest_rate);

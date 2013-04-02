@@ -32,7 +32,7 @@ public class ExpenseGeneric extends Expense
         init_expense = _init_expense;        
         init_inflation_rate = _inflation_rate;
         frequency = _frequency;
-        periodic_expense = new BigDecimal(0);
+        periodic_expense = Money.ZERO;
         hidden_periodic_expense = init_expense;
         periodic_inflation_rate_decimal = _inflation_rate.divide(new BigDecimal(1200/frequency), //TODO: check if not divided by ZERO
                                                                     Money.RATE_DECIMALS,        		
@@ -44,7 +44,7 @@ public class ExpenseGeneric extends Expense
     }
 
     public void initialize() { 
-    	periodic_expense = new BigDecimal(0);
+    	periodic_expense = Money.ZERO;
     	hidden_periodic_expense = init_expense;
     }
         
@@ -54,7 +54,7 @@ public class ExpenseGeneric extends Expense
     				Money.getPercentage(hidden_periodic_expense, periodic_inflation_rate_decimal));
     		periodic_expense = hidden_periodic_expense;
     	} else {
-    		periodic_expense = new BigDecimal(0);
+    		periodic_expense = Money.ZERO;
     	}
     }   
     

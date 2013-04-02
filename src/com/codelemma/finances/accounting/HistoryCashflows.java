@@ -6,7 +6,7 @@ import android.util.Log;
 
 public class HistoryCashflows extends HistoryNew {
 
-	private BigDecimal[] incomeHistory;
+	private BigDecimal[] netIncomeHistory;
 	private BigDecimal[] capitalGainsHistory;
 	private BigDecimal[] expensesHistory;
 	private BigDecimal[] debtRatesHistory;
@@ -16,7 +16,7 @@ public class HistoryCashflows extends HistoryNew {
 	private String name;
 	
 	public HistoryCashflows(String name) {		
-		incomeHistory = new BigDecimal[listSize];
+		netIncomeHistory = new BigDecimal[listSize];
 		capitalGainsHistory = new BigDecimal[listSize];
 		expensesHistory = new BigDecimal[listSize];
 		debtRatesHistory = new BigDecimal[listSize];
@@ -28,7 +28,7 @@ public class HistoryCashflows extends HistoryNew {
 	}	
 		
 	public void addIncomeGeneric(int index, IncomeGeneric income) {	
-		incomeHistory[index] = incomeHistory[index].add(income.getAmount()); 
+		netIncomeHistory[index] = netIncomeHistory[index].add(income.getNetIncome()); 
 	}
 
 	public void addExpenseGeneric(int index, ExpenseGeneric expense) {
@@ -53,8 +53,8 @@ public class HistoryCashflows extends HistoryNew {
 		debtRatesHistory[index] = debtRatesHistory[index].add(debt.getMonthlyPayment()); 
 	}
 	
-	public BigDecimal[] getIncomeHistory() {
-		return incomeHistory;
+	public BigDecimal[] getNetIncomeHistory() {
+		return netIncomeHistory;
 	}
 	
 	public BigDecimal[] getCapitalGainsHistory() {
@@ -75,11 +75,11 @@ public class HistoryCashflows extends HistoryNew {
 	
 	public void initialize() {
 		for (int i = 0; i < listSize; i++) {
-			incomeHistory[i] = new BigDecimal(0);
-			capitalGainsHistory[i] = new BigDecimal(0);
-			expensesHistory[i] = new BigDecimal(0);
-			debtRatesHistory[i] = new BigDecimal(0);
-			investmentRatesHistory[i] = new BigDecimal(0);			
+			netIncomeHistory[i] = Money.ZERO;
+			capitalGainsHistory[i] = Money.ZERO;
+			expensesHistory[i] = Money.ZERO;
+			debtRatesHistory[i] = Money.ZERO;
+			investmentRatesHistory[i] = Money.ZERO;			
 		}
 	}
 	

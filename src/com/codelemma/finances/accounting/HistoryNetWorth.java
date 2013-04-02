@@ -86,9 +86,9 @@ public class HistoryNetWorth extends HistoryNew {
 	
 	public void initialize() {
 		for (int i = 0; i < listSize; i++) {
-			savingsHistory[i] = new BigDecimal(0);
-			outstandingDebtsHistory[i] = new BigDecimal(0);
-			netWorthHistory[i] = new BigDecimal(0);		
+			savingsHistory[i] = Money.ZERO;
+			outstandingDebtsHistory[i] = Money.ZERO;
+			netWorthHistory[i] = Money.ZERO;		
 		}
 	}
 }

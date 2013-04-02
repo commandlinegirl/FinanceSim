@@ -2,7 +2,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-
     android:orientation="vertical"
     tools:context=".FrgChart"
     android:id="@+id/frg_chart" >
@@ -109,16 +108,17 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:layout_margin="0dp"        
-        android:background="@drawable/chart_bkg">
+        android:background="#FFFFFFFF">
      </LinearLayout>       
      
-     <TextView
+     <LinearLayout
         android:id="@+id/legend"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
         android:textSize="10sp"
-        android:background="#FFFFFFFF">
-     </TextView>    
+        android:paddingLeft="10dp"
+        android:background="#FFFFFFFF"/>    
      
      <Spinner
         android:id="@+id/chart_spinner"

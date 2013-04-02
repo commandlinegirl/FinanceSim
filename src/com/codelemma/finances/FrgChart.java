@@ -1,7 +1,6 @@
 package com.codelemma.finances;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 
 import com.actionbarsherlock.app.SherlockFragment;
@@ -11,9 +10,7 @@ import com.codelemma.finances.accounting.PlotVisitor;
 
 
 import android.os.Bundle;
-import android.util.Log;
 import android.util.SparseArray;
-import android.util.SparseIntArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,11 +35,9 @@ public class FrgChart extends SherlockFragment
 	private ArrayList<HistoryNew> historyItems = new ArrayList<HistoryNew>();
 	private int currentPosition;
     private History history;
-    //private int numberOfMonths;
-    private View selectedYrsView;
     
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {    	
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         currentElement = ((Main) getSherlockActivity()).getCurrentElement();
     	appState = Finances.getInstance(); 	    	    	   
@@ -55,9 +50,7 @@ public class FrgChart extends SherlockFragment
     	if (historyItems.size() != 0) {
     		return inflater.inflate(R.layout.frg_chart, container, false);	
     	} 
-    	return inflater.inflate(R.layout.frg_empty, container, false);
-    	
-    	    	
+    	return inflater.inflate(R.layout.frg_empty, container, false);    	    	    	
     }
  
 
@@ -92,14 +85,13 @@ public class FrgChart extends SherlockFragment
 	        spinner.setOnItemSelectedListener(this);	   
         	    	
 	        plotVisitor = new Plotter(getSherlockActivity(), history.getDates());
-	        //numberOfMonths = appState.getNumberOfMonthsInChart();
 
     	} else {
     		String[] elementName = {"income", "expense", "investment", "debt", "cashflow", "networth"};
     		
     		TextView tv = (TextView) getSherlockActivity().findViewById(R.id.add_data_text);
     		String format = getResources().getString(R.string.chart_no_data_info_text);
-    		String value = String.format(format, elementName[currentElement]); 
+    		String value = String.format(format, elementName[currentElement]);
     		tv.setText(value);
     		
     		Button button = (Button) getSherlockActivity().findViewById(R.id.add_data_button);
@@ -127,7 +119,7 @@ public class FrgChart extends SherlockFragment
 	}
     
 	
-    public void onPredYrsSelection(View view, int currentElement) {    	    	
+    public void onPredYrsSelection(View view, int currentElement) {
     	int numberOfMonths = Integer.parseInt((String) view.getTag());
     	toggleYrsSelection(view);
         appState.setNumberOfMonthsInChart(numberOfMonths);        
@@ -142,5 +134,5 @@ public class FrgChart extends SherlockFragment
         toggleYrs20.setSelected(false);
         toggleYrs30.setSelected(false);
 	    view.setSelected(true);
-	}	
+	}
 }

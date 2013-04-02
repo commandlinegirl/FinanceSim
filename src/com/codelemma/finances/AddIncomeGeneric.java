@@ -9,6 +9,7 @@ import com.actionbarsherlock.view.MenuItem;
 import com.codelemma.finances.accounting.Account;
 import com.codelemma.finances.accounting.History;
 import com.codelemma.finances.accounting.IncomeGeneric;
+import com.codelemma.finances.accounting.Investment401k;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -59,13 +60,15 @@ public class AddIncomeGeneric extends SherlockFragmentActivity
     	@Override
 	    public void onClick(View v) {
 	        final IncomeGeneric income = (IncomeGeneric) v.getTag(R.string.acct_object);
-	        		   	
-	        new AlertDialog.Builder(AddIncomeGeneric.this)
+	        
+	        if (income.getInvestment401k() == null) {
+	        	new AlertDialog.Builder(AddIncomeGeneric.this)
 	            .setTitle("Delete")
                 .setMessage("Do you want to delete this item?")                
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                    public void onClick(DialogInterface dialog, int id) {
-                	   account.removeIncome(income); 
+                	   account.removeIncome(income);
+                	   income.getInvestment401k(); // TODO: 
                 	   history.removeIncomeHistory(income.getHistory());
                 	   appState.needToRecalculate(true);
                 	   finish();
@@ -73,10 +76,37 @@ public class AddIncomeGeneric extends SherlockFragmentActivity
                 })
                 .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                    public void onClick(DialogInterface dialog, int id) {
-                       finish();
+                       dialog.cancel();
                    }
                })
-              .show();	    		        	        	         
+              .show();
+	        } else {
+	        	new AlertDialog.Builder(AddIncomeGeneric.this)
+	            .setTitle("Delete")
+                .setMessage("This income is associated with a 401(k) account. To remove it, please " +
+                		"remove or update the 401(k).")                
+                .setNeutralButton("Take me to the associated 401(k) account", new DialogInterface.OnClickListener() {
+                   public void onClick(DialogInterface dialog, int id) {
+                	   
+                	   Investment401k investment401k = income.getInvestment401k(); // TODO: 
+                	   
+                       Intent intent = new Intent(getApplicationContext(), AddInvestment401k.class);
+                       intent.putExtra("investment_id", investment401k.getId());
+                       intent.putExtra("request", AcctElements.UPDATE.toString());   
+            	       startActivityForResult(intent, AcctElements.UPDATE.getNumber());
+                	   
+                	   
+                	   finish();
+                   }
+                })
+                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                   public void onClick(DialogInterface dialog, int id) {
+                	   dialog.cancel();
+                   }
+               })
+              .show();	        	
+	        }
+	        	    		        	        	         
 	    }
     };	
     
@@ -87,7 +117,7 @@ public class AddIncomeGeneric extends SherlockFragmentActivity
 	    	Log.d("saving income", "Saving ");
 	        addIncome(null);	             	        
 	    }
-    };	
+    };	    
     
     public void showDatePickerDialog(View v) {
         DialogFragment newFragment = new FrgDatePicker();
@@ -99,7 +129,7 @@ public class AddIncomeGeneric extends SherlockFragmentActivity
     
 	@Override
 	public void onDateSet(DatePicker view, int year, int month, int day) {
-		EditText edit = (EditText) findViewById(R.id.incomegeneric_start_date);
+		TextView edit = (TextView) findViewById(R.id.incomegeneric_start_date);
 		edit.setText((month+1)+"/"+year);	
 		setYear = year;
 		setMonth = month;
@@ -117,7 +147,7 @@ public class AddIncomeGeneric extends SherlockFragmentActivity
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.act_add_income);
+		setContentView(R.layout.act_add_incomegeneric);
 		// Show the Up button in the action bar.
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -137,7 +167,7 @@ public class AddIncomeGeneric extends SherlockFragmentActivity
 	    Intent intent = getIntent(); //TODO: check if there are 
 	    requestCode = intent.getStringExtra("request");
 	    
-		EditText start_date = (EditText) findViewById(R.id.incomegeneric_start_date);
+	    TextView start_date = (TextView) findViewById(R.id.incomegeneric_start_date);
         final Calendar c = Calendar.getInstance();
         setYear = c.get(Calendar.YEAR);
         setMonth = c.get(Calendar.MONTH);

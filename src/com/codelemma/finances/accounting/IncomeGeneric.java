@@ -23,6 +23,7 @@ public class IncomeGeneric extends Income
     private HistoryIncomeGeneric history;
     private int start_year;
     private int start_month;
+    private Investment401k investment401k; 
     
     public IncomeGeneric(BigDecimal _init_income, 
     		      BigDecimal _tax_rate, 
@@ -48,13 +49,20 @@ public class IncomeGeneric extends Income
     	start_month = _start_month;
     } 
 
+    public Investment401k getInvestment401k() {
+    	return investment401k;
+    }
+    
+    public void setInvestment401k(Investment401k inv) {
+    	investment401k = inv;
+    }
+    
     public void initialize() {
     	/* To recalculate set those values that are incremented each month/year to init */
     	yearly_income = init_income;
     	income_monthly = init_income.divide(installments, Money.DECIMALS, Money.ROUNDING_MODE);   	    	
     }
-
-    
+   
     public void advance(int month) {    
         // 13th salary paid in December
     	// salary rise in January only
@@ -84,6 +92,7 @@ public class IncomeGeneric extends Income
     	return Money.getPercentage(yearly_income, rise_rate_decimal);
     }
     
+	@Override
     public BigDecimal getInitAmount() {
     	return init_income;
     }
@@ -91,7 +100,8 @@ public class IncomeGeneric extends Income
     public BigDecimal getInitTaxRate() {
     	return init_tax_rate;
     }
-    
+
+    @Override
     public BigDecimal getInitRiseRate() {
         return init_rise_rate;
     }
@@ -103,7 +113,7 @@ public class IncomeGeneric extends Income
     
 	@Override
 	public BigDecimal getAmount() {
-		return income_monthly;
+		return getNetIncome();
 	}  
     
     @Override
@@ -153,6 +163,13 @@ public class IncomeGeneric extends Income
 	public void updateInputListing(InputListingUpdater modifier) {
 		modifier.updateInputListingForIncomeGeneric(this);		
 	}
+
+	@Override
+	public String toString() {
+		return name;
+	}
+
+
 
 }
 

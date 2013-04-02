@@ -9,4 +9,5 @@ public interface ModifyUiVisitor {
     public void launchModifyUiForInvestmentStock(InvestmentStock investment);
 	public void launchModifyUiForDebtLoan(DebtLoan debt);
 	public void launchModifyUiForDebtMortgage(DebtMortgage debt);
+	public void launchModifyUiForInvestmentCheckAcct(InvestmentCheckAcct investment);
 }

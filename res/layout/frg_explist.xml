@@ -15,7 +15,7 @@
         android:orientation="horizontal"
         android:paddingLeft="10dp"
         android:gravity="center"        
-        android:background="@drawable/button_delete"/>
+        android:background="@drawable/header"/>
   
     <ExpandableListView
         android:id="@+id/exp_list"

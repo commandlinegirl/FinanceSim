@@ -170,13 +170,13 @@
         android:layout_height="wrap_content"
         android:padding="3dip" />        
     
-    <EditText 
+    <TextView 
         android:id="@+id/debtloan_start_date"
         android:layout_weight="@integer/form_edit_weight"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/start_date_input" 
-        android:inputType="date"
+        android:gravity="center_vertical"
         android:calendarViewShown="false"
         style="?android:attr/spinnerStyle"
         android:onClick="showDatePickerDialog" />

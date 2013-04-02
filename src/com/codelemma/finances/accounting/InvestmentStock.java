@@ -43,6 +43,10 @@ public class InvestmentStock extends Investment
         
         history = new HistoryInvestmentStock(this);
     }
+    
+    public boolean isPreTax() {
+    	return false;
+    }
         
 	@Override
 	public BigDecimal getValue() {
@@ -53,7 +57,11 @@ public class InvestmentStock extends Investment
 	public String getName() {
 		return name;
 	}
-
+	
+	@Override
+    public boolean isCheckingAcct() {
+    	return false;
+    }
 	
     @Override
     public void advance(int year, int month, BigDecimal excess) {

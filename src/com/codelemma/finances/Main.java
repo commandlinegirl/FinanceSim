@@ -1,9 +1,7 @@
 package com.codelemma.finances;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Locale;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.ActionBar.Tab;
@@ -47,8 +45,7 @@ public class Main extends SherlockFragmentActivity
 		super.onCreate(savedInstanceState);
 		Log.d("Main.onCreate()", "called");
 		setContentView(R.layout.main);		
-		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        
+		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);       
     
         setupActionBar();
         
@@ -91,6 +88,8 @@ public class Main extends SherlockFragmentActivity
 		DATA_FRG_CLASSES.add(FrgList.class);
 	}
 	
+
+	
 	private SherlockFragment getFragment(int iconIndex, int tabIndex) {
 		try {
     		if (iconIndex == 0) {
@@ -118,6 +117,14 @@ public class Main extends SherlockFragmentActivity
 	public void onTabUnselected(Tab tab, FragmentTransaction ft) {
 	}
 
+	public void setToIncomeTab() {
+		FragmentTransaction ft = getSupportFragmentManager().beginTransaction();		   
+		ActionBar actionbar = getSupportActionBar();
+		actionbar.setSelectedNavigationItem(0);		    
+		ft.replace(R.id.main_container, getFragment(0, 0));
+		ft.commit();
+	}
+	
 	@Override
 	public void onPause() {
 		super.onPause();
@@ -228,6 +235,7 @@ public class Main extends SherlockFragmentActivity
 	
 	public void addInvestment(View view) {
 		FrgInvestment frgInvestment = (FrgInvestment) getSupportFragmentManager().findFragmentById(R.id.main_container);
+		Log.d("Main.addInvestment()", view.toString());
 		frgInvestment.add(view);
 	}
 	
@@ -258,6 +266,10 @@ public class Main extends SherlockFragmentActivity
         	FrgInvestment frgInvestment = (FrgInvestment) getSupportFragmentManager().findFragmentById(R.id.main_container);
         	frgInvestment.onInvestmentSavAcctResult(data, requestCode);
         }        
+        if (resultCode == AcctElements.INVESTMENTCHECKACCT.getNumber()) {
+        	FrgInvestment frgInvestment = (FrgInvestment) getSupportFragmentManager().findFragmentById(R.id.main_container);
+        	frgInvestment.onInvestmentCheckAcctResult(data, requestCode);
+        }   
         if (resultCode == AcctElements.INVESTMENT401K.getNumber()) {
         	FrgInvestment frgInvestment = (FrgInvestment) getSupportFragmentManager().findFragmentById(R.id.main_container);
         	frgInvestment.onInvestment401kResult(data, requestCode);
@@ -285,7 +297,7 @@ public class Main extends SherlockFragmentActivity
         appState.needToRecalculate(true);
 	}	
 	
-	private void recalculate() {
+	public void recalculate() {
 		
 		if (appState.needToRecalculate() == false) {
 			return;

@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 
 
+import android.graphics.Color;
 import android.util.Log;
 import android.view.Gravity;
 import android.widget.ExpandableListView;
@@ -18,6 +19,7 @@ import com.codelemma.finances.accounting.HistoryExpenseGeneric;
 import com.codelemma.finances.accounting.HistoryIncomeGeneric;
 import com.codelemma.finances.accounting.HistoryInvestment401k;
 import com.codelemma.finances.accounting.HistoryInvestmentBond;
+import com.codelemma.finances.accounting.HistoryInvestmentCheckAcct;
 import com.codelemma.finances.accounting.HistoryInvestmentSavAcct;
 import com.codelemma.finances.accounting.HistoryInvestmentStock;
 import com.codelemma.finances.accounting.HistoryNetWorth;
@@ -378,6 +380,103 @@ public class TableMaker implements TableVisitor {
         return list;
     }
 
+    
+	@Override
+	public void makeTableInvestmentCheckAcct(HistoryInvestmentCheckAcct historyInvestmentCheckAcct) {
+    	// header
+		LinearLayout header = (LinearLayout) frgActivity.findViewById(R.id.header);
+		header.removeAllViews();
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, 
+                                                                         LinearLayout.LayoutParams.WRAP_CONTENT);                  
+        params.weight = 1;
+		TextView tv;
+		
+		tv = new TextView(frgActivity);
+		tv.setText("Date");
+		tv.setTextSize(11);
+		tv.setLayoutParams(params);
+		header.addView(tv);
+		
+		tv = new TextView(frgActivity);
+		tv.setText("Deposit");
+		tv.setTextSize(11);
+		tv.setLayoutParams(params);
+		header.addView(tv);
+		
+		tv = new TextView(frgActivity);
+		tv.setText("Tax");
+		tv.setTextSize(11);
+		tv.setLayoutParams(params);
+		header.addView(tv);
+		
+		tv = new TextView(frgActivity);
+		tv.setText("Net interests");
+		tv.setTextSize(11);
+		tv.setLayoutParams(params);
+		header.addView(tv);
+		
+		tv = new TextView(frgActivity);
+		tv.setText("Total");
+		tv.setTextSize(11);
+		tv.setLayoutParams(params);
+		header.addView(tv); 
+
+		
+    	ExpandableListView expandedList = (ExpandableListView) frgActivity.findViewById(R.id.exp_list);
+    	ArrayList<ListGroupInvestmentCheckAcct> ExpListItems = setGroupsInvestmentCheckAcct(historyInvestmentCheckAcct);
+    	ListAdapterInvestmentCheckAcct ExpAdapter = new ListAdapterInvestmentCheckAcct(frgActivity, ExpListItems);
+        expandedList.setAdapter(ExpAdapter);
+	}
+	
+    public ArrayList<ListGroupInvestmentCheckAcct> setGroupsInvestmentCheckAcct(HistoryInvestmentCheckAcct historyInvestmentCheckAcct) {
+    	ArrayList<ListGroupInvestmentCheckAcct> list = new ArrayList<ListGroupInvestmentCheckAcct>();
+    	ArrayList<ListChildInvestmentCheckAcct> list2 = new ArrayList<ListChildInvestmentCheckAcct>();
+
+    	String[] dates = ((Main) frgActivity).getDates();
+    	BigDecimal[] amounts = historyInvestmentCheckAcct.getAmountHistory();
+    	BigDecimal[] taxes = historyInvestmentCheckAcct.getTaxHistory();
+    	BigDecimal[] net_interests = historyInvestmentCheckAcct.getNetInterestsHistory();
+    	BigDecimal[] contributions = historyInvestmentCheckAcct.getContributionHistory();
+    	
+    	int datesLen = dates.length;
+    	String prevYear = dates[0].substring(3);
+    	String currYear;
+    	ListGroupInvestmentCheckAcct gru1 = new ListGroupInvestmentCheckAcct();
+    	int i = 0;
+    	gru1.setDate(dates[i]);
+    	gru1.setTax(taxes[i].toString());
+		gru1.setNetInterests(net_interests[i].toString());
+		gru1.setContribution(contributions[i].toString());
+		gru1.setAmount(amounts[i].toString()); 
+        i++;
+    	while(i < datesLen) {    		
+    		currYear = dates[i].substring(3);
+    		if (prevYear.equals(currYear)) {
+    		    ListChildInvestmentCheckAcct ch1_1 = new ListChildInvestmentCheckAcct();
+    		    ch1_1.setDate(dates[i]);
+    		    ch1_1.setTax(taxes[i].toString());
+    		    ch1_1.setNetInterests(net_interests[i].toString());
+    		    ch1_1.setContribution(contributions[i].toString());
+    		    ch1_1.setAmount(amounts[i].toString()); 
+	            list2.add(ch1_1);	    			    		    		    
+    		} else {
+    			gru1.setItems(list2);
+    			list.add(gru1);
+    			list2 = new ArrayList<ListChildInvestmentCheckAcct>();
+    			gru1 = new ListGroupInvestmentCheckAcct();
+    			gru1.setDate(dates[i]);
+    	    	gru1.setTax(taxes[i].toString());
+    			gru1.setNetInterests(net_interests[i].toString());
+    			gru1.setContribution(contributions[i].toString());
+    			gru1.setAmount(amounts[i].toString()); 		
+    		}
+    		i++;
+    		prevYear = currYear;
+    	}    	    	        
+        return list;
+    }
+  
+    
 
 	@Override
 	public void makeTableInvestmentBond(HistoryInvestmentBond historyInvestmentBond) {
@@ -718,6 +817,7 @@ public class TableMaker implements TableVisitor {
 				
 		tv = new TextView(frgActivity);
 		tv.setText("Net\nincome");
+		tv.setTextColor(Color.parseColor("#FF41924B"));
 		tv.setTextSize(11);
 		tv.setLayoutParams(params);
 		tv.setGravity(Gravity.CENTER);
@@ -725,6 +825,7 @@ public class TableMaker implements TableVisitor {
 		
 		tv = new TextView(frgActivity);
 		tv.setText("Capital\ngains");
+		tv.setTextColor(Color.parseColor("#FF41924B"));
 		tv.setTextSize(11);
 		tv.setLayoutParams(params);
 		tv.setGravity(Gravity.CENTER);
@@ -732,21 +833,24 @@ public class TableMaker implements TableVisitor {
 		
 		tv = new TextView(frgActivity);
 		tv.setText("Total\nExpenses");
+		tv.setTextColor(Color.parseColor("#FFCC0000"));
 		tv.setTextSize(11);
 		tv.setLayoutParams(params);
 		tv.setGravity(Gravity.CENTER);
 		header.addView(tv); 
 				
 		tv = new TextView(frgActivity);
-		tv.setText("Debt\nrates");
+		tv.setText("Debt\nservice");
 		tv.setTextSize(11);
+		tv.setTextColor(Color.parseColor("#FFCC0000"));
 		tv.setLayoutParams(params);
 		tv.setGravity(Gravity.CENTER);
 		header.addView(tv); 
 
 		tv = new TextView(frgActivity);
-		tv.setText("Investments\nrates");
+		tv.setText("Invested\namount");
 		tv.setTextSize(11);
+		tv.setTextColor(Color.parseColor("#FFCC0000"));
 		tv.setLayoutParams(params);
 		tv.setGravity(Gravity.CENTER);
 		header.addView(tv); 
@@ -762,7 +866,7 @@ public class TableMaker implements TableVisitor {
     	ArrayList<ListChildCashflows> list2 = new ArrayList<ListChildCashflows>();
 
     	String[] dates = ((Main) frgActivity).getDates();
-    	BigDecimal[] income = historyCashflows.getIncomeHistory();
+    	BigDecimal[] income = historyCashflows.getNetIncomeHistory();
     	BigDecimal[] capitalGains = historyCashflows.getCapitalGainsHistory();
     	BigDecimal[] expenses = historyCashflows.getExpensesHistory();
     	BigDecimal[] debtRates = historyCashflows.getDebtRatesHistory();
@@ -828,6 +932,7 @@ public class TableMaker implements TableVisitor {
 				
 		tv = new TextView(frgActivity);
 		tv.setText("Accumulated\nsavings");
+		tv.setTextColor(Color.parseColor("#FF41924B"));
 		tv.setTextSize(11);
 		tv.setLayoutParams(params);
 		tv.setGravity(Gravity.CENTER);
@@ -835,6 +940,7 @@ public class TableMaker implements TableVisitor {
 
 		tv = new TextView(frgActivity);
 		tv.setText("Outstanding\ndebts");
+		tv.setTextColor(Color.parseColor("#FFCC0000"));
 		tv.setTextSize(11);
 		tv.setLayoutParams(params);
 		tv.setGravity(Gravity.CENTER);
@@ -895,6 +1001,8 @@ public class TableMaker implements TableVisitor {
     		prevYear = currYear;
     	}    	    	        
         return list;
-    }		
+    }
+
+	
 	
 }

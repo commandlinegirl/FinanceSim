@@ -1,0 +1,189 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".AddExpenseGeneric" >
+    
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">    
+    
+    <TextView
+        android:text="@string/expense_name_input"                        
+        android:layout_weight="@integer/form_text_weight"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:padding="3dip" />        
+    
+    <EditText
+        android:id="@+id/expense_name"   
+        android:layout_weight="@integer/form_edit_weight"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/expense_name_text"
+        android:inputType="textCapSentences" />
+
+    <TextView
+        android:text=""                        
+        android:layout_weight="@integer/form_suffix_weight"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"/>     
+        
+</LinearLayout> 
+    
+    
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">    
+    
+    <TextView
+        android:text="@string/init_expense_input"                
+        android:layout_weight="@integer/form_text_weight"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:padding="3dip" />
+    
+    <EditText
+        android:id="@+id/init_expense"   
+        android:layout_weight="@integer/form_edit_weight"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/init_expense_text"        
+        android:inputType="numberDecimal" />
+
+    <TextView
+        android:text=""                        
+        android:layout_weight="@integer/form_suffix_weight"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"/>         
+            
+</LinearLayout>    
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">        
+    
+    <TextView
+        android:text="@string/inflation_rate_input"                
+        android:layout_weight="@integer/form_text_weight"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:padding="3dip" />
+    
+    <EditText
+        android:id="@+id/inflation_rate"   
+        android:layout_weight="@integer/form_edit_weight"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/inflation_rate_text"        
+        android:inputType="numberDecimal" />
+
+    <TextView
+        android:text="@string/percent"
+        android:layout_weight="@integer/form_suffix_weight"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"/>         
+    
+</LinearLayout>    
+
+
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">    
+        
+    <TextView
+        android:text="@string/expense_frequency_input"                        
+        android:layout_weight="@integer/form_text_weight"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:padding="3dip" />        
+      
+    <Spinner android:id="@+id/expense_frequency"          
+        android:layout_height="wrap_content"
+        android:layout_weight="@integer/form_edit_weight"
+        android:layout_width="0dp" />        
+    
+        <TextView
+        android:text=""
+        android:layout_weight="@integer/form_suffix_weight"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"/>    
+    
+</LinearLayout>    
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">    
+    
+    
+    <TextView
+        android:text="@string/start_date_input"                        
+        android:layout_weight="@integer/form_text_weight"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:padding="3dip" />        
+    
+    <TextView 
+        android:id="@+id/expensegeneric_start_date"
+        android:layout_weight="@integer/form_edit_weight"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/start_date_input" 
+        android:gravity="center_vertical"
+        android:calendarViewShown="false"
+        style="?android:attr/spinnerStyle"
+        android:onClick="showDatePickerDialog" />
+
+    <TextView
+        android:text=""                        
+        android:layout_weight="@integer/form_suffix_weight"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"/>             
+</LinearLayout> 
+
+     <LinearLayout 
+        android:id="@+id/submitExpenseButtons"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"          
+        android:gravity="center"        
+        android:orientation="horizontal">
+    
+     <Button        
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="48dp"
+            android:layout_gravity="center"
+            android:text="@string/cancel"
+            android:background="@drawable/button_cancel"                
+            android:layout_marginRight="2dp"           
+            android:onClick="cancelAdding"/>     
+            
+    <Button
+            android:layout_width="0dp"
+            android:layout_weight="3"
+            android:layout_height="48dp"
+            android:layout_gravity="center"
+            android:text="@string/add_expense"
+            android:background="@drawable/button_green"                        
+            android:layout_marginLeft="2dp"                 
+            android:onClick="addExpense" /> 
+
+    </LinearLayout>    
+</LinearLayout>
+</ScrollView>

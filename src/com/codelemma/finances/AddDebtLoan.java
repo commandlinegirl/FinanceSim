@@ -63,7 +63,7 @@ public class AddDebtLoan extends SherlockFragmentActivity
             })
             .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                public void onClick(DialogInterface dialog, int id) {
-                   finish();
+            	   dialog.cancel();
                }
            })
           .show();	 	        	         
@@ -89,7 +89,7 @@ public class AddDebtLoan extends SherlockFragmentActivity
     
 	@Override
 	public void onDateSet(DatePicker view, int year, int month, int day) {
-		EditText edit = (EditText) findViewById(R.id.debtloan_start_date);
+		TextView edit = (TextView) findViewById(R.id.debtloan_start_date);
 		edit.setText((month+1)+"/"+year);		
 		setYear = year;
 		setMonth = month;
@@ -110,7 +110,7 @@ public class AddDebtLoan extends SherlockFragmentActivity
 	    Intent intent = getIntent(); //TODO: check if there are 
 	    requestCode = intent.getStringExtra("request");
 	    
-		EditText start_date = (EditText) findViewById(R.id.debtloan_start_date);
+	    TextView start_date = (TextView) findViewById(R.id.debtloan_start_date);
         final Calendar c = Calendar.getInstance();
         setYear = c.get(Calendar.YEAR);
         setMonth = c.get(Calendar.MONTH);

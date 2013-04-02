@@ -10,6 +10,7 @@ import com.codelemma.finances.accounting.ExpenseGeneric;
 import com.codelemma.finances.accounting.IncomeGeneric;
 import com.codelemma.finances.accounting.Investment401k;
 import com.codelemma.finances.accounting.InvestmentBond;
+import com.codelemma.finances.accounting.InvestmentCheckAcct;
 import com.codelemma.finances.accounting.InvestmentSavAcct;
 import com.codelemma.finances.accounting.InvestmentStock;
 import com.codelemma.finances.accounting.ModifyUiVisitor;
@@ -65,6 +66,14 @@ public class ModifyUiLauncher implements ModifyUiVisitor {
 	    activity.startActivityForResult(intent, AcctElements.UPDATE.getNumber());
 	}
 
+	@Override
+    public void launchModifyUiForInvestmentCheckAcct(InvestmentCheckAcct investment) {
+    	Intent intent = new Intent(activity.getApplicationContext(), AddInvestmentCheckAcct.class);
+        intent.putExtra("investment_id", investment.getId());
+        intent.putExtra("request", AcctElements.UPDATE.toString());   
+	    activity.startActivityForResult(intent, AcctElements.UPDATE.getNumber());
+	}
+	
 	@Override
 	public void launchModifyUiForInvestment401k(Investment401k investment) {
     	Intent intent = new Intent(activity.getApplicationContext(), AddInvestment401k.class);

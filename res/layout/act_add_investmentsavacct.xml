@@ -134,8 +134,11 @@
         android:text="@string/investmentsav_percontrib_input"                        
         android:layout_weight="@integer/form_text_weight"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:padding="3dip" />        
+        android:layout_height="wrap_content"        
+        android:paddingLeft="3dip"
+        android:paddingRight="3dip"
+        android:paddingTop="6dip"
+        android:paddingBottom="6dip" />        
     
     <EditText
         android:id="@+id/investmentsav_percontrib"   
@@ -163,7 +166,10 @@
         android:layout_weight="@integer/form_text_weight"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:padding="3dip" />        
+        android:paddingLeft="3dip"
+        android:paddingRight="3dip"
+        android:paddingTop="6dip"
+        android:paddingBottom="6dip" />        
       
     <Spinner android:id="@+id/investmentsav_capitalization"          
         android:layout_height="wrap_content"
@@ -191,13 +197,13 @@
         android:layout_height="wrap_content"
         android:padding="3dip" />        
     
-    <EditText 
+    <TextView 
         android:id="@+id/investmentsav_start_date"
         android:layout_weight="@integer/form_edit_weight"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/start_date_input" 
-        android:inputType="date"
+        android:gravity="center_vertical"
         android:calendarViewShown="false"
         style="?android:attr/spinnerStyle"
         android:onClick="showDatePickerDialog" />

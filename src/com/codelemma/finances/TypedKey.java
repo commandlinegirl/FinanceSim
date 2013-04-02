@@ -27,6 +27,14 @@ public class TypedKey<T> {
 	public static final TypedKey<Integer> INVESTMENTSAV_CAPITALIZATION = of("investmentsav_capitalization", Integer.class);
 	public static final TypedKey<BigDecimal> INVESTMENTSAV_INTEREST_RATE = of("investmentsav_interest_rate", BigDecimal.class);
 	
+	public static final TypedKey<Integer> INVESTMENTCHECK_ID = of("investmentcheck_id", Integer.class);
+	public static final TypedKey<String> INVESTMENTCHECK_NAME = of("investmentcheck_name", String.class);
+	public static final TypedKey<BigDecimal> INVESTMENTCHECK_INIT_AMOUNT = of("investmentcheck_init_amount", BigDecimal.class);
+	public static final TypedKey<BigDecimal> INVESTMENTCHECK_TAX_RATE = of("investmentcheck_tax_rate", BigDecimal.class);
+	public static final TypedKey<BigDecimal> INVESTMENTCHECK_PERCONTRIB = of("investmentcheck_percontrib", BigDecimal.class);			
+	public static final TypedKey<Integer> INVESTMENTCHECK_CAPITALIZATION = of("investmentcheck_capitalization", Integer.class);
+	public static final TypedKey<BigDecimal> INVESTMENTCHECK_INTEREST_RATE = of("investmentcheck_interest_rate", BigDecimal.class);	
+	
 	public static final TypedKey<Integer> INVESTMENT401K_ID = of("investment401k_id", Integer.class);
 	public static final TypedKey<String> INVESTMENT401K_NAME = of("investment401k_name", String.class);	
 	public static final TypedKey<BigDecimal> INVESTMENT401K_INIT_AMOUNT = of("investment401k_init_amount", BigDecimal.class);

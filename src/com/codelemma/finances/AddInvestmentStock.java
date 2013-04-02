@@ -58,7 +58,7 @@ public class AddInvestmentStock extends SherlockActivity {
             })
             .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                public void onClick(DialogInterface dialog, int id) {
-                   finish();
+            	   dialog.cancel();
                }
            })
           .show();	        	         

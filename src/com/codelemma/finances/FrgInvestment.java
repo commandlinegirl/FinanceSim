@@ -2,6 +2,8 @@ package com.codelemma.finances;
 
 import java.math.BigDecimal;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -10,18 +12,18 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.View.OnClickListener;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragment;
 import com.codelemma.finances.accounting.Account;
+import com.codelemma.finances.accounting.Income;
 import com.codelemma.finances.accounting.Investment401k;
 import com.codelemma.finances.accounting.InvestmentBond;
+import com.codelemma.finances.accounting.InvestmentCheckAcct;
 import com.codelemma.finances.accounting.InvestmentSavAcct;
 import com.codelemma.finances.accounting.InvestmentStock;
-import com.codelemma.finances.accounting.ModifyUiVisitor;
 import com.codelemma.finances.accounting.NamedValue;
 
 public class FrgInvestment extends SherlockFragment {
@@ -84,14 +86,32 @@ public class FrgInvestment extends SherlockFragment {
 	public void add(View view) {		
 		switch(view.getId()) {
 		case R.id.investment_savacct:
-			Intent intent = new Intent(getActivity(), AddInvestmentSavAcct.class);		
+			Intent intent = new Intent(getSherlockActivity(), AddInvestmentSavAcct.class);		
 			intent.putExtra("request", AcctElements.ADD.toString());
 		    startActivityForResult(intent, AcctElements.ADD.getNumber());
 		    break;
 		case R.id.investment_401k:
-			Intent intent401k = new Intent(getActivity(), AddInvestment401k.class);		
-			intent401k.putExtra("request", AcctElements.ADD.toString());
-		    startActivityForResult(intent401k, AcctElements.ADD.getNumber());			
+			
+			if (account.getIncomesSize() == 0) {
+	        	new AlertDialog.Builder(getSherlockActivity())
+	            .setTitle("Adding 401(k) requires an income/salary account")
+                .setMessage("To add a 401(k) account, please, add an income account first.")                
+                .setNeutralButton("Add Income", new DialogInterface.OnClickListener() {
+                   public void onClick(DialogInterface dialog, int id) {                	   
+                	   ((Main) getSherlockActivity()).setToIncomeTab();
+                   }
+                })
+                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                   public void onClick(DialogInterface dialog, int id) {
+                	   dialog.cancel();
+                   }
+               })
+              .show();
+			} else {
+				Intent intent401k = new Intent(getActivity(), AddInvestment401k.class);		
+				intent401k.putExtra("request", AcctElements.ADD.toString());
+			    startActivityForResult(intent401k, AcctElements.ADD.getNumber());	
+			}									
             break;
 		case R.id.investment_bond:
 			Intent intentbond = new Intent(getActivity(), AddInvestmentBond.class);		
@@ -102,6 +122,10 @@ public class FrgInvestment extends SherlockFragment {
 			Intent intentstock = new Intent(getActivity(), AddInvestmentStock.class);		
 			intentstock.putExtra("request", AcctElements.ADD.toString());
 		    startActivityForResult(intentstock, AcctElements.ADD.getNumber());
+		case R.id.investment_checkacct:
+			Intent intentcheck = new Intent(getActivity(), AddInvestmentCheckAcct.class);		
+			intentcheck.putExtra("request", AcctElements.ADD.toString());
+		    startActivityForResult(intentcheck, AcctElements.ADD.getNumber());		    
 		    break;
 		}		
 	}
@@ -120,6 +144,8 @@ public class FrgInvestment extends SherlockFragment {
     		int investment_id = data.getIntExtra("investmentsav_id", -1);    		
     		InvestmentSavAcct investment = (InvestmentSavAcct) account.getInvestmentById(investment_id); 
     		account.removeInvestment(investment);
+            account.subtractFromInvestmentsPercontrib(investment.getPercontrib()); // update total percent contribution to investments  
+            account.setCheckingAcctPercontrib();
     		Log.d("Main.onInvestmentResult()", "removed Investment No. "+investment_id);
       	}
     	
@@ -132,14 +158,47 @@ public class FrgInvestment extends SherlockFragment {
 		        start_year,
 		    	start_month);                 
         account.addInvestment(investment);		
-        
+        account.addToInvestmentsPercontrib(percontrib); // update total percent contribution to investments  
+        account.setCheckingAcctPercontrib();
         Toast.makeText(getSherlockActivity(), "Use top CHART or TABLE icons to see results.", Toast.LENGTH_SHORT).show();
         
         if ((appState.getCalculationStartYear() == start_year && appState.getCalculationStartMonth() >= start_month) 
     			|| (appState.getCalculationStartYear() > start_year)) {    
-    	appState.setCalculationStartYear(start_year);
-    	appState.setCalculationStartMonth(start_month);
-    }
+    	    appState.setCalculationStartYear(start_year);
+    	    appState.setCalculationStartMonth(start_month);
+        }
+	}
+	
+	public void onInvestmentCheckAcctResult(Intent data, int requestCode) {
+		String name = data.getStringExtra("investmentcheck_name");
+		BigDecimal init_amount = new BigDecimal(data.getStringExtra("investmentcheck_init_amount"));
+		BigDecimal tax_rate = new BigDecimal(data.getStringExtra("investmentcheck_tax_rate"));
+		int capitalization = Integer.parseInt(data.getStringExtra("investmentcheck_capitalization"));
+		BigDecimal interest_rate = new BigDecimal(data.getStringExtra("investmentcheck_interest_rate"));
+    	int start_year = appState.getSimulationStartYear();
+    	int start_month = appState.getSimulationStartMonth();
+    	
+    	if (requestCode == AcctElements.UPDATE.getNumber()) {
+    		int investment_id = data.getIntExtra("investmentcheck_id", -1);    		
+    		InvestmentCheckAcct investment = (InvestmentCheckAcct) account.getInvestmentById(investment_id);
+    		account.setCheckingAcct(null);
+    		account.removeInvestment(investment);
+    		Log.d("Main.onInvestmentResult()", "removed Investment No. "+investment_id);
+      	}
+    	
+    	InvestmentCheckAcct investment = new InvestmentCheckAcct(name,
+    			init_amount,
+    			tax_rate,     
+    			new BigDecimal(0),
+                capitalization,
+                interest_rate,
+		        start_year,
+		    	start_month);                 
+        account.addInvestment(investment);
+        account.setCheckingAcct(investment);
+        
+        Toast.makeText(getSherlockActivity(), "Use top CHART or TABLE icons to see results.", Toast.LENGTH_SHORT).show();
+        
 	}
 	
 	public void onInvestment401kResult(Intent data, int requestCode) {
@@ -154,10 +213,16 @@ public class FrgInvestment extends SherlockFragment {
 		BigDecimal employer_match = new BigDecimal(data.getStringExtra("investment401k_employer_match"));
     	int start_year = Integer.parseInt((data.getStringExtra("investment401k_start_year")));
     	int start_month = Integer.parseInt((data.getStringExtra("investment401k_start_month")));
+    	int income_id =  Integer.parseInt((data.getStringExtra("investment401k_incomeid")));   	
     	
     	if (requestCode == AcctElements.UPDATE.getNumber()) {
     		int investment_id = data.getIntExtra("investment401k_id", -1);    		
-    		Investment401k investment = (Investment401k) account.getInvestmentById(investment_id); 
+    		Investment401k investment = (Investment401k) account.getInvestmentById(investment_id);     		
+    		/* Before removing investment account, set the income with which it is associated
+    		 * to null.
+    		 */
+    		investment.getIncome().setInvestment401k(null);
+    		
     		account.removeInvestment(investment);
     		Log.d("Main.onInvestment401kResult()", "removed Investment No. "+investment_id);
       	}
@@ -167,13 +232,18 @@ public class FrgInvestment extends SherlockFragment {
                 percontrib,
                 period,
                 interest_rate, 
-                salary,
+                salary, //TODO: here set Income instance
                 payrise,
                 withdrawal_tax_rate,
                 employer_match,
 		        start_year,
-		    	start_month);                 
-        account.addInvestment(investment);		
+		    	start_month);                     	   	
+    	Income income = account.getIncomeById(income_id);
+    	    	
+    	
+    	investment.setIncome(income);
+    	income.setInvestment401k(investment);
+        account.addInvestment(investment);
         Toast.makeText(getSherlockActivity(), "Use top CHART or TABLE icons to see results.", Toast.LENGTH_SHORT).show();
         
         if ((appState.getCalculationStartYear() == start_year && appState.getCalculationStartMonth() >= start_month) 

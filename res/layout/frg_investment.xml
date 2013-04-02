@@ -7,16 +7,12 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin">
-        
-    
+            
     <ScrollView
         android:layout_height="0dp"
         android:layout_weight="1"  
         android:layout_width="fill_parent">                
-        
-
-
-    
+  
     <RelativeLayout
             android:layout_height="wrap_content"
             android:layout_width="fill_parent">
@@ -90,11 +86,17 @@
                 android:layout_alignParentRight="true"               
                 android:onClick="addInvestment" />
           
+           <Button
+                android:id="@+id/investment_checkacct"                         
+                android:layout_width="fill_parent"
+                android:layout_height="48dp"        
+                android:layout_marginTop="4dp"
+                android:text="@string/add_investmentcheckacct"       
+                android:background="@drawable/button_green" 
+                android:layout_below="@id/investment_bond"       
+                android:layout_alignParentLeft="true"                                            
+                android:onClick="addInvestment" />            
          </RelativeLayout>
            
-            </ScrollView>
-            
-
-        
-    
+    </ScrollView>
 </LinearLayout>

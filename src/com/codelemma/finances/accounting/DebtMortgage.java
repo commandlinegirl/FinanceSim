@@ -25,15 +25,15 @@ public class DebtMortgage extends Debt
     private BigDecimal pmi_amount;    
     private BigDecimal insurance_amount;  
     private BigDecimal tax_amount;  
-    private BigDecimal additional_cost = new BigDecimal(0); //tax & insurance
+    private BigDecimal additional_cost = Money.ZERO; //tax & insurance
     private BigDecimal additional_cost_with_pmi; 
     private BigDecimal additional_cost_without_pmi; 
-    private BigDecimal total_additional_cost = new BigDecimal(0);
+    private BigDecimal total_additional_cost = Money.ZERO;
   
-    private BigDecimal principal_paid = new BigDecimal(0);
-    private BigDecimal interests_paid = new BigDecimal(0);
-    private BigDecimal total_interests = new BigDecimal(0);
-    private BigDecimal total_principal = new BigDecimal(0);
+    private BigDecimal principal_paid = Money.ZERO;
+    private BigDecimal interests_paid = Money.ZERO;
+    private BigDecimal total_interests = Money.ZERO;
+    private BigDecimal total_principal = Money.ZERO;
     
     private BigDecimal property_insurance_decimal_monthly;
     private BigDecimal property_tax_decimal_monthly;
@@ -111,7 +111,7 @@ public class DebtMortgage extends Debt
     }
     
     @Override
-    public void advance(int month) {
+    public void advance(int year, int month) {
     	if (month_counter <= term_months) {    		
                 		
         	Log.d("outstanding_loan", outstanding_loan.toString());
@@ -149,12 +149,12 @@ public class DebtMortgage extends Debt
         	total_additional_cost = total_additional_cost.add(additional_cost);            
             month_counter++;
     	} else {
-    		monthly_payment = new BigDecimal(0);
-    		interests_paid = new BigDecimal(0);
-    		principal_paid = new BigDecimal(0);
-    		total_interests = new BigDecimal(0);
-    		additional_cost = new BigDecimal(0);
-    		outstanding_loan = new BigDecimal(0);    	    		
+    		monthly_payment = Money.ZERO;
+    		interests_paid = Money.ZERO;
+    		principal_paid = Money.ZERO;
+    		total_interests = Money.ZERO;
+    		additional_cost = Money.ZERO;
+    		outstanding_loan = Money.ZERO;    	    		
     	}      
     }
 
@@ -286,11 +286,11 @@ public class DebtMortgage extends Debt
 		month_counter = 1;
     	base_monthly_payment = calculateMonthlyPayment();
     	monthly_payment = base_monthly_payment;
-	    principal_paid = new BigDecimal(0);
-	    interests_paid = new BigDecimal(0);
-	    total_interests = new BigDecimal(0);
-	    total_principal = new BigDecimal(0);
-	    total_additional_cost = new BigDecimal(0);
+	    principal_paid = Money.ZERO;
+	    interests_paid = Money.ZERO;
+	    total_interests = Money.ZERO;
+	    total_principal = Money.ZERO;
+	    total_additional_cost = Money.ZERO;
 	}
 
 	@Override

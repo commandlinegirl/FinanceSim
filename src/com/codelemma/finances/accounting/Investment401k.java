@@ -38,8 +38,9 @@ public class Investment401k extends Investment
     private BigDecimal withdrawal_tax_rate_decimal;
     private BigDecimal employer_match;
     private BigDecimal employer_match_decimal;
-    private BigDecimal hidden_interests = Money.scale(new BigDecimal(0));
+    private BigDecimal hidden_interests = Money.ZERO;
     private HistoryInvestment401k history;
+    private Income income;
 
     private BigDecimal payrise_decimal;
     int counter = 0;
@@ -100,10 +101,28 @@ public class Investment401k extends Investment
     	start_month = _start_month;
     }   
        		
+	@Override
+    public boolean isPreTax() {
+    	return true;
+    }
+    
+	@Override
+    public boolean isCheckingAcct() {
+    	return false;
+    }
+	
 	public BigDecimal getInterestRate() {
 		return interest_rate;
 	}
 
+	public Income getIncome() {
+		return income;
+	}
+
+	public void setIncome(Income inc) {
+		income = inc;
+	}
+	
 	public int getInterestPay() {
 		return interest_pay;
 	}
@@ -206,7 +225,35 @@ public class Investment401k extends Investment
 	          
     @Override
     public void advance(int year, int month, BigDecimal excess_null_value) {
+
+        //interests_gross = new BigDecimal(0);
+        //tax_on_interests = new BigDecimal(0);
+        //interests_net = new BigDecimal(0);
+
+    	if ((year < start_year) || (year == start_year && month < start_month)) {
+    		setValuesBeforeCalculation();    		
+    	}        
     	   	
+    	if (year == start_year && month == start_month) {
+    		initialize();    		
+    		advanceValues(month);    		
+    	}      	
+    	
+    	if ((year > start_year) || (year == start_year && month > start_month)) {
+    		advanceValues(month);
+    	}       	
+    }
+    
+    /* event methods*/
+    private void setValuesBeforeCalculation() {
+		amount = Money.ZERO;
+		salary = Money.ZERO;	
+		hidden_interests = Money.ZERO;
+		monthly_employee_contribution = Money.ZERO;
+		monthly_employer_contribution = Money.ZERO;
+    }    
+    
+    private void advanceValues(int month) {	   	
     	if (month == 0) {
     		/* Each January give a rise to employee */
     		BigDecimal rise = Money.getPercentage(salary, payrise_decimal);
@@ -239,7 +286,7 @@ public class Investment401k extends Investment
 	public void initialize() {
 		amount = Money.scale(init_amount);
 		salary = Money.scale(init_salary);	
-		hidden_interests = Money.scale(new BigDecimal(0));
+		hidden_interests = Money.ZERO;
 		counter = 0;
 				
         yearly_employee_contribution = Money.getPercentage(salary, percontrib_decimal);
@@ -249,7 +296,6 @@ public class Investment401k extends Investment
         employer_match_decimal = employer_match.divide(Money.HUNDRED, Money.RATE_DECIMALS, Money.ROUNDING_MODE);
         yearly_employer_contribution = Money.getPercentage(yearly_employee_contribution, employer_match_decimal);
         monthly_employer_contribution = yearly_employer_contribution.divide(new BigDecimal(12), Money.DECIMALS, Money.ROUNDING_MODE);
- 
 	}
 
 	@Override
@@ -280,4 +326,6 @@ public class Investment401k extends Investment
 	public void updateInputListing(InputListingUpdater modifier) {
 		modifier.updateInputListingForInvestment401k(this);				
 	}
+		
+
 }

@@ -28,6 +28,7 @@ public class About extends SherlockActivity {
 		getSupportMenuInflater().inflate(R.menu.about, menu);
 		return true;
 	}
+	
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {

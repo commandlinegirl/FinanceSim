@@ -2,7 +2,6 @@ package com.codelemma.finances;
 
 public abstract class ListInvestmentSavAcct {
 
-	private String tag;
 	private String date;
 	private String amount;
 	private String contribution;

@@ -6,6 +6,7 @@ import com.codelemma.finances.accounting.ExpenseGeneric;
 import com.codelemma.finances.accounting.IncomeGeneric;
 import com.codelemma.finances.accounting.Investment401k;
 import com.codelemma.finances.accounting.InvestmentBond;
+import com.codelemma.finances.accounting.InvestmentCheckAcct;
 import com.codelemma.finances.accounting.InvestmentSavAcct;
 import com.codelemma.finances.accounting.InvestmentStock;
 import com.codelemma.finances.accounting.PackToContainerVisitor;
@@ -46,6 +47,18 @@ public class PackToContainerLauncher implements PackToContainerVisitor {
         container.put(TypedKey.INVESTMENTSAV_PERCONTRIB, investmentsav.getPercontrib());
         container.put(TypedKey.INVESTMENTSAV_CAPITALIZATION, investmentsav.getCapitalization());
         container.put(TypedKey.INVESTMENTSAV_INTEREST_RATE, investmentsav.getInterestRate());
+    	return container;
+	}
+	
+	@Override
+	public TypedContainer packInvestmentCheckAcct(InvestmentCheckAcct investmentcheck) {
+    	TypedContainer container = new TypedContainer();
+    	container.put(TypedKey.INVESTMENTCHECK_NAME, investmentcheck.getName());    	
+        container.put(TypedKey.INVESTMENTCHECK_INIT_AMOUNT,  investmentcheck.getInitAmount());
+        container.put(TypedKey.INVESTMENTCHECK_TAX_RATE, investmentcheck.getTaxRate());
+        container.put(TypedKey.INVESTMENTCHECK_PERCONTRIB, investmentcheck.getPercontrib());
+        container.put(TypedKey.INVESTMENTCHECK_CAPITALIZATION, investmentcheck.getCapitalization());
+        container.put(TypedKey.INVESTMENTCHECK_INTEREST_RATE, investmentcheck.getInterestRate());
     	return container;
 	}
 	

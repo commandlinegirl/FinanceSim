@@ -28,7 +28,10 @@ public class InvestmentBond extends Investment
         history = new HistoryInvestmentBond(this);
     }
     
-	
+    public boolean isPreTax() {
+    	return false;
+    }
+    
 	@Override
 	public BigDecimal getValue() {
 		return amount;
@@ -113,5 +116,9 @@ public class InvestmentBond extends Investment
 	public int getStartMonth() {
 		return 0;
 	}
-
+	
+	@Override
+    public boolean isCheckingAcct() {
+    	return false;
+    }
 }

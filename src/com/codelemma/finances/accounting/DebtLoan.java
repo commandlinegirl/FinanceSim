@@ -15,9 +15,9 @@ public class DebtLoan extends Debt
     private int term; // in months
     private BigDecimal extra_payment;
     private BigDecimal monthly_payment;
-    private BigDecimal principal_paid = new BigDecimal(0);
-    private BigDecimal interests_paid = new BigDecimal(0);
-    private BigDecimal total_interests = new BigDecimal(0);
+    private BigDecimal principal_paid = Money.ZERO;
+    private BigDecimal interests_paid = Money.ZERO;
+    private BigDecimal total_interests = Money.ZERO;
     private BigDecimal remaining_amount;   
     private int month_counter = 1;
     private String name;
@@ -53,7 +53,7 @@ public class DebtLoan extends Debt
     	remaining_amount = init_amount;
     }
     
-    private BigDecimal calculateMonthlyPayment() {
+    public BigDecimal calculateMonthlyPayment() {
     	BigDecimal factor = (interest_rate_decimal_monthly.add(Money.ONE)).pow(term);
     	BigDecimal factor_minus_one = factor.subtract(Money.ONE);
     	try {
@@ -67,28 +67,63 @@ public class DebtLoan extends Debt
     	return monthly_payment; 
     }
 
+    
+    
+    
+    /* event methods*/
+    
+    
+    private void setValuesBeforeCalculation() {
+		monthly_payment = Money.ZERO;
+		interests_paid = Money.ZERO;
+		principal_paid = Money.ZERO;
+		total_interests = Money.ZERO;
+		remaining_amount = Money.ZERO;    
+    }
+    
+    private void setValuesAfterCalculation() {
+		monthly_payment = Money.ZERO;
+		interests_paid = Money.ZERO;
+		principal_paid = Money.ZERO;
+		remaining_amount = Money.ZERO;    
+    }
+        
     @Override
-    public void advance(int month) {
-    	if (month_counter <= term && remaining_amount.compareTo(new BigDecimal(0)) == 1) {
+    public void advance(int year, int month) {
 
-    		interests_paid = Money.scale(remaining_amount.multiply(interest_rate_decimal_monthly));
-            
+	    if ((year < start_year) || (year == start_year && month < start_month)) {
+		    setValuesBeforeCalculation();
+	    }        
+	   	
+    	if (year == start_year && month == start_month) {
+	    	initialize();
+		    advanceValues(month);
+	    }      	
+	
+    	if ((year > start_year) || (year == start_year && month > start_month)) {
+	    	advanceValues(month);
+	    }       	
+    	
+    	//if (month_counter > term) {
+    	//	setValuesBeforeCalculation();
+    	//}
+    }
+    
+    private void advanceValues(int month) {
+    	if (month_counter <= term && remaining_amount.compareTo(Money.ZERO) == 1) {
+		    interests_paid = Money.scale(remaining_amount.multiply(interest_rate_decimal_monthly));
+        
             if (remaining_amount.compareTo(monthly_payment) == -1) {
             	monthly_payment = remaining_amount.add(interests_paid);
             }
-            
+          
             principal_paid = monthly_payment.subtract(interests_paid);
-            total_interests = total_interests.add(interests_paid);        
+            total_interests = total_interests.add(interests_paid);
             remaining_amount = remaining_amount.subtract(principal_paid);
-                		           
-            month_counter++;
-    	} else {
-    		monthly_payment = new BigDecimal(0);
-    		interests_paid = new BigDecimal(0);
-    		principal_paid = new BigDecimal(0);
-    		total_interests = new BigDecimal(0);
-    		remaining_amount = new BigDecimal(0);    		    	
-    	}
+		    month_counter++;
+        } else {
+        	setValuesAfterCalculation();
+        }
     }
     
     @Override
@@ -157,7 +192,7 @@ public class DebtLoan extends Debt
 
 	@Override
 	public BigDecimal getAmount() {
-		return remaining_amount;
+		return monthly_payment;
 	}
 
 	@Override
@@ -175,9 +210,9 @@ public class DebtLoan extends Debt
 		remaining_amount = init_amount;
 		monthly_payment = calculateMonthlyPayment();
 		month_counter = 1;
-	    principal_paid = new BigDecimal(0);
-	    interests_paid = new BigDecimal(0);
-	    total_interests = new BigDecimal(0);
+	    principal_paid = Money.ZERO;
+	    interests_paid = Money.ZERO;
+	    total_interests = Money.ZERO;
 	}
 
 	@Override

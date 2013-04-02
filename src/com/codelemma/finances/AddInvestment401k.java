@@ -1,14 +1,15 @@
 package com.codelemma.finances;
 
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
-import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.codelemma.finances.accounting.Account;
 import com.codelemma.finances.accounting.History;
+import com.codelemma.finances.accounting.Income;
 import com.codelemma.finances.accounting.Investment401k;
 
 import android.app.AlertDialog;
@@ -22,15 +23,19 @@ import android.support.v4.app.NavUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 
 public class AddInvestment401k extends SherlockFragmentActivity 
-                               implements FrgDatePicker.OnDateSelectedListener {
+                               implements FrgDatePicker.OnDateSelectedListener, OnItemSelectedListener {
 	
 	private History history;
 	private Account account;	
@@ -39,8 +44,8 @@ public class AddInvestment401k extends SherlockFragmentActivity
 	private Finances appState;	
 	private int setMonth;
 	private int setYear;
-	
-
+	private ArrayList<Income> salaries = new ArrayList<Income>();
+	private Income salary;
 	
     private OnClickListener clickCancelListener = new OnClickListener() {
     	
@@ -60,6 +65,10 @@ public class AddInvestment401k extends SherlockFragmentActivity
             .setMessage("Do you want to delete this item?")                
             .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                public void onClick(DialogInterface dialog, int id) {
+           		   /* Before removing investment account, set the income with which it is associated
+             		* to null.
+            		*/
+            	   investment.getIncome().setInvestment401k(null);
             	   account.removeInvestment(investment); 
             	   history.removeInvestmentHistory(investment.getHistory()); 
             	   appState.needToRecalculate(true);
@@ -68,7 +77,7 @@ public class AddInvestment401k extends SherlockFragmentActivity
             })
             .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                public void onClick(DialogInterface dialog, int id) {
-                   finish();
+            	   dialog.cancel();
                }
            })
           .show();	        	         
@@ -84,6 +93,16 @@ public class AddInvestment401k extends SherlockFragmentActivity
 	    }
     };	
 	
+	@Override
+	public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+		salary = salaries.get(pos);
+	}
+
+	@Override
+	public void onNothingSelected(AdapterView<?> parent) {
+		parent.setSelection(0);		
+	}
+    
     public void showDatePickerDialog(View v) {
         DialogFragment newFragment = new FrgDatePicker();
         Bundle b = new Bundle();
@@ -94,7 +113,7 @@ public class AddInvestment401k extends SherlockFragmentActivity
     
 	@Override
 	public void onDateSet(DatePicker view, int year, int month, int day) {
-		EditText edit = (EditText) findViewById(R.id.investment401k_start_date);
+		TextView edit = (TextView) findViewById(R.id.investment401k_start_date);
 		edit.setText((month+1)+"/"+year);
 		setYear = year;
 		setMonth = month;
@@ -110,17 +129,27 @@ public class AddInvestment401k extends SherlockFragmentActivity
 		appState = Finances.getInstance();
 	    account = appState.getAccount();  		
 	    history = appState.getHistory();
+	    	       
+        for (Income i : account.getIncomes()) {
+        	salaries.add(i);
+        }
 	    
-	    Intent intent = getIntent(); //TODO: check if there are 
-	    requestCode = intent.getStringExtra("request");
+        Spinner spinner = (Spinner) findViewById(R.id.investment401k_salary);	    
+        ArrayAdapter<Income> adapter = new ArrayAdapter<Income>(this, android.R.layout.simple_spinner_item, salaries);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+        spinner.setSelection(0); 
+        spinner.setOnItemSelectedListener(this);
 	    
-		EditText start_date = (EditText) findViewById(R.id.investment401k_start_date);
+		TextView start_date = (TextView) findViewById(R.id.investment401k_start_date);
         final Calendar c = Calendar.getInstance();
         setYear = c.get(Calendar.YEAR);
         setMonth = c.get(Calendar.MONTH);
-        int day = c.get(Calendar.DAY_OF_MONTH);
 		start_date.setText((setMonth+1)+"/"+setYear, TextView.BufferType.EDITABLE);
-	    
+
+	    Intent intent = getIntent(); //TODO: check if there are 
+	    requestCode = intent.getStringExtra("request");
+		
         if (requestCode.equals(AcctElements.UPDATE.toString())) {
 	    	
 	    	int id = intent.getIntExtra("investment_id", -1);
@@ -142,20 +171,20 @@ public class AddInvestment401k extends SherlockFragmentActivity
 			
 			EditText interestRate = (EditText) findViewById(R.id.investment401k_interest_rate);
 			interestRate.setText(investment.getInitInterestRate().toString(), TextView.BufferType.EDITABLE);
-
-			EditText salary = (EditText) findViewById(R.id.investment401k_salary);
-			salary.setText(investment.getInitSalary().toString(), TextView.BufferType.EDITABLE);
 			
-			EditText payrise = (EditText) findViewById(R.id.investment401k_payrise);
-			payrise.setText(investment.getInitPayrise().toString(), TextView.BufferType.EDITABLE);
+			for (int i = 0; i < salaries.size(); i++) {
+				Income inc = salaries.get(i);
+				if (inc == investment.getIncome()) {
+					spinner.setSelection(i);		
+				}
+			}
 			
 			EditText withdrawal_tax_rate = (EditText) findViewById(R.id.investment401k_withdrawal_tax_rate);
 			withdrawal_tax_rate.setText(investment.getInitWithdrawalTaxRate().toString(), TextView.BufferType.EDITABLE);
 						
 			EditText employer_match = (EditText) findViewById(R.id.investment401k_employer_match);
 			employer_match.setText(investment.getInitEmployerMatch().toString(), TextView.BufferType.EDITABLE);
-						
-		    
+								    
 				setYear = investment.getStartYear();
 				setMonth = investment.getStartMonth() ;			
 				start_date.setText((setMonth+1)+"/"+setYear, TextView.BufferType.EDITABLE);
@@ -196,9 +225,6 @@ public class AddInvestment401k extends SherlockFragmentActivity
             update.setOnClickListener(clickSaveListener);
             update.setBackgroundResource(R.drawable.button_green);                      
 			buttons.addView(update);
-			
-	
-			
 	    }
 	}
 	
@@ -243,20 +269,14 @@ public class AddInvestment401k extends SherlockFragmentActivity
 	    	return;	    	
 	    }	
         intent.putExtra("investment401k_interest_rate", interestRateData);  
-	    
-	    EditText salary = (EditText) findViewById(R.id.investment401k_salary);
-		String salaryData = salary.getText().toString();
-	    if (Utils.alertIfEmpty(this, salaryData, getResources().getString(R.string.investment401k_salary_input))) {
-	    	return;	    	
-	    }	
-	    intent.putExtra("investment401k_salary", salaryData);	  
-	    
-	    EditText payrise = (EditText) findViewById(R.id.investment401k_payrise);
-		String payriseData = payrise.getText().toString();
-	    if (Utils.alertIfEmpty(this, payriseData, getResources().getString(R.string.investment401k_payrise_input))) {
-	    	return;	    	
-	    }	
-	    intent.putExtra("investment401k_payrise", payriseData);	
+
+        Log.d("salary.getName()", salary.getName().toString());
+        Log.d("salary.getInitAmount()", salary.getInitAmount().toString());
+        Log.d("salary.getInitRiseRate()", salary.getInitRiseRate().toString());
+        
+	    intent.putExtra("investment401k_salary", salary.getInitAmount().toString());	  
+	    intent.putExtra("investment401k_payrise", salary.getInitRiseRate().toString());
+	    intent.putExtra("investment401k_incomeid", String.valueOf(salary.getId()));
 	    
 	    EditText withdrawalTax = (EditText) findViewById(R.id.investment401k_withdrawal_tax_rate);
 	    String withdrawalTaxData = withdrawalTax.getText().toString();
@@ -283,8 +303,6 @@ public class AddInvestment401k extends SherlockFragmentActivity
         setResult(AcctElements.INVESTMENT401K.getNumber(), intent);
         finish();	
     }	
-
-
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -307,5 +325,4 @@ public class AddInvestment401k extends SherlockFragmentActivity
 		}						
 		return super.onOptionsItemSelected(item);
 	}
-
 }

@@ -7,13 +7,12 @@ public class Money {
     public static final RoundingMode ROUNDING_MODE = RoundingMode.HALF_EVEN;
     public static final BigDecimal HUNDRED = new BigDecimal(100);
     public static final BigDecimal ONE = new BigDecimal(1);
-    
+    public static final BigDecimal ZERO = Money.scale(new BigDecimal(0));    
 
     // Number of decimals to retain, ie. "scale".
     public static final int DECIMALS = 2;
-    public static final int RATE_DECIMALS = 10;
-    private static final int ZERO = 0;
-    
+    public static final int RATE_DECIMALS = 7;
+        
 
     public static BigDecimal getPercentage(BigDecimal base, BigDecimal perc) {
         return scale(base.multiply(perc)); 
@@ -24,7 +23,7 @@ public class Money {
     }
 
     public static BigDecimal scaleZero(BigDecimal num){
-        return num.setScale(ZERO, ROUNDING_MODE);
+        return num.setScale(0, ROUNDING_MODE);
     }    
     
     public static BigDecimal scaleRate(BigDecimal num){

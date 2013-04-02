@@ -63,6 +63,7 @@ public class FrgDebt extends SherlockFragment {
 		tip.addView(line);
         
 		if (account.getDebtsSize() > 0) {	 
+	        ((Main) getSherlockActivity()).recalculate();
 		   	Iterable<? extends NamedValue> values = account.getDebts();
 		   	updateInputListing(values);		    
 		} else {
@@ -130,6 +131,7 @@ public class FrgDebt extends SherlockFragment {
         	appState.setCalculationStartYear(start_year);
         	appState.setCalculationStartMonth(start_month);
         }
+        
         Toast.makeText(getSherlockActivity(), "Use top CHART or TABLE icons to see results.", Toast.LENGTH_SHORT).show();
 
 	}	
@@ -172,6 +174,8 @@ public class FrgDebt extends SherlockFragment {
     	    appState.setCalculationStartYear(start_year);
     	    appState.setCalculationStartMonth(start_month);
         }
+        ((Main) getSherlockActivity()).recalculate();
+
 	}	
 		
     private void updateInputListing(Iterable<? extends NamedValue> values) {        

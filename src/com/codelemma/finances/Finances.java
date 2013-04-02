@@ -8,9 +8,9 @@ import android.app.Application;
 import android.util.Log;
 
 import com.codelemma.finances.accounting.Account;
-import com.codelemma.finances.accounting.ExpenseGeneric;
 import com.codelemma.finances.accounting.History;
-import com.codelemma.finances.accounting.IncomeGeneric;
+import com.codelemma.finances.accounting.InvestmentCheckAcct;
+import com.codelemma.finances.accounting.Money;
 
 public class Finances extends Application {
 	      
@@ -130,8 +130,21 @@ public class Finances extends Application {
 		
 		String investments = storage.get(TypedKey.INVESTMENTS.getKeyword(), null);		
 		if (investments != null) {
-			restoreInvestments(investments);
-		}
+			restoreInvestments(investments);			
+		} else {			
+	    	InvestmentCheckAcct investment = new InvestmentCheckAcct(
+	    			"Checking account", // name
+	    			Money.ZERO,         // init_amount
+	    			new BigDecimal(30), // tax_rate
+	    			Money.ZERO,         // percent contribution
+	                1,                  // interest capitalization (1 = monthly)
+	                new BigDecimal("0.5"), // interest_rate
+	                simStartYear,       // calculation start = simulation start
+	                simStartMonth);		// calculation start = simulation start	    	
+			account.addInvestment(investment);
+	    	account.setCheckingAcct(investment);
+	    	account.setCheckingAcctPercontrib();
+		}				
 		
 		String expenses = storage.get(TypedKey.EXPENSES.getKeyword(), null);		
 		if (investments != null) {
@@ -168,6 +181,9 @@ public class Finances extends Application {
 		*/
 	}
 	
+	
+	
+	
 	public void restoreInvestments(String investments) throws ParseException {
 		TypedContainer investmentsCont = Serializer.parseToMap(investments);		
 		Iterator<Entry<TypedKey<?>, Object>> i = investmentsCont.iterator();				
@@ -187,7 +203,10 @@ public class Finances extends Application {
                     compounding,
                     period,
                     name);
-            account.addInvestment(investment);	
+            account.addInvestment(investment);
+            if (investment.isCheckingAcct()) {
+	    	    account.setCheckingAcct(investment);	    			
+	    	}	
 		}*/
 	}	
 	
