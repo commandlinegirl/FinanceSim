@@ -31,6 +31,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class AddInvestmentSavAcct extends SherlockFragmentActivity 
@@ -45,6 +46,7 @@ public class AddInvestmentSavAcct extends SherlockFragmentActivity
 	private Finances appState;    
 	private int setMonth;
 	private int setYear;
+	private BigDecimal currentPercontrib;
 	
     private OnClickListener clickCancelListener = new OnClickListener() {
     	
@@ -70,6 +72,7 @@ public class AddInvestmentSavAcct extends SherlockFragmentActivity
        	    	   account.setCheckingAcctPercontrib();
             	   history.removeInvestmentHistory(investment.getHistory());
             	   appState.needToRecalculate(true);
+                   Toast.makeText(AddInvestmentSavAcct.this, investment.getName()+" deleted.", Toast.LENGTH_SHORT).show();
             	   finish();
                }
             })
@@ -185,6 +188,7 @@ public class AddInvestmentSavAcct extends SherlockFragmentActivity
 	    	
 			EditText percontrib = (EditText) findViewById(R.id.investmentsav_percontrib);
 			percontrib.setText(investment.getInitPercontrib().toString(), TextView.BufferType.EDITABLE);
+			currentPercontrib = investment.getInitPercontrib();
 			
 			int capt_index = Utils.getIndex(capitalization_items, investment.getCapitalization());
 			if (capt_index != -1) {
@@ -271,9 +275,31 @@ public class AddInvestmentSavAcct extends SherlockFragmentActivity
 	    	return;	    	
 	    }	
 	    	    
+	    
+	    /* If view == null, it means the data is being updated, not new added */
+	    
 	    BigDecimal perc = new BigDecimal(percontribData);
-	    if ((perc.add(account.getInvestmentsPercontrib())).compareTo(new BigDecimal(100)) > 0) {
-	    	//TODO: dialog - excess exceeded 1
+	    BigDecimal currentinvestmentsPercontrib = account.getInvestmentsPercontrib();
+	    BigDecimal totalPercontribToCheck;
+	    if (view == null) {
+	    	totalPercontribToCheck = currentinvestmentsPercontrib.subtract(currentPercontrib).add(perc);
+	    } else {
+	    	totalPercontribToCheck = currentinvestmentsPercontrib.add(perc);
+	    }
+	    
+	    
+	    if (totalPercontribToCheck.compareTo(new BigDecimal(100)) > 0) {
+	    	
+	        new AlertDialog.Builder(AddInvestmentSavAcct.this)
+            .setTitle("Investment excess > 100%")
+            .setMessage("Savings from more than 100%!")           // TODO: update this info     
+            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+               public void onClick(DialogInterface dialog, int id) {
+            	   dialog.cancel();
+               }
+            })
+            .show();
+	        return;
 	    } else {
             intent.putExtra("investmentsav_percontrib", percontribData);  	
 	    }

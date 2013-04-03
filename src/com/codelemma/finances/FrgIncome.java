@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.actionbarsherlock.app.SherlockFragment;
 import com.codelemma.finances.accounting.Account;
 import com.codelemma.finances.accounting.IncomeGeneric;
+import com.codelemma.finances.accounting.Investment401k;
 import com.codelemma.finances.accounting.NamedValue;
 
 public class FrgIncome extends SherlockFragment {
@@ -156,10 +157,14 @@ public class FrgIncome extends SherlockFragment {
         	return;
     	}
 	
+    	String action = " added.";
+    	Investment401k investment401k = null;
     	if (requestCode == AcctElements.UPDATE.getNumber()) {
     		int income_id = data.getIntExtra("income_id", -1);    		
     		IncomeGeneric income = (IncomeGeneric) account.getIncomeById(income_id); 
+    		investment401k = income.getInvestment401k();
     		account.removeIncome(income);
+    		action = " updated.";
       	}
     	
 		IncomeGeneric newIncome = new IncomeGeneric(yearly_income, 
@@ -168,10 +173,14 @@ public class FrgIncome extends SherlockFragment {
                 income_installments, 
                 income_name,
 		        start_year,
-		    	start_month);                 
+		    	start_month);
+		newIncome.setInvestment401k(investment401k);
+		if (investment401k != null) {
+			investment401k.setIncome(newIncome);	
+		}		
         account.addIncome(newIncome);
         
-        Toast.makeText(getSherlockActivity(), "Use top CHART or TABLE icons to see results.", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getSherlockActivity(), income_name+action, Toast.LENGTH_SHORT).show();
         
         if ((appState.getCalculationStartYear() == start_year && appState.getCalculationStartMonth() >= start_month) 
     			|| (appState.getCalculationStartYear() > start_year)) {    

@@ -31,6 +31,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 import android.widget.AdapterView.OnItemSelectedListener;
 
 public class AddIncomeGeneric extends SherlockFragmentActivity
@@ -71,6 +72,7 @@ public class AddIncomeGeneric extends SherlockFragmentActivity
                 	   income.getInvestment401k(); // TODO: 
                 	   history.removeIncomeHistory(income.getHistory());
                 	   appState.needToRecalculate(true);
+                       Toast.makeText(AddIncomeGeneric.this, income.getName()+" deleted.", Toast.LENGTH_SHORT).show();
                 	   finish();
                    }
                 })

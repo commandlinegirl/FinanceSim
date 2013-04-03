@@ -30,6 +30,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class AddExpenseGeneric extends SherlockFragmentActivity 
@@ -66,6 +67,7 @@ public class AddExpenseGeneric extends SherlockFragmentActivity
             	   account.removeExpense(expense);             	   
             	   history.removeExpenseHistory(expense.getHistory());            	   
             	   appState.needToRecalculate(true);
+                   Toast.makeText(AddExpenseGeneric.this, expense.getName()+" deleted.", Toast.LENGTH_SHORT).show();
             	   finish();
                }
             })

@@ -159,4 +159,10 @@ public class InvestmentStock extends Investment
 		return 0;
 	}
 
+	@Override
+	public BigDecimal getInterestsNet() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

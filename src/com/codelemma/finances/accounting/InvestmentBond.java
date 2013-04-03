@@ -121,4 +121,10 @@ public class InvestmentBond extends Investment
     public boolean isCheckingAcct() {
     	return false;
     }
+
+	@Override
+	public BigDecimal getInterestsNet() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

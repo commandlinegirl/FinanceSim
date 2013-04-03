@@ -109,12 +109,14 @@ public class FrgDebt extends SherlockFragment {
     	int start_year = Integer.parseInt((data.getStringExtra("debtloan_start_year")));
     	int start_month = Integer.parseInt((data.getStringExtra("debtloan_start_month")));
     	
+    	String action = " added.";
 		if (requestCode == AcctElements.UPDATE.getNumber()) {
       	
 		    int debt_id = data.getIntExtra("debt_id", -1);    		
 		    DebtLoan debt = (DebtLoan) account.getDebtById(debt_id); 
 		    account.removeDebt(debt);
 		    Log.d("FrgDebt.onDebtLoanResult()", "removed Debt No. "+debt_id);
+		    action = " updated.";		    
 		}
 		
 		DebtLoan debt = new DebtLoan(name, 
@@ -132,7 +134,7 @@ public class FrgDebt extends SherlockFragment {
         	appState.setCalculationStartMonth(start_month);
         }
         
-        Toast.makeText(getSherlockActivity(), "Use top CHART or TABLE icons to see results.", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getSherlockActivity(), name+action, Toast.LENGTH_SHORT).show();
 
 	}	
 	
@@ -148,12 +150,14 @@ public class FrgDebt extends SherlockFragment {
     	int start_year = Integer.parseInt((data.getStringExtra("debtmortgage_start_year")));
     	int start_month = Integer.parseInt((data.getStringExtra("debtmortgage_start_month")));
     	
+    	String action = " added.";
 		if (requestCode == AcctElements.UPDATE.getNumber()) {
       	
 		    int debt_id = data.getIntExtra("debt_id", -1);    		
 		    DebtMortgage debt = (DebtMortgage) account.getDebtById(debt_id); 
 		    account.removeDebt(debt);
 		    Log.d("FrgDebt.onDebtMortgageResult()", "removed Debt No. "+debt_id);
+		    action = " updated.";
 		}
 		
 		DebtMortgage debt = new DebtMortgage(
@@ -168,7 +172,7 @@ public class FrgDebt extends SherlockFragment {
 		         start_year,
 		    	 start_month); 
 	    account.addDebt(debt);	   		
-        Toast.makeText(getSherlockActivity(), "Use top CHART or TABLE icons to see results.", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getSherlockActivity(), name+action, Toast.LENGTH_SHORT).show();
         if ((appState.getCalculationStartYear() == start_year && appState.getCalculationStartMonth() >= start_month) 
     			|| (appState.getCalculationStartYear() > start_year)) {    
     	    appState.setCalculationStartYear(start_year);

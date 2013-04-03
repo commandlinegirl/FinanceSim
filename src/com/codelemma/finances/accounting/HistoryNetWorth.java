@@ -59,6 +59,11 @@ public class HistoryNetWorth extends HistoryNew {
 		savingsHistory[index] = savingsHistory[index].add(investment.getAccumulatedSavings());
 		netWorthHistory[index] = netWorthHistory[index].add(investment.getAccumulatedSavings());
 	}
+
+	public void addInvestmentCheckAcct(int index, InvestmentCheckAcct investment) {
+		savingsHistory[index] = savingsHistory[index].add(investment.getAccumulatedSavings());
+		netWorthHistory[index] = netWorthHistory[index].add(investment.getAccumulatedSavings());
+	}
 	
 	public void addDebtLoan(int index, DebtLoan debt) {
 		outstandingDebtsHistory[index] = outstandingDebtsHistory[index].add(debt.getRemainingAmount());

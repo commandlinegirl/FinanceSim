@@ -848,7 +848,7 @@ public class TableMaker implements TableVisitor {
 		header.addView(tv); 
 
 		tv = new TextView(frgActivity);
-		tv.setText("Invested\namount");
+		tv.setText("Invested\n& saved");
 		tv.setTextSize(11);
 		tv.setTextColor(Color.parseColor("#FFCC0000"));
 		tv.setLayoutParams(params);

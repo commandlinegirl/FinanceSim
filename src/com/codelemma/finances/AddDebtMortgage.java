@@ -26,6 +26,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class AddDebtMortgage extends SherlockFragmentActivity 
                              implements FrgDatePicker.OnDateSelectedListener {
@@ -58,7 +59,8 @@ public class AddDebtMortgage extends SherlockFragmentActivity
                public void onClick(DialogInterface dialog, int id) {
             	   account.removeDebt(debt); 
             	   history.removeDebtHistory(debt.getHistory());
-            	   appState.needToRecalculate(true);            	               	               	  
+            	   appState.needToRecalculate(true);
+                   Toast.makeText(AddDebtMortgage.this, debt.getName()+" deleted.", Toast.LENGTH_SHORT).show();
             	   finish();
                }
             })

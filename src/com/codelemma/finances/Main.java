@@ -182,9 +182,6 @@ public class Main extends SherlockFragmentActivity
     	    menuAdd.setIcon(R.drawable.ico_add);
     	    menuChart.setIcon(R.drawable.ico_chart);    
 			return true;			
-		case R.id.menu_settings:
-			Log.d("User pressed", "Settings");
-			return true;
 		case R.id.menu_about:
 			Intent intent = new Intent(this, About.class);					
 		    startActivity(intent);	
@@ -335,8 +332,9 @@ public class Main extends SherlockFragmentActivity
         Log.d("simStartYear", String.valueOf(simStartYear));
         Log.d("simStartMonth", String.valueOf(simStartMonth));
 
+        account.initPrevMonthCapitalGains();
         
-        int index = -1;
+        int index = -1; //TODO: should be -1???
         for (int i = 0; i < totalCalculationLength; i++) {
         	if (i >= preCalculationLength) {    
                 index++;

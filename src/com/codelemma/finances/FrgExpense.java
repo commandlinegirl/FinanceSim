@@ -93,11 +93,13 @@ public class FrgExpense extends SherlockFragment {
        	int start_year = Integer.parseInt((data.getStringExtra("expensegeneric_start_year")));
     	int start_month = Integer.parseInt((data.getStringExtra("expensegeneric_start_month")));
     	
+    	String action = " added.";
         if (requestCode == AcctElements.UPDATE.getNumber()) {
         	int expense_id = data.getIntExtra("expense_id", -1);    		
     		ExpenseGeneric expense = (ExpenseGeneric) account.getExpenseById(expense_id); 
     		account.removeExpense(expense);
     		Log.d("FrgExpense.onExpenseResult()", "removed Expense No. "+expense_id);
+    		action = " updated.";
       	}	    		
     		
     	ExpenseGeneric expense = new ExpenseGeneric(expense_name,
@@ -107,7 +109,7 @@ public class FrgExpense extends SherlockFragment {
     			     		          start_year,
     			    		    	  start_month); 
     	account.addExpense(expense);
-        Toast.makeText(getSherlockActivity(), "Use top CHART or TABLE icons to see results.", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getSherlockActivity(), expense_name+action, Toast.LENGTH_SHORT).show();
         
         if ((appState.getCalculationStartYear() == start_year && appState.getCalculationStartMonth() >= start_month) 
     			|| (appState.getCalculationStartYear() > start_year)) {    

@@ -140,6 +140,7 @@ public class FrgInvestment extends SherlockFragment {
     	int start_year = Integer.parseInt((data.getStringExtra("investmentsav_start_year")));
     	int start_month = Integer.parseInt((data.getStringExtra("investmentsav_start_month")));
     	
+		String action = " added.";
     	if (requestCode == AcctElements.UPDATE.getNumber()) {
     		int investment_id = data.getIntExtra("investmentsav_id", -1);    		
     		InvestmentSavAcct investment = (InvestmentSavAcct) account.getInvestmentById(investment_id); 
@@ -147,6 +148,7 @@ public class FrgInvestment extends SherlockFragment {
             account.subtractFromInvestmentsPercontrib(investment.getPercontrib()); // update total percent contribution to investments  
             account.setCheckingAcctPercontrib();
     		Log.d("Main.onInvestmentResult()", "removed Investment No. "+investment_id);
+    		action = " updated.";
       	}
     	
     	InvestmentSavAcct investment = new InvestmentSavAcct(name,
@@ -157,10 +159,13 @@ public class FrgInvestment extends SherlockFragment {
                 interest_rate,
 		        start_year,
 		    	start_month);                 
-        account.addInvestment(investment);		
+        account.addInvestment(investment);
         account.addToInvestmentsPercontrib(percontrib); // update total percent contribution to investments  
         account.setCheckingAcctPercontrib();
-        Toast.makeText(getSherlockActivity(), "Use top CHART or TABLE icons to see results.", Toast.LENGTH_SHORT).show();
+    	Log.d("FrgInvestment TotalInvestmentsPercontrib", account.getInvestmentsPercontrib().toString());
+    	Log.d("FrgInvestment checkingAcctPercontrib", account.getCheckingAcctPercontrib().toString());
+
+        Toast.makeText(getSherlockActivity(), name+action, Toast.LENGTH_SHORT).show();
         
         if ((appState.getCalculationStartYear() == start_year && appState.getCalculationStartMonth() >= start_month) 
     			|| (appState.getCalculationStartYear() > start_year)) {    
@@ -189,7 +194,6 @@ public class FrgInvestment extends SherlockFragment {
     	InvestmentCheckAcct investment = new InvestmentCheckAcct(name,
     			init_amount,
     			tax_rate,     
-    			new BigDecimal(0),
                 capitalization,
                 interest_rate,
 		        start_year,
@@ -197,7 +201,7 @@ public class FrgInvestment extends SherlockFragment {
         account.addInvestment(investment);
         account.setCheckingAcct(investment);
         
-        Toast.makeText(getSherlockActivity(), "Use top CHART or TABLE icons to see results.", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getSherlockActivity(), name+" updated.", Toast.LENGTH_SHORT).show();
         
 	}
 	
@@ -207,14 +211,15 @@ public class FrgInvestment extends SherlockFragment {
 		BigDecimal percontrib = new BigDecimal(data.getStringExtra("investment401k_percontrib"));
 		int period = Integer.parseInt(data.getStringExtra("investment401k_period"));
 		BigDecimal interest_rate = new BigDecimal(data.getStringExtra("investment401k_interest_rate"));
-		BigDecimal salary = new BigDecimal(data.getStringExtra("investment401k_salary"));
-		BigDecimal payrise = new BigDecimal(data.getStringExtra("investment401k_payrise"));
 		BigDecimal withdrawal_tax_rate = new BigDecimal(data.getStringExtra("investment401k_withdrawal_tax_rate"));
 		BigDecimal employer_match = new BigDecimal(data.getStringExtra("investment401k_employer_match"));
     	int start_year = Integer.parseInt((data.getStringExtra("investment401k_start_year")));
     	int start_month = Integer.parseInt((data.getStringExtra("investment401k_start_month")));
     	int income_id =  Integer.parseInt((data.getStringExtra("investment401k_incomeid")));   	
     	
+		String action = " added.";
+
+    	Income income = account.getIncomeById(income_id);
     	if (requestCode == AcctElements.UPDATE.getNumber()) {
     		int investment_id = data.getIntExtra("investment401k_id", -1);    		
     		Investment401k investment = (Investment401k) account.getInvestmentById(investment_id);     		
@@ -225,26 +230,24 @@ public class FrgInvestment extends SherlockFragment {
     		
     		account.removeInvestment(investment);
     		Log.d("Main.onInvestment401kResult()", "removed Investment No. "+investment_id);
+    		action = " updated.";
+
       	}
-    	
+
     	Investment401k investment = new Investment401k(name,
     			init_amount,
                 percontrib,
                 period,
                 interest_rate, 
-                salary, //TODO: here set Income instance
-                payrise,
+                income,
                 withdrawal_tax_rate,
                 employer_match,
 		        start_year,
 		    	start_month);                     	   	
-    	Income income = account.getIncomeById(income_id);
-    	    	
-    	
-    	investment.setIncome(income);
+    	    	  	
     	income.setInvestment401k(investment);
         account.addInvestment(investment);
-        Toast.makeText(getSherlockActivity(), "Use top CHART or TABLE icons to see results.", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getSherlockActivity(), name+action, Toast.LENGTH_SHORT).show();
         
         if ((appState.getCalculationStartYear() == start_year && appState.getCalculationStartMonth() >= start_month) 
     			|| (appState.getCalculationStartYear() > start_year)) {    
@@ -271,7 +274,7 @@ public class FrgInvestment extends SherlockFragment {
                 percontrib,
                 tax_rate);
         account.addInvestment(investment);		
-        Toast.makeText(getSherlockActivity(), "Use top CHART or TABLE icons to see results.", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getSherlockActivity(), name+" added.", Toast.LENGTH_SHORT).show();
 
 	}
 	
@@ -283,11 +286,14 @@ public class FrgInvestment extends SherlockFragment {
 		BigDecimal dividends = new BigDecimal(data.getStringExtra("investmentstock_dividends"));
 		BigDecimal appreciation = new BigDecimal(data.getStringExtra("investmentstock_appreciation"));
 		
+		String actionName = " added.";
+		
     	if (requestCode == AcctElements.UPDATE.getNumber()) {
     		int investment_id = data.getIntExtra("investmentstock_id", -1);    		
     		InvestmentStock investment = (InvestmentStock) account.getInvestmentById(investment_id); 
     		account.removeInvestment(investment);
     		Log.d("Main.onInvestmentstockResult()", "removed Investment No. "+investment_id);
+    		actionName = " updated.";
       	}
     	
     	InvestmentStock investment = new InvestmentStock(name,
@@ -297,7 +303,7 @@ public class FrgInvestment extends SherlockFragment {
                 dividends,
                 appreciation);
         account.addInvestment(investment);		
-        Toast.makeText(getSherlockActivity(), "Use top CHART or TABLE icons to see results.", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getSherlockActivity(), name+" added.", Toast.LENGTH_SHORT).show();
 
 	}
 	

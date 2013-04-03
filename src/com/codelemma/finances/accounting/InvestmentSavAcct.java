@@ -114,6 +114,7 @@ public class InvestmentSavAcct extends Investment
     	return tax_on_interests;
     }    
         
+	@Override
     public BigDecimal getInterestsNet() {
     	return interests_net;
     }   
@@ -187,7 +188,7 @@ public class InvestmentSavAcct extends Investment
     	}        
     	   	
     	if (year == start_year && month == start_month) {
-    		initizeValues();
+    		initializeValues();
     		advanceValues(month, excess);
     	}      	
     	
@@ -203,7 +204,7 @@ public class InvestmentSavAcct extends Investment
         contribution = Money.ZERO;
     }
     
-    private void initizeValues() {
+    private void initializeValues() {
 		amount = init_amount;
 		capitalization_counter = 1;
 		hidden_amount = init_amount;  

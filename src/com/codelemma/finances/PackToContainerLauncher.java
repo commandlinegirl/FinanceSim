@@ -20,7 +20,7 @@ public class PackToContainerLauncher implements PackToContainerVisitor {
         container.put(TypedKey.INCOME_TAX_RATE, income.getInitTaxRate());
         container.put(TypedKey.YEARLY_INCOME_RISE, income.getInitRiseRate());
         container.put(TypedKey.INCOME_INSTALLMENTS, income.getInitInstallments());
-        container.put(TypedKey.INCOME_NAME, income.getName());
+        container.put(TypedKey.INCOME_NAME, income.getName()); // TODO: how to store reference to Investment401k?
     	return container;
 	}
 	
@@ -31,10 +31,8 @@ public class PackToContainerLauncher implements PackToContainerVisitor {
         container.put(TypedKey.INVESTMENT401K_INIT_AMOUNT,  investment401k.getInitAmount());
         container.put(TypedKey.INVESTMENT401K_PERCONTRIB, investment401k.getPercontrib());
         container.put(TypedKey.INVESTMENT401K_INTEREST_RATE, investment401k.getInterestRate());
-        container.put(TypedKey.INVESTMENT401K_SALARY, investment401k.getInitSalary());
-        container.put(TypedKey.INVESTMENT401K_PAYRISE, investment401k.getPayrise());
         container.put(TypedKey.INVESTMENT401K_WITHDRAWAL_TAX_RATE, investment401k.getWithdrawalTaxRate());
-        container.put(TypedKey.INVESTMENT401K_EMPLOYER_MATCH, investment401k.getEmployerMatch());        
+        container.put(TypedKey.INVESTMENT401K_EMPLOYER_MATCH, investment401k.getEmployerMatch()); // TODO: how to store reference to Income?
     	return container;
 	}
 

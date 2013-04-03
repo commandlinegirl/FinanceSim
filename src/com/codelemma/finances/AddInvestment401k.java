@@ -32,6 +32,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class AddInvestment401k extends SherlockFragmentActivity 
@@ -72,6 +73,7 @@ public class AddInvestment401k extends SherlockFragmentActivity
             	   account.removeInvestment(investment); 
             	   history.removeInvestmentHistory(investment.getHistory()); 
             	   appState.needToRecalculate(true);
+                   Toast.makeText(AddInvestment401k.this, investment.getName()+" deleted.", Toast.LENGTH_SHORT).show();
             	   finish();
                }
             })
@@ -269,12 +271,8 @@ public class AddInvestment401k extends SherlockFragmentActivity
 	    	return;	    	
 	    }	
         intent.putExtra("investment401k_interest_rate", interestRateData);  
-
-        Log.d("salary.getName()", salary.getName().toString());
-        Log.d("salary.getInitAmount()", salary.getInitAmount().toString());
-        Log.d("salary.getInitRiseRate()", salary.getInitRiseRate().toString());
-        
-	    intent.putExtra("investment401k_salary", salary.getInitAmount().toString());	  
+       
+	    intent.putExtra("investment401k_salary", salary.getValue().toString());	  
 	    intent.putExtra("investment401k_payrise", salary.getInitRiseRate().toString());
 	    intent.putExtra("investment401k_incomeid", String.valueOf(salary.getId()));
 	    

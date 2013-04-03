@@ -136,7 +136,6 @@ public class Finances extends Application {
 	    			"Checking account", // name
 	    			Money.ZERO,         // init_amount
 	    			new BigDecimal(30), // tax_rate
-	    			Money.ZERO,         // percent contribution
 	                1,                  // interest capitalization (1 = monthly)
 	                new BigDecimal("0.5"), // interest_rate
 	                simStartYear,       // calculation start = simulation start

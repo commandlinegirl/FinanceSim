@@ -114,21 +114,21 @@ public class DebtMortgage extends Debt
     public void advance(int year, int month) {
     	if (month_counter <= term_months) {    		
                 		
-        	Log.d("outstanding_loan", outstanding_loan.toString());
+        	//Log.d("outstanding_loan", outstanding_loan.toString());
             interests_paid = Money.scale(outstanding_loan.multiply(interest_rate_decimal_monthly));
-        	Log.d("interests_paid", interests_paid.toString());
+        	//Log.d("interests_paid", interests_paid.toString());
 
             total_interests = total_interests.add(interests_paid);
-        	Log.d("total_interests", total_interests.toString());
+        	//Log.d("total_interests", total_interests.toString());
             
             principal_paid = base_monthly_payment.subtract(interests_paid);
-        	Log.d("principal_paid", principal_paid.toString());
+        	//Log.d("principal_paid", principal_paid.toString());
             
             total_principal = total_principal.add(principal_paid);
-        	Log.d("total_principal", total_principal.toString());
+        	//Log.d("total_principal", total_principal.toString());
             
             outstanding_loan = outstanding_loan.subtract(principal_paid);
-        	Log.d("outstanding_loan", outstanding_loan.toString());
+        	//Log.d("outstanding_loan", outstanding_loan.toString());
            
         	
             /* If loan-to-value (LTV) ratio (the ratio of a loan to a value of an asset purchased)
@@ -138,11 +138,11 @@ public class DebtMortgage extends Debt
                 		
             if (ltv.compareTo(new BigDecimal(0.2)) == -1) {
             	additional_cost = additional_cost_with_pmi;            	 
-            	Log.d("monthly_payment with pmi", monthly_payment.toString());
+            	//Log.d("monthly_payment with pmi", monthly_payment.toString());
 
             } else {
             	additional_cost = additional_cost_without_pmi;
-            	Log.d("monthly_payment without pmi", monthly_payment.toString());            	
+            	//Log.d("monthly_payment without pmi", monthly_payment.toString());            	
             }
             
         	monthly_payment = base_monthly_payment.add(additional_cost);    

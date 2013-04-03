@@ -2,6 +2,8 @@ package com.codelemma.finances.accounting;
 
 import java.math.BigDecimal;
 
+import android.util.Log;
+
 import com.codelemma.finances.InputListingUpdater;
 import com.codelemma.finances.ParseException;
 import com.codelemma.finances.TypedContainer;
@@ -62,10 +64,28 @@ public class IncomeGeneric extends Income
     	yearly_income = init_income;
     	income_monthly = init_income.divide(installments, Money.DECIMALS, Money.ROUNDING_MODE);   	    	
     }
+    
+    private void setValuesBeforeCalculation() {
+    	income_monthly = Money.ZERO;
+    }
+    
+    @Override
+    public void advance(int year, int month) {
+    	if ((year < start_year) || (year == start_year && month < start_month)) {
+    		setValuesBeforeCalculation();
+    	} else if (year == start_year && month == start_month) {
+    		initialize();
+    		advanceValues(month);
+    	} else if ((year > start_year) || (year == start_year && month > start_month)) {
+    		advanceValues(month);
+    	}       	
+    }
+    
    
-    public void advance(int month) {    
-        // 13th salary paid in December
-    	// salary rise in January only
+    public void advanceValues(int month) {    
+        /* 13th salary paid in December;
+         * salary rise in January
+         */
         if (month == 11) {
         	BigDecimal extra_money = Money.scale(income_monthly.multiply(num_of_extras));        	
             income_monthly = income_monthly.add(extra_money);
@@ -84,6 +104,7 @@ public class IncomeGeneric extends Income
         return income_monthly;
     }
 
+    @Override
     public BigDecimal getTax() {
         return Money.getPercentage(income_monthly, tax_rate_decimal);
     }
@@ -92,11 +113,7 @@ public class IncomeGeneric extends Income
     	return Money.getPercentage(yearly_income, rise_rate_decimal);
     }
     
-	@Override
-    public BigDecimal getInitAmount() {
-    	return init_income;
-    }
-    
+
     public BigDecimal getInitTaxRate() {
     	return init_tax_rate;
     }
@@ -134,17 +151,7 @@ public class IncomeGeneric extends Income
 	public void setId(int id) {
 		this.id = id;		
 	}
-    
-    @Override
-    public void launchModifyUi(ModifyUiVisitor modifyUiVisitor) {
-    	modifyUiVisitor.launchModifyUiForIncome(this);
-    }
 
-	@Override
-	public TypedContainer getFieldContainer(PackToContainerVisitor saver) throws ParseException {
-		return saver.packIncomeGeneric(this);		
-	}
-	
 	public HistoryIncomeGeneric getHistory() {
 		return history;
 	}
@@ -163,13 +170,20 @@ public class IncomeGeneric extends Income
 	public void updateInputListing(InputListingUpdater modifier) {
 		modifier.updateInputListingForIncomeGeneric(this);		
 	}
+    
+    @Override
+    public void launchModifyUi(ModifyUiVisitor modifyUiVisitor) {
+    	modifyUiVisitor.launchModifyUiForIncome(this);
+    }
 
+	@Override
+	public TypedContainer getFieldContainer(PackToContainerVisitor saver) throws ParseException {
+		return saver.packIncomeGeneric(this);		
+	}
+	
 	@Override
 	public String toString() {
 		return name;
 	}
-
-
-
 }
 

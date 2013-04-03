@@ -22,27 +22,23 @@ public class Investment401k extends Investment
     private BigDecimal percontrib; // percentage of salary
     private BigDecimal percontrib_decimal; // percentage of salary
     private int period;
+    private BigDecimal capital_gain;
     private BigDecimal interest_rate;
     private BigDecimal interest_rate_decimal;
     private BigDecimal interest_rate_decimal_monthly;     
     private int interest_pay;
     private BigDecimal amount;
-    private BigDecimal init_salary;
-    private BigDecimal salary;
     private BigDecimal monthly_employee_contribution;
     private BigDecimal monthly_employer_contribution;
-    private BigDecimal yearly_employee_contribution;
-    private BigDecimal yearly_employer_contribution;
-    private BigDecimal payrise;
     private BigDecimal withdrawal_tax_rate;
     private BigDecimal withdrawal_tax_rate_decimal;
     private BigDecimal employer_match;
     private BigDecimal employer_match_decimal;
     private BigDecimal hidden_interests = Money.ZERO;
-    private HistoryInvestment401k history;
+    private HistoryInvestment401k history;    
     private Income income;
+    private BigDecimal salary;
 
-    private BigDecimal payrise_decimal;
     int counter = 0;
     int period_months;
         
@@ -54,8 +50,7 @@ public class Investment401k extends Investment
     		          BigDecimal percontrib,
     		          int period,
     		          BigDecimal interest_rate,
-    		          BigDecimal salary,
-    		          BigDecimal payrise,
+    		          Income income,
     		          BigDecimal withdrawal_tax_rate,
     		          BigDecimal employer_match,
                       int _start_year,
@@ -67,38 +62,36 @@ public class Investment401k extends Investment
         
         this.init_percontrib =  percontrib;  
         this.init_interest_rate =  interest_rate;  
-        this.init_payrise =  payrise;  
         this.init_withdrawal_tax_rate =  withdrawal_tax_rate;  
         this.init_employer_match =  employer_match;  
         
         this.period = period;
         this.period_months = period * 12;
         
+        this.income = income;
+		this.salary = income.getGrossIncome();
+        
+        this.percontrib = Money.scaleRate(percontrib);  
+        this.percontrib_decimal = percontrib.divide(Money.HUNDRED, Money.RATE_DECIMALS, Money.ROUNDING_MODE); 
+        this.monthly_employee_contribution = Money.getPercentage(salary, percontrib_decimal);
+
+        
+        this.employer_match = Money.scaleRate(employer_match);
+        this.employer_match_decimal = employer_match.divide(Money.HUNDRED, Money.RATE_DECIMALS, Money.ROUNDING_MODE);
+        this.monthly_employer_contribution = Money.getPercentage(monthly_employee_contribution, employer_match_decimal);
+        
         this.interest_rate = Money.scaleRate(interest_rate);
         this.interest_rate_decimal = interest_rate.divide(Money.HUNDRED, Money.RATE_DECIMALS, Money.ROUNDING_MODE);  
         this.interest_rate_decimal_monthly = interest_rate_decimal.divide(new BigDecimal(12), Money.RATE_DECIMALS, Money.ROUNDING_MODE);
-        
-        this.payrise = Money.scaleRate(payrise);
-        this.payrise_decimal = payrise.divide(Money.HUNDRED, Money.RATE_DECIMALS, Money.ROUNDING_MODE);
-        this.salary = Money.scale(salary);
-        this.init_salary = salary;
-               
-        this.percontrib = Money.scaleRate(percontrib);  
-        this.percontrib_decimal = percontrib.divide(Money.HUNDRED, Money.RATE_DECIMALS, Money.ROUNDING_MODE); 
-        this.yearly_employee_contribution = Money.getPercentage(salary, percontrib_decimal);
-        this.monthly_employee_contribution = yearly_employee_contribution.divide(new BigDecimal(12), Money.DECIMALS, Money.ROUNDING_MODE);
+                       
 
-        this.employer_match = Money.scaleRate(employer_match);
-        this.employer_match_decimal = employer_match.divide(Money.HUNDRED, Money.RATE_DECIMALS, Money.ROUNDING_MODE);
-        this.yearly_employer_contribution = Money.getPercentage(yearly_employee_contribution, employer_match_decimal);
-        this.monthly_employer_contribution = yearly_employer_contribution.divide(new BigDecimal(12), Money.DECIMALS, Money.ROUNDING_MODE);
-        
         this.withdrawal_tax_rate = Money.scaleRate(withdrawal_tax_rate);
         this.withdrawal_tax_rate_decimal = withdrawal_tax_rate.divide(Money.HUNDRED, Money.RATE_DECIMALS, Money.ROUNDING_MODE);   
         
         history = new HistoryInvestment401k(this);
     	start_year = _start_year;
     	start_month = _start_month;
+    	capital_gain = Money.ZERO;
     }   
        		
 	@Override
@@ -111,6 +104,11 @@ public class Investment401k extends Investment
     	return false;
     }
 	
+	@Override
+	public BigDecimal getInterestsNet() {
+		return capital_gain;
+	}
+	
 	public BigDecimal getInterestRate() {
 		return interest_rate;
 	}
@@ -121,14 +119,11 @@ public class Investment401k extends Investment
 
 	public void setIncome(Income inc) {
 		income = inc;
+		salary = inc.getGrossIncome();
 	}
 	
 	public int getInterestPay() {
 		return interest_pay;
-	}
- 
-	public BigDecimal getInitSalary() {
-		return init_salary;
 	}
 
 	public BigDecimal getInitInterestRate() {
@@ -137,6 +132,10 @@ public class Investment401k extends Investment
 		
 	public BigDecimal getInitPayrise() {
 		return init_payrise;
+	}
+
+	public BigDecimal getSalary() {
+		return salary;
 	}
 	
 	public BigDecimal getInitPercontrib() {
@@ -151,10 +150,6 @@ public class Investment401k extends Investment
 		return init_employer_match;
 	}
 	
-	public BigDecimal getSalary() {
-		return salary;
-	}
-	
 	public BigDecimal getEmployerMatch() {
 	    return employer_match;
 	}
@@ -162,11 +157,7 @@ public class Investment401k extends Investment
 	public BigDecimal getWithdrawalTaxRate() {
 		return withdrawal_tax_rate;
 	}
-	
-	public BigDecimal getPayrise() {
-		return payrise;
-	}
-	
+		
 	public int getPeriod() {
 		return period;
 	}
@@ -175,7 +166,7 @@ public class Investment401k extends Investment
     	return Money.getPercentage(interests_gross, withdrawal_tax_rate_decimal);
     }    
     
-    public BigDecimal getInterestsNet(BigDecimal interests_gross, 
+    public BigDecimal calculateInterestsNet(BigDecimal interests_gross, 
     		                          BigDecimal interests_gross_tax) {
     	return interests_gross.subtract(interests_gross_tax);
     }   
@@ -200,6 +191,7 @@ public class Investment401k extends Investment
 		return percontrib;
 	}
 	
+	@Override
 	public BigDecimal getEmployeeContribution() {
 		return monthly_employee_contribution;
 	}
@@ -254,16 +246,11 @@ public class Investment401k extends Investment
     }    
     
     private void advanceValues(int month) {	   	
-    	if (month == 0) {
-    		/* Each January give a rise to employee */
-    		BigDecimal rise = Money.getPercentage(salary, payrise_decimal);
-    		salary = salary.add(rise);
-    		/* Calculate monthly contribution of employee and employer */
-    		yearly_employee_contribution = Money.getPercentage(salary, percontrib_decimal);
-    		monthly_employee_contribution = yearly_employee_contribution.divide(new BigDecimal(12), Money.DECIMALS, Money.ROUNDING_MODE);
-    		yearly_employer_contribution = Money.getPercentage(yearly_employee_contribution, employer_match_decimal);
-    		monthly_employer_contribution = yearly_employer_contribution.divide(new BigDecimal(12), Money.DECIMALS, Money.ROUNDING_MODE);
-    	}    	    	
+    	salary = income.getGrossIncome();
+
+    	/* Calculate monthly contribution of employee and employer */    		
+    	monthly_employee_contribution = Money.getPercentage(salary, percontrib_decimal);
+    	monthly_employer_contribution = Money.getPercentage(monthly_employee_contribution, employer_match_decimal);   	    	
     	amount = amount.add(monthly_employee_contribution);
     	amount = amount.add(monthly_employer_contribution);
     	BigDecimal interests_gross = Money.getPercentage(amount, interest_rate_decimal_monthly);
@@ -272,7 +259,7 @@ public class Investment401k extends Investment
     	if (counter == period_months) {
             // withdraw money to savings acct and pay tax
     		BigDecimal tax = getInterestsTax(hidden_interests);
-    		BigDecimal income_net = getInterestsNet(hidden_interests, tax);    		
+    		capital_gain = calculateInterestsNet(hidden_interests, tax);    		
     	} else {
     	    counter++;
     	}
@@ -285,17 +272,15 @@ public class Investment401k extends Investment
 	@Override
 	public void initialize() {
 		amount = Money.scale(init_amount);
-		salary = Money.scale(init_salary);	
+		salary = income.getGrossIncome();	
 		hidden_interests = Money.ZERO;
 		counter = 0;
 				
-        yearly_employee_contribution = Money.getPercentage(salary, percontrib_decimal);
-        monthly_employee_contribution = yearly_employee_contribution.divide(new BigDecimal(12), Money.DECIMALS, Money.ROUNDING_MODE);
+        monthly_employee_contribution = Money.getPercentage(salary, percontrib_decimal);
 
         employer_match = Money.scaleRate(employer_match);
         employer_match_decimal = employer_match.divide(Money.HUNDRED, Money.RATE_DECIMALS, Money.ROUNDING_MODE);
-        yearly_employer_contribution = Money.getPercentage(yearly_employee_contribution, employer_match_decimal);
-        monthly_employer_contribution = yearly_employer_contribution.divide(new BigDecimal(12), Money.DECIMALS, Money.ROUNDING_MODE);
+        monthly_employer_contribution = Money.getPercentage(monthly_employee_contribution, employer_match_decimal);
 	}
 
 	@Override

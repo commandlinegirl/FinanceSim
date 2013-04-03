@@ -37,9 +37,6 @@ public class About extends SherlockActivity {
 		case android.R.id.home:
 			NavUtils.navigateUpFromSameTask(this);						
 			return true;
-		case R.id.menu_settings:
-			Log.d("User pressed", "Settings");
-			return true;
 		case R.id.menu_about:
 			Intent intent = new Intent(this, About.class);					
 		    startActivity(intent);	

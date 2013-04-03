@@ -29,8 +29,8 @@ public class HistoryInvestmentCheckAcct extends HistoryNew {
 		    interests_net[index] = investment.getInterestsNet();
 		    tax[index] = investment.getTax();
 		    
-		    //cashflows.addInvestmentCheckAcct(index, investment);
-		    //net_worth.addInvestmentCheckAcct(index, investment);
+		    cashflows.addInvestmentCheckAcct(index, investment);
+		    net_worth.addInvestmentCheckAcct(index, investment);
 
 		} catch (IndexOutOfBoundsException e) {
 			e.printStackTrace();

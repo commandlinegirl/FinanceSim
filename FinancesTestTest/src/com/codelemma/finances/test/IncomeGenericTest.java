@@ -30,7 +30,7 @@ public class IncomeGenericTest extends AndroidTestCase {
                 name,
 			       start_year,
 			       start_month); 
-	    inv.advance(0);
+	    inv.advance(2013, 0);
   
 	}
 

@@ -1,7 +1,6 @@
 package com.codelemma.finances.accounting;
 import java.math.BigDecimal;
 
-import android.util.Log;
 
 import com.codelemma.finances.InputListingUpdater;
 import com.codelemma.finances.ParseException;
@@ -17,6 +16,7 @@ public class InvestmentCheckAcct extends Investment
     private BigDecimal init_tax_rate;
     private BigDecimal init_percontrib;
     private BigDecimal init_interest_rate;
+    private BigDecimal percontrib;
     
     private BigDecimal tax_rate;    
     private BigDecimal tax_rate_decimal;     
@@ -39,8 +39,6 @@ public class InvestmentCheckAcct extends Investment
     private int[] months = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
     private HistoryInvestmentCheckAcct history;
 
-    private BigDecimal percontrib; // percentage of excess money
-    private BigDecimal percontrib_decimal;
 
     private int start_year;
     private int start_month;
@@ -48,7 +46,6 @@ public class InvestmentCheckAcct extends Investment
     public InvestmentCheckAcct(String name,
     		          BigDecimal init_amount,
     		          BigDecimal tax_rate,
-    		          BigDecimal percontrib,
     		          int capitalization,
     		          BigDecimal interest_rate,
                       int _start_year,
@@ -56,14 +53,11 @@ public class InvestmentCheckAcct extends Investment
     	this.name = name;
         this.init_amount = Money.scale(init_amount);
         this.init_interest_rate = interest_rate;
-        this.init_percontrib = percontrib;
         this.init_tax_rate = tax_rate;
         this.amount = this.init_amount;
         this.hidden_amount = this.init_amount;        
         this.tax_rate = Money.scaleRate(tax_rate);
         this.tax_rate_decimal = tax_rate.divide(Money.HUNDRED, Money.RATE_DECIMALS, Money.ROUNDING_MODE);        
-        this.percontrib = Money.scaleRate(percontrib);
-        percontrib_decimal = this.percontrib.divide(Money.HUNDRED, Money.RATE_DECIMALS, Money.ROUNDING_MODE);
         this.capitalization = capitalization;
         this.interest_rate = Money.scaleRate(interest_rate);
         this.interest_rate_decimal = this.interest_rate.divide(Money.HUNDRED, Money.RATE_DECIMALS, Money.ROUNDING_MODE);  
@@ -115,6 +109,7 @@ public class InvestmentCheckAcct extends Investment
     	return tax_on_interests;
     }    
         
+	@Override
     public BigDecimal getInterestsNet() {
     	return interests_net;
     }   
@@ -218,41 +213,24 @@ public class InvestmentCheckAcct extends Investment
         interests_net = Money.ZERO;
     	        
         BigDecimal checkingAcctPercontribDecimal = checkingAcctPercontrib.divide(Money.HUNDRED, Money.RATE_DECIMALS, Money.ROUNDING_MODE);
+        percontrib = checkingAcctPercontrib;
+     	/* Add monthly contribution (a given percentage of excess money) to the hidden_amount
+     	 * if excess > 0. */       
+        amount = amount.add(Money.getPercentage(excess, checkingAcctPercontribDecimal));
+        contribution = Money.getPercentage(excess, checkingAcctPercontribDecimal);              
+        hidden_amount = hidden_amount.add(contribution);  
         
-        if (excess.compareTo(Money.ZERO) == 1) {
-     	    /* Add monthly contribution (a given percentage of excess money) to the hidden_amount
-     	     * if excess > 0. */
-            amount = amount.add(Money.getPercentage(excess, checkingAcctPercontribDecimal));
-            contribution = Money.getPercentage(excess, percontrib_decimal);
-            //Log.d("---------------month ------------", String.valueOf(month));
-            //Log.d("number of days", String.valueOf(months[month]));
-            //Log.d("getCompoundingFactor(months[month])", getCompoundingFactor(months[month]).toString() );
-        
-            //Log.d("excess", excess.toString());
-            //Log.d("excess_decimal", excess_decimal.toString());
-            //Log.d("contribution", contribution.toString());
-            //Log.d("hidden_amount before", hidden_amount.toString());                
-         	hidden_amount = hidden_amount.add(contribution);   
-        	//Log.d("hidden_amount after adding contribution", hidden_amount.toString());
-        } 	
      	/* Calculate the interests of hidden_amount (and add to principal)  */
      	hidden_amount = Money.scale(hidden_amount.multiply(getCompoundingFactor(months[month])));
-     	//Log.d("hidden_amount with interests", hidden_amount.toString());
      	
      	if (capitalization == capitalization_counter) {
      		/* calculate and subtract tax on interests */
      		BigDecimal hidden_interests_gross = hidden_amount.subtract(amount);
      		BigDecimal hidden_interests_gross_tax = Money.getPercentage(hidden_interests_gross, tax_rate_decimal);
      		hidden_amount = hidden_amount.subtract(hidden_interests_gross_tax);
-         	//Log.d("hidden_interests_gross", hidden_interests_gross.toString());
-         	//Log.d("hidden_interests_gross_tax", hidden_interests_gross_tax.toString());
-         	//Log.d("hidden_amount net ", hidden_amount.toString());
-
-   
             interests_gross = hidden_interests_gross;
             tax_on_interests = hidden_interests_gross_tax;
-            interests_net = interests_gross.subtract(tax_on_interests);    
-             
+            interests_net = interests_gross.subtract(tax_on_interests);                 
             amount = hidden_amount;
          	capitalization_counter = 1;        	
      	} else {
@@ -302,4 +280,6 @@ public class InvestmentCheckAcct extends Investment
 	public void updateInputListing(InputListingUpdater modifier) {
 		modifier.updateInputListingForInvestmentCheckAcct(this);
 	}
+
+
 }

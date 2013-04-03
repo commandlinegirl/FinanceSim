@@ -12,6 +12,7 @@ import org.achartengine.renderer.XYSeriesRenderer;
 
 import android.graphics.Color;
 import android.graphics.Paint.Align;
+import android.util.Log;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -73,6 +74,9 @@ public class Plotter implements PlotVisitor {
                 maxY = series.getMaxY();
             }   
             first = false;
+            Log.d("------------------ minY", String.valueOf(minY));
+            Log.d("------------------ maxY", String.valueOf(maxY));
+            
     
             double currentMaxY = series.getMaxY();
             double currentMinY = series.getMinY();    
@@ -81,7 +85,8 @@ public class Plotter implements PlotVisitor {
             }   
             if (currentMinY < minY) {
                 minY = currentMinY;
-            }    
+            } 
+               
             XYSeriesRenderer renderer = getSeriesRenderer();
             mRenderer.addSeriesRenderer(renderer);
             
@@ -97,7 +102,8 @@ public class Plotter implements PlotVisitor {
 
         }   
 
-		
+        Log.d("------------------ total minY", String.valueOf(minY));
+        Log.d("------------------ total maxY", String.valueOf(maxY));
 		
 		    
 		/* Here set left and right margin for the chart based on max and min values from each series */
@@ -136,9 +142,12 @@ public class Plotter implements PlotVisitor {
         //mRenderer.setLegendTextSize(Utils.px(frgActivity, 10));
         mRenderer.setInScroll(true);
         
-    	mRenderer.setYAxisMin(0);
-    	mRenderer.setYAxisMax(maxY + maxY/5);
-
+        /* If there is no condition set, negative values will be above positive on the chart
+         * (min value will be set to 0, max value will be set to negative number */
+        if (maxY >= 0) {
+    	    mRenderer.setYAxisMin(0.0);
+    	    mRenderer.setYAxisMax(maxY + maxY/5);
+        }
         
     	customizeMultipleSeriesRenderer(mRenderer, title, 360);
     	

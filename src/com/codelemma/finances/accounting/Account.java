@@ -16,6 +16,7 @@ public class Account {
     private int simStartMonth;
     private BigDecimal investmentsPercontrib;
     private BigDecimal checkingAcctPercontrib;
+    private BigDecimal prevMonthCapitalGains;
 	private InvestmentCheckAcct checkingAcct; 	
 
     private SparseArray<Income> income_ids = new SparseArray<Income>();
@@ -36,10 +37,15 @@ public class Account {
     	simStartMonth = month;
     	investmentsPercontrib = Money.ZERO;
     	checkingAcctPercontrib = Money.ZERO;
+    	prevMonthCapitalGains = Money.ZERO;
     }
     
     public BigDecimal getInvestmentsPercontrib() {
     	return investmentsPercontrib;
+    }
+    
+    public void initPrevMonthCapitalGains() {
+    	prevMonthCapitalGains = Money.ZERO;
     }
 
     public void addToInvestmentsPercontrib(BigDecimal newPercentage) {
@@ -55,7 +61,7 @@ public class Account {
     }
     
     public void setCheckingAcctPercontrib() {
-    	checkingAcctPercontrib = (new BigDecimal(1)).subtract(investmentsPercontrib);
+    	checkingAcctPercontrib = (new BigDecimal(100)).subtract(investmentsPercontrib);
     }
     
     public BigDecimal getCheckingAcctPercontrib() {
@@ -217,7 +223,7 @@ public class Account {
     public BigDecimal advanceExpense(int index, int year, int month) {
     	BigDecimal total_expense = Money.ZERO;
         for (Expense expense: expenses) {
-        	expense.advance(month);
+        	expense.advance(year, month);
     		if ((year > simStartYear) || (year == simStartYear && month >= simStartMonth)) {
         		expense.getHistory().add(index, expense, cashflows);
         	}
@@ -226,53 +232,65 @@ public class Account {
         return total_expense;
     }
     
-    public BigDecimal advanceIncome(int index, int year, int month) {
+    public BigDecimal[] advanceIncome(int index, int year, int month) {
+    	
     	BigDecimal total_income = Money.ZERO;
+    	BigDecimal total_income_tax = Money.ZERO;
+    	
         for (Income income: incomes) {
-            income.advance(month);
+            income.advance(year, month);
     		if ((year > simStartYear) || (year == simStartYear && month >= simStartMonth)) {
         		income.getHistory().add(index, income, cashflows);
         	}
-            total_income = total_income.add(income.getNetIncome());
+            total_income = total_income.add(income.getGrossIncome()); // total gross income
+            total_income_tax = total_income_tax.add(income.getTax()); // total income tax
         }
-        return total_income;
+        BigDecimal[] income_values = {total_income, total_income_tax};
+        return income_values;
     }
     
-    public void advanceInvestment(int index, BigDecimal excess, int year, int month) {    	
+    public void advanceInvestment(int index, BigDecimal excess, int year, int month, BigDecimal total_income_tax) {    	    	
+    	
         for (Investment investment: investments) {          	
         	if (investment.isPreTax()) { // pretax investment (taken from salary before tax, eg. 401(k))
         		investment.advance(year, month, null);
-        		excess = excess.subtract(investment.getAmount());   
+        		excess = excess.subtract(investment.getEmployeeContribution());   // 401k investment is taken from GROSS income
         		// add capital gains
-        	
+        	        		
     		    if ((year > simStartYear) || (year == simStartYear && month >= simStartMonth)) {
         		    investment.getHistory().add(index, investment, cashflows, net_worth);
         	    }
         	}
-        }
+        }          
+        
+		// subtract tax from income part of excess
+        excess = excess.subtract(total_income_tax);
 
+        BigDecimal capitalGains = Money.ZERO;
         for (Investment investment: investments) {
         	if (!investment.isPreTax()) { // posttax investment (taken from excess money)        	
-        		
-        		// if investment is checking accont -> send percontrib to advance
-        		
+        		                		
         		investment.advance(year, month, excess, checkingAcctPercontrib);
-        		// add capital gains
-                       
+        		// here add capital gains to excess
+        		capitalGains = capitalGains.add(investment.getInterestsNet());
+        		       		                       
     		    if ((year > simStartYear) || (year == simStartYear && month >= simStartMonth)) {
         		    investment.getHistory().add(index, investment, cashflows, net_worth);
         	    }
         	}
         }
+        prevMonthCapitalGains = capitalGains;
     }
         
     public void advance(int index, int year, int month) {
     	// year and month - starting date of predictions (saved to history here)
         Preconditions.checkInBounds(month, 0, 11, "Month must be in 0..11");
-        BigDecimal excess = Money.ZERO;
-                         
-        BigDecimal total_income = advanceIncome(index, year, month);
-        excess = excess.add(total_income);
+        BigDecimal excess = prevMonthCapitalGains;
+        
+        BigDecimal[] income_values = advanceIncome(index, year, month);
+        BigDecimal total_income = income_values[0];
+        BigDecimal total_income_tax = income_values[1];
+        excess = excess.add(total_income); // total GROSS income
         
         BigDecimal total_debt = advanceDebt(index, year, month);
         excess = excess.subtract(total_debt);
@@ -280,7 +298,7 @@ public class Account {
         BigDecimal total_expense = advanceExpense(index, year, month);        
         excess = excess.subtract(total_expense);
                 
-        advanceInvestment(index, excess, year, month);
+        advanceInvestment(index, excess, year, month, total_income_tax);
     }
     
     public void addToHistory(History history) {

@@ -45,6 +45,11 @@ public class HistoryCashflows extends HistoryNew {
 		capitalGainsHistory[index] = capitalGainsHistory[index].add(investment.getInterestsNet());
 	}
 	
+	public void addInvestmentCheckAcct(int index, InvestmentCheckAcct investment) {
+		investmentRatesHistory[index] = investmentRatesHistory[index].add(investment.getContribution()); 
+		capitalGainsHistory[index] = capitalGainsHistory[index].add(investment.getInterestsNet());		
+	}
+	
 	public void addDebtLoan(int index, DebtLoan debt) {
 		debtRatesHistory[index] = debtRatesHistory[index].add(debt.getMonthlyPayment()); 
 	}

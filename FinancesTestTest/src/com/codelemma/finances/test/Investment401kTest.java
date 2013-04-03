@@ -2,6 +2,8 @@ package com.codelemma.finances.test;
 
 import java.math.BigDecimal;
 
+import com.codelemma.finances.accounting.Income;
+import com.codelemma.finances.accounting.IncomeGeneric;
 import com.codelemma.finances.accounting.Investment401k;
 import com.codelemma.finances.accounting.InvestmentSavAcct;
 
@@ -40,14 +42,23 @@ public class Investment401kTest extends AndroidTestCase {
         int start_year = 2013;
         int start_month = 2;
 
+        IncomeGeneric income = new IncomeGeneric(
+        		new BigDecimal("10000"),
+        		new BigDecimal("16"),
+        		new BigDecimal("5"),
+        		new BigDecimal("12"),
+        		"Salary",
+        		2,
+        		2013);
+        
+        
         		
     	Investment401k inv = new Investment401k(name,
     			init_amount,
                 percontrib,
                 period,
                 interest_rate, 
-                salary,
-                payrise,
+                income,
                 withdrawal_tax_rate,
                 employer_match,
 			       start_year,
@@ -80,14 +91,22 @@ public class Investment401kTest extends AndroidTestCase {
         int start_year = 2013;
         int start_month = 2;
 
-        		
+        IncomeGeneric income = new IncomeGeneric(
+        		new BigDecimal("10000"),
+        		new BigDecimal("16"),
+        		new BigDecimal("5"),
+        		new BigDecimal("12"),
+        		"Salary",
+        		2,
+        		2013);
+        
+        
     	Investment401k inv = new Investment401k(name,
     			init_amount,
                 percontrib,
                 period,
                 interest_rate, 
-                salary,
-                payrise,
+                income,
                 withdrawal_tax_rate,
                 employer_match,
 			       start_year,
