@@ -8,7 +8,7 @@ public class HistoryInvestment401k extends HistoryNew {
 	private BigDecimal[] salary;
 	private BigDecimal[] employeeContribution;
 	private BigDecimal[] employerContribution;
-	private int listSize = 360; //TODO: take from
+	private int listSize = 600; //TODO: take from
 	private String name;
 	
 	public HistoryInvestment401k(Investment401k investment401k) {		

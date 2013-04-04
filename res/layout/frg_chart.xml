@@ -5,9 +5,7 @@
     android:orientation="vertical"
     tools:context=".FrgChart"
     android:id="@+id/frg_chart" >
-      
-
-    
+          
     <LinearLayout
         android:id="@+id/predNumYears"
         android:orientation="horizontal"
@@ -72,19 +70,7 @@
              android:onClick="showChartForNYears"
              android:background="@drawable/pred_years">             
          </TextView>
-         <TextView
-             android:id="@+id/pred20"
-             android:tag="240"             
-             android:layout_height="wrap_content"
-             android:layout_width="wrap_content"
-             android:layout_weight="1"
-             android:text="20"
-             android:padding="10dip"
-             android:gravity="center"
-             android:clickable="true"
-             android:onClick="showChartForNYears"
-             android:background="@drawable/pred_years">
-         </TextView>
+
          <TextView
              android:id="@+id/pred30"
              android:tag="360"             
@@ -98,6 +84,19 @@
              android:onClick="showChartForNYears"             
              android:background="@drawable/pred_years">                         
          </TextView>    
+         <TextView
+             android:id="@+id/pred50"
+             android:tag="600"             
+             android:layout_height="wrap_content"
+             android:layout_width="wrap_content"
+             android:layout_weight="1"
+             android:text="50"
+             android:padding="10dip"
+             android:gravity="center"
+             android:clickable="true"
+             android:onClick="showChartForNYears"
+             android:background="@drawable/pred_years">
+         </TextView>
      </LinearLayout>
      
 

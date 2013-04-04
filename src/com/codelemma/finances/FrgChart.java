@@ -26,9 +26,9 @@ public class FrgChart extends SherlockFragment
  
 	private View toggleYrs1;
 	private View toggleYrs5;
-	private View toggleYrs10;
-	private View toggleYrs20;
+	private View toggleYrs10;	
 	private View toggleYrs30;
+	private View toggleYrs50;
 	private int currentElement;
 	private PlotVisitor plotVisitor;
 	private Finances appState;
@@ -62,18 +62,18 @@ public class FrgChart extends SherlockFragment
     		
     	   	toggleYrs1 = (View) getSherlockActivity().findViewById(R.id.pred1);
     		toggleYrs5 = (View) getSherlockActivity().findViewById(R.id.pred5);
-    		toggleYrs10 = (View) getSherlockActivity().findViewById(R.id.pred10);
-    		toggleYrs20 = (View) getSherlockActivity().findViewById(R.id.pred20);
+    		toggleYrs10 = (View) getSherlockActivity().findViewById(R.id.pred10);    		
     		toggleYrs30 = (View) getSherlockActivity().findViewById(R.id.pred30);
+    		toggleYrs50 = (View) getSherlockActivity().findViewById(R.id.pred50);
     		    		
     		int numberOfMonths = appState.getNumberOfMonthsInChart();
     		
     		SparseArray<View> m = new SparseArray<View>(5);
     		m.put(12, toggleYrs1);
     		m.put(60, toggleYrs5);
-    		m.put(120, toggleYrs10);
-    		m.put(240, toggleYrs20);
+    		m.put(120, toggleYrs10);    		
     		m.put(360, toggleYrs30);
+    		m.put(600, toggleYrs50);
   
     		toggleYrsSelection(m.get(numberOfMonths));
     		    		
@@ -130,9 +130,9 @@ public class FrgChart extends SherlockFragment
 	private void toggleYrsSelection(View view) {
         toggleYrs1.setSelected(false);
         toggleYrs5.setSelected(false);
-        toggleYrs10.setSelected(false);
-        toggleYrs20.setSelected(false);
+        toggleYrs10.setSelected(false);        
         toggleYrs30.setSelected(false);
+        toggleYrs50.setSelected(false);
 	    view.setSelected(true);
 	}
 }

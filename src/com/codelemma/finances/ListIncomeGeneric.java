@@ -6,7 +6,8 @@ public abstract class ListIncomeGeneric {
 	private String gross_income;
     private String tax;
     private String net_income;   
-		
+	private String pretax_investment;	
+    
 	public String getDate() {
 		return date;
 	}
@@ -37,6 +38,14 @@ public abstract class ListIncomeGeneric {
 	
 	public void setNetIncome(String net_income) {
 		this.net_income = net_income;
+	}	
+	
+	public String getPreTaxInvestment() {
+		return pretax_investment;
+	}
+	
+	public void setpreTaxInvestment(String pretax_investment) {
+		this.pretax_investment = pretax_investment;
 	}	
 	
 }

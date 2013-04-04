@@ -2,10 +2,8 @@ package com.codelemma.finances.test;
 
 import java.math.BigDecimal;
 
-import com.codelemma.finances.accounting.Income;
 import com.codelemma.finances.accounting.IncomeGeneric;
 import com.codelemma.finances.accounting.Investment401k;
-import com.codelemma.finances.accounting.InvestmentSavAcct;
 
 import junit.framework.Assert;
 

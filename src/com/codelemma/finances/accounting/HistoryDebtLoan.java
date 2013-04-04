@@ -11,7 +11,7 @@ public class HistoryDebtLoan extends HistoryNew {
 	private BigDecimal[] remainingAmountHistory;	
 	
 	
-	private int listSize = 360; //TODO: take from
+	private int listSize = 600; //TODO: take from
 	private String name;
 	
 	public HistoryDebtLoan(DebtLoan debtLoan) {		

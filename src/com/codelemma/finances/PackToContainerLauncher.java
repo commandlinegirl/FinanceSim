@@ -21,6 +21,9 @@ public class PackToContainerLauncher implements PackToContainerVisitor {
         container.put(TypedKey.YEARLY_INCOME_RISE, income.getInitRiseRate());
         container.put(TypedKey.INCOME_INSTALLMENTS, income.getInitInstallments());
         container.put(TypedKey.INCOME_NAME, income.getName()); // TODO: how to store reference to Investment401k?
+        container.put(TypedKey.INCOME_START_YEAR, income.getStartYear()); // TODO: how to store reference to Investment401k?
+        container.put(TypedKey.INCOME_START_MONTH, income.getStartMonth()); // TODO: how to store reference to Investment401k?
+
     	return container;
 	}
 	
@@ -33,6 +36,11 @@ public class PackToContainerLauncher implements PackToContainerVisitor {
         container.put(TypedKey.INVESTMENT401K_INTEREST_RATE, investment401k.getInterestRate());
         container.put(TypedKey.INVESTMENT401K_WITHDRAWAL_TAX_RATE, investment401k.getWithdrawalTaxRate());
         container.put(TypedKey.INVESTMENT401K_EMPLOYER_MATCH, investment401k.getEmployerMatch()); // TODO: how to store reference to Income?
+        container.put(TypedKey.INVESTMENT401K_PERIOD, investment401k.getPeriod());
+        container.put(TypedKey.INVESTMENT401K_INCOMEID, investment401k.getIncome().getId());
+        container.put(TypedKey.INVESTMENT401K_START_YEAR, investment401k.getStartYear());
+        container.put(TypedKey.INVESTMENT401K_START_MONTH, investment401k.getStartMonth());
+
     	return container;
 	}
 
@@ -45,6 +53,8 @@ public class PackToContainerLauncher implements PackToContainerVisitor {
         container.put(TypedKey.INVESTMENTSAV_PERCONTRIB, investmentsav.getPercontrib());
         container.put(TypedKey.INVESTMENTSAV_CAPITALIZATION, investmentsav.getCapitalization());
         container.put(TypedKey.INVESTMENTSAV_INTEREST_RATE, investmentsav.getInterestRate());
+        container.put(TypedKey.INVESTMENTSAV_START_YEAR, investmentsav.getStartYear());
+        container.put(TypedKey.INVESTMENTSAV_START_MONTH, investmentsav.getStartMonth());
     	return container;
 	}
 	
@@ -54,9 +64,10 @@ public class PackToContainerLauncher implements PackToContainerVisitor {
     	container.put(TypedKey.INVESTMENTCHECK_NAME, investmentcheck.getName());    	
         container.put(TypedKey.INVESTMENTCHECK_INIT_AMOUNT,  investmentcheck.getInitAmount());
         container.put(TypedKey.INVESTMENTCHECK_TAX_RATE, investmentcheck.getTaxRate());
-        container.put(TypedKey.INVESTMENTCHECK_PERCONTRIB, investmentcheck.getPercontrib());
         container.put(TypedKey.INVESTMENTCHECK_CAPITALIZATION, investmentcheck.getCapitalization());
         container.put(TypedKey.INVESTMENTCHECK_INTEREST_RATE, investmentcheck.getInterestRate());
+        container.put(TypedKey.INVESTMENTCHECK_START_YEAR, investmentcheck.getStartYear());
+        container.put(TypedKey.INVESTMENTCHECK_START_MONTH, investmentcheck.getStartMonth());
     	return container;
 	}
 	
@@ -87,10 +98,16 @@ public class PackToContainerLauncher implements PackToContainerVisitor {
     	TypedContainer container = new TypedContainer();
         container.put(TypedKey.DEBTLOAN_ID, debtloan.getId());
         container.put(TypedKey.DEBTLOAN_AMOUNT, debtloan.getValue());
-        container.put(TypedKey.DEBTLOAN_NAME, debtloan.getName());               
+        container.put(TypedKey.DEBTLOAN_NAME, debtloan.getName());
+        container.put(TypedKey.DEBTLOAN_INTEREST_RATE, debtloan.getInterestRate());               
+        container.put(TypedKey.DEBTLOAN_TERM, debtloan.getTerm());               
+        container.put(TypedKey.DEBTLOAN_EXTRA_PAYMENT, debtloan.getExtraPayment());               
+        container.put(TypedKey.DEBTLOAN_START_YEAR, debtloan.getStartYear());               
+        container.put(TypedKey.DEBTLOAN_START_MONTH, debtloan.getStartMonth());               
+
     	return container;
 	}
-
+	
 	@Override
 	public TypedContainer packExpenseGeneric(ExpenseGeneric expense) {
     	TypedContainer container = new TypedContainer();
@@ -98,16 +115,26 @@ public class PackToContainerLauncher implements PackToContainerVisitor {
         container.put(TypedKey.EXPENSE_NAME, expense.getName());
         container.put(TypedKey.INIT_EXPENSE, expense.getValue());
         container.put(TypedKey.INFLATION_RATE, expense.getInitInflationRate());
-        container.put(TypedKey.EXPENSE_FREQUENCY, expense.getFrequency());                    
+        container.put(TypedKey.EXPENSE_FREQUENCY, expense.getFrequency());   
+        container.put(TypedKey.EXPENSE_START_YEAR, expense.getStartYear());                    
+        container.put(TypedKey.EXPENSE_START_MONTH, expense.getStartMonth());                    
     	return container;    	
 	}
-
+	
 	@Override
 	public TypedContainer packDebtMortgage(DebtMortgage debtmortgage) {
     	TypedContainer container = new TypedContainer();
         container.put(TypedKey.DEBTMORTGAGE_ID, debtmortgage.getId());
         container.put(TypedKey.DEBTMORTGAGE_PURCHASE_PRICE, debtmortgage.getPurchasePrice());
-        container.put(TypedKey.DEBTMORTGAGE_NAME, debtmortgage.getName());               
+        container.put(TypedKey.DEBTMORTGAGE_NAME, debtmortgage.getName());
+        container.put(TypedKey.DEBTMORTGAGE_DOWNPAYMENT, debtmortgage.getDownpayment());               
+        container.put(TypedKey.DEBTMORTGAGE_INTEREST_RATE, debtmortgage.getInterestRate());
+        container.put(TypedKey.DEBTMORTGAGE_TERM, debtmortgage.getTerm());               
+        container.put(TypedKey.DEBTMORTGAGE_PROPERTY_INSURANCE, debtmortgage.getPropertyInsurance());               
+        container.put(TypedKey.DEBTMORTGAGE_PROPERTY_TAX, debtmortgage.getPropertyTax());               
+        container.put(TypedKey.DEBTMORTGAGE_PMI, debtmortgage.getPMI());               
+        container.put(TypedKey.DEBTMORTGAGE_START_YEAR, debtmortgage.getStartYear());               
+        container.put(TypedKey.DEBTMORTGAGE_START_MONTH, debtmortgage.getStartMonth());               
     	return container;
 	}
 }

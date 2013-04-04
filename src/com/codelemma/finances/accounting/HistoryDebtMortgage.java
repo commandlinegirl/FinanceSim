@@ -10,7 +10,7 @@ public class HistoryDebtMortgage extends HistoryNew {
 	private BigDecimal[] principalPaidHistory;
 	private BigDecimal[] additionalCostHistory;	
 	private BigDecimal[] remainingAmountHistory;	
-	private int listSize = 360; //TODO: take from
+	private int listSize = 600; //TODO: take from
 	private String name;
 	
 	public HistoryDebtMortgage(DebtMortgage debt) {		

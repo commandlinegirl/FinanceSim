@@ -149,7 +149,7 @@ public class Plotter implements PlotVisitor {
     	    mRenderer.setYAxisMax(maxY + maxY/5);
         }
         
-    	customizeMultipleSeriesRenderer(mRenderer, title, 360);
+    	customizeMultipleSeriesRenderer(mRenderer, title, 600);
     	
 		GraphicalView mChartView = ChartFactory.getLineChartView(frgActivity, dataset, mRenderer);	    	  		    	
         LinearLayout layout = (LinearLayout) frgActivity.findViewById(R.id.pred_chart);	         

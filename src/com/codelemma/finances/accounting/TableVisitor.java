@@ -2,7 +2,8 @@ package com.codelemma.finances.accounting;
 
 public interface TableVisitor {
 	
-	public void makeTableIncome(HistoryIncomeGeneric incomes);
+	public void makeTableIncome(HistoryIncomeGeneric income);
+	public void makeTableIncomeWithPreTaxInv(HistoryIncomeGeneric income);
 	
 	public void makeTableExpense(HistoryExpenseGeneric expenses);		
 	
@@ -16,8 +17,5 @@ public interface TableVisitor {
 	public void makeTableDebtLoan(HistoryDebtLoan historyDebtConsumerLoan);
 	
 	public void makeTableCashflowsAggregates(HistoryCashflows historyCashflows);
-	public void makeTableNetWorthAggregates(HistoryNetWorth historyNetWorth);
-
-	
-
+	public void makeTableNetWorthAggregates(HistoryNetWorth historyNetWorth);	
 }

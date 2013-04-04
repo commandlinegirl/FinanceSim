@@ -189,6 +189,104 @@ public class TableMaker implements TableVisitor {
     }			
 
 	@Override
+    public void makeTableIncomeWithPreTaxInv(HistoryIncomeGeneric historyIncomeGeneric) {
+    	// header
+		LinearLayout header = (LinearLayout) frgActivity.findViewById(R.id.header);
+		header.removeAllViews();
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, 
+                                                                         LinearLayout.LayoutParams.WRAP_CONTENT);                  
+        params.weight = 1;
+		TextView tv;
+		
+		tv = new TextView(frgActivity);
+		tv.setText("Date");
+		tv.setTextSize(11);
+		tv.setLayoutParams(params);
+		header.addView(tv);
+		
+		tv = new TextView(frgActivity);
+		tv.setText("Gross\nincome");
+		tv.setTextSize(11);
+		tv.setLayoutParams(params);
+		header.addView(tv);
+		
+		tv = new TextView(frgActivity);
+		tv.setText("401(k)\ncontrib.");
+		tv.setTextSize(11);
+		tv.setLayoutParams(params);
+		header.addView(tv);
+		
+		tv = new TextView(frgActivity);
+		tv.setText("Tax");
+		tv.setTextSize(11);
+		tv.setLayoutParams(params);
+		header.addView(tv);
+		
+		tv = new TextView(frgActivity);
+		tv.setText("Net\nincome");
+		tv.setTextSize(11);
+		tv.setLayoutParams(params);
+		header.addView(tv);		
+		
+    	ExpandableListView expandedList = (ExpandableListView) frgActivity.findViewById(R.id.exp_list);
+    	ArrayList<ListGroupIncomeGeneric> ExpListItems = setGroupsIncomeGenericWithPreTaxInv(historyIncomeGeneric);
+    	ListAdapterIncomeGenericWithPreTaxInv ExpAdapter = new ListAdapterIncomeGenericWithPreTaxInv(frgActivity, ExpListItems);
+        expandedList.setAdapter(ExpAdapter);                
+	}
+	
+
+
+	public ArrayList<ListGroupIncomeGeneric> setGroupsIncomeGenericWithPreTaxInv(HistoryIncomeGeneric historyIncomeGeneric) {
+    	ArrayList<ListGroupIncomeGeneric> list = new ArrayList<ListGroupIncomeGeneric>();
+    	ArrayList<ListChildIncomeGeneric> list2 = new ArrayList<ListChildIncomeGeneric>();
+
+    	String[] dates = ((Main) frgActivity).getDates();
+    	BigDecimal[] gross_incomes = historyIncomeGeneric.getGrossIncomeHistory();
+    	BigDecimal[] taxes = historyIncomeGeneric.getTaxHistory();
+    	BigDecimal[] net_incomes = historyIncomeGeneric.getNetIncomeHistory();
+    	BigDecimal[] pretax_investment = historyIncomeGeneric.getPreTaxInvestmentHistory();
+    	
+    	int datesLen = dates.length;
+    	String prevYear = dates[0].substring(3);
+    	String currYear;
+    	ListGroupIncomeGeneric gru1 = new ListGroupIncomeGeneric();
+    	int i = 0;
+    	gru1.setDate(dates[i]);
+		gru1.setGrossIncome(gross_incomes[i].toString());    	
+    	gru1.setTax(taxes[i].toString());
+		gru1.setNetIncome(net_incomes[i].toString());
+		gru1.setpreTaxInvestment(pretax_investment[i].toString()); 
+        i++;
+    	while(i < datesLen) {    		
+    		currYear = dates[i].substring(3);
+    		if (prevYear.equals(currYear)) {
+    			ListChildIncomeGeneric ch1_1 = new ListChildIncomeGeneric();
+    			ch1_1.setDate(dates[i]);
+    			ch1_1.setGrossIncome(gross_incomes[i].toString());    	
+    			ch1_1.setTax(taxes[i].toString());
+    			ch1_1.setNetIncome(net_incomes[i].toString());
+    			ch1_1.setpreTaxInvestment(pretax_investment[i].toString());
+	            list2.add(ch1_1);
+    		} else {
+    			gru1.setItems(list2);
+    			list.add(gru1);
+    			list2 = new ArrayList<ListChildIncomeGeneric>();
+    			gru1 = new ListGroupIncomeGeneric();
+    	    	gru1.setDate(dates[i]);
+    			gru1.setGrossIncome(gross_incomes[i].toString());    	
+    	    	gru1.setTax(taxes[i].toString());
+    			gru1.setNetIncome(net_incomes[i].toString());
+    			gru1.setpreTaxInvestment(pretax_investment[i].toString());
+    		}
+    		i++;
+    		prevYear = currYear;
+    	}    	    	        
+        return list;
+		
+    }			
+
+	
+	@Override
 	public void makeTableInvestment401k(HistoryInvestment401k historyInvestment401k) {
 				
     	// header

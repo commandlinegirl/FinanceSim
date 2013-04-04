@@ -10,7 +10,7 @@ public class HistoryNetWorth extends HistoryNew {
 	private BigDecimal[] outstandingDebtsHistory;
 	private BigDecimal[] netWorthHistory;
 	
-	private int listSize = 360; //TODO: take from
+	private int listSize = 600; //TODO: take from
 	private String name;
 	
 	public HistoryNetWorth(String name) {		

@@ -12,7 +12,7 @@ public class HistoryCashflows extends HistoryNew {
 	private BigDecimal[] debtRatesHistory;
 	private BigDecimal[] investmentRatesHistory;	
 	
-	private int listSize = 360; //TODO: take from
+	private int listSize = 600; //TODO: take from
 	private String name;
 	
 	public HistoryCashflows(String name) {		

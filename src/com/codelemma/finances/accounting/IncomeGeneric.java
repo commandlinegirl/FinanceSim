@@ -25,7 +25,7 @@ public class IncomeGeneric extends Income
     private HistoryIncomeGeneric history;
     private int start_year;
     private int start_month;
-    private Investment401k investment401k; 
+    private Investment401k investment401k;         
     
     public IncomeGeneric(BigDecimal _init_income, 
     		      BigDecimal _tax_rate, 

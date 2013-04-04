@@ -11,9 +11,17 @@
     <TextView
         android:layout_height="wrap_content"
         android:layout_width="fill_parent"
-        android:text="@string/help_header">                      
+        android:text="@string/help_header"
+        android:paddingBottom="10dp">                      
     </TextView>  
-
+    
+    <TextView
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:text="@string/income_help_intro"
+        android:paddingBottom="10dp">                      
+    </TextView>    
+    
     <TextView
         android:layout_height="wrap_content"
         android:layout_width="fill_parent"
@@ -37,5 +45,10 @@
         android:layout_width="fill_parent"
         android:text="@string/income_help_installments">                      
     </TextView>   
-
+    
+    <TextView
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:text="@string/income_help_start_date">                      
+    </TextView>   
 </LinearLayout>

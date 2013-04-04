@@ -5,40 +5,43 @@ import java.math.BigDecimal;
 public class HistoryIncomeGeneric extends HistoryNew {
 
 	private BigDecimal[] amountHistory;
-	private int listSize = 360; //TODO: take from
+	private int listSize = 600; //TODO: take from
     private String name;
     private BigDecimal[] grossIncomeHistory;
     private BigDecimal[] taxHistory;
     private BigDecimal[] netIncomeHistory;
-	
+    private BigDecimal[] preTaxInvestmentHistory;
+	private boolean incomeHas401k = false;
+    
 	public HistoryIncomeGeneric(IncomeGeneric income) {		
 		amountHistory = new BigDecimal[listSize];
 		grossIncomeHistory = new BigDecimal[listSize];
 		taxHistory = new BigDecimal[listSize];
 		netIncomeHistory = new BigDecimal[listSize];
+		preTaxInvestmentHistory = new BigDecimal[listSize]; //eg. 401k
 		name = income.getName();
 	}
 	
 	@Override
 	public void add(int index, NamedValue acctElement, HistoryCashflows cashflows) {
 		IncomeGeneric inc = (IncomeGeneric) acctElement;
-		try {		    
+
+		try {
 		    amountHistory[index] = inc.getAmount();
 		    grossIncomeHistory[index] = inc.getGrossIncome();
 		    taxHistory[index] = inc.getTax();
 		    netIncomeHistory[index] = inc.getNetIncome();
-		    
+		    // TODO: add 401k payment history (if income contains 401k)
+		    if (inc.getInvestment401k() != null) {
+		    	incomeHas401k = true;
+		        preTaxInvestmentHistory[index] = inc.getInvestment401k().getEmployeeContribution();
+		    }
 		    cashflows.addIncomeGeneric(index, inc);
              
 		} catch (IndexOutOfBoundsException e) {
 			e.printStackTrace();
 		}
-	}
-	
-	@Override
-	public void makeTable(TableVisitor visitor) {
-		visitor.makeTableIncome(this);		
-	}
+	}	
 	
 	public BigDecimal[] getAmountHistory() {
 		return amountHistory;
@@ -56,6 +59,10 @@ public class HistoryIncomeGeneric extends HistoryNew {
 		return netIncomeHistory;
 	}
 
+	public BigDecimal[] getPreTaxInvestmentHistory() {
+		return preTaxInvestmentHistory;
+	}
+	
 	public String getName() {
 		return name;
 	}
@@ -75,4 +82,13 @@ public class HistoryIncomeGeneric extends HistoryNew {
 		visitor.plotIncomeGeneric(this);								
 	}
 	
+	@Override
+	public void makeTable(TableVisitor visitor) {
+		if (incomeHas401k) {
+			visitor.makeTableIncomeWithPreTaxInv(this);	
+		} else {
+			visitor.makeTableIncome(this);
+		}
+				
+	}	
 }

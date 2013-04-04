@@ -8,7 +8,7 @@ public class HistoryInvestmentCheckAcct extends HistoryNew {
 	private BigDecimal[] interests_net;
 	private BigDecimal[] contribution;
 	private BigDecimal[] tax;
-	private int listSize = 360; //TODO: take from
+	private int listSize = 600; //TODO: take from
 	private String name;
 	
 	public HistoryInvestmentCheckAcct(InvestmentCheckAcct investment_savacct) {		
