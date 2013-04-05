@@ -68,5 +68,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/about_text5" />    
+        
+        <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#FF771100"
+        android:text="@string/about_title6" />
+    
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/about_text6" />   
   </LinearLayout>
 </ScrollView>

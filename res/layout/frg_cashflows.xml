@@ -13,8 +13,7 @@
     <TextView
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
-        android:text="@string/cashflows1">
-        
+        android:text="@string/cashflows1">       
     </TextView>
     
     <ImageView	           
@@ -27,6 +26,11 @@
         android:scaleType="fitCenter"
         android:src="@drawable/cashflows"/>
 
-
+    <TextView
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="@string/cashflows2">       
+    </TextView>
+    
     
 </LinearLayout>

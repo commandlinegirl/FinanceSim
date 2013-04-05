@@ -54,7 +54,7 @@
          - when you are going to get your (first) million \n
          - how fast will your 401(k) grow \n
          - what is the comparative return of all your assets (investments) \n
-         - and more </string>
+         - and more.</string>
     <string name="about_title2"><b>Assumptions</b></string>
     <string name="about_text2">Constant inflation, constant return from 401(k) and other investments, and constant tax rate.</string>
     <string name="about_title3"><b>What this app is not</b></string>
@@ -67,7 +67,11 @@
         - and more.</string>
     
     <string name="about_title5"><b>Questions, suggestions, bug reports</b></string>
-    <string name="about_text5">Please don\'t hesitate to contact me at: <b>finances@codelemma.com</b></string>
+    <string name="about_text5">I\'ll be happy to hear you at: <b>finances@codelemma.com</b></string>
+    
+    <string name="about_title6"><b>Disclaimer</b></string>
+    <string name="about_text6">FinanceSim serves informative functions only and may not be used as a replacement of legal advice.</string>
+    
     
     
     <string name="chart_no_data_info_text">Chart empty.\n No %s data has yet been added.</string>
@@ -75,8 +79,11 @@
     <string name="no_data_info_button">Add %s data</string>
     <string name="years">Years: </string>
     <string name="start_date_input">Start date</string>
-    <string name="cashflows1">Cashflow depicts the monthly inflow and outflow or your capital. </string>
-    <string name="networth1">Networth depicts  </string>    
+    <string name="cashflows1">Cashflow depicts the monthly inflow and outflow of your capital.</string>
+    <string name="cashflows2">Capital gains are earnings from your investment accounts. Invested 
+        capital is the money put away on savings and checking accounts. Debt service are monthly debt payments.</string>
+    <string name="networth1">Net worth is the difference between your accumulated capital and your total debt.</string> 
+    <string name="networth2">Chart and table visualizations let you compare their rates of growth over the years.</string>    
     
     
     
