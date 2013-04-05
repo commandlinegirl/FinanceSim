@@ -165,4 +165,10 @@ public class InvestmentStock extends Investment
 		return null;
 	}
 
+	@Override
+	public void setValuesBeforeCalculation() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

@@ -14,8 +14,9 @@ public class IncomeGeneric extends Income
 	private int id;
     private BigDecimal init_income;
     private BigDecimal init_tax_rate;
-    private BigDecimal init_rise_rate;    
-    private BigDecimal income_monthly;
+    private BigDecimal init_rise_rate;        
+    private BigDecimal taxable_income;    
+    private BigDecimal gross_income;    
     private BigDecimal tax_rate_decimal;
     private BigDecimal rise_rate_decimal;
     private BigDecimal installments;
@@ -39,7 +40,6 @@ public class IncomeGeneric extends Income
         init_tax_rate = _tax_rate;
         init_rise_rate = _rise_rate;
         yearly_income = _init_income;               
-        income_monthly = yearly_income.divide(installments, Money.DECIMALS, Money.ROUNDING_MODE);
         tax_rate_decimal = _tax_rate.divide(Money.HUNDRED, Money.RATE_DECIMALS, Money.ROUNDING_MODE);        
         rise_rate_decimal = _rise_rate.divide(Money.HUNDRED, Money.RATE_DECIMALS, Money.ROUNDING_MODE);
         
@@ -49,6 +49,7 @@ public class IncomeGeneric extends Income
         
     	start_year = _start_year;
     	start_month = _start_month;
+    	setValuesBeforeCalculation();
     } 
 
     public Investment401k getInvestment401k() {
@@ -62,51 +63,65 @@ public class IncomeGeneric extends Income
     public void initialize() {
     	/* To recalculate set those values that are incremented each month/year to init */
     	yearly_income = init_income;
-    	income_monthly = init_income.divide(installments, Money.DECIMALS, Money.ROUNDING_MODE);   	    	
+    	gross_income = init_income.divide(installments, Money.DECIMALS, Money.ROUNDING_MODE);
+    	taxable_income = gross_income;
+    	if (investment401k != null) {    		
+    		Log.d("investment401k is not null and the investment401k.getEmployeeContribution()", investment401k.getEmployeeContribution().toString());    		
+    	    taxable_income = taxable_income.subtract(investment401k.getEmployeeContribution());
+    	}
+		Log.d("taxable_income initialized to: ", taxable_income.toString());
+
     }
     
-    private void setValuesBeforeCalculation() {
-    	income_monthly = Money.ZERO;
+    @Override
+    public void setValuesBeforeCalculation() {
+    	gross_income = Money.ZERO;
+    	taxable_income = Money.ZERO;
     }
     
     @Override
     public void advance(int year, int month) {
-    	if ((year < start_year) || (year == start_year && month < start_month)) {
-    		setValuesBeforeCalculation();
-    	} else if (year == start_year && month == start_month) {
+    	if (year == start_year && month == start_month) {
     		initialize();
-    		advanceValues(month);
+    		advanceValues(year, month);
     	} else if ((year > start_year) || (year == start_year && month > start_month)) {
-    		advanceValues(month);
+    		advanceValues(year, month);
     	}       	
     }
-    
-   
-    public void advanceValues(int month) {    
+      
+    public void advanceValues(int year, int month) {    
         /* 13th salary paid in December;
          * salary rise in January
          */
         if (month == 11) {
-        	BigDecimal extra_money = Money.scale(income_monthly.multiply(num_of_extras));        	
-            income_monthly = income_monthly.add(extra_money);
+        	BigDecimal extra_money = Money.scale(taxable_income.multiply(num_of_extras));        	
+            gross_income = gross_income.add(extra_money);
+            taxable_income = gross_income;
         } else if (month == 0) {
         	yearly_income = yearly_income.add(riseAmount());        	
-        	income_monthly = yearly_income.divide(installments, Money.DECIMALS, Money.ROUNDING_MODE);   	
+        	gross_income = yearly_income.divide(installments, Money.DECIMALS, Money.ROUNDING_MODE);      
+        	taxable_income = gross_income;
+        }
+        if (investment401k != null) {
+            investment401k.advance(year, month);
+            if (month == 0 || month == 11 || (year == investment401k.getStartYear() && month == investment401k.getStartMonth())) {
+                taxable_income = taxable_income.subtract(investment401k.getEmployeeContribution());
+            }		        		    	    
         }
     }
     
     @Override
     public BigDecimal getNetIncome() {
-        return income_monthly.subtract(getTax());
+        return taxable_income.subtract(getTax());
     }
     
     public BigDecimal getGrossIncome() {
-        return income_monthly;
+        return gross_income;
     }
 
     @Override
     public BigDecimal getTax() {
-        return Money.getPercentage(income_monthly, tax_rate_decimal);
+        return Money.getPercentage(taxable_income, tax_rate_decimal);
     }
 
     public BigDecimal riseAmount() {

@@ -56,9 +56,7 @@ public class InvestmentSavAcct extends Investment
         this.init_amount = Money.scale(init_amount);
         this.init_interest_rate = interest_rate;
         this.init_percontrib = percontrib;
-        this.init_tax_rate = tax_rate;
-        this.amount = this.init_amount;
-        this.hidden_amount = this.init_amount;        
+        this.init_tax_rate = tax_rate;     
         this.tax_rate = Money.scaleRate(tax_rate);
         this.tax_rate_decimal = tax_rate.divide(Money.HUNDRED, Money.RATE_DECIMALS, Money.ROUNDING_MODE);        
         this.percontrib = Money.scaleRate(percontrib);
@@ -73,6 +71,7 @@ public class InvestmentSavAcct extends Investment
         history = new HistoryInvestmentSavAcct(this);
     	start_year = _start_year;
     	start_month = _start_month;
+    	setValuesBeforeCalculation();
     }   
 
     @Override
@@ -181,37 +180,28 @@ public class InvestmentSavAcct extends Investment
         
     @Override
     public void advance(int year, int month, BigDecimal excess, BigDecimal checkingAcctPercontrib) {
-
-
-    	if ((year < start_year) || (year == start_year && month < start_month)) {
-    		setValuesBeforeCalculation();
-    	}        
-    	   	
     	if (year == start_year && month == start_month) {
-    		initializeValues();
+    		initialize();
     		advanceValues(month, excess);
-    	}      	
-    	
-    	if ((year > start_year) || (year == start_year && month > start_month)) {
+    	} else if ((year > start_year) || (year == start_year && month > start_month)) {
     		advanceValues(month, excess);
     	}       	
     }
     
-    /* event methods*/
-    private void setValuesBeforeCalculation() {
+    @Override
+    public void setValuesBeforeCalculation() {
         amount = Money.ZERO;	
         hidden_amount = Money.ZERO;
         contribution = Money.ZERO;
     }
-    
-    private void initializeValues() {
+	
+	@Override
+	public void initialize() {
 		amount = init_amount;
 		capitalization_counter = 1;
 		hidden_amount = init_amount;  
 		contribution = Money.ZERO;
-    }
-	
-
+	}
     
     private void advanceValues(int month, BigDecimal excess) {
     	
@@ -265,13 +255,7 @@ public class InvestmentSavAcct extends Investment
         
     }    
    
-	@Override
-	public void initialize() {
-		amount = init_amount;
-		capitalization_counter = 1;
-		hidden_amount = init_amount;  
-		contribution = Money.ZERO;
-	}
+
 
 	@Override
 	public void setId(int id) {

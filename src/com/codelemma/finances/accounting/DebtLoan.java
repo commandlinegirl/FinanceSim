@@ -13,6 +13,7 @@ public class DebtLoan extends Debt
     private BigDecimal init_interest_rate;
     private BigDecimal interest_rate_decimal_monthly;
     private int term; // in months
+    private int term_months; // in months
     private BigDecimal extra_payment;
     private BigDecimal monthly_payment;
     private BigDecimal principal_paid = Money.ZERO;
@@ -41,12 +42,15 @@ public class DebtLoan extends Debt
         interest_rate_decimal_monthly = _interest_rate.divide(new BigDecimal(1200), Money.RATE_DECIMALS, Money.ROUNDING_MODE);
     	extra_payment = Money.scale(_extra_payment);
     	
-    	term = _term;
+    	term = _term; 
+    	term_months = _term * 12; 
+    	
     	start_year = _start_year;
     	start_month = _start_month;
     	
     	monthly_payment = calculateMonthlyPayment();
     	history = new HistoryDebtLoan(this);
+    	setValuesBeforeCalculation();
     }
     
     public void setInitAmount() {
@@ -54,7 +58,7 @@ public class DebtLoan extends Debt
     }
     
     public BigDecimal calculateMonthlyPayment() {
-    	BigDecimal factor = (interest_rate_decimal_monthly.add(Money.ONE)).pow(term);
+    	BigDecimal factor = (interest_rate_decimal_monthly.add(Money.ONE)).pow(term_months);
     	BigDecimal factor_minus_one = factor.subtract(Money.ONE);
     	try {
     		factor.divide(factor_minus_one, Money.RATE_DECIMALS, Money.ROUNDING_MODE);
@@ -73,7 +77,7 @@ public class DebtLoan extends Debt
     /* event methods*/
     
     
-    private void setValuesBeforeCalculation() {
+    public void setValuesBeforeCalculation() {
 		monthly_payment = Money.ZERO;
 		interests_paid = Money.ZERO;
 		principal_paid = Money.ZERO;
@@ -86,31 +90,22 @@ public class DebtLoan extends Debt
 		interests_paid = Money.ZERO;
 		principal_paid = Money.ZERO;
 		remaining_amount = Money.ZERO;    
+		total_interests = Money.ZERO;
     }
         
     @Override
     public void advance(int year, int month) {
 
-	    if ((year < start_year) || (year == start_year && month < start_month)) {
-		    setValuesBeforeCalculation();
-	    }        
-	   	
-    	if (year == start_year && month == start_month) {
+	    if (year == start_year && month == start_month) {
 	    	initialize();
 		    advanceValues(month);
-	    }      	
-	
-    	if ((year > start_year) || (year == start_year && month > start_month)) {
+	    } else if ((year > start_year) || (year == start_year && month > start_month)) {
 	    	advanceValues(month);
-	    }       	
-    	
-    	//if (month_counter > term) {
-    	//	setValuesBeforeCalculation();
-    	//}
+	    }       	    	
     }
     
     private void advanceValues(int month) {
-    	if (month_counter <= term && remaining_amount.compareTo(Money.ZERO) == 1) {
+    	if (month_counter <= term_months && remaining_amount.compareTo(Money.ZERO) == 1) {
 		    interests_paid = Money.scale(remaining_amount.multiply(interest_rate_decimal_monthly));
         
             if (remaining_amount.compareTo(monthly_payment) == -1) {

@@ -14,4 +14,5 @@ public abstract class Income implements NamedValue {
 	public abstract BigDecimal getTax();
 	public abstract void setInvestment401k(Investment401k investment401k);
 	public abstract Investment401k getInvestment401k();
+	public abstract void setValuesBeforeCalculation();
 }

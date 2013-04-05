@@ -112,6 +112,17 @@ public class DebtMortgage extends Debt
     
     @Override
     public void advance(int year, int month) {
+
+	    if (year == start_year && month == start_month) {
+	    	initialize();
+		    advanceValues(month);
+	    } else if ((year > start_year) || (year == start_year && month > start_month)) {
+	    	advanceValues(month);
+	    }       	    	
+    }
+    
+   
+    public void advanceValues(int month) {
     	if (month_counter <= term_months) {    		
                 		
         	//Log.d("outstanding_loan", outstanding_loan.toString());
@@ -159,6 +170,32 @@ public class DebtMortgage extends Debt
     }
 
 	@Override
+	public void initialize() {
+		outstanding_loan = loan_amount;
+		month_counter = 1;
+    	//base_monthly_payment = calculateMonthlyPayment();
+    	monthly_payment = base_monthly_payment;
+	    principal_paid = Money.ZERO;
+	    interests_paid = Money.ZERO;
+	    total_interests = Money.ZERO;
+	    total_principal = Money.ZERO;
+	    total_additional_cost = Money.ZERO;
+	}
+    
+	@Override
+	public void setValuesBeforeCalculation() {
+		outstanding_loan = Money.ZERO;
+		month_counter = 1;
+    	base_monthly_payment = calculateMonthlyPayment();
+    	monthly_payment = Money.ZERO;
+	    principal_paid = Money.ZERO;
+	    interests_paid = Money.ZERO;
+	    total_interests = Money.ZERO;
+	    total_principal = Money.ZERO;
+	    total_additional_cost = Money.ZERO;
+	}
+	
+	@Override
     public BigDecimal getMonthlyPayment() {
     	return monthly_payment;
     }
@@ -187,7 +224,6 @@ public class DebtMortgage extends Debt
     public BigDecimal getRemainingAmount() {
     	return outstanding_loan;
     }
-
     
     public int getTerm() {
     	return term;
@@ -277,21 +313,8 @@ public class DebtMortgage extends Debt
 	public BigDecimal getPurchasePrice() {
 		return purchase_price;
 	}
-	
-	
 
-	@Override
-	public void initialize() {
-		outstanding_loan = loan_amount;
-		month_counter = 1;
-    	base_monthly_payment = calculateMonthlyPayment();
-    	monthly_payment = base_monthly_payment;
-	    principal_paid = Money.ZERO;
-	    interests_paid = Money.ZERO;
-	    total_interests = Money.ZERO;
-	    total_principal = Money.ZERO;
-	    total_additional_cost = Money.ZERO;
-	}
+
 
 	@Override
 	public BigDecimal getInitAmount() {
@@ -313,6 +336,8 @@ public class DebtMortgage extends Debt
 	public int getStartMonth() {
 		return start_month;
 	}
+
+
 
 
 }

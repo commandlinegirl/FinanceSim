@@ -34,7 +34,7 @@ public class Investment401k extends Investment
     private BigDecimal withdrawal_tax_rate_decimal;
     private BigDecimal employer_match;
     private BigDecimal employer_match_decimal;
-    private BigDecimal hidden_interests = Money.ZERO;
+    private BigDecimal hidden_interests;
     private HistoryInvestment401k history;    
     private Income income;
     private BigDecimal salary;
@@ -69,22 +69,17 @@ public class Investment401k extends Investment
         this.period_months = period * 12;
         
         this.income = income;
-		this.salary = income.getGrossIncome();
         
         this.percontrib = Money.scaleRate(percontrib);  
         this.percontrib_decimal = percontrib.divide(Money.HUNDRED, Money.RATE_DECIMALS, Money.ROUNDING_MODE); 
-        this.monthly_employee_contribution = Money.getPercentage(salary, percontrib_decimal);
-
         
         this.employer_match = Money.scaleRate(employer_match);
         this.employer_match_decimal = employer_match.divide(Money.HUNDRED, Money.RATE_DECIMALS, Money.ROUNDING_MODE);
-        this.monthly_employer_contribution = Money.getPercentage(monthly_employee_contribution, employer_match_decimal);
         
         this.interest_rate = Money.scaleRate(interest_rate);
         this.interest_rate_decimal = interest_rate.divide(Money.HUNDRED, Money.RATE_DECIMALS, Money.ROUNDING_MODE);  
         this.interest_rate_decimal_monthly = interest_rate_decimal.divide(new BigDecimal(12), Money.RATE_DECIMALS, Money.ROUNDING_MODE);
                        
-
         this.withdrawal_tax_rate = Money.scaleRate(withdrawal_tax_rate);
         this.withdrawal_tax_rate_decimal = withdrawal_tax_rate.divide(Money.HUNDRED, Money.RATE_DECIMALS, Money.ROUNDING_MODE);   
         
@@ -92,8 +87,9 @@ public class Investment401k extends Investment
     	start_year = _start_year;
     	start_month = _start_month;
     	capital_gain = Money.ZERO;
+    	setValuesBeforeCalculation();
     }   
-       		
+       		   
 	@Override
     public boolean isPreTax() {
     	return true;
@@ -216,28 +212,23 @@ public class Investment401k extends Investment
     }
 	          
     @Override
-    public void advance(int year, int month, BigDecimal excess_null_value) {
+    public void advance(int year, int month) {
 
-        //interests_gross = new BigDecimal(0);
-        //tax_on_interests = new BigDecimal(0);
-        //interests_net = new BigDecimal(0);
-
-    	if ((year < start_year) || (year == start_year && month < start_month)) {
-    		setValuesBeforeCalculation();    		
-    	}        
-    	   	
+    	//Log.d("calling Investment401k.advance", "called");
+    	//Log.d("calling year", "."+year);
+    	//Log.d("calling month", "."+month);
+    	
     	if (year == start_year && month == start_month) {
+    		Log.d("AAAAAAAAAAAAA ++++++++ calling Investment401k.initialize in advnce", "called");    		
     		initialize();    		
     		advanceValues(month);    		
-    	}      	
-    	
-    	if ((year > start_year) || (year == start_year && month > start_month)) {
+    	} else if ((year > start_year) || (year == start_year && month > start_month)) {
     		advanceValues(month);
     	}       	
     }
     
-    /* event methods*/
-    private void setValuesBeforeCalculation() {
+    @Override
+    public void setValuesBeforeCalculation() {
 		amount = Money.ZERO;
 		salary = Money.ZERO;	
 		hidden_interests = Money.ZERO;
@@ -271,13 +262,12 @@ public class Investment401k extends Investment
     
 	@Override
 	public void initialize() {
+		Log.d("444 Investment401k.initialize called", "called");
 		amount = Money.scale(init_amount);
 		salary = income.getGrossIncome();	
 		hidden_interests = Money.ZERO;
-		counter = 0;
-				
+		counter = 0;				
         monthly_employee_contribution = Money.getPercentage(salary, percontrib_decimal);
-
         employer_match = Money.scaleRate(employer_match);
         employer_match_decimal = employer_match.divide(Money.HUNDRED, Money.RATE_DECIMALS, Money.ROUNDING_MODE);
         monthly_employer_contribution = Money.getPercentage(monthly_employee_contribution, employer_match_decimal);

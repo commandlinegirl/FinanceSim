@@ -53,9 +53,7 @@ public class InvestmentCheckAcct extends Investment
     	this.name = name;
         this.init_amount = Money.scale(init_amount);
         this.init_interest_rate = interest_rate;
-        this.init_tax_rate = tax_rate;
-        this.amount = this.init_amount;
-        this.hidden_amount = this.init_amount;        
+        this.init_tax_rate = tax_rate;      
         this.tax_rate = Money.scaleRate(tax_rate);
         this.tax_rate_decimal = tax_rate.divide(Money.HUNDRED, Money.RATE_DECIMALS, Money.ROUNDING_MODE);        
         this.capitalization = capitalization;
@@ -68,6 +66,7 @@ public class InvestmentCheckAcct extends Investment
         history = new HistoryInvestmentCheckAcct(this);
     	start_year = _start_year;
     	start_month = _start_month;
+    	setValuesBeforeCalculation();
     }   
 
 	@Override
@@ -180,31 +179,29 @@ public class InvestmentCheckAcct extends Investment
 
     	if ((year < start_year) || (year == start_year && month < start_month)) {
     		setValuesBeforeCalculation();
-    	}        
-    	   	
-    	if (year == start_year && month == start_month) {
-    		initizeValues();
+    	} else if (year == start_year && month == start_month) {
+    		initialize();
     		advanceValues(month, excess, checkingAcctPercontrib);
-    	}      	
-    	
-    	if ((year > start_year) || (year == start_year && month > start_month)) {
+    	} else if ((year > start_year) || (year == start_year && month > start_month)) {
     		advanceValues(month, excess, checkingAcctPercontrib);
     	}       	
     }
     
-    /* event methods*/
-    private void setValuesBeforeCalculation() {
+ 	@Override
+    public void setValuesBeforeCalculation() {
         amount = Money.ZERO;	
         hidden_amount = Money.ZERO;
         contribution = Money.ZERO;
     }
-    
-    private void initizeValues() {
-		amount = init_amount;
-		capitalization_counter = 1;
-		hidden_amount = init_amount;  
-		contribution = Money.ZERO;
-    }
+        
+ 	@Override
+ 	public void initialize() {
+ 		amount = init_amount;
+ 		capitalization_counter = 1;
+ 		hidden_amount = init_amount;  
+ 		contribution = Money.ZERO;
+ 	}
+
     
     private void advanceValues(int month, BigDecimal excess, BigDecimal checkingAcctPercontrib) {
     	
@@ -216,40 +213,32 @@ public class InvestmentCheckAcct extends Investment
         percontrib = checkingAcctPercontrib;
      	/* Add monthly contribution (a given percentage of excess money) to the hidden_amount
      	 * if excess > 0. */       
-        amount = amount.add(Money.getPercentage(excess, checkingAcctPercontribDecimal));
         contribution = Money.getPercentage(excess, checkingAcctPercontribDecimal);              
+        amount = amount.add(contribution);
         hidden_amount = hidden_amount.add(contribution);  
         
-     	/* Calculate the interests of hidden_amount (and add to principal)  */
+     	/* Calculates the interests of hidden_amount (and adds to principal)  */
      	hidden_amount = Money.scale(hidden_amount.multiply(getCompoundingFactor(months[month])));
      	
      	if (capitalization == capitalization_counter) {
      		/* calculate and subtract tax on interests */
-     		BigDecimal hidden_interests_gross = hidden_amount.subtract(amount);
-     		BigDecimal hidden_interests_gross_tax = Money.getPercentage(hidden_interests_gross, tax_rate_decimal);
-     		hidden_amount = hidden_amount.subtract(hidden_interests_gross_tax);
-            interests_gross = hidden_interests_gross;
-            tax_on_interests = hidden_interests_gross_tax;
-            interests_net = interests_gross.subtract(tax_on_interests);                 
-            amount = hidden_amount;
-         	capitalization_counter = 1;        	
+     		interests_gross = hidden_amount.subtract(amount);
+     		tax_on_interests = Money.getPercentage(interests_gross, tax_rate_decimal);
+     		
+     		interests_gross = interests_gross.max(Money.ZERO);
+     		tax_on_interests = tax_on_interests.max(Money.ZERO);
+     		
+     		if (interests_gross.compareTo(Money.ZERO) != 0) {
+     		    hidden_amount = hidden_amount.subtract(tax_on_interests);     		            
+                interests_net = interests_gross.subtract(tax_on_interests);                             
+                //amount = hidden_amount; // hidden amount contains interests!!!
+     		}
+         	capitalization_counter = 1;         	   
      	} else {
      		capitalization_counter++;
      	}
     }       
     
-    
-    private void setValuesAfterCalculation() {
-        
-    }    
-   
-	@Override
-	public void initialize() {
-		amount = init_amount;
-		capitalization_counter = 1;
-		hidden_amount = init_amount;  
-		contribution = Money.ZERO;
-	}
 
 	@Override
 	public void setId(int id) {

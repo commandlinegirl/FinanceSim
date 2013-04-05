@@ -127,4 +127,12 @@ public class InvestmentBond extends Investment
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public void setValuesBeforeCalculation() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
 }

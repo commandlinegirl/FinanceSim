@@ -2,7 +2,9 @@ package com.codelemma.finances;
 
 import java.util.ArrayList;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +17,7 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockFragment;
+import com.actionbarsherlock.view.MenuItem;
 import com.codelemma.finances.accounting.History;
 import com.codelemma.finances.accounting.HistoryNew;
 import com.codelemma.finances.accounting.TableVisitor;
@@ -46,7 +49,7 @@ public class FrgList extends SherlockFragment
     public View onCreateView(LayoutInflater inflater, 
     		                 ViewGroup container,
                              Bundle savedInstanceState) {
-        Log.d("FrgExpandableList.onCreateView()", "called");       
+        Log.d("FrgExpandableList.onCreateView()", "called");    
         Finances appState = Finances.getInstance();
         history = appState.getHistory();
         
@@ -92,4 +95,7 @@ public class FrgList extends SherlockFragment
     		button.setOnClickListener(new DirectToHomeListener(currentElement, getSherlockActivity()));
     	}
 	}
+	
+
+	
 }

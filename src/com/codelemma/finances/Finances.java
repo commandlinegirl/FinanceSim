@@ -167,7 +167,7 @@ public class Finances extends Application {
 		}			
 	}
 	
-	public void restoreIncomes(String incomes) throws ParseException {
+	private void restoreIncomes(String incomes) throws ParseException {
 		TypedContainer incomesCont = Serializer.parseToMap(incomes);		
 		Iterator<Entry<TypedKey<?>, Object>> i = incomesCont.iterator();	
 		
@@ -192,7 +192,7 @@ public class Finances extends Application {
 		}
 	}			
 	
-	public void restoreInvestments(String investments) throws ParseException {
+	private void restoreInvestments(String investments) throws ParseException {
 		TypedContainer investmentsCont = Serializer.parseToMap(investments);		
 		Iterator<Entry<TypedKey<?>, Object>> i = investmentsCont.iterator();		
 		
@@ -287,7 +287,7 @@ public class Finances extends Application {
 		
 	}	
 	
-	public void restoreExpenses(String expenses) throws ParseException {
+	private void restoreExpenses(String expenses) throws ParseException {
 		TypedContainer expensesCont = Serializer.parseToMap(expenses);		
 		Iterator<Entry<TypedKey<?>, Object>> i = expensesCont.iterator();	
 		
@@ -310,7 +310,7 @@ public class Finances extends Application {
 		}		
 	}	
 
-	public void restoreDebts(String debts) throws ParseException {
+	private void restoreDebts(String debts) throws ParseException {
 		TypedContainer debtsCont = Serializer.parseToMap(debts);		
 		Iterator<Entry<TypedKey<?>, Object>> i = debtsCont.iterator();	
 		
@@ -361,7 +361,7 @@ public class Finances extends Application {
 		}
 		
 	}	
-	
+
 	public void setHistory() {
 		history = new History(simStartYear, simStartMonth, simulationLength);
 	}
@@ -369,14 +369,12 @@ public class Finances extends Application {
 	public int getSimulationLength() {
 		return simulationLength;
 	}
-	
+
 	public Account getAccount(){
 	    return account;
 	}		
-	
+
 	public History getHistory(){
 	    return history;
-	}				
-	
-
+	}
 }

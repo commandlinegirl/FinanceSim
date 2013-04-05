@@ -74,18 +74,8 @@ public class Plotter implements PlotVisitor {
                 maxY = series.getMaxY();
             }   
             first = false;
-            Log.d("------------------ minY", String.valueOf(minY));
-            Log.d("------------------ maxY", String.valueOf(maxY));
-            
-    
-            double currentMaxY = series.getMaxY();
-            double currentMinY = series.getMinY();    
-            if (currentMaxY > maxY) {
-                maxY = currentMaxY;
-            }   
-            if (currentMinY < minY) {
-                minY = currentMinY;
-            } 
+            maxY = Math.max(series.getMaxY(), maxY);
+            minY = Math.min(series.getMinY(), minY);                        
                
             XYSeriesRenderer renderer = getSeriesRenderer();
             mRenderer.addSeriesRenderer(renderer);
@@ -100,12 +90,7 @@ public class Plotter implements PlotVisitor {
             
             incrementCurrentColor();
 
-        }   
-
-        Log.d("------------------ total minY", String.valueOf(minY));
-        Log.d("------------------ total maxY", String.valueOf(maxY));
-		
-		    
+        }   				    
 		/* Here set left and right margin for the chart based on max and min values from each series */
 
     	int rightMargin = Utils.px(frgActivity, 12);
@@ -144,12 +129,12 @@ public class Plotter implements PlotVisitor {
         
         /* If there is no condition set, negative values will be above positive on the chart
          * (min value will be set to 0, max value will be set to negative number */
-        if (maxY >= 0) {
+        if (maxY > 0) {
     	    mRenderer.setYAxisMin(0.0);
     	    mRenderer.setYAxisMax(maxY + maxY/5);
         }
         
-    	customizeMultipleSeriesRenderer(mRenderer, title, 600);
+    	customizeMultipleSeriesRenderer(mRenderer, title);
     	
 		GraphicalView mChartView = ChartFactory.getLineChartView(frgActivity, dataset, mRenderer);	    	  		    	
         LinearLayout layout = (LinearLayout) frgActivity.findViewById(R.id.pred_chart);	         
@@ -158,7 +143,7 @@ public class Plotter implements PlotVisitor {
         layout.addView(mChartView); 
     }
 	
-	private void customizeMultipleSeriesRenderer(XYMultipleSeriesRenderer mRenderer, String title, int seriesSize) {
+	private void customizeMultipleSeriesRenderer(XYMultipleSeriesRenderer mRenderer, String title) {
     	
     	mRenderer.setAxesColor(Color.WHITE);
         mRenderer.setAxisTitleTextSize(Utils.px(frgActivity, 10));    	
@@ -184,6 +169,7 @@ public class Plotter implements PlotVisitor {
 	
 	private TimeSeries getSeries(BigDecimal[] values, int item_count, String name) {
 	    TimeSeries series = new TimeSeries(name);	    
+	    	    
 	    try {
 	        for(int i = 0; i < item_count; i++) {
 	    	    series.add(i, values[i].doubleValue());
@@ -283,8 +269,8 @@ public class Plotter implements PlotVisitor {
 		values.put("Income", historyCashflows.getNetIncomeHistory());
 		values.put("Capital gains", historyCashflows.getCapitalGainsHistory());
 		values.put("Expenses", historyCashflows.getExpensesHistory());
-		values.put("Debt rates", historyCashflows.getDebtRatesHistory());
-		values.put("Investment rates", historyCashflows.getInvestmentRatesHistory());
+		values.put("Debt service", historyCashflows.getDebtRatesHistory());
+		values.put("Invested & saved", historyCashflows.getInvestmentRatesHistory());
         plot(values, "Cashflows"); 			
 	}
 

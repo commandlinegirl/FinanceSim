@@ -289,9 +289,15 @@ public class AddInvestment401k extends SherlockFragmentActivity
 	    	return;	    	
 	    }	
         intent.putExtra("investment401k_employer_match", matchData);  	
-                
-        intent.putExtra("investment401k_start_year",  String.valueOf(setYear));
-        intent.putExtra("investment401k_start_month",  String.valueOf(setMonth));
+          
+        
+        if ((setYear < salary.getStartYear()) || (setYear == salary.getStartYear() && setMonth < salary.getStartMonth())) { 
+            alertIfWrongDate(salary.getStartYear(), salary.getStartMonth());
+            return;
+        } else {
+        	intent.putExtra("investment401k_start_year",  String.valueOf(setYear));
+            intent.putExtra("investment401k_start_month",  String.valueOf(setMonth));	
+        }	
         
         if (requestCode.equals(AcctElements.UPDATE.toString())) {
     		Log.d("Addinvestment401k.addinvestment401k() requestCode", requestCode);
@@ -301,6 +307,14 @@ public class AddInvestment401k extends SherlockFragmentActivity
         setResult(AcctElements.INVESTMENT401K.getNumber(), intent);
         finish();	
     }	
+	
+	private void alertIfWrongDate(int year, int month) {
+		new AlertDialog.Builder(this).setTitle("Wrong date")
+            .setMessage("Date should not be earlier than date of income onset. Please, fill the date later or equal to " 
+		           + String.valueOf(month+1)+"/"+String.valueOf(year)+".")
+            .setNeutralButton("Close", null)
+            .show();
+	}
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {

@@ -23,10 +23,9 @@ public class PackToContainerLauncher implements PackToContainerVisitor {
         container.put(TypedKey.INCOME_NAME, income.getName()); // TODO: how to store reference to Investment401k?
         container.put(TypedKey.INCOME_START_YEAR, income.getStartYear()); // TODO: how to store reference to Investment401k?
         container.put(TypedKey.INCOME_START_MONTH, income.getStartMonth()); // TODO: how to store reference to Investment401k?
-
     	return container;
 	}
-	
+
 	@Override
 	public TypedContainer packInvestment401k(Investment401k investment401k) {	
     	TypedContainer container = new TypedContainer();
@@ -40,7 +39,6 @@ public class PackToContainerLauncher implements PackToContainerVisitor {
         container.put(TypedKey.INVESTMENT401K_INCOMEID, investment401k.getIncome().getId());
         container.put(TypedKey.INVESTMENT401K_START_YEAR, investment401k.getStartYear());
         container.put(TypedKey.INVESTMENT401K_START_MONTH, investment401k.getStartMonth());
-
     	return container;
 	}
 
@@ -104,7 +102,6 @@ public class PackToContainerLauncher implements PackToContainerVisitor {
         container.put(TypedKey.DEBTLOAN_EXTRA_PAYMENT, debtloan.getExtraPayment());               
         container.put(TypedKey.DEBTLOAN_START_YEAR, debtloan.getStartYear());               
         container.put(TypedKey.DEBTLOAN_START_MONTH, debtloan.getStartMonth());               
-
     	return container;
 	}
 	

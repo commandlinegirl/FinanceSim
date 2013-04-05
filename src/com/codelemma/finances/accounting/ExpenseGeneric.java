@@ -39,7 +39,7 @@ public class ExpenseGeneric extends Expense
         history = new HistoryExpenseGeneric(this);
     	start_year = _start_year;
     	start_month = _start_month;
-    	initialize();
+    	setValuesBeforeCalculation();
     }
 
     @Override
@@ -48,16 +48,15 @@ public class ExpenseGeneric extends Expense
     	hidden_periodic_expense = init_expense;
     }
         
-    private void setValuesBeforeCalculation() {
+    @Override
+    public void setValuesBeforeCalculation() {
     	periodic_expense = Money.ZERO;
     	hidden_periodic_expense = Money.ZERO;
     }
     
     @Override
     public void advance(int year, int month) {
-    	if ((year < start_year) || (year == start_year && month < start_month)) {
-    		setValuesBeforeCalculation();
-    	} else if (year == start_year && month == start_month) {
+    	if (year == start_year && month == start_month) {
     		initialize();
     		advanceValues(year, month);
     	} else if ((year > start_year) || (year == start_year && month > start_month)) {

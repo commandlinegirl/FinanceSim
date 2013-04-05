@@ -35,6 +35,8 @@ public class HistoryIncomeGeneric extends HistoryNew {
 		    if (inc.getInvestment401k() != null) {
 		    	incomeHas401k = true;
 		        preTaxInvestmentHistory[index] = inc.getInvestment401k().getEmployeeContribution();
+		    } else {
+		    	incomeHas401k = false;
 		    }
 		    cashflows.addIncomeGeneric(index, inc);
              
