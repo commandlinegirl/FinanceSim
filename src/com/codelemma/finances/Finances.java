@@ -33,7 +33,7 @@ public class Finances extends Application {
     private static Finances appInstance;
 	private boolean needToRecalculate = true;
 	private int numberOfMonthsInChart = 60; //5*12;
-
+    private int spinnerPosition = 0;
 	
     @Override
     public void onCreate() {        
@@ -178,6 +178,7 @@ public class Finances extends Application {
     	    BigDecimal yearly_income_rise = tc.get(TypedKey.YEARLY_INCOME_RISE);
     	    BigDecimal income_installments = tc.get(TypedKey.INCOME_INSTALLMENTS);
     	    String income_name = tc.get(TypedKey.INCOME_NAME);
+    	    int income_term = tc.get(TypedKey.INCOME_TERM);
     	    int start_year = tc.get(TypedKey.INCOME_START_YEAR);
     	    int start_month = tc.get(TypedKey.INCOME_START_MONTH);
     	    
@@ -186,6 +187,7 @@ public class Finances extends Application {
                 yearly_income_rise,
                 income_installments, 
                 income_name,
+                income_term,
 		        start_year,
 		    	start_month);                 
 		    account.addIncome(income);
@@ -368,6 +370,14 @@ public class Finances extends Application {
 
 	public int getSimulationLength() {
 		return simulationLength;
+	}
+	
+	public int getSpinnerPosition() {
+		return spinnerPosition;
+	}
+	
+	public void setSpinnerPosition(int pos) {
+		spinnerPosition = pos;
 	}
 
 	public Account getAccount(){

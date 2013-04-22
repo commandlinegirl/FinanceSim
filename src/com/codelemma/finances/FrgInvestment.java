@@ -111,21 +111,7 @@ public class FrgInvestment extends SherlockFragment {
 				Intent intent401k = new Intent(getActivity(), AddInvestment401k.class);		
 				intent401k.putExtra("request", AcctElements.ADD.toString());
 			    startActivityForResult(intent401k, AcctElements.ADD.getNumber());	
-			}									
-            break;
-		case R.id.investment_bond:
-			Intent intentbond = new Intent(getActivity(), AddInvestmentBond.class);		
-			intentbond.putExtra("request", AcctElements.ADD.toString());
-		    startActivityForResult(intentbond, AcctElements.ADD.getNumber());	
-		    break;
-		case R.id.investment_stock:
-			Intent intentstock = new Intent(getActivity(), AddInvestmentStock.class);		
-			intentstock.putExtra("request", AcctElements.ADD.toString());
-		    startActivityForResult(intentstock, AcctElements.ADD.getNumber());
-		case R.id.investment_checkacct:
-			Intent intentcheck = new Intent(getActivity(), AddInvestmentCheckAcct.class);		
-			intentcheck.putExtra("request", AcctElements.ADD.toString());
-		    startActivityForResult(intentcheck, AcctElements.ADD.getNumber());		    
+			}									   
 		    break;
 		}		
 	}
@@ -303,7 +289,7 @@ public class FrgInvestment extends SherlockFragment {
                 dividends,
                 appreciation);
         account.addInvestment(investment);		
-        Toast.makeText(getSherlockActivity(), name+" added.", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getSherlockActivity(), name+actionName, Toast.LENGTH_SHORT).show();
 
 	}
 	

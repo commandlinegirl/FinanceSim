@@ -2,7 +2,6 @@ package com.codelemma.finances.accounting;
 
 import java.math.BigDecimal;
 
-import android.util.Log;
 
 public class HistoryNetWorth extends HistoryNew {
 
@@ -67,9 +66,7 @@ public class HistoryNetWorth extends HistoryNew {
 	
 	public void addDebtLoan(int index, DebtLoan debt) {
 		outstandingDebtsHistory[index] = outstandingDebtsHistory[index].add(debt.getRemainingAmount());
-		Log.d("before: netWorthHistory["+index+"]", netWorthHistory[index].toString());
 		netWorthHistory[index] = netWorthHistory[index].subtract(debt.getRemainingAmount());
-		Log.d("after: netWorthHistory["+index+"]", netWorthHistory[index].toString());
 	}
 
 	public void addDebtMortgage(int index, DebtMortgage debt) {

@@ -38,8 +38,8 @@ public class InvestmentCheckAcct extends Investment
     private BigDecimal comp_factor_31;
     private int[] months = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
     private HistoryInvestmentCheckAcct history;
-
-
+    private BigDecimal withdrawal401k = Money.ZERO;
+ 
     private int start_year;
     private int start_month;
     
@@ -105,7 +105,7 @@ public class InvestmentCheckAcct extends Investment
     }  
         
     public BigDecimal getTax() {    
-    	return tax_on_interests;
+    	return Money.scale(tax_on_interests); //I added scale here
     }    
         
 	@Override
@@ -163,6 +163,10 @@ public class InvestmentCheckAcct extends Investment
         return name;
     }    
     
+    public void add401kWithdrawal(BigDecimal withdrawal) {
+    	withdrawal401k = withdrawal;
+    }
+    
     @Override
     public BigDecimal getValue() {
         return init_amount; // init_amount or amount?
@@ -213,32 +217,35 @@ public class InvestmentCheckAcct extends Investment
         percontrib = checkingAcctPercontrib;
      	/* Add monthly contribution (a given percentage of excess money) to the hidden_amount
      	 * if excess > 0. */       
-        contribution = Money.getPercentage(excess, checkingAcctPercontribDecimal);              
-        amount = amount.add(contribution);
+        contribution = Money.getPercentage(excess, checkingAcctPercontribDecimal);           
+        contribution = contribution.add(withdrawal401k);
+        withdrawal401k = Money.ZERO; // after adding withdrawn money, init it back to zero for next advancements
+        
+        amount = amount.add(contribution);                     
         hidden_amount = hidden_amount.add(contribution);  
         
      	/* Calculates the interests of hidden_amount (and adds to principal)  */
-     	hidden_amount = Money.scale(hidden_amount.multiply(getCompoundingFactor(months[month])));
+     	hidden_amount = hidden_amount.multiply(getCompoundingFactor(months[month]));// i removed scale..
      	
      	if (capitalization == capitalization_counter) {
      		/* calculate and subtract tax on interests */
      		interests_gross = hidden_amount.subtract(amount);
-     		tax_on_interests = Money.getPercentage(interests_gross, tax_rate_decimal);
-     		
+     		tax_on_interests = interests_gross.multiply(tax_rate_decimal); // I removed scale here
+     		/* Add interests from previous period to the amount */  
      		interests_gross = interests_gross.max(Money.ZERO);
      		tax_on_interests = tax_on_interests.max(Money.ZERO);
      		
      		if (interests_gross.compareTo(Money.ZERO) != 0) {
      		    hidden_amount = hidden_amount.subtract(tax_on_interests);     		            
-                interests_net = interests_gross.subtract(tax_on_interests);                             
-                //amount = hidden_amount; // hidden amount contains interests!!!
+                interests_net = Money.scale(interests_gross.subtract(tax_on_interests)); 
+                hidden_amount = Money.scale(hidden_amount);
+                amount = Money.scale(hidden_amount); // hidden amount contains interests!!!
      		}
          	capitalization_counter = 1;         	   
      	} else {
      		capitalization_counter++;
      	}
-    }       
-    
+    }
 
 	@Override
 	public void setId(int id) {

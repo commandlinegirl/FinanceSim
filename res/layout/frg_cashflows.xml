@@ -32,5 +32,36 @@
         android:text="@string/cashflows2">       
     </TextView>
     
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp">
+         <TextView 
+            android:id="@+id/show_chart"
+            android:gravity="center"            
+            android:textSize="10sp"
+            android:layout_height="32dp"
+            android:layout_weight="1"               
+            android:layout_width="0dp"
+            android:layout_marginRight="2dip"
+            android:clickable="true"
+            android:text="@string/view_chart"
+            android:background="@drawable/button_green"
+            android:onClick="showChart"/>
+        
+        <TextView 
+            android:id="@+id/show_table"
+            android:textSize="10sp"
+            android:gravity="center"            
+            android:layout_height="32dp"
+            android:layout_weight="1"               
+            android:layout_width="0dp"
+            android:layout_marginLeft="2dip"
+            android:clickable="true"
+            android:text="@string/view_table"
+            android:background="@drawable/button_green" 
+            android:onClick="showTable"/> 
+    </LinearLayout>
     
 </LinearLayout>

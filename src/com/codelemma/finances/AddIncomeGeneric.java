@@ -193,7 +193,11 @@ public class AddIncomeGeneric extends SherlockFragmentActivity
 			
 			EditText incomeTaxRate = (EditText) findViewById(R.id.income_tax_rate);
 			incomeTaxRate.setText(income.getInitTaxRate().toString(), TextView.BufferType.EDITABLE);
-						
+
+			EditText incomeTerm = (EditText) findViewById(R.id.income_term);
+			incomeTerm.setText(String.valueOf(income.getTerm()), TextView.BufferType.EDITABLE);
+
+			
 			if (income.getInitInstallments().doubleValue() == 13) {			
 			    spinner.setSelection(1);
 			} else {
@@ -345,6 +349,13 @@ public class AddIncomeGeneric extends SherlockFragmentActivity
         intent.putExtra("incomegeneric_start_year",  String.valueOf(setYear));
         intent.putExtra("incomegeneric_start_month",  String.valueOf(setMonth));
         
+	    EditText incomeTerm = (EditText) findViewById(R.id.income_term);
+	    String incomeTermData = incomeTerm.getText().toString();
+	    if (Utils.alertIfEmpty(this, incomeTermData, getResources().getString(R.string.income_term_input))) {
+	    	return;	    	
+	    }	    
+        intent.putExtra("income_term", incomeTermData);
+        
  	    //TODO: verify if text is alphanumeric
 	    //InputValidator.validateName(incomeNameData); 
 	    
@@ -355,7 +366,5 @@ public class AddIncomeGeneric extends SherlockFragmentActivity
 	                                    
         setResult(AcctElements.INCOME.getNumber(), intent);
         finish();
-	}
-	
-
+	}	
 }

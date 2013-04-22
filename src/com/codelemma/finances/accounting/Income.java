@@ -6,7 +6,7 @@ public abstract class Income implements NamedValue {
    
     public abstract  void initialize();     
     public abstract  void setId(int id); 
-    public void advance(int year, int month) {}
+    public void advance(int year, int month, InvestmentCheckAcct checkingAcct) {}
 	public abstract BigDecimal getNetIncome();     	
 	public abstract String toString();
 	public abstract BigDecimal getInitRiseRate();

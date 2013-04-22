@@ -90,7 +90,6 @@ public class DebtLoan extends Debt
 		interests_paid = Money.ZERO;
 		principal_paid = Money.ZERO;
 		remaining_amount = Money.ZERO;    
-		total_interests = Money.ZERO;
     }
         
     @Override

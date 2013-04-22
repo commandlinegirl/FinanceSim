@@ -26,6 +26,9 @@ public class IncomeGeneric extends Income
     private HistoryIncomeGeneric history;
     private int start_year;
     private int start_month;
+    private int term;
+    private int term_months;
+    private int counter;
     private Investment401k investment401k;         
     
     public IncomeGeneric(BigDecimal _init_income, 
@@ -33,6 +36,7 @@ public class IncomeGeneric extends Income
     		      BigDecimal _rise_rate, 
     		      BigDecimal _installments,
                   String _name,
+                  int _term,
                   int _start_year,
           	      int _start_month) {
         installments = _installments; // 12 or 13
@@ -46,6 +50,9 @@ public class IncomeGeneric extends Income
         name = _name;
         num_of_extras = installments.subtract(new BigDecimal(12));
         history = new HistoryIncomeGeneric(this);
+        
+        term = _term;
+        term_months = _term * 12;
         
     	start_year = _start_year;
     	start_month = _start_month;
@@ -70,7 +77,7 @@ public class IncomeGeneric extends Income
     	    taxable_income = taxable_income.subtract(investment401k.getEmployeeContribution());
     	}
 		Log.d("taxable_income initialized to: ", taxable_income.toString());
-
+		counter = 0;
     }
     
     @Override
@@ -80,34 +87,41 @@ public class IncomeGeneric extends Income
     }
     
     @Override
-    public void advance(int year, int month) {
+    public void advance(int year, int month, InvestmentCheckAcct checkingAcct) {
     	if (year == start_year && month == start_month) {
     		initialize();
-    		advanceValues(year, month);
+    		advanceValues(year, month, checkingAcct);
     	} else if ((year > start_year) || (year == start_year && month > start_month)) {
-    		advanceValues(year, month);
-    	}       	
+    		advanceValues(year, month, checkingAcct);
+    	}
     }
       
-    public void advanceValues(int year, int month) {    
+    public void advanceValues(int year, int month, InvestmentCheckAcct checkingAcct) {
         /* 13th salary paid in December;
          * salary rise in January
          */
-        if (month == 11) {
-        	BigDecimal extra_money = Money.scale(taxable_income.multiply(num_of_extras));        	
-            gross_income = gross_income.add(extra_money);
-            taxable_income = gross_income;
-        } else if (month == 0) {
-        	yearly_income = yearly_income.add(riseAmount());        	
-        	gross_income = yearly_income.divide(installments, Money.DECIMALS, Money.ROUNDING_MODE);      
-        	taxable_income = gross_income;
-        }
-        if (investment401k != null) {
-            investment401k.advance(year, month);
-            if (month == 0 || month == 11 || (year == investment401k.getStartYear() && month == investment401k.getStartMonth())) {
-                taxable_income = taxable_income.subtract(investment401k.getEmployeeContribution());
-            }		        		    	    
-        }
+    	
+    	if (counter < term_months) {
+    		if (month == 11) {
+            	BigDecimal extra_money = Money.scale(taxable_income.multiply(num_of_extras));        	
+                gross_income = gross_income.add(extra_money);
+                taxable_income = gross_income;
+            } else if (month == 0) {
+            	yearly_income = yearly_income.add(riseAmount());        	
+            	gross_income = yearly_income.divide(installments, Money.DECIMALS, Money.ROUNDING_MODE);      
+            	taxable_income = gross_income;
+            }
+            if (investment401k != null) {
+                investment401k.advance(year, month, checkingAcct);
+                if (month == 0 || month == 11 || (year == investment401k.getStartYear() && month == investment401k.getStartMonth())) {
+                    taxable_income = taxable_income.subtract(investment401k.getEmployeeContribution());
+                }		        		    	    
+            }
+            counter++;
+    	} else if (counter == term_months) {
+    		setValuesBeforeCalculation();
+    		counter++;
+    	}
     }
     
     @Override
@@ -128,7 +142,10 @@ public class IncomeGeneric extends Income
     	return Money.getPercentage(yearly_income, rise_rate_decimal);
     }
     
-
+    public int getTerm() {
+    	return term;
+    }
+    
     public BigDecimal getInitTaxRate() {
     	return init_tax_rate;
     }
@@ -141,8 +158,7 @@ public class IncomeGeneric extends Income
     public BigDecimal getInitInstallments() {
         return installments;
     }
-    
-    
+        
 	@Override
 	public BigDecimal getAmount() {
 		return getNetIncome();

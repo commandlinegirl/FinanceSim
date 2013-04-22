@@ -16,6 +16,7 @@ public class TypedKey<T> {
 	public static final TypedKey<BigDecimal> INCOME_TAX_RATE = of("income_tax_rate", BigDecimal.class);
 	public static final TypedKey<BigDecimal> YEARLY_INCOME_RISE = of("yearly_income_rise", BigDecimal.class);
 	public static final TypedKey<BigDecimal> INCOME_INSTALLMENTS = of("income_installments", BigDecimal.class);	
+	public static final TypedKey<Integer> INCOME_TERM = of("income_term", Integer.class);	
 	public static final TypedKey<Integer> INCOME_START_YEAR = of("income_start_year", Integer.class);	
 	public static final TypedKey<Integer> INCOME_START_MONTH = of("income_start_month", Integer.class);	
 		

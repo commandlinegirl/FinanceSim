@@ -1,7 +1,6 @@
 package com.codelemma.finances.accounting;
 import java.math.BigDecimal;
 
-import android.util.Log;
 
 import com.codelemma.finances.InputListingUpdater;
 import com.codelemma.finances.ParseException;
@@ -250,12 +249,7 @@ public class InvestmentSavAcct extends Investment
      	}
     }       
     
-    
-    private void setValuesAfterCalculation() {
-        
-    }    
-   
-
+ 
 
 	@Override
 	public void setId(int id) {

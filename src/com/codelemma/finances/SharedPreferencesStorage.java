@@ -14,7 +14,6 @@ class SharedPreferencesStorage implements Storage {
 	
 	private SharedPreferences preferences;
 	private SharedPreferences.Editor editor;
-	private PackToContainerVisitor packToContainerVisitor;
 	
 	SharedPreferencesStorage(SharedPreferences sharedPreferences) {
 		preferences = sharedPreferences;

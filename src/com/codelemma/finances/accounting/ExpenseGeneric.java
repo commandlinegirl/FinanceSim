@@ -44,9 +44,10 @@ public class ExpenseGeneric extends Expense
 
     @Override
     public void initialize() { 
-    	periodic_expense = Money.ZERO;
-    	hidden_periodic_expense = init_expense;
+    	periodic_expense = Money.scale(init_expense);
+    	hidden_periodic_expense = periodic_expense;
     }
+    
         
     @Override
     public void setValuesBeforeCalculation() {
@@ -58,7 +59,6 @@ public class ExpenseGeneric extends Expense
     public void advance(int year, int month) {
     	if (year == start_year && month == start_month) {
     		initialize();
-    		advanceValues(year, month);
     	} else if ((year > start_year) || (year == start_year && month > start_month)) {
     		advanceValues(year, month);
     	}       	

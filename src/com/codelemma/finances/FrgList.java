@@ -2,9 +2,7 @@ package com.codelemma.finances;
 
 import java.util.ArrayList;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,7 +15,6 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockFragment;
-import com.actionbarsherlock.view.MenuItem;
 import com.codelemma.finances.accounting.History;
 import com.codelemma.finances.accounting.HistoryNew;
 import com.codelemma.finances.accounting.TableVisitor;
@@ -27,6 +24,7 @@ public class FrgList extends SherlockFragment
                      implements OnItemSelectedListener { 
 
 	private History history;
+	private Finances appState;
 	int currentElement = 0;
 	private ArrayList<HistoryNew> historyItems = new ArrayList<HistoryNew>();
 	private TableVisitor tableMaker;
@@ -34,14 +32,15 @@ public class FrgList extends SherlockFragment
 	
 	@Override
 	public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+		appState.setSpinnerPosition(pos);
     	HistoryNew historyItem = historyItems.get(pos);
 	    historyItem.makeTable(tableMaker);
 	}
 
 	@Override
 	public void onNothingSelected(AdapterView<?> parent) {
-		parent.setSelection(0);		
-    	HistoryNew historyItem = historyItems.get(0);
+		parent.setSelection(appState.getSpinnerPosition());		
+    	HistoryNew historyItem = historyItems.get(appState.getSpinnerPosition());
 	    historyItem.makeTable(tableMaker);
 	}
 	
@@ -50,7 +49,7 @@ public class FrgList extends SherlockFragment
     		                 ViewGroup container,
                              Bundle savedInstanceState) {
         Log.d("FrgExpandableList.onCreateView()", "called");    
-        Finances appState = Finances.getInstance();
+        appState = Finances.getInstance();
         history = appState.getHistory();
         
 
@@ -77,7 +76,7 @@ public class FrgList extends SherlockFragment
 	        ArrayAdapter<HistoryNew> adapter = new ArrayAdapter<HistoryNew>(getSherlockActivity(), android.R.layout.simple_spinner_item, historyItems); 	    	    
 	        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 	        spinner.setAdapter(adapter);
-	        spinner.setSelection(0);
+	        spinner.setSelection(appState.getSpinnerPosition());
 	        spinner.setOnItemSelectedListener(this);	    
 	        tableMaker = new TableMaker(getSherlockActivity());
 	        

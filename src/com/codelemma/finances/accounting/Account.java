@@ -3,7 +3,6 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import android.util.Log;
 import android.util.SparseArray;
 
 public class Account {
@@ -16,7 +15,6 @@ public class Account {
     private int simStartMonth;
     private BigDecimal investmentsPercontrib;
     private BigDecimal checkingAcctPercontrib;
-    private BigDecimal prevMonthCapitalGains;
 	private InvestmentCheckAcct checkingAcct; 	
 
     private SparseArray<Income> income_ids = new SparseArray<Income>();
@@ -29,24 +27,20 @@ public class Account {
     private ArrayList<Investment> investments = new ArrayList<Investment>();
     private ArrayList<Debt> debts = new ArrayList<Debt>();
 
-    private HistoryCashflows cashflows = new HistoryCashflows("Aggregates");
-    private HistoryNetWorth net_worth = new HistoryNetWorth("Aggregates");    
+    private HistoryCashflows cashflows = new HistoryCashflows("Cashflows (per month)");
+    private HistoryNetWorth net_worth = new HistoryNetWorth("Net worth (cumulative)");    
     
     public Account(int year, int month) {
     	simStartYear = year;
     	simStartMonth = month;
     	investmentsPercontrib = Money.ZERO;
     	checkingAcctPercontrib = Money.ZERO;
-    	prevMonthCapitalGains = Money.ZERO;
     }
     
     public BigDecimal getInvestmentsPercontrib() {
     	return investmentsPercontrib;
     }
     
-    public void initPrevMonthCapitalGains() {
-    	prevMonthCapitalGains = Money.ZERO;
-    }
 
     public void addToInvestmentsPercontrib(BigDecimal newPercentage) {
     	investmentsPercontrib = investmentsPercontrib.add(newPercentage);
@@ -237,7 +231,7 @@ public class Account {
     	BigDecimal total_income = Money.ZERO;
     	
         for (Income income: incomes) {
-            income.advance(year, month);
+            income.advance(year, month, checkingAcct);
     		if ((year > simStartYear) || (year == simStartYear && month >= simStartMonth)) {
         		income.getHistory().add(index, income, cashflows);
         		Investment401k inv401k = income.getInvestment401k();
@@ -265,13 +259,12 @@ public class Account {
         	    }
         	}
         }
-        prevMonthCapitalGains = capitalGains;
     }
         
     public void advance(int index, int year, int month) {
     	// year and month - starting date of predictions (saved to history here)
         Preconditions.checkInBounds(month, 0, 11, "Month must be in 0..11");
-        BigDecimal excess = prevMonthCapitalGains;
+        BigDecimal excess = Money.ZERO;//= prevMonthCapitalGains;
                 
         BigDecimal total_income = advanceIncome(index, year, month);
         excess = excess.add(total_income); // total net income

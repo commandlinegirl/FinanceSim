@@ -8,7 +8,6 @@
     android:paddingBottom="@dimen/explist_vertical_padding" 
     android:paddingLeft="@dimen/explist_horizontal_padding"
     android:paddingRight="@dimen/explist_horizontal_padding">
-
                       
    <LinearLayout
         android:id="@+id/tvGroup"

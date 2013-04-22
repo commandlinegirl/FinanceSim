@@ -6,7 +6,7 @@ import android.content.Context;
 public class Utils {
 	
     private Utils() {}
-
+       
 	static public int px(Context context, float dips) {
     /* Convert from dp into int (px) */
 	    float DP = context.getResources().getDisplayMetrics().density;
@@ -38,4 +38,6 @@ public class Utils {
 	    }
 	    return false;
 	}
+	
+
 }

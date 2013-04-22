@@ -2,8 +2,6 @@ package com.codelemma.finances.accounting;
 
 import java.math.BigDecimal;
 
-import android.util.Log;
-
 public class HistoryCashflows extends HistoryNew {
 
 	private BigDecimal[] netIncomeHistory;
@@ -24,6 +22,7 @@ public class HistoryCashflows extends HistoryNew {
 		
         initialize();
 				
+        
 		this.name = name;
 	}	
 		
@@ -36,7 +35,7 @@ public class HistoryCashflows extends HistoryNew {
 	}
 	
 	public void addInvestment401k(int index, Investment401k investment) {
-		investmentRatesHistory[index] = investmentRatesHistory[index].add(investment.getEmployeeContribution()); 
+		//investmentRatesHistory[index] = investmentRatesHistory[index].add(investment.getEmployeeContribution()); 
 		//capitalGainsHistory[index].add(investment.getInterestsNet(interests_gross, interests_gross_tax));
 	}
 

@@ -26,7 +26,6 @@ public class FrgIncome extends SherlockFragment {
 	private Account account;
 	private Finances appState;
 
-	
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View frView = inflater.inflate(R.layout.frg_income, container, false);        
@@ -36,7 +35,7 @@ public class FrgIncome extends SherlockFragment {
 	@Override
     public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		Log.d("FrgIncome.onActivityCreated()", "called");		
+		Log.d("FrgIncome.onActivityCreated()", "called");
 	}
 
 	@Override
@@ -59,6 +58,7 @@ public class FrgIncome extends SherlockFragment {
 	    View line = new View( getSherlockActivity());		
 	 	LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, 
 	 			                                                        Utils.px(getSherlockActivity(), 1));	
+
 	 	line.setLayoutParams(param);
 	 	line.setBackgroundColor(0xFFCCCCCC);	    
 		tip.addView(line);
@@ -94,6 +94,7 @@ public class FrgIncome extends SherlockFragment {
 		BigDecimal income_tax_rate;
         BigDecimal yearly_income_rise;
         BigDecimal income_installments;
+        int income_term;
        	int start_year = Integer.parseInt((data.getStringExtra("incomegeneric_start_year")));
     	int start_month = Integer.parseInt((data.getStringExtra("incomegeneric_start_month")));
 
@@ -147,7 +148,17 @@ public class FrgIncome extends SherlockFragment {
 		    showNotANumberAlertDialog();
 		    return;
 		}
-	     
+	
+		try {
+	        income_term = Integer.parseInt((data.getStringExtra("income_term")));
+		} catch (NullPointerException npe) {
+			npe.printStackTrace();
+		    return;
+		} catch (NumberFormatException nfe) {
+		    nfe.printStackTrace();
+		    showNotANumberAlertDialog();
+		    return;
+		}
 		
     	if (income_installments.compareTo(new BigDecimal(1)) ==  -1) {
         	new AlertDialog.Builder(getActivity()).setTitle("Payment frequency must be larger than 0")
@@ -172,6 +183,7 @@ public class FrgIncome extends SherlockFragment {
                 yearly_income_rise,
                 income_installments, 
                 income_name,
+                income_term,
 		        start_year,
 		    	start_month);
 		newIncome.setInvestment401k(investment401k);
@@ -188,14 +200,11 @@ public class FrgIncome extends SherlockFragment {
     	    appState.setCalculationStartMonth(start_month);
         }
 	}	
-	
-	
+		
     private void updateInputListing(Iterable<? extends NamedValue> values) {        
         InputListingUpdater modifier = new  InputListingUpdater(getSherlockActivity());
         for(NamedValue value : values) {        	
         	value.updateInputListing(modifier);        	
         } 		   		       
-    }	
-    
-	
+    }		
 }

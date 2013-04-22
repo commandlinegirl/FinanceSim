@@ -2,8 +2,6 @@ package com.codelemma.finances.accounting;
 
 import java.math.BigDecimal;
 
-import android.util.Log;
-
 import com.codelemma.finances.InputListingUpdater;
 import com.codelemma.finances.ParseException;
 import com.codelemma.finances.TypedContainer;
@@ -163,7 +161,6 @@ public class DebtMortgage extends Debt
     		monthly_payment = Money.ZERO;
     		interests_paid = Money.ZERO;
     		principal_paid = Money.ZERO;
-    		total_interests = Money.ZERO;
     		additional_cost = Money.ZERO;
     		outstanding_loan = Money.ZERO;    	    		
     	}      

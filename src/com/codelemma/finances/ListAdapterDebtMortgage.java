@@ -53,28 +53,27 @@ public class ListAdapterDebtMortgage extends BaseExpandableListAdapter {
 	private View populateView(View view, ListDebtMortgage group) {
 		
 		if (view == null) {
-			LayoutInflater infalInflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
+			LayoutInflater infalInflater = (LayoutInflater) 
+					context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
 			view = infalInflater.inflate(R.layout.list_debtmortgage, null);
 		}
 		
 		TextView tv;
 		tv = (TextView) view.findViewById(R.id.date);
 		tv.setText(group.getDate().toString());
-		
-
-										
+												
 		tv = (TextView) view.findViewById(R.id.interests_paid);
 		tv.setText(group.getInterestsPaid().toString());
 		
 		tv = (TextView) view.findViewById(R.id.total_interests);
 		tv.setText(group.getTotalInterests().toString());
 
-		tv = (TextView) view.findViewById(R.id.principal_paid);
-		tv.setText(group.getPrincipalPaid().toString());
-		
 		tv = (TextView) view.findViewById(R.id.additional_cost);
 		tv.setText(group.getAdditionalCost().toString());
 		
+		tv = (TextView) view.findViewById(R.id.principal_paid);
+		tv.setText(group.getPrincipalPaid().toString());
+				
 		tv = (TextView) view.findViewById(R.id.remaining_amount);
 		tv.setText(group.getRemainingAmount().toString());
 

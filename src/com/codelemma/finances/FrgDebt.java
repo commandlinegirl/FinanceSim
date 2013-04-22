@@ -2,7 +2,7 @@ package com.codelemma.finances;
 
 import java.math.BigDecimal;
 
-import android.app.AlertDialog;
+
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -63,7 +63,6 @@ public class FrgDebt extends SherlockFragment {
 		tip.addView(line);
         
 		if (account.getDebtsSize() > 0) {	 
-	        ((Main) getSherlockActivity()).recalculate();
 		   	Iterable<? extends NamedValue> values = account.getDebts();
 		   	updateInputListing(values);		    
 		} else {
@@ -92,12 +91,6 @@ public class FrgDebt extends SherlockFragment {
 	    
 	}
 	
-	private void showAlertDialog() {
-    	new AlertDialog.Builder(getActivity()).setTitle("Not a number")
-        .setMessage("Please, fill in field with a number")
-        .setNeutralButton("Close", null)
-        .show();		
-	}
 
 	
 	public void onDebtLoanResult(Intent data, int requestCode) {		
@@ -135,8 +128,8 @@ public class FrgDebt extends SherlockFragment {
         }
         
         Toast.makeText(getSherlockActivity(), name+action, Toast.LENGTH_SHORT).show();
-
-	}	
+        ((Main) getSherlockActivity()).recalculate(new FrgDebt());
+	}
 	
 	public void onDebtMortgageResult(Intent data, int requestCode) {		
     	String name = data.getStringExtra("debtmortgage_name");    	
@@ -178,7 +171,7 @@ public class FrgDebt extends SherlockFragment {
     	    appState.setCalculationStartYear(start_year);
     	    appState.setCalculationStartMonth(start_month);
         }
-        ((Main) getSherlockActivity()).recalculate();
+        ((Main) getSherlockActivity()).recalculate(new FrgDebt());
 
 	}	
 		

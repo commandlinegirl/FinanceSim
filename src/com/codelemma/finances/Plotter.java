@@ -12,7 +12,6 @@ import org.achartengine.renderer.XYSeriesRenderer;
 
 import android.graphics.Color;
 import android.graphics.Paint.Align;
-import android.util.Log;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -28,13 +27,15 @@ import com.codelemma.finances.accounting.HistoryInvestmentCheckAcct;
 import com.codelemma.finances.accounting.HistoryInvestmentSavAcct;
 import com.codelemma.finances.accounting.HistoryInvestmentStock;
 import com.codelemma.finances.accounting.HistoryNetWorth;
+import com.codelemma.finances.accounting.Money;
 import com.codelemma.finances.accounting.PlotVisitor;
 
 public class Plotter implements PlotVisitor {
 
 	private SherlockFragmentActivity frgActivity;
     private int currentColor = 0;
-    private String[] colors = {"#ff00ff00", "#ff0099ff", "#ffFF0080", "#ff8C489F", "#ff9CAA9C", "#ffffff00", "#ff66CCFF",  "#ffcccccc"};    
+    private String[] colors = {"#ff00ff00", "#ff0099ff", "#ffFF0080", "#ff8C489F", 
+    		                   "#ff9CAA9C", "#ffffff00", "#ff66CCFF",  "#ffcccccc"};    
     private String[] dates;
     
 	public Plotter(SherlockFragmentActivity sherlockFragmentActivity, String[] dates) {
@@ -43,10 +44,8 @@ public class Plotter implements PlotVisitor {
 	}
 		
 	public void plot(HashMap<String,BigDecimal[]> lists, String title) {		
-		XYMultipleSeriesDataset dataset = new XYMultipleSeriesDataset();
-		  
+		XYMultipleSeriesDataset dataset = new XYMultipleSeriesDataset();		  
 		XYMultipleSeriesRenderer mRenderer = new XYMultipleSeriesRenderer();
-		
 		
 		int numberOfMonths = Finances.getInstance().getNumberOfMonthsInChart();
 		
@@ -54,8 +53,7 @@ public class Plotter implements PlotVisitor {
 		
 	    double maxY = 0;
 	    double minY = 0;
-	    
-
+	   
 		LinearLayout legendTV = (LinearLayout) frgActivity.findViewById(R.id.legend);		
         legendTV.removeAllViews();
         
@@ -89,7 +87,6 @@ public class Plotter implements PlotVisitor {
             legendTV.addView(legend);
             
             incrementCurrentColor();
-
         }   				    
 		/* Here set left and right margin for the chart based on max and min values from each series */
 
@@ -102,7 +99,6 @@ public class Plotter implements PlotVisitor {
 	    } else {
 	    	leftMargin += Utils.px(frgActivity, 4) * labelMinYLen;
 	    }	        
-
 	    
     	mRenderer.setMargins(new int[] {Utils.px(frgActivity, 8), 
     			leftMargin, 
@@ -113,10 +109,7 @@ public class Plotter implements PlotVisitor {
         int chartSize = screenWidthDips - leftMargin - rightMargin;
         int numOfLabels = Math.round(chartSize / 30);
         int i;
-        int step = numberOfMonths / numOfLabels;
-        if (step < 1) {
-	        step = 1;
-        }
+        int step = Math.max(1, numberOfMonths / numOfLabels);
         for (i = 0; i < numberOfMonths; i += step) { //TODO: check if size == values.size()
 	        String date =  dates[i];
 	        mRenderer.addXTextLabel(i, date.replaceFirst(" ", "\n"));
@@ -172,7 +165,7 @@ public class Plotter implements PlotVisitor {
 	    	    
 	    try {
 	        for(int i = 0; i < item_count; i++) {
-	    	    series.add(i, values[i].doubleValue());
+	    	    series.add(i, values[i].setScale(0, Money.ROUNDING_MODE).doubleValue());
 	        }
 	    } catch (IndexOutOfBoundsException e) {
 	        e.printStackTrace();
@@ -198,36 +191,36 @@ public class Plotter implements PlotVisitor {
 	@Override
 	public void plotIncomeGeneric(HistoryIncomeGeneric historyIncomeGeneric) {
 		HashMap<String,BigDecimal[]> values = new HashMap<String,BigDecimal[]>(1);
-		values.put("Net income", historyIncomeGeneric.getNetIncomeHistory());
-		values.put("Gross income", historyIncomeGeneric.getGrossIncomeHistory());
+		values.put("Net income (per month)", historyIncomeGeneric.getNetIncomeHistory());
+		values.put("Gross income (per month)", historyIncomeGeneric.getGrossIncomeHistory());
         plot(values, "Income"); 		
 	}
 
 	@Override
 	public void plotExpenseGeneric(HistoryExpenseGeneric historyExpenseGeneric) {
 		HashMap<String,BigDecimal[]> values = new HashMap<String,BigDecimal[]>(1);
-		values.put(historyExpenseGeneric.getName(), historyExpenseGeneric.getAmountHistory());
+		values.put(historyExpenseGeneric.getName()+ " (per month)", historyExpenseGeneric.getAmountHistory());
         plot(values, "Expense"); 				
 	}
 
 	@Override
 	public void plotInvestment401k(HistoryInvestment401k historyInvestment401k) {
 		HashMap<String,BigDecimal[]> values = new HashMap<String,BigDecimal[]>(1);
-		values.put(historyInvestment401k.getName(), historyInvestment401k.getAmountHistory());
+		values.put(historyInvestment401k.getName()+ " (cumulative)", historyInvestment401k.getAmountHistory());
         plot(values, "Investment"); 				
 	}
 
 	@Override
 	public void plotInvestmentSavAcct(HistoryInvestmentSavAcct historyInvestmentSavAcct) {
 		HashMap<String,BigDecimal[]> values = new HashMap<String,BigDecimal[]>(1);
-		values.put(historyInvestmentSavAcct.getName(), historyInvestmentSavAcct.getAmountHistory());
+		values.put(historyInvestmentSavAcct.getName()+ " (cumulative)", historyInvestmentSavAcct.getAmountHistory());
         plot(values, "Investment"); 				
 	}
 
 	@Override
 	public void plotInvestmentCheckAcct(HistoryInvestmentCheckAcct historyInvestmentCheckAcct) {
 		HashMap<String,BigDecimal[]> values = new HashMap<String,BigDecimal[]>(1);
-		values.put(historyInvestmentCheckAcct.getName(), historyInvestmentCheckAcct.getAmountHistory());
+		values.put(historyInvestmentCheckAcct.getName()+ " (cumulative)", historyInvestmentCheckAcct.getAmountHistory());
         plot(values, "Investment"); 						
 	}
 	
@@ -274,7 +267,6 @@ public class Plotter implements PlotVisitor {
         plot(values, "Cashflows"); 			
 	}
 
-
 	@Override
 	public void plotNetWorth(HistoryNetWorth historyNetWorth) {
 		HashMap<String,BigDecimal[]> values = new HashMap<String,BigDecimal[]>(1);
@@ -282,5 +274,5 @@ public class Plotter implements PlotVisitor {
 		values.put("Outstanding debts", historyNetWorth.getOutstandingDebtsHistory());
 		values.put("Net worth", historyNetWorth.getNetWorthHistory());
         plot(values, "Net worth");		
-	}	
+	}
 }

@@ -6,7 +6,6 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.support.v4.app.NavUtils;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;

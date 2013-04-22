@@ -142,7 +142,6 @@ public class AddExpenseGeneric extends SherlockFragmentActivity
         final Calendar c = Calendar.getInstance();
         setYear = c.get(Calendar.YEAR);
         setMonth = c.get(Calendar.MONTH);
-        int day = c.get(Calendar.DAY_OF_MONTH);
 		start_date.setText((setMonth+1)+"/"+setYear, TextView.BufferType.EDITABLE);
 	    
 	    if (requestCode.equals(AcctElements.UPDATE.toString())) {

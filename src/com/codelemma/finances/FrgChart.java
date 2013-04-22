@@ -33,7 +33,6 @@ public class FrgChart extends SherlockFragment
 	private PlotVisitor plotVisitor;
 	private Finances appState;
 	private ArrayList<HistoryNew> historyItems = new ArrayList<HistoryNew>();
-	private int currentPosition;
     private History history;
     
     @Override
@@ -49,7 +48,7 @@ public class FrgChart extends SherlockFragment
     	
     	if (historyItems.size() != 0) {
     		return inflater.inflate(R.layout.frg_chart, container, false);	
-    	} 
+        } 
     	return inflater.inflate(R.layout.frg_empty, container, false);    	    	    	
     }
  
@@ -76,14 +75,18 @@ public class FrgChart extends SherlockFragment
     		m.put(600, toggleYrs50);
   
     		toggleYrsSelection(m.get(numberOfMonths));
-    		    		
-	        Spinner spinner = (Spinner) getSherlockActivity().findViewById(R.id.chart_spinner);	    
-	        ArrayAdapter<HistoryNew> adapter = new ArrayAdapter<HistoryNew>(getSherlockActivity(), android.R.layout.simple_spinner_item, historyItems); 	    	    
-	        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-	        spinner.setAdapter(adapter);
-	        spinner.setSelection(0); 
-	        spinner.setOnItemSelectedListener(this);	   
-        	    	
+
+	        	    
+	        	Spinner spinner = (Spinner) getSherlockActivity().findViewById(R.id.chart_spinner);	
+	 	        ArrayAdapter<HistoryNew> adapter = new ArrayAdapter<HistoryNew>(getSherlockActivity(), 
+		      	    	android.R.layout.simple_spinner_item, historyItems); 	    	    
+		        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		        spinner.setAdapter(adapter);
+		        spinner.setSelection(appState.getSpinnerPosition()); 
+		        spinner.setOnItemSelectedListener(this);	
+
+	        
+        	
 	        plotVisitor = new Plotter(getSherlockActivity(), history.getDates());
 
     	} else {
@@ -105,25 +108,23 @@ public class FrgChart extends SherlockFragment
        		
 	@Override
 	public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-		currentPosition = pos;
+		appState.setSpinnerPosition(pos);
     	HistoryNew historyItem = historyItems.get(pos);
 	    historyItem.plot(plotVisitor);
 	}
 
 	@Override
-	public void onNothingSelected(AdapterView<?> parent) {
-		currentPosition = 0;		
-		parent.setSelection(0);		
-    	HistoryNew historyItem = historyItems.get(0);
-	    historyItem.plot(plotVisitor);
+	public void onNothingSelected(AdapterView<?> parent) {		
+		parent.setSelection(appState.getSpinnerPosition());		
+    	HistoryNew historyItem = historyItems.get(appState.getSpinnerPosition());
+	    historyItem.plot(plotVisitor);	    
 	}
     
-	
     public void onPredYrsSelection(View view, int currentElement) {
     	int numberOfMonths = Integer.parseInt((String) view.getTag());
     	toggleYrsSelection(view);
         appState.setNumberOfMonthsInChart(numberOfMonths);        
-    	HistoryNew historyItem = historyItems.get(currentPosition);
+    	HistoryNew historyItem = historyItems.get(appState.getSpinnerPosition());
 	    historyItem.plot(plotVisitor);
     } 
             
