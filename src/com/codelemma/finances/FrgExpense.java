@@ -3,7 +3,6 @@ package com.codelemma.finances;
 import java.math.BigDecimal;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -15,46 +14,34 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragment;
-import com.codelemma.finances.accounting.Account;
 import com.codelemma.finances.accounting.ExpenseGeneric;
 import com.codelemma.finances.accounting.AccountingElement;
 
 public class FrgExpense extends SherlockFragment {
 	
-	private Account account;
 	private Finances appState;
-
 	
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Inflate the layout for this fragment    	
-        View frView = inflater.inflate(R.layout.frg_expense, container, false);
-        return frView;
+        return inflater.inflate(R.layout.frg_expense, container, false);
 	}
-	
 	
 	@Override
     public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-        // Inflate the layout for this fragment 
-		Finances appState = Finances.getInstance();
-		account = appState.getAccount();	
-		
-
+		appState = Finances.getInstance();		
 	}
 
 	@Override
 	public void onStart() {
 		super.onStart();
 		Log.d("FrgExpense.onStart()", "called");
-		appState = Finances.getInstance();
-		account = appState.getAccount();	
-		
+
     	LinearLayout tip = (LinearLayout) getSherlockActivity().findViewById(R.id.expense_summary);
     	tip.removeAllViews();    	
 		
-		if (account.getExpensesSize() > 0) {	 
-		   	Iterable<? extends AccountingElement> values = (Iterable<? extends AccountingElement>) account.getExpenses();
+		if (appState.getAccount().getExpensesSize() > 0) {	 
+		   	Iterable<? extends AccountingElement> values = (Iterable<? extends AccountingElement>) appState.getAccount().getExpenses();
 		   	updateInputListing(values);		    
 		} else {
 	        TextView tv = new TextView(getSherlockActivity());
@@ -82,8 +69,8 @@ public class FrgExpense extends SherlockFragment {
     	String action = " added.";
         if (requestCode == AcctElements.UPDATE.getNumber()) {
         	int expense_id = data.getIntExtra("expense_id", -1);    		
-    		ExpenseGeneric expense = (ExpenseGeneric) account.getExpenseById(expense_id); 
-    		account.removeExpense(expense);
+    		ExpenseGeneric expense = (ExpenseGeneric) appState.getAccount().getExpenseById(expense_id); 
+    		appState.getAccount().removeExpense(expense);
     		Log.d("FrgExpense.onExpenseResult()", "removed Expense No. "+expense_id);
     		action = " updated.";
       	}	    		
@@ -94,13 +81,13 @@ public class FrgExpense extends SherlockFragment {
     			                      expense_frequency,
     			     		          start_year,
     			    		    	  start_month); 
-    	account.addExpense(expense);
+    	appState.getAccount().addExpense(expense);
         Toast.makeText(getSherlockActivity(), expense_name+action, Toast.LENGTH_SHORT).show();
         
-        if ((appState.getCalculationStartYear() == start_year && appState.getCalculationStartMonth() >= start_month) 
-    			|| (appState.getCalculationStartYear() > start_year)) {    
-    	    appState.setCalculationStartYear(start_year);
-    	    appState.setCalculationStartMonth(start_month);
+        if ((appState.getAccount().getCalculationStartYear() == start_year && appState.getAccount().getCalculationStartMonth() >= start_month) 
+    			|| (appState.getAccount().getCalculationStartYear() > start_year)) {    
+        	appState.getAccount().setCalculationStartYear(start_year);
+        	appState.getAccount().setCalculationStartMonth(start_month);
         }
 	}
 	
@@ -110,7 +97,4 @@ public class FrgExpense extends SherlockFragment {
         	value.updateInputListing(modifier);        	
         } 		   		       
     }
-	    
-
-
 }

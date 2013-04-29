@@ -13,7 +13,9 @@ public interface Storage {
 		public final static String INVESTMENT_PERCONTRIB = "ipc";
 		public final static String ACCOUNTING_ELEMENT_COUNT = "aec";
 		public final static String ACCOUNTING_ELEMENT_CLASS_KEY = "aeck";
-		
+		public final static String SIMULATION_START_YEAR = "ssy";
+		public final static String SIMULATION_START_MONTH = "ssm";
+
 		// Legal values of Storage property value for class key.
 		public final static String INCOME_GENERIC = "ig";
 		public final static String EXPENSE_GENERIC = "eg";

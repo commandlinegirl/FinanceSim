@@ -15,10 +15,8 @@ import com.codelemma.finances.accounting.ExpenseGeneric;
 import com.codelemma.finances.accounting.IncomeGeneric;
 import com.codelemma.finances.accounting.InputListingVisitor;
 import com.codelemma.finances.accounting.Investment401k;
-import com.codelemma.finances.accounting.InvestmentBond;
 import com.codelemma.finances.accounting.InvestmentCheckAcct;
 import com.codelemma.finances.accounting.InvestmentSavAcct;
-import com.codelemma.finances.accounting.InvestmentStock;
 import com.codelemma.finances.accounting.ModifyUiVisitor;
 
 public class InputListingUpdater implements InputListingVisitor {
@@ -156,58 +154,6 @@ public class InputListingUpdater implements InputListingVisitor {
 	    
 		TextView tv = new TextView(frgActivity);
         tv.setText(investment.getName() + " " + formatter.formatNumber(investment.getValue())); //TODO: 
-        tv.setLayoutParams(relativeParams);	    
-	    rLayout.addView(tv);      
-        
-        tip.addView(rLayout);
-        addUnderline(tip); 
-	}
-
-	@Override
-	public void updateInputListingForInvestmentBond(InvestmentBond investment) {
-
-		LinearLayout tip = (LinearLayout) frgActivity.findViewById(R.id.investment_summary);
-        
-		RelativeLayout rLayout = new RelativeLayout(frgActivity);		
-        ModifyUiVisitor modifyUiLauncher = new ModifyUiLauncher(frgActivity);
-        rLayout.setOnClickListener(new ModifyUiListener(modifyUiLauncher));
-        rLayout.setTag(R.string.acct_object, investment);
-        
-		int padding = Utils.px(frgActivity, 10);
-		rLayout.setPadding(padding, padding, padding, padding); // int left, int top, int right, int bottom     
-
-	    RelativeLayout.LayoutParams relativeParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.FILL_PARENT, 
-	    		RelativeLayout.LayoutParams.WRAP_CONTENT);
-	    relativeParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
-	    
-		TextView tv = new TextView(frgActivity);
-        tv.setText(investment.getName() + " " + formatter.formatNumber(investment.getValue())); //TODO: 
-        tv.setLayoutParams(relativeParams);	    
-	    rLayout.addView(tv);      
-        
-        tip.addView(rLayout);
-        addUnderline(tip); 
-	}
-
-	@Override
-	public void updateInputListingForInvestmentStock(InvestmentStock investment) {
-
-		LinearLayout tip = (LinearLayout) frgActivity.findViewById(R.id.investment_summary);
-        
-		RelativeLayout rLayout = new RelativeLayout(frgActivity);		
-        ModifyUiVisitor modifyUiLauncher = new ModifyUiLauncher(frgActivity);
-        rLayout.setOnClickListener(new ModifyUiListener(modifyUiLauncher));
-        rLayout.setTag(R.string.acct_object, investment);
-        
-		int padding = Utils.px(frgActivity, 10);
-		rLayout.setPadding(padding, padding, padding, padding); // int left, int top, int right, int bottom     
-
-	    RelativeLayout.LayoutParams relativeParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.FILL_PARENT, 
-	    		RelativeLayout.LayoutParams.WRAP_CONTENT);
-	    relativeParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
-	    
-		TextView tv = new TextView(frgActivity);
-        tv.setText(investment.getName() + " " + (investment.getValue()).toString()); //TODO:         
         tv.setLayoutParams(relativeParams);	    
 	    rLayout.addView(tv);      
         

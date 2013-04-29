@@ -51,20 +51,6 @@ public class TypedKey<T> {
 	public static final TypedKey<Integer> INVESTMENT401K_START_YEAR = of("investment401k_start_year", Integer.class);	
 	public static final TypedKey<Integer> INVESTMENT401K_START_MONTH = of("investment401k_start_month", Integer.class);	
 	
-	public static final TypedKey<Integer> INVESTMENTBOND_ID = of("investmentbond_id", Integer.class);
-	public static final TypedKey<String> INVESTMENTBOND_NAME = of("investmentbond_name", String.class);
-	public static final TypedKey<BigDecimal> INVESTMENTBOND_INIT_AMOUNT = of("investmentbond_init_amount", BigDecimal.class);
-	public static final TypedKey<BigDecimal> INVESTMENTBOND_TAX_RATE = of("investmentbond_tax_rate", BigDecimal.class);
-	public static final TypedKey<BigDecimal> INVESTMENTBOND_PERCONTRIB = of("investmentbond_percontrib", BigDecimal.class);			
-		
-	public static final TypedKey<Integer> INVESTMENTSTOCK_ID = of("investmentstock_id", Integer.class);
-	public static final TypedKey<String> INVESTMENTSTOCK_NAME = of("investmentstock_name", String.class);
-	public static final TypedKey<BigDecimal> INVESTMENTSTOCK_INIT_AMOUNT = of("investmentstock_init_amount", BigDecimal.class);
-	public static final TypedKey<BigDecimal> INVESTMENTSTOCK_TAX_RATE = of("investmentstock_tax_rate", BigDecimal.class);
-	public static final TypedKey<BigDecimal> INVESTMENTSTOCK_PERCONTRIB = of("investmentstock_percontrib", BigDecimal.class);			
-	public static final TypedKey<BigDecimal> INVESTMENTSTOCK_DIVIDENDS = of("investmentstock_dividends", BigDecimal.class);
-	public static final TypedKey<BigDecimal> INVESTMENTSTOCK_APPRECIATION = of("investmentstock_appreciation", BigDecimal.class);
-	
 	public static final TypedKey<Integer> EXPENSE_ID = of("expense_id", Integer.class);
 	public static final TypedKey<String> EXPENSE_NAME = of("expense_name", String.class);
 	public static final TypedKey<BigDecimal> INIT_EXPENSE = of("init_expense", BigDecimal.class);

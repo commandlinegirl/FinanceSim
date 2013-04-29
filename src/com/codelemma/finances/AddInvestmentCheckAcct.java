@@ -28,34 +28,28 @@ import android.widget.TextView;
 public class AddInvestmentCheckAcct extends SherlockFragmentActivity 
                                   implements OnItemSelectedListener {
 
-	private Account account;	
-	private History history;
+	private Finances appState;
 	private String requestCode;
 	private int investmentId;
     private int[] capitalization_items = {1, 3, 6, 12, 24}; 
     private int capitalization = 1;
-	private Finances appState;    
 	private int setMonth;
 	private int setYear;
 	
-    private OnClickListener clickCancelListener = new OnClickListener() {
-    	
+    private OnClickListener clickCancelListener = new OnClickListener() {    	
     	@Override
 	    public void onClick(View v) {
 	        finish();	             	        
 	    }
     };	
 		        
-    private OnClickListener clickSaveListener = new OnClickListener() {
-    	
+    private OnClickListener clickSaveListener = new OnClickListener() {    	
     	@Override
 	    public void onClick(View v) {
 	    	Log.d("saving investment", "Saving ");
 	    	addInvestment(null);	             	        
 	    }
     };	
-	
-
     
     public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
     	capitalization = capitalization_items[pos];
@@ -72,10 +66,8 @@ public class AddInvestmentCheckAcct extends SherlockFragmentActivity
 		setContentView(R.layout.act_add_investmentcheckacct);
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-		Log.d("AddInvestment.onCreate()", "called");
+		Log.d("AddInvestmentCheckAcct.onCreate()", "called");
 		appState = Finances.getInstance();
-	    account = appState.getAccount();  		
-	    history = appState.getHistory();
 	    
 	    Intent intent = getIntent(); //TODO: check if there are 
 	    requestCode = intent.getStringExtra("request");
@@ -87,13 +79,11 @@ public class AddInvestmentCheckAcct extends SherlockFragmentActivity
 	    spinner.setAdapter(adapter);
 	    spinner.setSelection(0);
 	    spinner.setOnItemSelectedListener(this);
-
-		
-		
+				
         if (requestCode.equals(AcctElements.UPDATE.toString())) {
 	    	
 	    	int id = intent.getIntExtra("investment_id", -1);
-	    	InvestmentCheckAcct investment = (InvestmentCheckAcct) account.getInvestmentById(id); // TODO: if id == -1
+	    	InvestmentCheckAcct investment = (InvestmentCheckAcct) appState.getAccount().getInvestmentById(id); // TODO: if id == -1
 	    	
 	    	investmentId = investment.getId();	    
 	    	

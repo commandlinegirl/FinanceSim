@@ -22,7 +22,6 @@ public class DebtLoan extends Debt
     private BigDecimal remaining_amount;   
     private int month_counter = 1;
     private String name;
-    private int id;    
     private int start_year;
     private int start_month;
     
@@ -35,6 +34,7 @@ public class DebtLoan extends Debt
     		BigDecimal _extra_payment,
     		int _start_year,
     		int _start_month) {
+    	    	
     	name = _name;
     	init_amount = _amount;
     	remaining_amount = Money.scale(_amount);
@@ -149,15 +149,6 @@ public class DebtLoan extends Debt
     	return extra_payment;
     }
           
-    public void setId(int id) {
-        this.id = id;
-    }
-    
-    @Override
-    public int getId() {
-        return id;
-    }
-    
     @Override
     public String getName() {
         return name;

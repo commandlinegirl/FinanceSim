@@ -16,10 +16,8 @@ import com.codelemma.finances.accounting.HistoryDebtMortgage;
 import com.codelemma.finances.accounting.HistoryExpenseGeneric;
 import com.codelemma.finances.accounting.HistoryIncomeGeneric;
 import com.codelemma.finances.accounting.HistoryInvestment401k;
-import com.codelemma.finances.accounting.HistoryInvestmentBond;
 import com.codelemma.finances.accounting.HistoryInvestmentCheckAcct;
 import com.codelemma.finances.accounting.HistoryInvestmentSavAcct;
-import com.codelemma.finances.accounting.HistoryInvestmentStock;
 import com.codelemma.finances.accounting.HistoryNetWorth;
 import com.codelemma.finances.accounting.TableVisitor;
 
@@ -568,110 +566,6 @@ public class TableMaker implements TableVisitor {
     			gru1.setNetInterests(formatter.formatNumber(net_interests[i]));
     			gru1.setContribution(formatter.formatNumber(contributions[i]));
     			gru1.setAmount(formatter.formatNumber(amounts[i])); 		
-    		}
-    		i++;
-    		prevYear = currYear;
-    	}    	    	        
-        return list;
-    }
-
-	@Override
-	public void makeTableInvestmentBond(HistoryInvestmentBond historyInvestmentBond) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void makeTableInvestmentStock(HistoryInvestmentStock historyInvestmentStock) {
-		
-    	// header
-		LinearLayout header = (LinearLayout) frgActivity.findViewById(R.id.header);
-		header.removeAllViews();
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, 
-                                                                         LinearLayout.LayoutParams.WRAP_CONTENT);                  
-        params.weight = 1;
-		TextView tv;
-		
-		tv = new TextView(frgActivity);
-		tv.setText("Date");
-		tv.setTextSize(11);
-		tv.setLayoutParams(params);
-		header.addView(tv);
-		
-		tv = new TextView(frgActivity);
-		tv.setText("Dividends");
-		tv.setTextSize(11);
-		tv.setLayoutParams(params);
-		header.addView(tv);
-		
-		tv = new TextView(frgActivity);
-		tv.setText("Capital Gains \n Yield");
-		tv.setTextSize(11);
-		tv.setLayoutParams(params);
-		header.addView(tv);
-		
-		tv = new TextView(frgActivity);
-		tv.setText("Tax");
-		tv.setTextSize(11);
-		tv.setLayoutParams(params);
-		header.addView(tv);		
-		
-		tv = new TextView(frgActivity);
-		tv.setText("Total");
-		tv.setTextSize(11);
-		tv.setLayoutParams(params);
-		header.addView(tv); 
-
-		
-    	ExpandableListView expandedList = (ExpandableListView) frgActivity.findViewById(R.id.exp_list);
-    	ArrayList<ListGroupInvestmentStock> ExpListItems = setGroupsInvestmentStock(historyInvestmentStock);
-    	ListAdapterInvestmentStock ExpAdapter = new ListAdapterInvestmentStock(frgActivity, ExpListItems);
-        expandedList.setAdapter(ExpAdapter);                
-	}
-	
-
-
-	public ArrayList<ListGroupInvestmentStock> setGroupsInvestmentStock(HistoryInvestmentStock historyInvestmentStock) {
-    	ArrayList<ListGroupInvestmentStock> list = new ArrayList<ListGroupInvestmentStock>();
-    	ArrayList<ListChildInvestmentStock> list2 = new ArrayList<ListChildInvestmentStock>();
-
-    	String[] dates = ((Main) frgActivity).getDates();
-    	BigDecimal[] amounts = historyInvestmentStock.getAmountHistory();
-    	BigDecimal[] taxes = historyInvestmentStock.getTaxHistory();
-    	BigDecimal[] yields = historyInvestmentStock.getCapitalGainYieldHistory();
-    	BigDecimal[] dividends = historyInvestmentStock.getDividendsHistory();
-    	
-    	int datesLen = dates.length;
-    	String prevYear = dates[0].substring(3);
-    	String currYear;
-    	ListGroupInvestmentStock gru1 = new ListGroupInvestmentStock();
-    	int i = 0;
-    	gru1.setDate(dates[i]);
-    	gru1.setTax(formatter.formatNumber(taxes[i]));
-		gru1.setCapitalGainYield(formatter.formatNumber(yields[i]));
-		gru1.setDividends(formatter.formatNumber(dividends[i]));
-		gru1.setAmount(formatter.formatNumber(amounts[i])); 
-        i++;
-    	while(i < datesLen) {    		
-    		currYear = dates[i].substring(3);
-    		if (prevYear.equals(currYear)) {
-    			ListChildInvestmentStock ch1_1 = new ListChildInvestmentStock();
-    			ch1_1.setDate(dates[i]);
-    			ch1_1.setTax(taxes[i].toString());
-    			ch1_1.setCapitalGainYield(yields[i].toString());
-    			ch1_1.setDividends(dividends[i].toString());
-    			ch1_1.setAmount(amounts[i].toString()); 
-	            list2.add(ch1_1);
-    		} else {
-    			gru1.setItems(list2);
-    			list.add(gru1);
-    			list2 = new ArrayList<ListChildInvestmentStock>();
-    			gru1 = new ListGroupInvestmentStock();
-    	    	gru1.setDate(dates[i]);
-    	    	gru1.setTax(taxes[i].toString());
-    			gru1.setCapitalGainYield(yields[i].toString());
-    			gru1.setDividends(dividends[i].toString());
-    			gru1.setAmount(amounts[i].toString()); 	
     		}
     		i++;
     		prevYear = currYear;

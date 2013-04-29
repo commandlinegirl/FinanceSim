@@ -2,9 +2,7 @@ package com.codelemma.finances;
 
 import java.math.BigDecimal;
 
-
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -16,29 +14,23 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragment;
-import com.codelemma.finances.accounting.Account;
 import com.codelemma.finances.accounting.DebtLoan;
 import com.codelemma.finances.accounting.DebtMortgage;
 import com.codelemma.finances.accounting.AccountingElement;
 
 public class FrgDebt extends SherlockFragment {
 	
-	private Account account;
     private Finances appState;
 	
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Inflate the layout for this fragment    	
-        View frView = inflater.inflate(R.layout.frg_debt, container, false);
-        return frView;
+        return inflater.inflate(R.layout.frg_debt, container, false);
 	}
 
 	@Override
     public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-        // Inflate the layout for this fragment 
 		appState = Finances.getInstance();
-		account = appState.getAccount();	
 	}
 
 	@Override
@@ -49,8 +41,8 @@ public class FrgDebt extends SherlockFragment {
     	tip.removeAllViews();
     	
         
-		if (account.getDebtsSize() > 0) {	 
-		   	Iterable<? extends AccountingElement> values = account.getDebts();
+		if (appState.getAccount().getDebtsSize() > 0) {	 
+		   	Iterable<? extends AccountingElement> values = appState.getAccount().getDebts();
 		   	updateInputListing(values);		    
 		} else {
 	        TextView tv = new TextView(getSherlockActivity());
@@ -93,8 +85,8 @@ public class FrgDebt extends SherlockFragment {
 		if (requestCode == AcctElements.UPDATE.getNumber()) {
       	
 		    int debt_id = data.getIntExtra("debt_id", -1);    		
-		    DebtLoan debt = (DebtLoan) account.getDebtById(debt_id); 
-		    account.removeDebt(debt);
+		    DebtLoan debt = (DebtLoan) appState.getAccount().getDebtById(debt_id); 
+		    appState.getAccount().removeDebt(debt);
 		    Log.d("FrgDebt.onDebtLoanResult()", "removed Debt No. "+debt_id);
 		    action = " updated.";		    
 		}
@@ -106,12 +98,12 @@ public class FrgDebt extends SherlockFragment {
 	    		extra_payment,
 	    		start_year,
 	    		start_month); 
-	    account.addDebt(debt);
+		appState.getAccount().addDebt(debt);
 	    	    
-        if ((appState.getCalculationStartYear() == start_year && appState.getCalculationStartMonth() >= start_month) 
-        			|| (appState.getCalculationStartYear() > start_year)) {    
-        	appState.setCalculationStartYear(start_year);
-        	appState.setCalculationStartMonth(start_month);
+        if ((appState.getAccount().getCalculationStartYear() == start_year && appState.getAccount().getCalculationStartMonth() >= start_month) 
+        			|| (appState.getAccount().getCalculationStartYear() > start_year)) {    
+        	appState.getAccount().setCalculationStartYear(start_year);
+        	appState.getAccount().setCalculationStartMonth(start_month);
         }
         
         Toast.makeText(getSherlockActivity(), name+action, Toast.LENGTH_SHORT).show();
@@ -134,8 +126,8 @@ public class FrgDebt extends SherlockFragment {
 		if (requestCode == AcctElements.UPDATE.getNumber()) {
       	
 		    int debt_id = data.getIntExtra("debt_id", -1);    		
-		    DebtMortgage debt = (DebtMortgage) account.getDebtById(debt_id); 
-		    account.removeDebt(debt);
+		    DebtMortgage debt = (DebtMortgage) appState.getAccount().getDebtById(debt_id); 
+		    appState.getAccount().removeDebt(debt);
 		    Log.d("FrgDebt.onDebtMortgageResult()", "removed Debt No. "+debt_id);
 		    action = " updated.";
 		}
@@ -151,12 +143,12 @@ public class FrgDebt extends SherlockFragment {
 	    		 pmi,
 		         start_year,
 		    	 start_month); 
-	    account.addDebt(debt);	   		
+		appState.getAccount().addDebt(debt);	   		
         Toast.makeText(getSherlockActivity(), name+action, Toast.LENGTH_SHORT).show();
-        if ((appState.getCalculationStartYear() == start_year && appState.getCalculationStartMonth() >= start_month) 
-    			|| (appState.getCalculationStartYear() > start_year)) {    
-    	    appState.setCalculationStartYear(start_year);
-    	    appState.setCalculationStartMonth(start_month);
+        if ((appState.getAccount().getCalculationStartYear() == start_year && appState.getAccount().getCalculationStartMonth() >= start_month) 
+    			|| (appState.getAccount().getCalculationStartYear() > start_year)) {    
+        	appState.getAccount().setCalculationStartYear(start_year);
+        	appState.getAccount().setCalculationStartMonth(start_month);
         }
         ((Main) getSherlockActivity()).recalculate(new FrgDebt());
 

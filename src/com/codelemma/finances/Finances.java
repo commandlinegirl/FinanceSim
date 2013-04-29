@@ -6,10 +6,8 @@ import java.util.Map.Entry;
 
 import android.app.Application;
 import android.preference.PreferenceManager;
-import android.util.Log;
 
 import com.codelemma.finances.accounting.Account;
-import com.codelemma.finances.accounting.DefaultAccountFactory;
 import com.codelemma.finances.accounting.DebtLoan;
 import com.codelemma.finances.accounting.DebtMortgage;
 import com.codelemma.finances.accounting.ExpenseGeneric;
@@ -19,26 +17,19 @@ import com.codelemma.finances.accounting.IncomeGeneric;
 import com.codelemma.finances.accounting.Investment401k;
 import com.codelemma.finances.accounting.InvestmentCheckAcct;
 import com.codelemma.finances.accounting.InvestmentSavAcct;
-import com.codelemma.finances.accounting.Money;
 import com.codelemma.finances.accounting.SafeAccountFactory;
 import com.codelemma.finances.accounting.SafeStorageAccountFactory;
 import com.codelemma.finances.accounting.Storage;
 
 public class Finances extends Application {
-    private int simStartMonth = -1; // not set yet
-    private int simStartYear = -1;  // not set yet
-    private int calcStartMonth = -1; // not set yet
-    private int calcStartYear = -1;  // not set yet
-	private int preCalculationLength = 0; // number of months for pre calculatoins (until simulation (for history) starts)
-    private int simulationLength = 600;// 50*12;
-	private int totalCalculationLength = 0; // number of months for total calculatoins (simulation + precalculations)
+    private static Finances appInstance;
 	private SafeAccountFactory accountFactory;
     private Account account;
     private History history;    
-    private static Finances appInstance;
 	private boolean needToRecalculate = true;
 	private int numberOfMonthsInChart = 60; //5*12;
-    private int spinnerPosition = 0;
+	//needed to save the user's spinner setting across chart & table fragments	 
+    private int spinnerPosition = 0;     
 	
     @Override
     public void onCreate() {        
@@ -63,67 +54,6 @@ public class Finances extends Application {
 		return numberOfMonthsInChart;
 	}
 	
-	public void setSimulationStartYear(int simStartYear){
-	    this.simStartYear = simStartYear;
-	}		
-
-	public void setSimulationStartMonth(int simStartMonth){
-	    this.simStartMonth = simStartMonth;
-	}			
-	
-	public int getSimulationStartYear(){
-	    return simStartYear;
-	}		
-	
-	public int getSimulationStartMonth(){
-	    return simStartMonth;
-	}	
-	
-	public void setCalculationStartYear(int calcStartYear){
-	    this.calcStartYear = calcStartYear;
-	}		
-
-	public void setCalculationStartMonth(int calcStartMonth){
-	    this.calcStartMonth = calcStartMonth;
-	}			
-	
-	public int getCalculationStartYear(){
-	    return calcStartYear;
-	}		
-	
-	public int getCalculationStartMonth(){
-	    return calcStartMonth;
-	}	
-	
-	public int getTotalCalculationLength() {
-		return totalCalculationLength;
-	}
-
-	public int getPreCalculationLength() {
-		return preCalculationLength;
-	}
-	
-	public void computeCalculationLength() {
-		/* Get the total number of months the calculation (ie. advance iteration in Account)
-		 * needs to proceed for. It is the sum of simulation time (eg. 30 years) and 
-		 * pre-calculation time (in months) */
-        int _preCalculationLength = 0;
-        
-        int year = calcStartYear;
-        int month = calcStartMonth;
-        while ((year < simStartYear) || (year == simStartYear && month < simStartMonth)) {  
-        	_preCalculationLength++;
-        	if (month == 11) {
-                month = 0;
-                year += 1;
-            } else {
-                month++;
-            }
-    	} 
-        preCalculationLength = _preCalculationLength;        
-        totalCalculationLength =  simulationLength + preCalculationLength;
-	}
-	
 	public boolean needToRecalculate() {
 		return needToRecalculate;
 	}
@@ -133,7 +63,9 @@ public class Finances extends Application {
 	}
 
 	public void setAccount() {
-		account = accountFactory.createAccount(simStartYear, simStartMonth);
+		// account = accountFactory.createAccount(simStartYear, simStartMonth);
+		// AleZ: removed simStartYear, simStartMonth
+		account = accountFactory.createAccount();
 	}
 	
 	public void saveAccount() {
@@ -171,8 +103,7 @@ public class Finances extends Application {
 		TypedContainer investmentsCont = Serializer.parseToMap(investments);		
 		Iterator<Entry<TypedKey<?>, Object>> i = investmentsCont.iterator();		
 		
-		/* Restore Savings account*/
-		
+		/* Restore Savings account*/	
 		while (i.hasNext()) {
 			TypedContainer tc = ((TypedContainer) i.next().getValue());
 			tc.get(TypedKey.getKey("id"));
@@ -226,16 +157,9 @@ public class Finances extends Application {
                     start_year,
                     start_month);
             account.addInvestment(investment);
-            
-            
-            
 		}
-		
-
 	
 	/* Restore checking account*/
-
-	
 		while (i.hasNext()) {
 			TypedContainer tc = ((TypedContainer) i.next().getValue());
 			tc.get(TypedKey.getKey("id"));
@@ -334,15 +258,12 @@ public class Finances extends Application {
 		                         start_month);    		   		    		
             account.addDebt(debt);
 		}
-		
 	}	
 
 	public void setHistory() {
-		history = new History(simStartYear, simStartMonth, simulationLength);
-	}
-
-	public int getSimulationLength() {
-		return simulationLength;
+		history = new History(account.getSimulationStartYear(),
+				account.getSimulationStartMonth(),
+				account.getSimulationLength());
 	}
 	
 	public int getSpinnerPosition() {

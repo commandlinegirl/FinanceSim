@@ -22,10 +22,8 @@ import com.codelemma.finances.accounting.HistoryDebtMortgage;
 import com.codelemma.finances.accounting.HistoryExpenseGeneric;
 import com.codelemma.finances.accounting.HistoryIncomeGeneric;
 import com.codelemma.finances.accounting.HistoryInvestment401k;
-import com.codelemma.finances.accounting.HistoryInvestmentBond;
 import com.codelemma.finances.accounting.HistoryInvestmentCheckAcct;
 import com.codelemma.finances.accounting.HistoryInvestmentSavAcct;
-import com.codelemma.finances.accounting.HistoryInvestmentStock;
 import com.codelemma.finances.accounting.HistoryNetWorth;
 import com.codelemma.finances.accounting.Money;
 import com.codelemma.finances.accounting.PlotVisitor;
@@ -224,21 +222,6 @@ public class Plotter implements PlotVisitor {
         plot(values, "Investment"); 						
 	}
 	
-	@Override
-	public void plotInvestmentBond(HistoryInvestmentBond historyInvestmentBond) {
-		HashMap<String,BigDecimal[]> values = new HashMap<String,BigDecimal[]>(1);
-		values.put(historyInvestmentBond.getName(), historyInvestmentBond.getAmountHistory());
-        plot(values, "Investment"); 				
-	}
-
-	@Override
-	public void plotInvestmentStock(
-			HistoryInvestmentStock historyInvestmentStock) {
-		HashMap<String,BigDecimal[]> values = new HashMap<String,BigDecimal[]>(1);
-		values.put(historyInvestmentStock.getName(), historyInvestmentStock.getAmountHistory());
-        plot(values, "Investment"); 				
-	}
-
 	@Override
 	public void plotDebtMortgage(HistoryDebtMortgage historyDebtMortgage) {         		        
 		HashMap<String,BigDecimal[]> values = new HashMap<String,BigDecimal[]>(1);

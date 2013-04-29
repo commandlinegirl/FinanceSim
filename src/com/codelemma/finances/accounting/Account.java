@@ -3,46 +3,99 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import android.util.SparseArray;
-
 public class Account {
-    private int simStartYear;
-    private int simStartMonth;
+    private int simStartMonth = -1; // not set yet
+    private int simStartYear = -1;  // not set yet
+    private int calcStartMonth = -1; // not set yet
+    private int calcStartYear = -1;  // not set yet
+	private int preCalculationLength = 0; // number of months for pre calculatoins (until simulation (for history) starts)
+    private int simulationLength = 600;// 50*12;
+	private int totalCalculationLength = 0; // number of months for total calculatoins (simulation + precalculations)
+    
     private BigDecimal investmentsPercontrib;
     private BigDecimal checkingAcctPercontrib;
 	private InvestmentCheckAcct checkingAcct; 	
-
-	// To be refactored away. They won't be needed once each accounting element class
-	// assumes responsibility for assigning its own instance ids.
-    private int income_id = 0;
-    private int expense_id = 0;
-    private int investment_id = 0;
-    private int debt_id = 0;
-    
-    private SparseArray<Income> income_ids = new SparseArray<Income>();
-    private SparseArray<Expense> expense_ids = new SparseArray<Expense>();
-    private SparseArray<Investment> investment_ids = new SparseArray<Investment>();
-    private SparseArray<Debt> debt_ids = new SparseArray<Debt>();
     
     private ArrayList<Income> incomes = new ArrayList<Income>();
     private ArrayList<Expense> expenses = new ArrayList<Expense>();
     private ArrayList<Investment> investments = new ArrayList<Investment>();
     private ArrayList<Debt> debts = new ArrayList<Debt>();
-
     private HistoryCashflows cashflows = new HistoryCashflows("Cashflows (per month)");
     private HistoryNetWorth net_worth = new HistoryNetWorth("Net worth (cumulative)");    
     
-    public Account(int year, int month) {
-    	simStartYear = year;
-    	simStartMonth = month;
+    public Account() {
     	investmentsPercontrib = Money.ZERO;
     	checkingAcctPercontrib = Money.ZERO;
     }
     
+	public void setSimulationStartYear(int simStartYear){
+	    this.simStartYear = simStartYear;
+	}		
+
+	public void setSimulationStartMonth(int simStartMonth){
+	    this.simStartMonth = simStartMonth;
+	}			
+	
+	public int getSimulationStartYear(){
+	    return simStartYear;
+	}		
+	
+	public int getSimulationStartMonth(){
+	    return simStartMonth;
+	}	
+	
+	public void setCalculationStartYear(int calcStartYear){
+	    this.calcStartYear = calcStartYear;
+	}		
+
+	public void setCalculationStartMonth(int calcStartMonth){
+	    this.calcStartMonth = calcStartMonth;
+	}			
+	
+	public int getCalculationStartYear(){
+	    return calcStartYear;
+	}		
+	
+	public int getCalculationStartMonth(){
+	    return calcStartMonth;
+	}	
+	
+	public int getTotalCalculationLength() {
+		return totalCalculationLength;
+	}
+
+	public int getPreCalculationLength() {
+		return preCalculationLength;
+	}
+	
+	public int getSimulationLength() {
+		return simulationLength;
+	}
+	
+	public void computeCalculationLength() {
+		/* Get the total number of months the calculation (ie. advance iteration in Account)
+		 * needs to proceed for. It is the sum of simulation time (eg. 30 years) and 
+		 * pre-calculation time (in months) */
+        int _preCalculationLength = 0;
+        
+        int year = calcStartYear;
+        int month = calcStartMonth;
+        while ((year < simStartYear) || (year == simStartYear && month < simStartMonth)) {  
+        	_preCalculationLength++;
+        	if (month == 11) {
+                month = 0;
+                year += 1;
+            } else {
+                month++;
+            }
+    	} 
+        preCalculationLength = _preCalculationLength;        
+        totalCalculationLength =  simulationLength + preCalculationLength;
+	}	
+    
     public BigDecimal getInvestmentsPercontrib() {
     	return investmentsPercontrib;
-    }
-    
+    }    
 
     public void addToInvestmentsPercontrib(BigDecimal newPercentage) {
     	investmentsPercontrib = investmentsPercontrib.add(newPercentage);
@@ -66,62 +119,47 @@ public class Account {
     
     public void addExpense(Expense expense) {
     	Preconditions.checkNotNull(expense, "Missing expense");
-    	expense.setId(expense_id);        
         expenses.add(expense);
-        expense_ids.put(expense_id, expense);
-        expense_id++;
     }   
 
     public void addInvestment(Investment investment) {
     	Preconditions.checkNotNull(investment, "Missing investment");
-    	investment.setId(investment_id);        
         investments.add(investment);        
-        investment_ids.put(investment_id, investment);        
-        investment_id++;
     }   
 
     public void addIncome(Income income) {
         Preconditions.checkNotNull(income, "Missing income");    	
-    	income.setId(income_id);
-        incomes.add(income);
-        income_ids.put(income_id, income);
-        income_id++;        
+        incomes.add(income);       
     }
 
     public void addDebt(Debt debt) {
     	Preconditions.checkNotNull(debt, "Missing debt");
-    	debt.setId(debt_id);        
-        debts.add(debt);
-        debt_ids.put(debt_id, debt);
-        debt_id++;        
+        debts.add(debt);       
     }   
            
     // These four methods simply add an accounting element without doing other unrelated work.
     // They should be removed once add*() are refactored to only do adding.
     // Currently they should only be used for accounting element objects which already have an id.
+    // AleZ: OK, removed placing in the ids_* lists 
 
     public void justAddExpense(Expense expense) {
     	Preconditions.checkNotNull(expense, "Missing expense");
         expenses.add(expense);
-        expense_ids.put(expense.getId(), expense); // May be removed in refactoring.
     }   
 
     public void justAddInvestment(Investment investment) {
     	Preconditions.checkNotNull(investment, "Missing investment");
         investments.add(investment);
-        investment_ids.put(investment.getId(), investment);
     }   
 
     public void justAddIncome(Income income) {
         Preconditions.checkNotNull(income, "Missing income");    	
         incomes.add(income);
-        income_ids.put(income.getId(), income);
     }
 
     public void justAddDebt(Debt debt) {
     	Preconditions.checkNotNull(debt, "Missing debt");
         debts.add(debt);
-        debt_ids.put(debt.getId(), debt);
     }
     
     public void addAccountingElement(AccountingElement accountingElement) {
@@ -132,28 +170,24 @@ public class Account {
     public void removeIncome(Income income) {
     	if (income != null) {
     		incomes.remove(income);
-        	income_ids.remove(income.getId());    		
     	}    	    	
     }
 
     public void removeExpense(Expense expense) {
     	if (expense != null) {
     		expenses.remove(expense);
-        	expense_ids.remove(expense.getId());
     	}
     }
 
     public void removeInvestment(Investment investment) {
     	if (investment != null) {
     		investments.remove(investment);
-        	investment_ids.remove(investment.getId());
     	}    	
     }
 
     public void removeDebt(Debt debt) {
     	if (debt != null) {
     		debts.remove(debt);
-        	debt_ids.remove(debt.getId());
     	}
     }
     
@@ -190,21 +224,41 @@ public class Account {
     }   
     
     public Income getIncomeById(int id) {
-    	return income_ids.get(id);
-    }
-    
+        for (Income income: incomes) {
+           if (income.getId() == id) {
+               return income;
+           }
+        }
+   	    return null;
+   	}
+
     public Expense getExpenseById(int id) {
-    	return expense_ids.get(id);
-    }
+       for (Expense expense: expenses) {
+           if (expense.getId() == id) {
+               return expense;
+           }
+       } 	
+   	   return null;
+   	}
     
     public Investment getInvestmentById(int id) {
-    	return investment_ids.get(id);
-    }
-    
+       for (Investment investment: investments) {
+           if (investment.getId() == id) {
+               return investment;
+           }
+       }
+   	   return null;    
+   	}
+
     public Debt getDebtById(int id) {
-    	return debt_ids.get(id);
+        for (Debt debt: debts) {
+             if (debt.getId() == id) {
+            	 return debt;
+             }
+        }    	
+    	return null;
     }
-        
+
     public void setInitDebt() {
         for (Debt debt: debts) {
         	debt.setValuesBeforeCalculation();

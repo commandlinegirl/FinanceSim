@@ -2,12 +2,9 @@ package com.codelemma.finances;
 
 import java.util.ArrayList;
 
-
 import com.actionbarsherlock.app.SherlockFragment;
-import com.codelemma.finances.accounting.History;
 import com.codelemma.finances.accounting.HistoryNew;
 import com.codelemma.finances.accounting.PlotVisitor;
-
 
 import android.os.Bundle;
 import android.util.SparseArray;
@@ -20,11 +17,11 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemSelectedListener;
-import android.widget.Toast;
 
 public class FrgChart extends SherlockFragment 
                       implements OnItemSelectedListener{
- 
+
+	private Finances appState;
 	private View toggleYrs1;
 	private View toggleYrs5;
 	private View toggleYrs10;	
@@ -32,18 +29,15 @@ public class FrgChart extends SherlockFragment
 	private View toggleYrs50;
 	private int currentElement;
 	private PlotVisitor plotVisitor;
-	private Finances appState;
 	private ArrayList<HistoryNew> historyItems = new ArrayList<HistoryNew>();
-    private History history;
     
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         currentElement = ((Main) getSherlockActivity()).getCurrentElement();
     	appState = Finances.getInstance(); 	    	    	   
-    	history = appState.getHistory();
         
-        for (HistoryNew i : history.getHistory(currentElement)) {
+        for (HistoryNew i : appState.getHistory().getHistory(currentElement)) {
         	historyItems.add(i);
         }
     	
@@ -90,7 +84,7 @@ public class FrgChart extends SherlockFragment
 
 	        
         	
-	        plotVisitor = new Plotter(getSherlockActivity(), history.getDates());
+	        plotVisitor = new Plotter(getSherlockActivity(), appState.getHistory().getDates());
 
     	} else {
 	        

@@ -1,6 +1,7 @@
 package com.codelemma.finances.accounting;
 
 import java.math.BigDecimal;
+import java.util.Calendar;
 
 /**
  * Factory(dp) for default Account objects. The objects come pre-populated with
@@ -10,9 +11,18 @@ import java.math.BigDecimal;
  */
 public class DefaultAccountFactory implements AccountFactory {
     @Override
-    public Account createAccount(int simStartYear, int simStartMonth) {
-    	Account account = new Account(simStartYear, simStartMonth);
-    	InvestmentCheckAcct checkingAccount = createDefaultCheckingAccount(simStartYear, simStartMonth);
+	// AleZ: removed parameters simStartYear, simStartMonth
+    // public Account createAccount(int simStartYear, int simStartMonth) {
+    public Account createAccount() {
+    	Account account = new Account();
+    	// AleZ: removed parameters simStartYear, simStartMonth
+    	// InvestmentCheckAcct checkingAccount = createDefaultCheckingAccount(simStartYear, simStartMonth);    	
+    	Calendar c = Calendar.getInstance();    	
+    	InvestmentCheckAcct checkingAccount = createDefaultCheckingAccount(c.get(Calendar.YEAR), c.get(Calendar.MONTH));
+    	account.setSimulationStartYear(c.get(Calendar.YEAR));
+    	account.setSimulationStartMonth(c.get(Calendar.MONTH));
+    	account.setCalculationStartYear(c.get(Calendar.YEAR));
+    	account.setCalculationStartMonth(c.get(Calendar.MONTH));
 		account.addInvestment(checkingAccount);
     	account.setCheckingAcct(checkingAccount);
     	account.setCheckingAcctPercontrib();

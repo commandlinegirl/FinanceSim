@@ -1,14 +1,11 @@
 package com.codelemma.finances;
 
-
 import java.util.ArrayList;
 import java.util.Calendar;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
-import com.codelemma.finances.accounting.Account;
-import com.codelemma.finances.accounting.History;
 import com.codelemma.finances.accounting.Income;
 import com.codelemma.finances.accounting.Investment401k;
 
@@ -34,15 +31,12 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
 public class AddInvestment401k extends SherlockFragmentActivity 
                                implements FrgDatePicker.OnDateSelectedListener, OnItemSelectedListener {
-	
-	private History history;
-	private Account account;	
+		
+	private Finances appState;
 	private String requestCode;
-	private int investmentId;
-	private Finances appState;	
+	private int investmentId;	
 	private int setMonth;
 	private int setYear;
 	private ArrayList<Income> salaries = new ArrayList<Income>();
@@ -70,8 +64,8 @@ public class AddInvestment401k extends SherlockFragmentActivity
              		* to null.
             		*/
             	   investment.getIncome().setInvestment401k(null);
-            	   account.removeInvestment(investment); 
-            	   history.removeInvestmentHistory(investment.getHistory()); 
+            	   appState.getAccount().removeInvestment(investment); 
+            	   appState.getHistory().removeInvestmentHistory(investment.getHistory()); 
             	   appState.needToRecalculate(true);
                    Toast.makeText(AddInvestment401k.this, investment.getName()+" deleted.", Toast.LENGTH_SHORT).show();
             	   finish();
@@ -129,10 +123,8 @@ public class AddInvestment401k extends SherlockFragmentActivity
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		Log.d("AddInvestment.onCreate()", "called");
 		appState = Finances.getInstance();
-	    account = appState.getAccount();  		
-	    history = appState.getHistory();
 	    	       
-        for (Income i : account.getIncomes()) {
+        for (Income i : appState.getAccount().getIncomes()) {
         	salaries.add(i);
         }
 	    
@@ -155,7 +147,7 @@ public class AddInvestment401k extends SherlockFragmentActivity
         if (requestCode.equals(AcctElements.UPDATE.toString())) {
 	    	
 	    	int id = intent.getIntExtra("investment_id", -1);
-	    	Investment401k investment = (Investment401k) account.getInvestmentById(id); // TODO: if id == -1
+	    	Investment401k investment = (Investment401k) appState.getAccount().getInvestmentById(id); // TODO: if id == -1
 	    	
 	    	investmentId = investment.getId();	    
 	    	

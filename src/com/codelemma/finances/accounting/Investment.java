@@ -2,11 +2,18 @@ package com.codelemma.finances.accounting;
 import java.math.BigDecimal;
 
 public abstract class Investment implements AccountingElement {
+	
+	private static int next_id = 0;
+	private final int id = next_id;
+	
+	public Investment() {
+		next_id++;		
+	}
+		
 	public abstract  BigDecimal getInitAmount();
     public abstract  BigDecimal getPercontrib();
     public abstract  void initialize();     
 	// TODO: Methods which are present in all four abstract classes implementing AccountingElement should be moved to AccountingElement.
-    public abstract  void setId(int id);
     public abstract boolean isCheckingAcct();
     public abstract boolean isPreTax();
     public abstract BigDecimal getInterestsNet();
@@ -23,4 +30,9 @@ public abstract class Investment implements AccountingElement {
 	public void addToAccount(Account account) {
 		account.justAddInvestment(this);
 	}
+	
+	@Override 
+	public int getId() {
+		return id;
+	}	
 }

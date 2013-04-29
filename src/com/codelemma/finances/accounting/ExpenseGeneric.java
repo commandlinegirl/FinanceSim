@@ -15,7 +15,6 @@ public class ExpenseGeneric extends Expense
     private BigDecimal hidden_periodic_expense;    
     private String name;
     private int frequency;
-    private int id;
     private HistoryExpenseGeneric history;
     private int[] monthNumbersForDisplay = {12, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11};    
     
@@ -81,16 +80,6 @@ public class ExpenseGeneric extends Expense
     public int getFrequency() {
         return frequency;
     }    
-   
-    @Override
-    public int getId() {
-        return id;
-    }    
-    
-    @Override
-	public void setId(int id) {
-		this.id = id;		
-	}
     
     @Override
     public String getName() {

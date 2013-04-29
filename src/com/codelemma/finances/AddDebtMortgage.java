@@ -5,9 +5,7 @@ import java.util.Calendar;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
-import com.codelemma.finances.accounting.Account;
 import com.codelemma.finances.accounting.DebtMortgage;
-import com.codelemma.finances.accounting.History;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -30,11 +28,9 @@ import android.widget.Toast;
 public class AddDebtMortgage extends SherlockFragmentActivity 
                              implements FrgDatePicker.OnDateSelectedListener {
 	
-	private Account account;
-	private History history;
+	private Finances appState;
 	private String requestCode;
-	private int debtId;
-	private Finances appState;	
+	private int debtId;	
 	private int setMonth;
 	private int setYear;
 	
@@ -56,8 +52,8 @@ public class AddDebtMortgage extends SherlockFragmentActivity
             .setMessage("Do you want to delete this item?")                
             .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                public void onClick(DialogInterface dialog, int id) {
-            	   account.removeDebt(debt); 
-            	   history.removeDebtHistory(debt.getHistory());
+            	   appState.getAccount().removeDebt(debt); 
+            	   appState.getHistory().removeDebtHistory(debt.getHistory());
             	   appState.needToRecalculate(true);
                    Toast.makeText(AddDebtMortgage.this, debt.getName()+" deleted.", Toast.LENGTH_SHORT).show();
             	   finish();
@@ -105,10 +101,8 @@ public class AddDebtMortgage extends SherlockFragmentActivity
 
 		
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-		Log.d("AddDebt.onCreate()", "called");
+		Log.d("AddDebtMortgage.onCreate()", "called");
 		appState = Finances.getInstance();
-		account = appState.getAccount();
-		history = appState.getHistory();
 	    
 	    Intent intent = getIntent(); //TODO: check if there are 
 	    requestCode = intent.getStringExtra("request");
@@ -122,7 +116,7 @@ public class AddDebtMortgage extends SherlockFragmentActivity
 	    if (requestCode.equals(AcctElements.UPDATE.toString())) {
 	    	
 	    	int id = intent.getIntExtra("debt_id", -1);
-	    	DebtMortgage debt = (DebtMortgage) account.getDebtById(id); // TODO: if id == -1
+	    	DebtMortgage debt = (DebtMortgage) appState.getAccount().getDebtById(id); // TODO: if id == -1
 	    	Log.d("supposed to be MORTGAGE ID", String.valueOf(id));
 	    	debtId = debt.getId();	    
 

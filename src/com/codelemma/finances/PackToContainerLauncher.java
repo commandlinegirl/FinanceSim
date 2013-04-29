@@ -5,10 +5,8 @@ import com.codelemma.finances.accounting.DebtMortgage;
 import com.codelemma.finances.accounting.ExpenseGeneric;
 import com.codelemma.finances.accounting.IncomeGeneric;
 import com.codelemma.finances.accounting.Investment401k;
-import com.codelemma.finances.accounting.InvestmentBond;
 import com.codelemma.finances.accounting.InvestmentCheckAcct;
 import com.codelemma.finances.accounting.InvestmentSavAcct;
-import com.codelemma.finances.accounting.InvestmentStock;
 import com.codelemma.finances.accounting.PackToContainerVisitor;
 
 public class PackToContainerLauncher implements PackToContainerVisitor {
@@ -66,28 +64,6 @@ public class PackToContainerLauncher implements PackToContainerVisitor {
         container.put(TypedKey.INVESTMENTCHECK_INTEREST_RATE, investmentcheck.getInterestRate());
         container.put(TypedKey.INVESTMENTCHECK_START_YEAR, investmentcheck.getStartYear());
         container.put(TypedKey.INVESTMENTCHECK_START_MONTH, investmentcheck.getStartMonth());
-    	return container;
-	}
-	
-	@Override
-	public TypedContainer packInvestmentStock(InvestmentStock investmentstock) {
-    	TypedContainer container = new TypedContainer();
-    	container.put(TypedKey.INVESTMENTSTOCK_NAME, investmentstock.getName());    	
-        container.put(TypedKey.INVESTMENTSTOCK_INIT_AMOUNT,  investmentstock.getInitAmount());
-        container.put(TypedKey.INVESTMENTSTOCK_PERCONTRIB, investmentstock.getPercontrib());
-        container.put(TypedKey.INVESTMENTSTOCK_TAX_RATE, investmentstock.getTaxRate());
-        container.put(TypedKey.INVESTMENTSTOCK_APPRECIATION, investmentstock.getAppreciation());
-        container.put(TypedKey.INVESTMENTSTOCK_DIVIDENDS, investmentstock.getDividends());
-    	return container;
-	}
-	
-	@Override
-	public TypedContainer packInvestmentBond(InvestmentBond investmentbond) {
-    	TypedContainer container = new TypedContainer();
-    	container.put(TypedKey.INVESTMENTBOND_NAME, investmentbond.getName());    	
-        container.put(TypedKey.INVESTMENTBOND_INIT_AMOUNT,  investmentbond.getInitAmount());
-        container.put(TypedKey.INVESTMENTBOND_PERCONTRIB, investmentbond.getPercontrib());
-        container.put(TypedKey.INVESTMENTBOND_TAX_RATE, investmentbond.getTaxRate());
     	return container;
 	}
 

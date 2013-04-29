@@ -5,9 +5,7 @@ import java.util.Calendar;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
-import com.codelemma.finances.accounting.Account;
 import com.codelemma.finances.accounting.ExpenseGeneric;
-import com.codelemma.finances.accounting.History;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -31,15 +29,12 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
 public class AddExpenseGeneric extends SherlockFragmentActivity 
                                implements OnItemSelectedListener, FrgDatePicker.OnDateSelectedListener {
 
-	private Account account;
-	private History history;
+	private Finances appState;
 	private String requestCode;
 	private int expenseId;
-	private Finances appState;
 	private int[] frequency_items = {1, 3, 6, 12}; // in months
 	int frequency = 1;
 	private int setMonth;
@@ -63,8 +58,8 @@ public class AddExpenseGeneric extends SherlockFragmentActivity
             .setMessage("Do you want to delete this item?")                
             .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                public void onClick(DialogInterface dialog, int id) {
-            	   account.removeExpense(expense);             	   
-            	   history.removeExpenseHistory(expense.getHistory());            	   
+            	   appState.getAccount().removeExpense(expense);             	   
+            	   appState.getHistory().removeExpenseHistory(expense.getHistory());            	   
             	   appState.needToRecalculate(true);
                    Toast.makeText(AddExpenseGeneric.this, expense.getName()+" deleted.", Toast.LENGTH_SHORT).show();
             	   finish();
@@ -123,10 +118,7 @@ public class AddExpenseGeneric extends SherlockFragmentActivity
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		Log.d("AddExpense.onCreate()", "called");		
 		appState = Finances.getInstance();
-	    account = appState.getAccount();    
-	    history = appState.getHistory();
-	    
-	    
+
 	    Spinner spinner = (Spinner) findViewById(R.id.expense_frequency);
 	    ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
 	         R.array.expense_frequency_spinner, android.R.layout.simple_spinner_item);
@@ -147,7 +139,7 @@ public class AddExpenseGeneric extends SherlockFragmentActivity
 	    if (requestCode.equals(AcctElements.UPDATE.toString())) {
 	    	
 	    	int id = intent.getIntExtra("expense_id", -1);
-	    	ExpenseGeneric expense = (ExpenseGeneric) account.getExpenseById(id); // TODO: if id == -1
+	    	ExpenseGeneric expense = (ExpenseGeneric) appState.getAccount().getExpenseById(id); // TODO: if id == -1
 	    	
 	    	expenseId = expense.getId();	    
 		    	     									

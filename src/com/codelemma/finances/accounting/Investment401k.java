@@ -11,7 +11,6 @@ import com.codelemma.finances.TypedContainer;
 public class Investment401k extends Investment 
                             implements AccountingElement {
 	
-	private int id;
 	private String name;	
     private BigDecimal init_amount;
     private BigDecimal init_percontrib;  
@@ -165,12 +164,7 @@ public class Investment401k extends Investment
     public BigDecimal calculateInterestsNet(BigDecimal interests_gross, 
     		                          BigDecimal interests_gross_tax) {
     	return interests_gross.subtract(interests_gross_tax);
-    }   
-    
-    @Override
-    public int getId() {
-        return id;
-    }    
+    }      
       
 	@Override
 	public BigDecimal getInitAmount() {
@@ -268,11 +262,6 @@ public class Investment401k extends Investment
         employer_match = Money.scaleRate(employer_match);
         employer_match_decimal = employer_match.divide(Money.HUNDRED, Money.RATE_DECIMALS, Money.ROUNDING_MODE);
         monthly_employer_contribution = Money.getPercentage(monthly_employee_contribution, employer_match_decimal);
-	}
-
-	@Override
-	public void setId(int id) {
-		this.id = id;		
 	}
 	
 	@Override

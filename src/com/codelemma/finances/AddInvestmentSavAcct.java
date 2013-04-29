@@ -32,17 +32,14 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
 public class AddInvestmentSavAcct extends SherlockFragmentActivity 
                                   implements OnItemSelectedListener, FrgDatePicker.OnDateSelectedListener {
 
-	private Account account;	
-	private History history;
+	private Finances appState;
 	private String requestCode;
 	private int investmentId;
     private int[] capitalization_items = {1, 3, 6, 12, 24}; 
     private int capitalization = 1;
-	private Finances appState;    
 	private int setMonth;
 	private int setYear;
 	private BigDecimal currentPercontrib;
@@ -65,11 +62,11 @@ public class AddInvestmentSavAcct extends SherlockFragmentActivity
             .setMessage("Do you want to delete this item?")                
             .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                public void onClick(DialogInterface dialog, int id) {
-            	   account.removeInvestment(investment);             	   
+            	   appState.getAccount().removeInvestment(investment);             	   
        	    	   /* Remove specified percent of excess money from current total percent of excess money */
-       	    	   account.subtractFromInvestmentsPercontrib(investment.getPercontrib());
-       	    	   account.setCheckingAcctPercontrib();
-            	   history.removeInvestmentHistory(investment.getHistory());
+            	   appState.getAccount().subtractFromInvestmentsPercontrib(investment.getPercontrib());
+            	   appState.getAccount().setCheckingAcctPercontrib();
+            	   appState.getHistory().removeInvestmentHistory(investment.getHistory());
             	   appState.needToRecalculate(true);
                    Toast.makeText(AddInvestmentSavAcct.this, investment.getName()+" deleted.", Toast.LENGTH_SHORT).show();
             	   finish();
@@ -124,10 +121,8 @@ public class AddInvestmentSavAcct extends SherlockFragmentActivity
 		setContentView(R.layout.act_add_investmentsavacct);
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-		Log.d("AddInvestment.onCreate()", "called");
+		Log.d("AddInvestmentSavAcct.onCreate()", "called");
 		appState = Finances.getInstance();
-	    account = appState.getAccount();  		
-	    history = appState.getHistory();
 	    
 	    Intent intent = getIntent(); //TODO: check if there are 
 	    requestCode = intent.getStringExtra("request");
@@ -172,7 +167,7 @@ public class AddInvestmentSavAcct extends SherlockFragmentActivity
         if (requestCode.equals(AcctElements.UPDATE.toString())) {
 	    	
 	    	int id = intent.getIntExtra("investment_id", -1);
-	    	InvestmentSavAcct investment = (InvestmentSavAcct) account.getInvestmentById(id); // TODO: if id == -1
+	    	InvestmentSavAcct investment = (InvestmentSavAcct) appState.getAccount().getInvestmentById(id); // TODO: if id == -1
 	    	
 	    	investmentId = investment.getId();	    
 	    	
@@ -278,7 +273,7 @@ public class AddInvestmentSavAcct extends SherlockFragmentActivity
 	    /* If view == null, it means the data is being updated, not new added */
 	    
 	    BigDecimal perc = new BigDecimal(percontribData);
-	    BigDecimal currentinvestmentsPercontrib = account.getInvestmentsPercontrib();
+	    BigDecimal currentinvestmentsPercontrib = appState.getAccount().getInvestmentsPercontrib();
 	    BigDecimal totalPercontribToCheck;
 	    if (view == null) {
 	    	totalPercontribToCheck = currentinvestmentsPercontrib.subtract(currentPercontrib).add(perc);

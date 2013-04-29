@@ -24,13 +24,14 @@ public class SafeAccountFactory implements AccountFactory {
     }
 
     @Override
-    public Account createAccount(int simStartYear, int simStartMonth) {
+    // AleZ: removed parameters simStartYear, simStartMonth
+    public Account createAccount() {
     	try {
-    		return primaryFactory.createAccount(simStartYear, simStartMonth);
+    		return primaryFactory.createAccount();
     	} catch (AccountCreationException ace) {
     		ace.printStackTrace();
     		attemptToFix(ace);
-    		return defaultAccountFactory.createAccount(simStartYear, simStartMonth);
+    		return defaultAccountFactory.createAccount();
     	}
     }
 }

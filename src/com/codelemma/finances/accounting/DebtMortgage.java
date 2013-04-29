@@ -41,7 +41,6 @@ public class DebtMortgage extends Debt
     private BigDecimal loan_amount;
     private int month_counter = 1;
     private String name;
-    private int id;
     
     
     private HistoryDebtMortgage history;
@@ -260,16 +259,6 @@ public class DebtMortgage extends Debt
     
     public BigDecimal getInterestRate() {
     	return init_interest_rate; //TODO:?
-    }
-
-    
-    public void setId(int id) {
-        this.id = id;
-    }
-    
-    @Override
-    public int getId() {
-        return id;
     }
     
     @Override

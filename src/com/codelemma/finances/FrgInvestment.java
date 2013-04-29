@@ -5,7 +5,6 @@ import java.math.BigDecimal;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -17,47 +16,38 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragment;
-import com.codelemma.finances.accounting.Account;
 import com.codelemma.finances.accounting.Income;
 import com.codelemma.finances.accounting.Investment401k;
-import com.codelemma.finances.accounting.InvestmentBond;
 import com.codelemma.finances.accounting.InvestmentCheckAcct;
 import com.codelemma.finances.accounting.InvestmentSavAcct;
-import com.codelemma.finances.accounting.InvestmentStock;
 import com.codelemma.finances.accounting.AccountingElement;
 
 public class FrgInvestment extends SherlockFragment {
 	
-	private Account account;
 	private Finances appState;
 	
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Inflate the layout for this fragment    	
-        View frView = inflater.inflate(R.layout.frg_investment, container, false);
-        return frView;
+        return inflater.inflate(R.layout.frg_investment, container, false);
 	}
 	
 	@Override
     public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		Log.d("FrgInvestment.onActivityCreated()", "called");		
-        // Inflate the layout for this fragment 
+		Log.d("FrgInvestment.onActivityCreated()", "called");	
+		appState = Finances.getInstance();
 	}
 	
 	@Override
 	public void onStart() {
 		super.onStart();
 		Log.d("FrgInvestment.onStart()", "called");
-		appState = Finances.getInstance();
-		account = appState.getAccount();	
 		
 	   	LinearLayout tip = (LinearLayout) getSherlockActivity().findViewById(R.id.investment_summary);
     	tip.removeAllViews();
-
 		
-		if (account.getInvestmentsSize() > 0) {	 
-		   	Iterable<? extends AccountingElement> values = (Iterable<? extends AccountingElement>) account.getInvestments();
+		if (appState.getAccount().getInvestmentsSize() > 0) {	 
+		   	Iterable<? extends AccountingElement> values = (Iterable<? extends AccountingElement>) appState.getAccount().getInvestments();
 		   	updateInputListing(values);		    
 		} else {
 	        TextView tv = new TextView(getSherlockActivity());
@@ -79,7 +69,7 @@ public class FrgInvestment extends SherlockFragment {
 		    break;
 		case R.id.investment_401k:
 			
-			if (account.getIncomesSize() == 0) {
+			if (appState.getAccount().getIncomesSize() == 0) {
 	        	new AlertDialog.Builder(getSherlockActivity())
 	            .setTitle("Adding 401(k) requires an income/salary account")
                 .setMessage("To add a 401(k) account, please, add an income account first.")                
@@ -116,10 +106,10 @@ public class FrgInvestment extends SherlockFragment {
 		String action = " added.";
     	if (requestCode == AcctElements.UPDATE.getNumber()) {
     		int investment_id = data.getIntExtra("investmentsav_id", -1);    		
-    		InvestmentSavAcct investment = (InvestmentSavAcct) account.getInvestmentById(investment_id); 
-    		account.removeInvestment(investment);
-            account.subtractFromInvestmentsPercontrib(investment.getPercontrib()); // update total percent contribution to investments  
-            account.setCheckingAcctPercontrib();
+    		InvestmentSavAcct investment = (InvestmentSavAcct) appState.getAccount().getInvestmentById(investment_id); 
+    		appState.getAccount().removeInvestment(investment);
+    		appState.getAccount().subtractFromInvestmentsPercontrib(investment.getPercontrib()); // update total percent contribution to investments  
+    		appState.getAccount().setCheckingAcctPercontrib();
     		Log.d("Main.onInvestmentResult()", "removed Investment No. "+investment_id);
     		action = " updated.";
       	}
@@ -132,18 +122,18 @@ public class FrgInvestment extends SherlockFragment {
                 interest_rate,
 		        start_year,
 		    	start_month);                 
-        account.addInvestment(investment);
-        account.addToInvestmentsPercontrib(percontrib); // update total percent contribution to investments  
-        account.setCheckingAcctPercontrib();
-    	Log.d("FrgInvestment TotalInvestmentsPercontrib", account.getInvestmentsPercontrib().toString());
-    	Log.d("FrgInvestment checkingAcctPercontrib", account.getCheckingAcctPercontrib().toString());
+    	appState.getAccount().addInvestment(investment);
+    	appState.getAccount().addToInvestmentsPercontrib(percontrib); // update total percent contribution to investments  
+    	appState.getAccount().setCheckingAcctPercontrib();
+    	Log.d("FrgInvestment TotalInvestmentsPercontrib", appState.getAccount().getInvestmentsPercontrib().toString());
+    	Log.d("FrgInvestment checkingAcctPercontrib", appState.getAccount().getCheckingAcctPercontrib().toString());
 
         Toast.makeText(getSherlockActivity(), name+action, Toast.LENGTH_SHORT).show();
         
-        if ((appState.getCalculationStartYear() == start_year && appState.getCalculationStartMonth() >= start_month) 
-    			|| (appState.getCalculationStartYear() > start_year)) {    
-    	    appState.setCalculationStartYear(start_year);
-    	    appState.setCalculationStartMonth(start_month);
+        if ((appState.getAccount().getCalculationStartYear() == start_year && appState.getAccount().getCalculationStartMonth() >= start_month) 
+    			|| (appState.getAccount().getCalculationStartYear() > start_year)) {    
+        	appState.getAccount().setCalculationStartYear(start_year);
+        	appState.getAccount().setCalculationStartMonth(start_month);
         }
 	}
 	
@@ -153,14 +143,14 @@ public class FrgInvestment extends SherlockFragment {
 		BigDecimal tax_rate = new BigDecimal(data.getStringExtra("investmentcheck_tax_rate"));
 		int capitalization = Integer.parseInt(data.getStringExtra("investmentcheck_capitalization"));
 		BigDecimal interest_rate = new BigDecimal(data.getStringExtra("investmentcheck_interest_rate"));
-    	int start_year = appState.getSimulationStartYear();
-    	int start_month = appState.getSimulationStartMonth();
+    	int start_year = appState.getAccount().getSimulationStartYear();
+    	int start_month = appState.getAccount().getSimulationStartMonth();
     	
     	if (requestCode == AcctElements.UPDATE.getNumber()) {
     		int investment_id = data.getIntExtra("investmentcheck_id", -1);    		
-    		InvestmentCheckAcct investment = (InvestmentCheckAcct) account.getInvestmentById(investment_id);
-    		account.setCheckingAcct(null);
-    		account.removeInvestment(investment);
+    		InvestmentCheckAcct investment = (InvestmentCheckAcct) appState.getAccount().getInvestmentById(investment_id);
+    		appState.getAccount().setCheckingAcct(null);
+    		appState.getAccount().removeInvestment(investment);
     		Log.d("Main.onInvestmentResult()", "removed Investment No. "+investment_id);
       	}
     	
@@ -171,8 +161,8 @@ public class FrgInvestment extends SherlockFragment {
                 interest_rate,
 		        start_year,
 		    	start_month);                 
-        account.addInvestment(investment);
-        account.setCheckingAcct(investment);
+    	appState.getAccount().addInvestment(investment);
+    	appState.getAccount().setCheckingAcct(investment);
         
         Toast.makeText(getSherlockActivity(), name+" updated.", Toast.LENGTH_SHORT).show();
         
@@ -192,17 +182,15 @@ public class FrgInvestment extends SherlockFragment {
     	
 		String action = " added.";
 
-    	Income income = account.getIncomeById(income_id);
+    	Income income = appState.getAccount().getIncomeById(income_id);
     	if (requestCode == AcctElements.UPDATE.getNumber()) {
     		int investment_id = data.getIntExtra("investment401k_id", -1);    		
-    		Investment401k investment = (Investment401k) account.getInvestmentById(investment_id);     		
+    		Investment401k investment = (Investment401k) appState.getAccount().getInvestmentById(investment_id);     		
     		/* Before removing investment account, set the income with which it is associated
     		 * to null.
     		 */
     		investment.getIncome().setInvestment401k(null);
-    		
-    		account.removeInvestment(investment);
-    		Log.d("Main.onInvestment401kResult()", "removed Investment No. "+investment_id);
+    		appState.getAccount().removeInvestment(investment);
     		action = " updated.";
 
       	}
@@ -219,67 +207,16 @@ public class FrgInvestment extends SherlockFragment {
 		    	start_month);                     	   	
     	    	  	
     	income.setInvestment401k(investment);
-        account.addInvestment(investment);
+    	appState.getAccount().addInvestment(investment);
         Toast.makeText(getSherlockActivity(), name+action, Toast.LENGTH_SHORT).show();
         
-        if ((appState.getCalculationStartYear() == start_year && appState.getCalculationStartMonth() >= start_month) 
-    			|| (appState.getCalculationStartYear() > start_year)) {    
-    	    appState.setCalculationStartYear(start_year);
-    	    appState.setCalculationStartMonth(start_month);
+        if ((appState.getAccount().getCalculationStartYear() == start_year && appState.getAccount().getCalculationStartMonth() >= start_month) 
+    			|| (appState.getAccount().getCalculationStartYear() > start_year)) {    
+        	appState.getAccount().setCalculationStartYear(start_year);
+        	appState.getAccount().setCalculationStartMonth(start_month);
         }
 	}
-	
-	public void onInvestmentBondResult(Intent data, int requestCode) {
-		String name = data.getStringExtra("investmentbond_name");
-		BigDecimal init_amount = new BigDecimal(data.getStringExtra("investmentbond_init_amount"));
-		BigDecimal percontrib = new BigDecimal(data.getStringExtra("investmentbond_percontrib"));
-		BigDecimal tax_rate = new BigDecimal(data.getStringExtra("investmentbond_tax_rate"));
-		
-    	if (requestCode == AcctElements.UPDATE.getNumber()) {
-    		int investment_id = data.getIntExtra("investmentbond_id", -1);    		
-    		InvestmentBond investment = (InvestmentBond) account.getInvestmentById(investment_id); 
-    		account.removeInvestment(investment);
-    		Log.d("Main.onInvestmentBondResult()", "removed Investment No. "+investment_id);
-      	}
-    	
-    	InvestmentBond investment = new InvestmentBond(name,
-    			init_amount,
-                percontrib,
-                tax_rate);
-        account.addInvestment(investment);		
-        Toast.makeText(getSherlockActivity(), name+" added.", Toast.LENGTH_SHORT).show();
 
-	}
-	
-	public void onInvestmentStockResult(Intent data, int requestCode) {
-		String name = data.getStringExtra("investmentstock_name");
-		BigDecimal init_amount = new BigDecimal(data.getStringExtra("investmentstock_init_amount"));
-		BigDecimal percontrib = new BigDecimal(data.getStringExtra("investmentstock_percontrib"));
-		BigDecimal tax_rate = new BigDecimal(data.getStringExtra("investmentstock_tax_rate"));
-		BigDecimal dividends = new BigDecimal(data.getStringExtra("investmentstock_dividends"));
-		BigDecimal appreciation = new BigDecimal(data.getStringExtra("investmentstock_appreciation"));
-		
-		String actionName = " added.";
-		
-    	if (requestCode == AcctElements.UPDATE.getNumber()) {
-    		int investment_id = data.getIntExtra("investmentstock_id", -1);    		
-    		InvestmentStock investment = (InvestmentStock) account.getInvestmentById(investment_id); 
-    		account.removeInvestment(investment);
-    		Log.d("Main.onInvestmentstockResult()", "removed Investment No. "+investment_id);
-    		actionName = " updated.";
-      	}
-    	
-    	InvestmentStock investment = new InvestmentStock(name,
-    			init_amount,
-                percontrib,
-                tax_rate,
-                dividends,
-                appreciation);
-        account.addInvestment(investment);		
-        Toast.makeText(getSherlockActivity(), name+actionName, Toast.LENGTH_SHORT).show();
-
-	}
-	
     private void updateInputListing(Iterable<? extends AccountingElement> values) {        
         InputListingUpdater modifier = new  InputListingUpdater(getSherlockActivity());
         for(AccountingElement value : values) {        	

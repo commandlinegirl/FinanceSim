@@ -4,7 +4,6 @@ import java.math.BigDecimal;
 
 import android.app.AlertDialog;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -16,40 +15,36 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragment;
-import com.codelemma.finances.accounting.Account;
 import com.codelemma.finances.accounting.IncomeGeneric;
 import com.codelemma.finances.accounting.Investment401k;
 import com.codelemma.finances.accounting.AccountingElement;
 
 public class FrgIncome extends SherlockFragment {
 	
-	private Account account;
 	private Finances appState;
 
 	@Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View frView = inflater.inflate(R.layout.frg_income, container, false);        
-        return frView;
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {       
+        return inflater.inflate(R.layout.frg_income, container, false);
 	}
 
 	@Override
     public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 		Log.d("FrgIncome.onActivityCreated()", "called");
+		appState = Finances.getInstance();
 	}
 
 	@Override
 	public void onStart() {
 		super.onStart();
 		Log.d("FrgIncome.onStart()", "called");
-		appState = Finances.getInstance();
-		account = appState.getAccount();
 		
     	LinearLayout tip = (LinearLayout) getSherlockActivity().findViewById(R.id.income_summary);
     	tip.removeAllViews();
 		
-		if (account.getIncomesSize() > 0) {	 
-		   	Iterable<? extends AccountingElement> values = (Iterable<? extends AccountingElement>) account.getIncomes();
+		if (appState.getAccount().getIncomesSize() > 0) {	 
+		   	Iterable<? extends AccountingElement> values = (Iterable<? extends AccountingElement>) appState.getAccount().getIncomes();
 		   	updateInputListing(values);		    
 		} else {
 			TextView tv = new TextView(getSherlockActivity());
@@ -157,9 +152,9 @@ public class FrgIncome extends SherlockFragment {
     	Investment401k investment401k = null;
     	if (requestCode == AcctElements.UPDATE.getNumber()) {
     		int income_id = data.getIntExtra("income_id", -1);    		
-    		IncomeGeneric income = (IncomeGeneric) account.getIncomeById(income_id); 
+    		IncomeGeneric income = (IncomeGeneric) appState.getAccount().getIncomeById(income_id); 
     		investment401k = income.getInvestment401k();
-    		account.removeIncome(income);
+    		appState.getAccount().removeIncome(income);
     		action = " updated.";
       	}
     	
@@ -175,14 +170,14 @@ public class FrgIncome extends SherlockFragment {
 		if (investment401k != null) {
 			investment401k.setIncome(newIncome);	
 		}		
-        account.addIncome(newIncome);
+		appState.getAccount().addIncome(newIncome);
         
         Toast.makeText(getSherlockActivity(), income_name+action, Toast.LENGTH_SHORT).show();
         
-        if ((appState.getCalculationStartYear() == start_year && appState.getCalculationStartMonth() >= start_month) 
-    			|| (appState.getCalculationStartYear() > start_year)) {    
-    	    appState.setCalculationStartYear(start_year);
-    	    appState.setCalculationStartMonth(start_month);
+        if ((appState.getAccount().getCalculationStartYear() == start_year && appState.getAccount().getCalculationStartMonth() >= start_month) 
+    			|| (appState.getAccount().getCalculationStartYear() > start_year)) {    
+        	appState.getAccount().setCalculationStartYear(start_year);
+        	appState.getAccount().setCalculationStartMonth(start_month);
         }
 	}	
 		

@@ -1,13 +1,10 @@
 package com.codelemma.finances;
 
-
 import java.util.Calendar;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
-import com.codelemma.finances.accounting.Account;
-import com.codelemma.finances.accounting.History;
 import com.codelemma.finances.accounting.IncomeGeneric;
 import com.codelemma.finances.accounting.Investment401k;
 
@@ -38,11 +35,9 @@ public class AddIncomeGeneric extends SherlockFragmentActivity
                        implements OnItemSelectedListener,
                                   FrgDatePicker.OnDateSelectedListener {
 	
-	private Account account;
-	private History history;
+	private Finances appState;	
 	private String requestCode;
 	private int incomeId;
-	private Finances appState;	
 	private int[] installments_items = {12, 13}; // in months
 	private int installments;
 	private int setMonth;
@@ -68,9 +63,9 @@ public class AddIncomeGeneric extends SherlockFragmentActivity
                 .setMessage("Do you want to delete this item?")                
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                    public void onClick(DialogInterface dialog, int id) {
-                	   account.removeIncome(income);
+                	   appState.getAccount().removeIncome(income);
                 	   income.getInvestment401k(); // TODO: 
-                	   history.removeIncomeHistory(income.getHistory());
+                	   appState.getHistory().removeIncomeHistory(income.getHistory());
                 	   appState.needToRecalculate(true);
                        Toast.makeText(AddIncomeGeneric.this, income.getName()+" deleted.", Toast.LENGTH_SHORT).show();
                 	   finish();
@@ -155,8 +150,6 @@ public class AddIncomeGeneric extends SherlockFragmentActivity
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		Log.d("AddIncome.onCreate()", "called");
 		appState = Finances.getInstance();
-	    account = appState.getAccount();    
-	    history = appState.getHistory();
 	    
 	    Spinner spinner = (Spinner) findViewById(R.id.income_installments);
 	    ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
@@ -178,7 +171,7 @@ public class AddIncomeGeneric extends SherlockFragmentActivity
 	    if (requestCode.equals(AcctElements.UPDATE.toString())) {
 	    	
 	    	int id = intent.getIntExtra("income_id", -1);
-	    	IncomeGeneric income = (IncomeGeneric) account.getIncomeById(id); // TODO: if id == -1
+	    	IncomeGeneric income = (IncomeGeneric) appState.getAccount().getIncomeById(id); // TODO: if id == -1
 	    	
 	    	incomeId = income.getId();	    
 			

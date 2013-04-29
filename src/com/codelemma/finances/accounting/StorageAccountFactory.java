@@ -16,9 +16,10 @@ public class StorageAccountFactory implements AccountFactory {
     	this.storage = storage;
     }
     
+    // AleZ: removed parameters simStartYear, simStartMonth
     @Override
-    public Account createAccount(int simStartYear, int simStartMonth) throws AccountCreationException {
-    	Account account = new Account(simStartYear, simStartMonth);
+    public Account createAccount() throws AccountCreationException {    	
+    	Account account = new Account();
     	try {
     		configureAccountFromStorage(account);
     		populateAccountWithAccountingElements(account);
@@ -29,6 +30,9 @@ public class StorageAccountFactory implements AccountFactory {
     }
     
     private void configureAccountFromStorage(Account account) throws StorageException {
+    	// set simulation start date
+    	account.setSimulationStartYear(storage.getInt(Storage.Constants.SIMULATION_START_YEAR));
+    	account.setSimulationStartMonth(storage.getInt(Storage.Constants.SIMULATION_START_MONTH));
     	account.setInvestmentsPercontrib(storage.getBigDecimal(Storage.Constants.INVESTMENT_PERCONTRIB));
     	account.setCheckingAcctPercontrib();
     }

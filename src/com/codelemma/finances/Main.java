@@ -12,8 +12,6 @@ import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
-import com.codelemma.finances.accounting.Account;
-import com.codelemma.finances.accounting.History;
 import com.codelemma.finances.Finances;
 import com.codelemma.finances.StorageFactory;
 
@@ -32,8 +30,7 @@ import android.widget.ProgressBar;
 public class Main extends SherlockFragmentActivity 
                   implements TabListener, 
                              DirectToHomeListener.OnClickOnEmptyListener {
-	private Account account;
-	private History history;
+
     private Finances appState;
 	private int currentElement = 0;
 	private int currentIcon = 0;
@@ -56,19 +53,14 @@ public class Main extends SherlockFragmentActivity
              
 	    appState = Finances.getInstance();
         StorageFactory.create(PreferenceManager.getDefaultSharedPreferences(this));	    
-	                    
-        setupCurrentDate();
-	    
+	                            	    
+	    if (appState.getAccount() == null) {
+			appState.setAccount();
+	    }
 	    if (appState.getHistory() == null) {
 		    appState.setHistory();
 	    }
-	    if (appState.getAccount() == null) {
-	    	Log.d("Main.onCreate()", "appState.getAccount() is null");
-			appState.setAccount();
-	    }
-	    
-	    account = appState.getAccount();
-	    history = appState.getHistory(); 
+	    	    
 	    optionsMenuIds[0][0] = R.layout.expl_income_add;
 	    optionsMenuIds[0][1] = R.layout.expl_income_chart;
 	    optionsMenuIds[0][2] = R.layout.expl_income_table;
@@ -250,16 +242,6 @@ public class Main extends SherlockFragmentActivity
         actionbar.addTab(tab5);        
 	}
 	
-	private void setupCurrentDate() {
-		if (appState.getCalculationStartMonth() == -1 || appState.getCalculationStartYear() == -1) {
-	        Calendar c = Calendar.getInstance();	        
-		    appState.setCalculationStartYear(c.get(Calendar.YEAR));		        
-		    appState.setCalculationStartMonth(c.get(Calendar.MONTH));
-		    appState.setSimulationStartYear(c.get(Calendar.YEAR));		        
-		    appState.setSimulationStartMonth(c.get(Calendar.MONTH));	
-	    }
-	}
-	
 	public void addIncome(View view) {
 		/* It is assumed AddIncome button is clicked from within FrgIncome fragment */
 		FrgIncome frgIncome = (FrgIncome) getSupportFragmentManager().findFragmentById(R.id.main_container);
@@ -313,16 +295,6 @@ public class Main extends SherlockFragmentActivity
         	frgInvestment.onInvestment401kResult(data, requestCode);
         	appState.needToRecalculate(true);
         }        
-        if (resultCode == AcctElements.INVESTMENTBOND.getNumber()) {
-        	FrgInvestment frgInvestment = (FrgInvestment) getSupportFragmentManager().findFragmentById(R.id.main_container);
-        	frgInvestment.onInvestmentBondResult(data, requestCode);
-        	appState.needToRecalculate(true);
-        }     
-        if (resultCode == AcctElements.INVESTMENTSTOCK.getNumber()) {
-        	FrgInvestment frgInvestment = (FrgInvestment) getSupportFragmentManager().findFragmentById(R.id.main_container);
-        	frgInvestment.onInvestmentStockResult(data, requestCode);
-        	appState.needToRecalculate(true);
-        }     
         if (resultCode == AcctElements.EXPENSE.getNumber()) {      
         	FrgExpense frgExpense = (FrgExpense) getSupportFragmentManager().findFragmentById(R.id.main_container);
         	frgExpense.onExpenseResult(data, requestCode);
@@ -342,9 +314,7 @@ public class Main extends SherlockFragmentActivity
 	
 	private class AsyncSimGenerator extends AsyncTask<SherlockFragment, Integer, SherlockFragment> {
 		
-		private Dialog dialog;
-		int myProgress;
-		
+		private Dialog dialog;		
 		 
 		@Override
 	    protected void onPreExecute() {
@@ -354,34 +324,33 @@ public class Main extends SherlockFragmentActivity
 	        progressBar.setProgress(0);
 			dialog.setCanceledOnTouchOutside(true);
 			dialog.show();
-	        myProgress = 0;
 	    };
 		
 		@Override
 		protected SherlockFragment doInBackground(SherlockFragment... params) {
 			
 			SherlockFragment fragment = params[0];
-	        account.setInitDebt();
-	        account.setInitExpense();
-	        account.setInitIncome();
-	        account.setInitInvestment();
-	        account.setInitCashflow();
-	        account.setInitNetworth();
-	        account.clearHistory(history);
+			appState.getAccount().setInitDebt();
+			appState.getAccount().setInitExpense();
+			appState.getAccount().setInitIncome();
+			appState.getAccount().setInitInvestment();
+			appState.getAccount().setInitCashflow();
+			appState.getAccount().setInitNetworth();
+	        appState.getAccount().clearHistory(appState.getHistory());
 	                                   
-	        int month = appState.getCalculationStartMonth();
-	        int year = appState.getCalculationStartYear();	        	        
-	        appState.computeCalculationLength();
+	        int month = appState.getAccount().getCalculationStartMonth();
+	        int year = appState.getAccount().getCalculationStartYear();	        	        
+	        appState.getAccount().computeCalculationLength();
 	        	        
-	        int totalCalculationLength = appState.getTotalCalculationLength();
-	        int preCalculationLength = appState.getPreCalculationLength(); 
+	        int totalCalculationLength = appState.getAccount().getTotalCalculationLength();
+	        int preCalculationLength = appState.getAccount().getPreCalculationLength(); 
 	        
 	        int index = -1; //TODO: should be -1???
 	        for (int i = 0; i < totalCalculationLength; i++) {
 	        	if (i >= preCalculationLength) {    
 	                index++;
-	        	}           
-	        	account.advance(index, year, month); //TODO: dates - should be minimum dates
+	        	}
+	        	appState.getAccount().advance(index, year, month); //TODO: dates - should be minimum dates
 	        	publishProgress(index);
 	            if (month == 11) {
 	                month = 0;
@@ -389,11 +358,9 @@ public class Main extends SherlockFragmentActivity
 	            } else {
 	                month++;
 	            }
-	            myProgress++;
-	            publishProgress(myProgress);
 	        }
 	        
-	        account.addToHistory(history);
+	        appState.getAccount().addToHistory(appState.getHistory());
 	        appState.needToRecalculate(false);
 			return fragment;
 		}
@@ -405,12 +372,11 @@ public class Main extends SherlockFragmentActivity
 
 		@Override
 	    protected void onPostExecute(SherlockFragment fragment) {
-	        //showDialog("Downloaded " + result + " bytes");
+			/* Show fragment with data when simulation is finished */
 			super.onPostExecute(fragment);
 			FragmentTransaction ft = getSupportFragmentManager().beginTransaction(); 
 			ft.replace(R.id.main_container, fragment); 
-    	    ft.commit();
-			
+    	    ft.commit();			
 			dialog.dismiss();
 	    }
 	}
@@ -426,7 +392,7 @@ public class Main extends SherlockFragmentActivity
 	}
 	
 	public String[] getDates(){
-	    return history.getDates();
+	    return appState.getHistory().getDates();
 	}			
 	
 	public int getCurrentElement(){

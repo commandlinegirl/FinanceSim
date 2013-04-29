@@ -11,12 +11,10 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
-import android.widget.Toast;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockFragment;
-import com.codelemma.finances.accounting.History;
 import com.codelemma.finances.accounting.HistoryNew;
 import com.codelemma.finances.accounting.TableVisitor;
 
@@ -24,7 +22,6 @@ import com.codelemma.finances.accounting.TableVisitor;
 public class FrgList extends SherlockFragment 
                      implements OnItemSelectedListener { 
 
-	private History history;
 	private Finances appState;
 	int currentElement = 0;
 	private ArrayList<HistoryNew> historyItems = new ArrayList<HistoryNew>();
@@ -50,24 +47,18 @@ public class FrgList extends SherlockFragment
     		                 ViewGroup container,
                              Bundle savedInstanceState) {
         Log.d("FrgExpandableList.onCreateView()", "called");    
-        appState = Finances.getInstance();
-        history = appState.getHistory();
-        
+        appState = Finances.getInstance();                
 
         currentElement = ((Main) getSherlockActivity()).getCurrentElement();
         
-        for (HistoryNew i : history.getHistory(currentElement)) {
+        for (HistoryNew i : appState.getHistory().getHistory(currentElement)) {
         	historyItems.add(i);
         }
         
     	if (historyItems.size() == 0) {
-    		//Toast.makeText(getSherlockActivity(), "Table empty. Please add data to get started.", Toast.LENGTH_SHORT).show();
-
     		return inflater.inflate(R.layout.frg_empty, container, false);	
-    	} 
-    	
-    	return inflater.inflate(R.layout.frg_explist, container, false);
-        
+    	}     	
+    	return inflater.inflate(R.layout.frg_explist, container, false);       
     }
 	
 	@Override
@@ -98,7 +89,4 @@ public class FrgList extends SherlockFragment
     		button.setOnClickListener(new DirectToHomeListener(currentElement, getSherlockActivity()));
     	}
 	}
-	
-
-	
 }

@@ -10,7 +10,6 @@ import java.util.NoSuchElementException;
 public class InvestmentSavAcct extends Investment 
                                implements AccountingElement {
 	
-	private int id;
 	private String name;	
     private BigDecimal init_amount;
     private BigDecimal init_tax_rate;
@@ -120,12 +119,6 @@ public class InvestmentSavAcct extends Investment
     public BigDecimal getInterestsGross() {
         return interests_gross;
     } 
-    
-    @Override
-    public int getId() {
-        return id;
-    }    
-
 
 	public BigDecimal getInitTaxRate() {
 		return init_tax_rate;
@@ -230,11 +223,6 @@ public class InvestmentSavAcct extends Investment
      		capitalization_counter++;
      	}
     }       
-
-	@Override
-	public void setId(int id) {
-		this.id = id;
-	}
 
 	@Override
 	public TypedContainer getFieldContainer(PackToContainerVisitor saver) throws ParseException {
