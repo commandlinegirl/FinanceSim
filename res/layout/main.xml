@@ -11,10 +11,5 @@
         android:layout_width="fill_parent"
         android:layout_height="0dp" >
     </LinearLayout>
-   
-    <LinearLayout
-        android:id="@+id/frg_controls"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"/>
     
 </LinearLayout>

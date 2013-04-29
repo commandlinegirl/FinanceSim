@@ -91,7 +91,7 @@ public class Plotter implements PlotVisitor {
 		/* Here set left and right margin for the chart based on max and min values from each series */
 
     	int rightMargin = Utils.px(frgActivity, 12);
-	    int leftMargin = Utils.px(frgActivity, 6);
+	    int leftMargin = Utils.px(frgActivity, 7);
 	    int labelMaxYLen = String.valueOf(maxY).length();
 	    int labelMinYLen = String.valueOf(minY).length();
 	    if (labelMaxYLen >=  labelMinYLen) {
@@ -263,7 +263,7 @@ public class Plotter implements PlotVisitor {
 		values.put("Capital gains", historyCashflows.getCapitalGainsHistory());
 		values.put("Expenses", historyCashflows.getExpensesHistory());
 		values.put("Debt service", historyCashflows.getDebtRatesHistory());
-		values.put("Invested & saved", historyCashflows.getInvestmentRatesHistory());
+		values.put("Saved", historyCashflows.getInvestmentRatesHistory());
         plot(values, "Cashflows"); 			
 	}
 

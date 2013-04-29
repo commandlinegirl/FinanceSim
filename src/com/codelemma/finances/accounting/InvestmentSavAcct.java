@@ -8,7 +8,7 @@ import com.codelemma.finances.TypedContainer;
 import java.util.NoSuchElementException;
 
 public class InvestmentSavAcct extends Investment 
-                               implements NamedValue {
+                               implements AccountingElement {
 	
 	private int id;
 	private String name;	
@@ -212,44 +212,24 @@ public class InvestmentSavAcct extends Investment
         	/* Add monthly contribution (a given percentage of excess money) to the hidden_amount
      	     * if excess > 0. */
             amount = amount.add(Money.getPercentage(excess, percontrib_decimal));
-            contribution = Money.getPercentage(excess, percontrib_decimal);
-            //Log.d("---------------month ------------", String.valueOf(month));
-            //Log.d("number of days", String.valueOf(months[month]));
-            //Log.d("getCompoundingFactor(months[month])", getCompoundingFactor(months[month]).toString() );
-        
-            //Log.d("excess", excess.toString());
-            //Log.d("excess_decimal", excess_decimal.toString());
-            //Log.d("contribution", contribution.toString());
-            //Log.d("hidden_amount before", hidden_amount.toString());                
+            contribution = Money.getPercentage(excess, percontrib_decimal);              
          	hidden_amount = hidden_amount.add(contribution);   
-        	//Log.d("hidden_amount after adding contribution", hidden_amount.toString());
         }
      	/* Calculate the interests of hidden_amount (and add to principal)  */
      	hidden_amount = Money.scale(hidden_amount.multiply(getCompoundingFactor(months[month])));
-     	//Log.d("hidden_amount with interests", hidden_amount.toString());
      	
      	if (capitalization == capitalization_counter) {
      		/* calculate and subtract tax on interests */
-     		BigDecimal hidden_interests_gross = hidden_amount.subtract(amount);
-     		BigDecimal hidden_interests_gross_tax = Money.getPercentage(hidden_interests_gross, tax_rate_decimal);
-     		hidden_amount = hidden_amount.subtract(hidden_interests_gross_tax);
-         	//Log.d("hidden_interests_gross", hidden_interests_gross.toString());
-         	//Log.d("hidden_interests_gross_tax", hidden_interests_gross_tax.toString());
-         	//Log.d("hidden_amount net ", hidden_amount.toString());
-
-   
-            interests_gross = hidden_interests_gross;
-            tax_on_interests = hidden_interests_gross_tax;
-            interests_net = interests_gross.subtract(tax_on_interests);    
-             
+     		interests_gross = hidden_amount.subtract(amount);
+     		tax_on_interests = Money.getPercentage(interests_gross, tax_rate_decimal);
+     		hidden_amount = hidden_amount.subtract(tax_on_interests);
+            interests_net = interests_gross.subtract(tax_on_interests);            
             amount = hidden_amount;
          	capitalization_counter = 1;        	
      	} else {
      		capitalization_counter++;
      	}
     }       
-    
- 
 
 	@Override
 	public void setId(int id) {

@@ -25,10 +25,6 @@ public class History {
     	this.listSize = listSize;
     	dates = new String[listSize];
     	
-    	Log.d("History.simStartYear", String.valueOf(simStartYear));
-    	Log.d("History.simStartMonth", String.valueOf(simStartMonth));
-    	
-    	
     	createDateList();
     	histories.add(incomes);
     	histories.add(expenses);

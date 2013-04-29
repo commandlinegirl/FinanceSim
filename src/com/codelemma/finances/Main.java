@@ -15,14 +15,12 @@ import com.actionbarsherlock.view.MenuItem;
 import com.codelemma.finances.accounting.Account;
 import com.codelemma.finances.accounting.History;
 import com.codelemma.finances.Finances;
-import com.codelemma.finances.ParseException;
 import com.codelemma.finances.StorageFactory;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.drawable.Drawable;
@@ -34,8 +32,6 @@ import android.widget.ProgressBar;
 public class Main extends SherlockFragmentActivity 
                   implements TabListener, 
                              DirectToHomeListener.OnClickOnEmptyListener {
-
-	private Storage storage;
 	private Account account;
 	private History history;
     private Finances appState;
@@ -57,11 +53,9 @@ public class Main extends SherlockFragmentActivity
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);       
     
         setupActionBar();
-        
-        
-        
+             
 	    appState = Finances.getInstance();
-        storage = StorageFactory.create(PreferenceManager.getDefaultSharedPreferences(this));	    
+        StorageFactory.create(PreferenceManager.getDefaultSharedPreferences(this));	    
 	                    
         setupCurrentDate();
 	    
@@ -70,11 +64,7 @@ public class Main extends SherlockFragmentActivity
 	    }
 	    if (appState.getAccount() == null) {
 	    	Log.d("Main.onCreate()", "appState.getAccount() is null");
-	    	try {
-				appState.setAccount(storage);
-			} catch (ParseException e) {
-				e.printStackTrace();
-			}
+			appState.setAccount();
 	    }
 	    
 	    account = appState.getAccount();
@@ -163,12 +153,8 @@ public class Main extends SherlockFragmentActivity
 		Log.d("Main.onPause()", "called");
 		if (isFinishing() == true) {
 			Log.d("Main.onPause()", "saving when finishing");
-			try {
-		        storage.saveAccount(account);
-			} 
-			catch (ParseException pe) {
-				pe.printStackTrace();
-			}
+            Preconditions.checkNotNull(Finances.getInstance(), "Finances instance doesn't exist");
+	        Finances.getInstance().saveAccount();
 		}		
 	}	
 	
@@ -235,7 +221,6 @@ public class Main extends SherlockFragmentActivity
 		    startActivity(intent2);	
 			return true;		
 		case R.id.menu_explain:	
-			//Toast.makeText(this, "currentElement:"+currentElement+" "+"currentIcon:"+currentIcon, Toast.LENGTH_SHORT).show();
 			Dialog dialog = new Dialog(this, R.style.FullHeightDialog);			
 			dialog.setContentView(R.layout.help_incomegeneric);
 			dialog.setContentView(optionsMenuIds[currentElement][currentIcon]);
@@ -267,7 +252,7 @@ public class Main extends SherlockFragmentActivity
 	
 	private void setupCurrentDate() {
 		if (appState.getCalculationStartMonth() == -1 || appState.getCalculationStartYear() == -1) {
-	        final Calendar c = Calendar.getInstance();	        
+	        Calendar c = Calendar.getInstance();	        
 		    appState.setCalculationStartYear(c.get(Calendar.YEAR));		        
 		    appState.setCalculationStartMonth(c.get(Calendar.MONTH));
 		    appState.setSimulationStartYear(c.get(Calendar.YEAR));		        
@@ -276,22 +261,26 @@ public class Main extends SherlockFragmentActivity
 	}
 	
 	public void addIncome(View view) {
+		/* It is assumed AddIncome button is clicked from within FrgIncome fragment */
 		FrgIncome frgIncome = (FrgIncome) getSupportFragmentManager().findFragmentById(R.id.main_container);
 		frgIncome.add(view);
 	}
 	
 	public void addInvestment(View view) {
+		/* It is assumed AddInvestment button is clicked from within FrgInvestment fragment */
 		FrgInvestment frgInvestment = (FrgInvestment) getSupportFragmentManager().findFragmentById(R.id.main_container);
 		Log.d("Main.addInvestment()", view.toString());
 		frgInvestment.add(view);
 	}
 	
 	public void addExpense(View view) {
+		/* It is assumed AddExpense button is clicked from within FrgExpense fragment */
 		FrgExpense frgExpense = (FrgExpense) getSupportFragmentManager().findFragmentById(R.id.main_container);
 		frgExpense.add(view);
 	}
 	
 	public void addDebt(View view) {
+		/* It is assumed AddDebt button is clicked from within FrgDebt fragment */
 		FrgDebt frgDebt = (FrgDebt) getSupportFragmentManager().findFragmentById(R.id.main_container);
 		frgDebt.add(view);
 	}
@@ -450,12 +439,29 @@ public class Main extends SherlockFragmentActivity
 		 * so instead of showing empty chart/table, the user is directed to HOME (input) view */
         currentIcon = 0;    	
        // Log.d("getFragment(currentIcon, currentElement))", getFragment(currentIcon, currentElement).toString());
-		FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-	    ft.replace(R.id.main_container, getFragment(currentIcon, currentElement));
+        
+        if (currentElement == 0) {
+        	FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+    	    ft.replace(R.id.main_container, getFragment(0, 0));    	    
+    	    ft.commit();
+    	    Intent intent = new Intent(this, AddIncomeGeneric.class);		
+    		intent.putExtra("request", AcctElements.ADD.toString());
+    	    startActivityForResult(intent, AcctElements.ADD.getNumber());
+        } else if (currentElement == 1) { 
+        	FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+    	    ft.replace(R.id.main_container, new FrgExpense());    	    
+    	    ft.commit();
+    	    Intent intent = new Intent(this, AddExpenseGeneric.class);		
+    		intent.putExtra("request", AcctElements.ADD.toString());
+    	    startActivityForResult(intent, AcctElements.ADD.getNumber());
+	    } else {
+    		FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+    	    ft.replace(R.id.main_container, getFragment(currentIcon, currentElement));
+    	    ft.commit();
+        }        
 	    menuAdd.setIcon(R.drawable.ico_add_on);
 	    currentMenuItem.setIcon(menuItems.get(currentMenuItem));
-	    currentMenuItem = menuAdd;
-	    ft.commit();			    
+	    currentMenuItem = menuAdd;	    			    
 	}
 	
 	public void showChart(View view) {

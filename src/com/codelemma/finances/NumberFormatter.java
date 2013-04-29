@@ -14,6 +14,6 @@ public class NumberFormatter {
 	}
 	
 	public String formatNumber(BigDecimal num) {		
-		return numberFormat.format(num.doubleValue());		
+		return numberFormat.format(num);
 	}
 }

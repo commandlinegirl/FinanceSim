@@ -20,5 +20,6 @@
         android:layout_height="wrap_content"
         style="?android:attr/progressBarStyleHorizontal"
         android:id="@+id/progressbar_horizontal"
-        android:max="100"/>
+        android:max="100"
+        android:progressDrawable="@drawable/button_green"/>
 </LinearLayout>

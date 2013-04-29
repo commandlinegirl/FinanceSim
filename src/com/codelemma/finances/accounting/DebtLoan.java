@@ -7,7 +7,7 @@ import com.codelemma.finances.ParseException;
 import com.codelemma.finances.TypedContainer;
 
 public class DebtLoan extends Debt 
-                         implements NamedValue {
+                         implements AccountingElement {
 	
     private BigDecimal init_amount;
     private BigDecimal init_interest_rate;
@@ -71,11 +71,7 @@ public class DebtLoan extends Debt
     	return monthly_payment; 
     }
 
-    
-    
-    
     /* event methods*/
-    
     
     public void setValuesBeforeCalculation() {
 		monthly_payment = Money.ZERO;
@@ -157,8 +153,6 @@ public class DebtLoan extends Debt
         this.id = id;
     }
     
- 
-   
     @Override
     public int getId() {
         return id;

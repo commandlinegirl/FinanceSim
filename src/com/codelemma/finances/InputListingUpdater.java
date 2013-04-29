@@ -398,7 +398,6 @@ public class InputListingUpdater implements InputListingVisitor {
     
         tip.addView(rLayout);
         addUnderline(tip); 
-
 	}
 
 	private void addUnderline(LinearLayout underline) {	    

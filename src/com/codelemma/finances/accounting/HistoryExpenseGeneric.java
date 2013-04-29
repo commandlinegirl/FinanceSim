@@ -15,7 +15,7 @@ public class HistoryExpenseGeneric extends HistoryNew {
 	}
 	
 	@Override
-	public void add(int index, NamedValue acctElement, HistoryCashflows cashflows) {
+	public void add(int index, AccountingElement acctElement, HistoryCashflows cashflows) {
 		// TODO Auto-generated method stub
 		ExpenseGeneric expense = (ExpenseGeneric) acctElement;
 		try {		    

@@ -22,7 +22,7 @@ public class HistoryInvestmentSavAcct extends HistoryNew {
 	}
 
 	@Override
-	public void add(int index, NamedValue acctElement, HistoryCashflows cashflows, HistoryNetWorth net_worth) {
+	public void add(int index, AccountingElement acctElement, HistoryCashflows cashflows, HistoryNetWorth net_worth) {
 		InvestmentSavAcct investment = (InvestmentSavAcct) acctElement;
 		try {		    
 			amountHistory[index] = investment.getAmount();

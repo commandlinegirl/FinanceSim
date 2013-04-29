@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.Toast;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.TextView;
 
@@ -59,10 +60,13 @@ public class FrgList extends SherlockFragment
         	historyItems.add(i);
         }
         
-    	if (historyItems.size() != 0) {
-    		return inflater.inflate(R.layout.frg_explist, container, false);	
+    	if (historyItems.size() == 0) {
+    		//Toast.makeText(getSherlockActivity(), "Table empty. Please add data to get started.", Toast.LENGTH_SHORT).show();
+
+    		return inflater.inflate(R.layout.frg_empty, container, false);	
     	} 
-    	return inflater.inflate(R.layout.frg_empty, container, false);
+    	
+    	return inflater.inflate(R.layout.frg_explist, container, false);
         
     }
 	

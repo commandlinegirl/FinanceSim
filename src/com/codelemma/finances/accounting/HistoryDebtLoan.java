@@ -24,7 +24,7 @@ public class HistoryDebtLoan extends HistoryNew {
 	}
 	
 	@Override
-	public void add(int index, NamedValue acctElement, HistoryCashflows cashflows, HistoryNetWorth net_worth) {
+	public void add(int index, AccountingElement acctElement, HistoryCashflows cashflows, HistoryNetWorth net_worth) {
 		// TODO Auto-generated method stub
 		DebtLoan debt = (DebtLoan) acctElement;
 		try {		    			
@@ -36,7 +36,6 @@ public class HistoryDebtLoan extends HistoryNew {
 		    
 		    cashflows.addDebtLoan(index, debt);
 		    net_worth.addDebtLoan(index, debt);
-		    index++;
 		    
 		} catch (IndexOutOfBoundsException e) {
 			e.printStackTrace();

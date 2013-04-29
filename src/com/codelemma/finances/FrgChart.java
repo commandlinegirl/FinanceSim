@@ -20,6 +20,7 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.Toast;
 
 public class FrgChart extends SherlockFragment 
                       implements OnItemSelectedListener{
@@ -46,10 +47,12 @@ public class FrgChart extends SherlockFragment
         	historyItems.add(i);
         }
     	
-    	if (historyItems.size() != 0) {
-    		return inflater.inflate(R.layout.frg_chart, container, false);	
+    	if (historyItems.size() == 0) {
+    		
+    		//Toast.makeText(getSherlockActivity(), "Chart empty. Please add data to get started.", Toast.LENGTH_SHORT).show();
+    		return inflater.inflate(R.layout.frg_empty, container, false);    		
         } 
-    	return inflater.inflate(R.layout.frg_empty, container, false);    	    	    	
+    	return inflater.inflate(R.layout.frg_chart, container, false);    	    	
     }
  
 
@@ -90,6 +93,7 @@ public class FrgChart extends SherlockFragment
 	        plotVisitor = new Plotter(getSherlockActivity(), history.getDates());
 
     	} else {
+	        
     		String[] elementName = {"income", "expense", "investment", "debt", "cashflow", "networth"};
     		
     		TextView tv = (TextView) getSherlockActivity().findViewById(R.id.add_data_text);

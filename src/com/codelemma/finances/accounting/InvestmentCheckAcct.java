@@ -8,7 +8,7 @@ import com.codelemma.finances.TypedContainer;
 import java.util.NoSuchElementException;
 
 public class InvestmentCheckAcct extends Investment 
-                               implements NamedValue {
+                               implements AccountingElement {
 	
 	private int id;
 	private String name;	
@@ -17,6 +17,7 @@ public class InvestmentCheckAcct extends Investment
     private BigDecimal init_percontrib;
     private BigDecimal init_interest_rate;
     private BigDecimal percontrib;
+    private BigDecimal percontrib_decimal;
     
     private BigDecimal tax_rate;    
     private BigDecimal tax_rate_decimal;     
@@ -105,7 +106,7 @@ public class InvestmentCheckAcct extends Investment
     }  
         
     public BigDecimal getTax() {    
-    	return Money.scale(tax_on_interests); //I added scale here
+    	return tax_on_interests; //I added scale here
     }    
         
 	@Override
@@ -121,7 +122,6 @@ public class InvestmentCheckAcct extends Investment
     public int getId() {
         return id;
     }    
-
 
 	public BigDecimal getInitTaxRate() {
 		return init_tax_rate;
@@ -180,16 +180,18 @@ public class InvestmentCheckAcct extends Investment
     @Override
     public void advance(int year, int month, BigDecimal excess, BigDecimal checkingAcctPercontrib) {
 
-
     	if ((year < start_year) || (year == start_year && month < start_month)) {
     		setValuesBeforeCalculation();
     	} else if (year == start_year && month == start_month) {
+    		percontrib = checkingAcctPercontrib;
+    		percontrib_decimal = checkingAcctPercontrib.divide(Money.HUNDRED, Money.RATE_DECIMALS, Money.ROUNDING_MODE);
     		initialize();
-    		advanceValues(month, excess, checkingAcctPercontrib);
+    		advanceValues(month, excess);
     	} else if ((year > start_year) || (year == start_year && month > start_month)) {
-    		advanceValues(month, excess, checkingAcctPercontrib);
+    		advanceValues(month, excess);
     	}       	
     }
+    
     
  	@Override
     public void setValuesBeforeCalculation() {
@@ -205,41 +207,37 @@ public class InvestmentCheckAcct extends Investment
  		hidden_amount = init_amount;  
  		contribution = Money.ZERO;
  	}
-
     
-    private void advanceValues(int month, BigDecimal excess, BigDecimal checkingAcctPercontrib) {
+    private void advanceValues(int month, BigDecimal excess) {
     	
         interests_gross = Money.ZERO;
         tax_on_interests = Money.ZERO;
         interests_net = Money.ZERO;
     	        
-        BigDecimal checkingAcctPercontribDecimal = checkingAcctPercontrib.divide(Money.HUNDRED, Money.RATE_DECIMALS, Money.ROUNDING_MODE);
-        percontrib = checkingAcctPercontrib;
+                
      	/* Add monthly contribution (a given percentage of excess money) to the hidden_amount
      	 * if excess > 0. */       
-        contribution = Money.getPercentage(excess, checkingAcctPercontribDecimal);           
-        contribution = contribution.add(withdrawal401k);
+        contribution = Money.getPercentage(excess, percontrib_decimal).add(withdrawal401k);                  
         withdrawal401k = Money.ZERO; // after adding withdrawn money, init it back to zero for next advancements
         
         amount = amount.add(contribution);                     
-        hidden_amount = hidden_amount.add(contribution);  
+        hidden_amount = hidden_amount.add(contribution);
         
      	/* Calculates the interests of hidden_amount (and adds to principal)  */
-     	hidden_amount = hidden_amount.multiply(getCompoundingFactor(months[month]));// i removed scale..
+     	hidden_amount = Money.scale(hidden_amount.multiply(getCompoundingFactor(months[month])));// i removed scale..
      	
      	if (capitalization == capitalization_counter) {
      		/* calculate and subtract tax on interests */
      		interests_gross = hidden_amount.subtract(amount);
-     		tax_on_interests = interests_gross.multiply(tax_rate_decimal); // I removed scale here
+     		tax_on_interests = Money.getPercentage(interests_gross, tax_rate_decimal); // I removed scale here
      		/* Add interests from previous period to the amount */  
      		interests_gross = interests_gross.max(Money.ZERO);
      		tax_on_interests = tax_on_interests.max(Money.ZERO);
      		
      		if (interests_gross.compareTo(Money.ZERO) != 0) {
      		    hidden_amount = hidden_amount.subtract(tax_on_interests);     		            
-                interests_net = Money.scale(interests_gross.subtract(tax_on_interests)); 
-                hidden_amount = Money.scale(hidden_amount);
-                amount = Money.scale(hidden_amount); // hidden amount contains interests!!!
+                interests_net = interests_gross.subtract(tax_on_interests);                 
+                amount = hidden_amount; // hidden amount contains interests!!!
      		}
          	capitalization_counter = 1;         	   
      	} else {

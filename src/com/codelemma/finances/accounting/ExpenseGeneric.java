@@ -6,7 +6,7 @@ import com.codelemma.finances.ParseException;
 import com.codelemma.finances.TypedContainer;
 
 public class ExpenseGeneric extends Expense 
-                            implements NamedValue {
+                            implements AccountingElement {
 		
     private BigDecimal init_expense;
     private BigDecimal init_inflation_rate;

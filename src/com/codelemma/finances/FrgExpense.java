@@ -17,7 +17,7 @@ import android.widget.Toast;
 import com.actionbarsherlock.app.SherlockFragment;
 import com.codelemma.finances.accounting.Account;
 import com.codelemma.finances.accounting.ExpenseGeneric;
-import com.codelemma.finances.accounting.NamedValue;
+import com.codelemma.finances.accounting.AccountingElement;
 
 public class FrgExpense extends SherlockFragment {
 	
@@ -51,27 +51,13 @@ public class FrgExpense extends SherlockFragment {
 		account = appState.getAccount();	
 		
     	LinearLayout tip = (LinearLayout) getSherlockActivity().findViewById(R.id.expense_summary);
-    	tip.removeAllViews();
-    	
-        TextView tv = new TextView(getSherlockActivity());
-        tv.setText(R.string.expenses_description);
-        tv.setGravity(Gravity.CENTER);
-        tv.setTextColor(Color.parseColor("#FF771100"));
-        tv.setPadding(0, 5, 0, 10);
-        tip.addView(tv);
-		
-	    View line = new View( getSherlockActivity());		
-	 	LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, 
-	 			                                                        Utils.px(getSherlockActivity(), 1));	
-	 	line.setLayoutParams(param);
-	 	line.setBackgroundColor(0xFFCCCCCC);	    
-		tip.addView(line);
+    	tip.removeAllViews();    	
 		
 		if (account.getExpensesSize() > 0) {	 
-		   	Iterable<? extends NamedValue> values = (Iterable<? extends NamedValue>) account.getExpenses();
+		   	Iterable<? extends AccountingElement> values = (Iterable<? extends AccountingElement>) account.getExpenses();
 		   	updateInputListing(values);		    
 		} else {
-	        tv = new TextView(getSherlockActivity());
+	        TextView tv = new TextView(getSherlockActivity());
 	        tv.setText(R.string.no_expense_info);
 	        tv.setGravity(Gravity.CENTER);
 	        tv.setPadding(0, Utils.px(getSherlockActivity(), 30), 0, 0);
@@ -118,9 +104,9 @@ public class FrgExpense extends SherlockFragment {
         }
 	}
 	
-    private void updateInputListing(Iterable<? extends NamedValue> values) {        
+    private void updateInputListing(Iterable<? extends AccountingElement> values) {        
         InputListingUpdater modifier = new  InputListingUpdater(getSherlockActivity());
-        for(NamedValue value : values) {        	
+        for(AccountingElement value : values) {        	
         	value.updateInputListing(modifier);        	
         } 		   		       
     }

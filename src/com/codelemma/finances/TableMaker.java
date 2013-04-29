@@ -32,8 +32,7 @@ public class TableMaker implements TableVisitor {
 		frgActivity = sherlockFragmentActivity;
 		formatter = new NumberFormatter();
 	}
-	
-	
+		
 	@Override
 	public void makeTableExpense(HistoryExpenseGeneric historyExpenseGeneric) {
     	// header
@@ -931,7 +930,7 @@ public class TableMaker implements TableVisitor {
 		header.addView(tv); 
 		
 		tv = new TextView(frgActivity);
-		tv.setText("Total\nExpenses");
+		tv.setText("Total\nexpenses");
 		tv.setTextColor(Color.parseColor("#FFCC0000"));
 		tv.setTextSize(11);
 		tv.setLayoutParams(params);

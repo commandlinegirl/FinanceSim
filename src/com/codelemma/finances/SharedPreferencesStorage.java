@@ -1,55 +1,43 @@
 package com.codelemma.finances;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.math.BigDecimal;
 
 import android.content.SharedPreferences;
 
 import com.codelemma.finances.accounting.Account;
-import com.codelemma.finances.accounting.NamedValue;
+import com.codelemma.finances.accounting.AccountingElement;
 import com.codelemma.finances.accounting.PackToContainerVisitor;
+import com.codelemma.finances.accounting.Storage;
 
 class SharedPreferencesStorage implements Storage {
-	
 	private SharedPreferences preferences;
-	private SharedPreferences.Editor editor;
 	
 	SharedPreferencesStorage(SharedPreferences sharedPreferences) {
 		preferences = sharedPreferences;
-        editor = preferences.edit();		
-	}
-	
-	private void saveMap(HashMap<String,String> map) {
-		for (Map.Entry<String,String> entry: map.entrySet()) {
-			editor.putString(entry.getKey(), entry.getValue());
-		}		
-		editor.commit();
-	}
+	}		
 		
-		
-	private String saveElements(Iterable<? extends NamedValue> element) throws ParseException {
+	private String saveElements(Iterable<? extends AccountingElement> element) throws ParseException {
 		PackToContainerVisitor packToContainerVisitor = new PackToContainerLauncher();
 		TypedContainer container = new TypedContainer();		
-		for(NamedValue value : element) {
+		for(AccountingElement value : element) {
 			container.put(TypedKey.getNumericKey(value.getId()), value.getFieldContainer(packToContainerVisitor));
-		}		
+		}
         return container.toString();		
 	}
 	
 	@Override
 	public void saveAccount(Account account) throws ParseException {
-				
-		Iterable<? extends NamedValue> incomes = (Iterable<? extends NamedValue>) account.getIncomes();
+		SharedPreferences.Editor editor = preferences.edit();
+		Iterable<? extends AccountingElement> incomes = (Iterable<? extends AccountingElement>) account.getIncomes();
 	    String incomesStr = saveElements(incomes); //TODO: check size!
 		
-		Iterable<? extends NamedValue> investments = (Iterable<? extends NamedValue>) account.getInvestments();		
+		Iterable<? extends AccountingElement> investments = (Iterable<? extends AccountingElement>) account.getInvestments();		
 		String investmentsStr = saveElements(investments);
 
-		Iterable<? extends NamedValue> expenses = (Iterable<? extends NamedValue>) account.getExpenses();		
+		Iterable<? extends AccountingElement> expenses = (Iterable<? extends AccountingElement>) account.getExpenses();		
 		String expensesStr = saveElements(expenses);
 		
-		Iterable<? extends NamedValue> debts = (Iterable<? extends NamedValue>) account.getDebts();		
+		Iterable<? extends AccountingElement> debts = (Iterable<? extends AccountingElement>) account.getDebts();		
 		String debtsStr = saveElements(debts);
 		
 	  	editor.putString(TypedKey.INCOMES.getKeyword(), incomesStr);
@@ -57,56 +45,50 @@ class SharedPreferencesStorage implements Storage {
 	  	editor.putString(TypedKey.EXPENSES.getKeyword(), expensesStr);
 	  	editor.putString(TypedKey.DEBTS.getKeyword(), debtsStr);	  	
 	  	editor.commit();	  	
-	}
+	}	
 	
-	    
 	@Override
-	public void saveInput(HashMap<String,String> input) {
-		saveMap(input);	
-	}
-
-	@Override
-	public HashMap<String,String> getInput(ArrayList<String> keys) {    	
-		HashMap<String,String> input = new HashMap<String, String>();
-		for(String s : keys) {
-			input.put(s, preferences.getString(s, null));
+	public String getString(String key) throws StorageException {
+		if (!preferences.contains(key)) {
+			throw new StorageException("Key not found in storage: " + key);
 		}
-		return input;
+		return preferences.getString(key, null);
+	}
+	
+	@Override
+	public void setString(String key, String value) throws StorageException {
+		//TODO
+	}
+	
+	@Override
+	public int getInt(String key) throws StorageException {
+		if (!preferences.contains(key)) {
+			throw new StorageException("Key not found in storage: " + key);
+		}
+		return preferences.getInt(key, 0);
+	}
+	
+	@Override
+	public void setInt(String key, int value) throws StorageException {
+		//TODO
 	}
 
 	@Override
-	public HashMap<String,String> getInputMap(String key) {    	
-		HashMap<String,String> input = new HashMap<String, String>();
-		input.put(key, preferences.getString(key, null));
-		return input;
-	}	
-	
+	public BigDecimal getBigDecimal(String key) throws StorageException {
+		if (!preferences.contains(key)) {
+			throw new StorageException("Key not found in storage: " + key);
+		}
+		return new BigDecimal(preferences.getString(key, null));
+	}
 	
 	@Override
-	public void remove(String key) {
-		editor.remove(key);
+	public void setBigDecimal(String key, BigDecimal value) throws StorageException {
+		//TODO
 	}
 
 	@Override
-	public void clear() {
-		editor.clear();
-		editor.commit();
-	}	
-	
-	@Override
-	public String get(String key, String defaultVal) {
-		return preferences.getString(key, defaultVal);
-	}
-	
-	@Override
-	public void put(String key, String val) {
-		editor.putString(key, val);
-		editor.commit();
-	}
-	
-	@Override
-	public Map <String,?> getAll() {
-		return preferences.getAll();
+	public void clear() throws StorageException {
+		// TODO Auto-generated method stub	
 	}
 }
  

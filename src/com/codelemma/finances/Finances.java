@@ -5,9 +5,11 @@ import java.util.Iterator;
 import java.util.Map.Entry;
 
 import android.app.Application;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
 import com.codelemma.finances.accounting.Account;
+import com.codelemma.finances.accounting.DefaultAccountFactory;
 import com.codelemma.finances.accounting.DebtLoan;
 import com.codelemma.finances.accounting.DebtMortgage;
 import com.codelemma.finances.accounting.ExpenseGeneric;
@@ -18,17 +20,20 @@ import com.codelemma.finances.accounting.Investment401k;
 import com.codelemma.finances.accounting.InvestmentCheckAcct;
 import com.codelemma.finances.accounting.InvestmentSavAcct;
 import com.codelemma.finances.accounting.Money;
+import com.codelemma.finances.accounting.SafeAccountFactory;
+import com.codelemma.finances.accounting.SafeStorageAccountFactory;
+import com.codelemma.finances.accounting.Storage;
 
 public class Finances extends Application {
-	      
     private int simStartMonth = -1; // not set yet
     private int simStartYear = -1;  // not set yet
     private int calcStartMonth = -1; // not set yet
     private int calcStartYear = -1;  // not set yet
 	private int preCalculationLength = 0; // number of months for pre calculatoins (until simulation (for history) starts)
     private int simulationLength = 600;// 50*12;
-	private int totalCalculationLength = 0; // number of months for total calculatoins (simulation + precalculations)	
-    private Account account;  
+	private int totalCalculationLength = 0; // number of months for total calculatoins (simulation + precalculations)
+	private SafeAccountFactory accountFactory;
+    private Account account;
     private History history;    
     private static Finances appInstance;
 	private boolean needToRecalculate = true;
@@ -38,7 +43,12 @@ public class Finances extends Application {
     @Override
     public void onCreate() {        
         super.onCreate();
+        Preconditions.check(appInstance == null, "appInstance already set");
         appInstance = this;
+		Storage storage = StorageFactory.create(
+				PreferenceManager.getDefaultSharedPreferences(
+						getApplicationContext()));
+        accountFactory = new SafeStorageAccountFactory(storage);
     }
     
     public static Finances getInstance() {
@@ -96,7 +106,7 @@ public class Finances extends Application {
 	public void computeCalculationLength() {
 		/* Get the total number of months the calculation (ie. advance iteration in Account)
 		 * needs to proceed for. It is the sum of simulation time (eg. 30 years) and 
-		 * precalculation time (in months) */
+		 * pre-calculation time (in months) */
         int _preCalculationLength = 0;
         
         int year = calcStartYear;
@@ -122,55 +132,18 @@ public class Finances extends Application {
 		needToRecalculate = p;
 	}
 
+	public void setAccount() {
+		account = accountFactory.createAccount(simStartYear, simStartMonth);
+	}
 	
-	public void setAccount(Storage storage) throws ParseException {
-		account = new Account(simStartYear, simStartMonth);
-		
-		String incomes = storage.get(TypedKey.INCOMES.getKeyword(), null);
-		
-		if (incomes != null) {
-			//restoreIncomes(incomes);
-			Log.d("Finances.setAccount()", incomes);
-		} else {
-			Log.d("Finances.setAccount()", "incomes is null");
-		}
-		
-		String investments = storage.get(TypedKey.INVESTMENTS.getKeyword(), null);		
-		if (investments != null) {
-			//restoreInvestments(investments);			
-		} else {			
-	    	InvestmentCheckAcct investment = new InvestmentCheckAcct(
-	    			"Checking account", // name
-	    			Money.ZERO,         // init_amount
-	    			new BigDecimal(30), // tax_rate
-	                1,                  // interest capitalization (1 = monthly)
-	                new BigDecimal("0.5"), // interest_rate
-	                simStartYear,       // calculation start = simulation start
-	                simStartMonth);		// calculation start = simulation start	    	
-			account.addInvestment(investment);
-	    	account.setCheckingAcct(investment);
-	    	account.setCheckingAcctPercontrib();
-		}				
-		
-		
-		
-		
-		String expenses = storage.get(TypedKey.EXPENSES.getKeyword(), null);		
-		if (investments != null) {
-			//restoreExpenses(expenses);
-		}	
-		
-				
-		String debts = storage.get(TypedKey.DEBTS.getKeyword(), null);		
-		if (debts != null) {
-			//restoreDebts(debts);
-		}			
+	public void saveAccount() {
+		//TODO
 	}
 	
 	private void restoreIncomes(String incomes) throws ParseException {
 		TypedContainer incomesCont = Serializer.parseToMap(incomes);		
-		Iterator<Entry<TypedKey<?>, Object>> i = incomesCont.iterator();	
-		
+		Iterator<Entry<TypedKey<?>, Object>> i = incomesCont.iterator();
+
 		while (i.hasNext()) {
 			TypedContainer tc = ((TypedContainer) i.next().getValue());
 		    BigDecimal yearly_income = tc.get(TypedKey.YEARLY_INCOME);
@@ -181,7 +154,7 @@ public class Finances extends Application {
     	    int income_term = tc.get(TypedKey.INCOME_TERM);
     	    int start_year = tc.get(TypedKey.INCOME_START_YEAR);
     	    int start_month = tc.get(TypedKey.INCOME_START_MONTH);
-    	    
+
 		    IncomeGeneric income = new IncomeGeneric(yearly_income, 
                 income_tax_rate, 
                 yearly_income_rise,
@@ -193,7 +166,7 @@ public class Finances extends Application {
 		    account.addIncome(income);
 		}
 	}			
-	
+
 	private void restoreInvestments(String investments) throws ParseException {
 		TypedContainer investmentsCont = Serializer.parseToMap(investments);		
 		Iterator<Entry<TypedKey<?>, Object>> i = investmentsCont.iterator();		

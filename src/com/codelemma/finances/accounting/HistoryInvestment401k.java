@@ -20,7 +20,7 @@ public class HistoryInvestment401k extends HistoryNew {
 	}
 
 	@Override
-	public void add(int index, NamedValue acctElement, HistoryCashflows cashflows, HistoryNetWorth net_worth) {
+	public void add(int index, AccountingElement acctElement, HistoryCashflows cashflows, HistoryNetWorth net_worth) {
 		Investment401k investment = (Investment401k) acctElement;
 		try {		    
 			amountHistory[index] = investment.getAmount();

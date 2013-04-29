@@ -11,7 +11,6 @@ public class FrgCashflow extends SherlockFragment {
 		
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {    	
-        View frView = inflater.inflate(R.layout.frg_cashflows, container, false);
-        return frView;
+        return inflater.inflate(R.layout.frg_cashflows, container, false);
 	}
 }

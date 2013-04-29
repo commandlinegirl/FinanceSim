@@ -33,7 +33,7 @@
     <string name="cancel">Cancel</string>
     <string name="percent">%</string>
     <string name="show_predictions">Show predictions</string>
-    <string name="progress_bar_info">Simulating your financial future in %s years</string>
+    <string name="progress_bar_info">Simulating your financial future..</string>
     
     <string name="add_income">Add income</string>    
     <string name="add_investmentsav">Add savings acct</string>
@@ -89,7 +89,7 @@
         capital.</string>
     
     <string name="networth1">For net worth the input comes from income, expenses, savings, and debts. </string> 
-    <string name="networth2">Net worth chart and table show your accumulated saving, total debt and their 
+    <string name="networth2">Net worth chart and table show your accumulated savings, total debt and their 
         difference in a given point of time.</string>    
    
     <string name="debts_title">DEBTS</string>
@@ -116,8 +116,8 @@
     <string name="income_term_input">Income term (years)</string>
     <string name="income_term_text">30</string>
     
-    <string name="income_help_intro">Here add any regular source of non-capital income (eg. salary, returns 
-        from renting a flat, etc.).</string>   
+    <string name="income_help_intro">Here add any regular source of income (eg. salary, returns 
+        from renting a flat, dividends, etc.).</string>   
     <string name="income_help_yearly_income"><b>Income per year</b> - gross yearly income.</string>
     <string name="income_help_rise_per_year"><b>Rise per year</b> - estimated yearly payment increase 
         rate.</string>
@@ -139,7 +139,7 @@
     <string name="debtloan_term_text">12</string>
     <string name="debtloan_extra_payment_input">Monthly extra payment</string>
     <string name="debtloan_extra_payment_text">0</string>
-    <string name="debtloan_help_intro">This is the most typical loan payment type (a fully amortizing payment), in which each monthly rate has the same value over time.</string>
+    
     <string name="debtloan_help_amount"><b>Amount</b> - loan amount.</string>
     <string name="debtloan_help_interest_rate"><b>Interest rate</b> - yearly interest rate.</string>
     <string name="debtloan_help_term"><b>Loan term</b> - loan term (in years).</string>
@@ -162,9 +162,7 @@
     <string name="debtmortgage_property_tax_text">0</string>
     <string name="debtmortgage_pmi_input">PMI</string>
     <string name="debtmortgage_pmi_text">0.52</string>
-    <string name="debtmortgage_help_intro">This is a fixed rate mortgage, which has a fixed interest rate through the entire term of the loan. 
-        As a result payment amounts and the duration of the loan are fixed. It also assumes the typical case 
-        when PMI (private mortgage insurance) is paid until loan-to-value ratio reaches 80%, see below.</string>
+    
     <string name="debtmortgage_help_amount"><b>Purchase price</b> - purchased property price.</string>
     <string name="debtmortgage_help_downpayment"><b>Downpayment</b> - amount paid in cash at the onset of the loan as 
         a percentage of the purchased property price.</string>
@@ -178,9 +176,7 @@
         paid to the lender if the downpayment is lower than 20% of the purchased 
         property price or when the loan-to-value ratio is lower than 80 percent. Loan-to-value 
         ratio is a ratio of the loan to the value of an asset purchased. </string>
-    <string name="debtmortgage_help_start_date"><b>Start date</b> - date of loan commencement.</string>
-    
-    
+    <string name="debtmortgage_help_start_date"><b>Start date</b> - date of loan commencement.</string>       
     
     <string name="expense_name_input">Name</string>
     <string name="expense_name_text">Monthly expenses</string>
@@ -232,7 +228,7 @@
     <string name="investmentcheck_capitalization_text">12</string>
     <string name="investmentcheckacct_help_intro">Checking account is a fixed account used here to deposit all of the remaining monthly income (capital and 
         non-capital) after it has been partitioned into expenses, investments, any 401(k) accounts, savings accounts, and debt rates.   
-        continuous. </string>
+        The interests are compounded continuously. </string>
     <string name="investmentcheckacct_help_amount"><b>Current amount</b> - current balance on your account.</string>
     <string name="investmentcheckacct_help_interest_rate"><b>Interest rate</b> - yearly interest rate.</string>
     <string name="investmentcheckacct_help_tax_rate"><b>Tax rate</b> - tax rate on the interests.</string>
@@ -297,6 +293,59 @@
     <string name="investmentstock_dividends_input">Percent contribution (of excess money)</string>
     <string name="investmentstock_dividends_text">0</string>
 
-    <string name="savings_expl_intro">Here add bank and retirement plan accounts.</string>
+    <string name="expl_income_add_intro">Description of input</string>
+    
+    <string name="expl_income_chart_intro">Description of chart</string>
+    
+    <string name="expl_income_table_intro">Description of table</string>
+    
+    <string name="expl_expenses_add_intro">Here input your regular expenses, such as monthly spendings, insurance, house or apartment rent, yearly travel 
+        budget, etc. \n\nThe submitted amounts are used as starting points in projecting the future values of your spending taking into account inflation,
+        which is assumed to be constant over the years.</string>
+    
+    <string name="expl_expenses_chart_intro">The chart shows the rise of monthly expenses over years due to inflation.</string>
+    
+    <string name="expl_expenses_table_intro">Each month the expenses you incur rise due to inflation. They will be lower if inflation is negative.</string>
+      
+    <string name="savings_expl_add_intro">Here input your bank and retirement plan accounts data. \n\n<b>Checking account</b> is a fixed account used here 
+        to deposit all of the remaining monthly income after it has been partitioned into expenses, 401(k) accounts, savings accounts, and debt rates. 
+        Also, when 401(k) interests and earnings are withdrawn from the 401(k) account they are deposited to the checking account.</string>
+    
+    <string name="savings_expl_chart_intro">Description of chart</string>
+    
+    <string name="savings_expl_table_intro">Description of table</string>
+    
+    <string name="expl_debts_add_intro"><b>::: LOAN ::: </b>\nThis is the most typical loan payment type (a fully amortizing payment), in which each 
+        monthly rate has the same value over time. Interests are compounded monthly.
+        \n\n<b>::: MORTGAGE :::</b>\nThis is a fixed rate mortgage, which has a fixed interest rate through the entire term of the loan. 
+        As a result payment amounts and the duration of the loan are fixed. It also assumes the typical case 
+        when PMI (private mortgage insurance) is paid until loan-to-value ratio reaches 80%. Interests are compounded monthly.</string>
+    
+    <string name="expl_debts_chart_intro"><b>Total interest</b> is a cumulative amount of interests you\'ve paid up to a given point in time.
+        \n\n<b>Outstanding loan</b> is the loan amount you still need to pay off.</string>
+    
+    <string name="expl_debts_table_intro"><b>::: LOAN :::</b>\n\n<b>Principal</b> is a part of a monthly payment of the amount borrowed. \n\n<b>Interest</b> is the part of payment. 
+        \n\nTo calculate <b>monthly payment</b> add principal and interest. \n\n<b>Total interest</b> is the total a cumulative amount of interests you\'ve paid up 
+        to a given point in time. \n\n<b>Remaining amount</b> is the loan amount you still need to pay off.\n\n<b>::: MORTGAGE :::</b>\n\n<b>Principal</b> is a part 
+        of monthly payment of the amount borrowed. \n\n<b>Interest</b> is the part of payment. \n\n<b>Tax, PMI, insurance</b> are extra property tax, property insurance and
+        Private Mortgage Insurance paid monthly. \n\nTo calculate <b>monthly payment</b> add principal, interest and the extra costs. \n\n<b>Total interest</b> is the 
+        total a cumulative amount of interests you\'ve paid up to a given point in time. \n\n<b>Remaining amount</b> is the loan amount  you still need to pay off.\n\n</string>
+        
+    <string name="expl_cashflows_chart_intro"><b>Net income</b> is a sum of all your net income sources in a given month.\n\n<b>Capital gains</b> is
+        a sum of the interests and earnings made in a given month, excluding 401(k) earnings (which are deposited in a lump sum to the Checking Account at
+        withdrawal). \n\n<b>Total expenses</b> is a sum of all the spendings made in a given month. \n\n<b>Debt service</b> is a sum of your monthly 
+        debt payments. \n\n<b>Saved</b> is the amount of money put away into bank accounts (checking, savings, etc.) in a given month. It includes 401(k) earnings 
+        deposited in a lump sum at withdrawal.</string>
+    
+    <string name="expl_cashflows_table_intro"><b>Net income</b> is a sum of all your net income sources in a given month.\n\n<b>Capital gains</b> is
+        a sum of the interests and earnings made in a given month, excluding 401(k) earnings (which are deposited in a lump sum to the Checking Account at
+        withdrawal). \n\n<b>Total expenses</b> is a sum of all the spendings made in a given month. \n\n<b>Debt service</b> is a sum of your monthly 
+        debt payments. \n\n<b>Saved</b> is the amount of money put away into bank accounts (checking, savings, etc.) in a given month. It includes 401(k) earnings 
+        deposited in a lump sum at withdrawal. \n\nThe total of all these amounts in a given month should be 0.</string>
+    
+        <string name="expl_net_worth_table_intro">Accumulated savings is a sum of all the savings you\'ve gathered up to a given point 
+        of time. This includes 401(k) savings, while the tax on the 401(k) return is subtracted from the savings at  
+        withdrawal. \n\nOutstanding debts is a sum of all your debts in a given point of time. \n\nNet worth = 
+        savings - debts.</string>
     
 </resources>

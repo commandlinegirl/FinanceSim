@@ -24,7 +24,7 @@ public class HistoryDebtMortgage extends HistoryNew {
 	}
 	
 	@Override
-	public void add(int index, NamedValue acctElement, HistoryCashflows cashflows, HistoryNetWorth net_worth) {
+	public void add(int index, AccountingElement acctElement, HistoryCashflows cashflows, HistoryNetWorth net_worth) {
 		// TODO Auto-generated method stub
 		DebtMortgage debt = (DebtMortgage) acctElement;
 		try {		    
@@ -36,9 +36,7 @@ public class HistoryDebtMortgage extends HistoryNew {
 		    remainingAmountHistory[index] = debt.getRemainingAmount();
 		    
 		    cashflows.addDebtMortgage(index, debt);
-		    net_worth.addDebtMortgage(index, debt);
-		    index++;
-		    
+		    net_worth.addDebtMortgage(index, debt);		    
 		} catch (IndexOutOfBoundsException e) {
 			e.printStackTrace();
 		}

@@ -23,7 +23,7 @@ public class HistoryIncomeGeneric extends HistoryNew {
 	}
 	
 	@Override
-	public void add(int index, NamedValue acctElement, HistoryCashflows cashflows) {
+	public void add(int index, AccountingElement acctElement, HistoryCashflows cashflows) {
 		IncomeGeneric inc = (IncomeGeneric) acctElement;
 
 		try {

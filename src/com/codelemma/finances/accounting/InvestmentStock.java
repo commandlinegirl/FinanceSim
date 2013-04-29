@@ -7,7 +7,7 @@ import com.codelemma.finances.ParseException;
 import com.codelemma.finances.TypedContainer;
 
 public class InvestmentStock extends Investment 
-                             implements NamedValue {
+                             implements AccountingElement {
 
 	private int id;
 	private String name;

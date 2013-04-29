@@ -3,17 +3,29 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+
     tools:context=".FrgIncome"
     android:id="@+id/frg_income" >
-              
+    
+    <TextView
+        android:layout_height="26dp"        
+        android:layout_width="fill_parent"
+        android:text="@string/income_description"
+        android:textSize="10sp"
+        android:gravity="center"
+        android:textColor="#FF771100"
+        android:background="#FFE6E6E6"/>
+        
+    
+    
     <ScrollView 
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:layout_width="fill_parent">
+        android:layout_width="fill_parent"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"        >
         
         <LinearLayout
             android:layout_height="wrap_content"

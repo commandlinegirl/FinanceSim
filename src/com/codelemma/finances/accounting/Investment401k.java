@@ -9,7 +9,7 @@ import com.codelemma.finances.ParseException;
 import com.codelemma.finances.TypedContainer;
 
 public class Investment401k extends Investment 
-                            implements NamedValue {
+                            implements AccountingElement {
 	
 	private int id;
 	private String name;	
@@ -214,10 +214,6 @@ public class Investment401k extends Investment
     @Override
     public void advance(int year, int month, InvestmentCheckAcct checkingAcct) {
 
-    	//Log.d("calling Investment401k.advance", "called");
-    	//Log.d("calling year", "."+year);
-    	//Log.d("calling month", "."+month);
-    	
     	if (year == start_year && month == start_month) { 		
     		initialize();    		
     		advanceValues(month, checkingAcct);    		
@@ -241,8 +237,7 @@ public class Investment401k extends Investment
         	/* Calculate monthly contribution of employee and employer */    		
         	monthly_employee_contribution = Money.getPercentage(salary, percontrib_decimal);
         	monthly_employer_contribution = Money.getPercentage(monthly_employee_contribution, employer_match_decimal);   	    	
-        	amount = amount.add(monthly_employee_contribution);
-        	amount = amount.add(monthly_employer_contribution);
+        	amount = amount.add(monthly_employee_contribution).add(monthly_employer_contribution);        	
         	BigDecimal interests_gross = Money.getPercentage(amount, interest_rate_decimal_monthly);
             amount = amount.add(interests_gross);
             hidden_interests = hidden_interests.add(interests_gross);
@@ -252,10 +247,6 @@ public class Investment401k extends Investment
     		BigDecimal tax = getInterestsTax(hidden_interests);
     		capital_gain = calculateInterestsNet(hidden_interests, tax);    	
     		amount = amount.subtract(tax); // pay tax for the interests gained
-    		//Log.d("investment401k advance hidden_interests", hidden_interests.toString());
-    		//Log.d("investment401k advance tax", tax.toString());
-    		//Log.d("investment401k advance capital_gain ", capital_gain.toString());    
-    		//Log.d("investment401k advance amount ", amount.toString());  
     		checkingAcct.add401kWithdrawal(amount); // add net 401(k) gathered amount to checking account
     		setValuesBeforeCalculation();
     		counter++;

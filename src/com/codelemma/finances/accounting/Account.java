@@ -6,17 +6,19 @@ import java.util.Collections;
 import android.util.SparseArray;
 
 public class Account {
-    
-    private int income_id = 0;    
-    private int expense_id = 0;
-    private int investment_id = 0;
-    private int debt_id = 0;
     private int simStartYear;
     private int simStartMonth;
     private BigDecimal investmentsPercontrib;
     private BigDecimal checkingAcctPercontrib;
 	private InvestmentCheckAcct checkingAcct; 	
 
+	// To be refactored away. They won't be needed once each accounting element class
+	// assumes responsibility for assigning its own instance ids.
+    private int income_id = 0;
+    private int expense_id = 0;
+    private int investment_id = 0;
+    private int debt_id = 0;
+    
     private SparseArray<Income> income_ids = new SparseArray<Income>();
     private SparseArray<Expense> expense_ids = new SparseArray<Expense>();
     private SparseArray<Investment> investment_ids = new SparseArray<Investment>();
@@ -63,7 +65,7 @@ public class Account {
     }
     
     public void addExpense(Expense expense) {
-    	Preconditions.checkNotNull(expense, "Missing expenses");
+    	Preconditions.checkNotNull(expense, "Missing expense");
     	expense.setId(expense_id);        
         expenses.add(expense);
         expense_ids.put(expense_id, expense);
@@ -94,6 +96,39 @@ public class Account {
         debt_id++;        
     }   
            
+    // These four methods simply add an accounting element without doing other unrelated work.
+    // They should be removed once add*() are refactored to only do adding.
+    // Currently they should only be used for accounting element objects which already have an id.
+
+    public void justAddExpense(Expense expense) {
+    	Preconditions.checkNotNull(expense, "Missing expense");
+        expenses.add(expense);
+        expense_ids.put(expense.getId(), expense); // May be removed in refactoring.
+    }   
+
+    public void justAddInvestment(Investment investment) {
+    	Preconditions.checkNotNull(investment, "Missing investment");
+        investments.add(investment);
+        investment_ids.put(investment.getId(), investment);
+    }   
+
+    public void justAddIncome(Income income) {
+        Preconditions.checkNotNull(income, "Missing income");    	
+        incomes.add(income);
+        income_ids.put(income.getId(), income);
+    }
+
+    public void justAddDebt(Debt debt) {
+    	Preconditions.checkNotNull(debt, "Missing debt");
+        debts.add(debt);
+        debt_ids.put(debt.getId(), debt);
+    }
+    
+    public void addAccountingElement(AccountingElement accountingElement) {
+    	Preconditions.checkNotNull(accountingElement, "Missing accounting element");
+    	accountingElement.addToAccount(this);
+    }
+
     public void removeIncome(Income income) {
     	if (income != null) {
     		incomes.remove(income);
@@ -227,7 +262,6 @@ public class Account {
     }
     
     public BigDecimal advanceIncome(int index, int year, int month) {
-    	
     	BigDecimal total_income = Money.ZERO;
     	
         for (Income income: incomes) {
@@ -244,8 +278,7 @@ public class Account {
         return total_income;
     }
     
-    public void advanceInvestment(int index, BigDecimal excess, int year, int month) {    	    	
-    	
+    public void advanceInvestment(int index, BigDecimal excess, int year, int month) {
         BigDecimal capitalGains = Money.ZERO;
         for (Investment investment: investments) {
         	if (!investment.isPreTax()) { // posttax investment (taken from excess money), pretax is incremented in Income!        	
@@ -264,7 +297,7 @@ public class Account {
     public void advance(int index, int year, int month) {
     	// year and month - starting date of predictions (saved to history here)
         Preconditions.checkInBounds(month, 0, 11, "Month must be in 0..11");
-        BigDecimal excess = Money.ZERO;//= prevMonthCapitalGains;
+        BigDecimal excess = Money.ZERO; //= prevMonthCapitalGains;
                 
         BigDecimal total_income = advanceIncome(index, year, month);
         excess = excess.add(total_income); // total net income

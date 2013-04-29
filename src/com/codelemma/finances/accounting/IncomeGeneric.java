@@ -9,7 +9,7 @@ import com.codelemma.finances.ParseException;
 import com.codelemma.finances.TypedContainer;
 
 public class IncomeGeneric extends Income
-                           implements NamedValue {
+                           implements AccountingElement {
 	
 	private int id;
     private BigDecimal init_income;
@@ -20,6 +20,7 @@ public class IncomeGeneric extends Income
     private BigDecimal tax_rate_decimal;
     private BigDecimal rise_rate_decimal;
     private BigDecimal installments;
+    private BigDecimal tax;
     private String name;
     private BigDecimal num_of_extras;
     private BigDecimal yearly_income;
@@ -72,18 +73,22 @@ public class IncomeGeneric extends Income
     	yearly_income = init_income;
     	gross_income = init_income.divide(installments, Money.DECIMALS, Money.ROUNDING_MODE);
     	taxable_income = gross_income;
+    	tax = Money.getPercentage(taxable_income, tax_rate_decimal);
     	if (investment401k != null) {    		
     		Log.d("investment401k is not null and the investment401k.getEmployeeContribution()", investment401k.getEmployeeContribution().toString());    		
     	    taxable_income = taxable_income.subtract(investment401k.getEmployeeContribution());
+    	    tax = Money.getPercentage(taxable_income, tax_rate_decimal);
     	}
 		Log.d("taxable_income initialized to: ", taxable_income.toString());
 		counter = 0;
     }
     
+    
     @Override
     public void setValuesBeforeCalculation() {
     	gross_income = Money.ZERO;
     	taxable_income = Money.ZERO;
+    	tax = Money.ZERO;
     }
     
     @Override
@@ -106,15 +111,18 @@ public class IncomeGeneric extends Income
             	BigDecimal extra_money = Money.scale(taxable_income.multiply(num_of_extras));        	
                 gross_income = gross_income.add(extra_money);
                 taxable_income = gross_income;
+                tax = Money.getPercentage(taxable_income, tax_rate_decimal);
             } else if (month == 0) {
             	yearly_income = yearly_income.add(riseAmount());        	
-            	gross_income = yearly_income.divide(installments, Money.DECIMALS, Money.ROUNDING_MODE);      
+            	gross_income = yearly_income.divide(installments, Money.DECIMALS, Money.ROUNDING_MODE);             	
             	taxable_income = gross_income;
+            	tax = Money.getPercentage(taxable_income, tax_rate_decimal);
             }
             if (investment401k != null) {
                 investment401k.advance(year, month, checkingAcct);
                 if (month == 0 || month == 11 || (year == investment401k.getStartYear() && month == investment401k.getStartMonth())) {
                     taxable_income = taxable_income.subtract(investment401k.getEmployeeContribution());
+                    tax = Money.getPercentage(taxable_income, tax_rate_decimal);
                 }		        		    	    
             }
             counter++;
@@ -126,7 +134,7 @@ public class IncomeGeneric extends Income
     
     @Override
     public BigDecimal getNetIncome() {
-        return taxable_income.subtract(getTax());
+        return taxable_income.subtract(tax);
     }
     
     public BigDecimal getGrossIncome() {
@@ -135,7 +143,7 @@ public class IncomeGeneric extends Income
 
     @Override
     public BigDecimal getTax() {
-        return Money.getPercentage(taxable_income, tax_rate_decimal);
+        return tax;
     }
 
     public BigDecimal riseAmount() {

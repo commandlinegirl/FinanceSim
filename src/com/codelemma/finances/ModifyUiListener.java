@@ -5,7 +5,7 @@ import android.view.View.OnClickListener;
 import android.widget.RelativeLayout;
 
 import com.codelemma.finances.accounting.ModifyUiVisitor;
-import com.codelemma.finances.accounting.NamedValue;
+import com.codelemma.finances.accounting.AccountingElement;
 
 public class ModifyUiListener implements OnClickListener {
 
@@ -19,7 +19,7 @@ public class ModifyUiListener implements OnClickListener {
 	public void onClick(View view) {
 		RelativeLayout layout = (RelativeLayout) view;
         layout.setBackgroundColor(0xFFE6E6E6);	        
-        NamedValue value = (NamedValue) view.getTag(R.string.acct_object);
+        AccountingElement value = (AccountingElement) view.getTag(R.string.acct_object);
         value.launchModifyUi(modifyUiLauncher);	    	    
 	}
 }

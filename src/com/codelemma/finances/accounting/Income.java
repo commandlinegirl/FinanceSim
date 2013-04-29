@@ -2,8 +2,7 @@ package com.codelemma.finances.accounting;
 
 import java.math.BigDecimal;
 
-public abstract class Income implements NamedValue {
-   
+public abstract class Income implements AccountingElement {
     public abstract  void initialize();     
     public abstract  void setId(int id); 
     public void advance(int year, int month, InvestmentCheckAcct checkingAcct) {}
@@ -15,4 +14,9 @@ public abstract class Income implements NamedValue {
 	public abstract void setInvestment401k(Investment401k investment401k);
 	public abstract Investment401k getInvestment401k();
 	public abstract void setValuesBeforeCalculation();
+	
+	@Override
+	public void addToAccount(Account account) {
+		account.justAddIncome(this);
+	}
 }

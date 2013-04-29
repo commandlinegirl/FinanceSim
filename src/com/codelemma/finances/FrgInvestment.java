@@ -24,7 +24,7 @@ import com.codelemma.finances.accounting.InvestmentBond;
 import com.codelemma.finances.accounting.InvestmentCheckAcct;
 import com.codelemma.finances.accounting.InvestmentSavAcct;
 import com.codelemma.finances.accounting.InvestmentStock;
-import com.codelemma.finances.accounting.NamedValue;
+import com.codelemma.finances.accounting.AccountingElement;
 
 public class FrgInvestment extends SherlockFragment {
 	
@@ -54,26 +54,13 @@ public class FrgInvestment extends SherlockFragment {
 		
 	   	LinearLayout tip = (LinearLayout) getSherlockActivity().findViewById(R.id.investment_summary);
     	tip.removeAllViews();
-    	
-        TextView tv = new TextView(getSherlockActivity());
-        tv.setText(R.string.investments_description);
-        tv.setGravity(Gravity.CENTER);
-        tv.setTextColor(Color.parseColor("#FF771100"));
-        tv.setPadding(0, 5, 0, 10);
-        tip.addView(tv);
 
-	    View line = new View( getSherlockActivity());		
-	 	LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, 
-	 			                                                        Utils.px(getSherlockActivity(), 1));	
-	 	line.setLayoutParams(param);
-	 	line.setBackgroundColor(0xFFCCCCCC);	    
-		tip.addView(line);
 		
 		if (account.getInvestmentsSize() > 0) {	 
-		   	Iterable<? extends NamedValue> values = (Iterable<? extends NamedValue>) account.getInvestments();
+		   	Iterable<? extends AccountingElement> values = (Iterable<? extends AccountingElement>) account.getInvestments();
 		   	updateInputListing(values);		    
 		} else {
-	        tv = new TextView(getSherlockActivity());
+	        TextView tv = new TextView(getSherlockActivity());
 	        tv.setText(R.string.no_investment_info);
 	        tv.setGravity(Gravity.CENTER);
 	        tv.setPadding(0, Utils.px(getSherlockActivity(), 30), 0, 0);
@@ -293,9 +280,9 @@ public class FrgInvestment extends SherlockFragment {
 
 	}
 	
-    private void updateInputListing(Iterable<? extends NamedValue> values) {        
+    private void updateInputListing(Iterable<? extends AccountingElement> values) {        
         InputListingUpdater modifier = new  InputListingUpdater(getSherlockActivity());
-        for(NamedValue value : values) {        	
+        for(AccountingElement value : values) {        	
         	value.updateInputListing(modifier);        	
         } 		   		       
     }

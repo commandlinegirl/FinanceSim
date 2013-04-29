@@ -7,7 +7,7 @@ import com.codelemma.finances.ParseException;
 import com.codelemma.finances.TypedContainer;
 
 public class DebtMortgage extends Debt 
-                          implements NamedValue {
+                          implements AccountingElement {
  
     private BigDecimal purchase_price;
     private BigDecimal init_interest_rate;
@@ -170,7 +170,6 @@ public class DebtMortgage extends Debt
 	public void initialize() {
 		outstanding_loan = loan_amount;
 		month_counter = 1;
-    	//base_monthly_payment = calculateMonthlyPayment();
     	monthly_payment = base_monthly_payment;
 	    principal_paid = Money.ZERO;
 	    interests_paid = Money.ZERO;
@@ -311,8 +310,6 @@ public class DebtMortgage extends Debt
 		return purchase_price;
 	}
 
-
-
 	@Override
 	public BigDecimal getInitAmount() {
 		return purchase_price;
@@ -320,8 +317,7 @@ public class DebtMortgage extends Debt
 
 	@Override
 	public void updateInputListing(InputListingUpdater modifier) {
-		modifier.updateInputListingForDebtMortgage(this);				
-		
+		modifier.updateInputListingForDebtMortgage(this);
 	}
 
 	@Override

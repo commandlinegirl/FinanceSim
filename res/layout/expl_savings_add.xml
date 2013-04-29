@@ -11,7 +11,7 @@
     <TextView
         android:layout_height="wrap_content"
         android:layout_width="fill_parent"
-        android:text="@string/savings_expl_intro"
+        android:text="@string/savings_expl_add_intro"
         android:paddingBottom="10dp">     
     </TextView>  
     
