@@ -261,9 +261,7 @@ public class Finances extends Application {
 	}	
 
 	public void setHistory() {
-		history = new History(account.getSimulationStartYear(),
-				account.getSimulationStartMonth(),
-				account.getSimulationLength());
+		history = new History();
 	}
 	
 	public int getSpinnerPosition() {

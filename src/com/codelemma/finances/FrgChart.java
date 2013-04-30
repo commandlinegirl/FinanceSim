@@ -81,10 +81,8 @@ public class FrgChart extends SherlockFragment
 		        spinner.setAdapter(adapter);
 		        spinner.setSelection(appState.getSpinnerPosition()); 
 		        spinner.setOnItemSelectedListener(this);	
-
-	        
         	
-	        plotVisitor = new Plotter(getSherlockActivity(), appState.getHistory().getDates());
+	        plotVisitor = new Plotter(getSherlockActivity(), appState.getAccount().getDates());
 
     	} else {
 	        

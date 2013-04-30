@@ -4,14 +4,16 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class Account {
-    private int simStartMonth = -1; // not set yet
-    private int simStartYear = -1;  // not set yet
-    private int calcStartMonth = -1; // not set yet
-    private int calcStartYear = -1;  // not set yet
-	private int preCalculationLength = 0; // number of months for pre calculatoins (until simulation (for history) starts)
-    private int simulationLength = 600;// 50*12;
-	private int totalCalculationLength = 0; // number of months for total calculatoins (simulation + precalculations)
-    
+    private int simStartMonth = -1;
+    private int simStartYear = -1;
+    private int calcStartMonth = -1;
+    private int calcStartYear = -1;
+	private int preCalculationLength = 0; // number of months for pre calculations (until simulation (for history) starts)
+    private int simulationLength = 600;// 50 years * 12;
+	private int totalCalculationLength = 600; // number of months for total calculations (simulation + precalculations)
+	private Months[] months = Months.values(); 
+	private String[] dates; // each element is of "MMM YYYY" format
+	
     private BigDecimal investmentsPercontrib;
     private BigDecimal checkingAcctPercontrib;
 	private InvestmentCheckAcct checkingAcct; 	
@@ -26,6 +28,7 @@ public class Account {
     public Account() {
     	investmentsPercontrib = Money.ZERO;
     	checkingAcctPercontrib = Money.ZERO;
+    	dates = new String[simulationLength];    	    	
     }
     
 	public void setSimulationStartYear(int simStartYear){
@@ -92,6 +95,25 @@ public class Account {
         preCalculationLength = _preCalculationLength;        
         totalCalculationLength =  simulationLength + preCalculationLength;
 	}	
+    
+    public void createDateList() {
+    	int i;
+    	int y = simStartYear;
+    	int m = simStartMonth;
+    	for (i = 0; i < simulationLength; i++) {
+    		dates[i] = months[m]+" "+y;
+    		if (m == 11) {
+                m = 0;
+                y += 1;
+            } else {
+                m++;
+            }        	
+    	}    	    	
+    }
+	
+    public String[] getDates() {
+    	return dates;
+    }
     
     public BigDecimal getInvestmentsPercontrib() {
     	return investmentsPercontrib;

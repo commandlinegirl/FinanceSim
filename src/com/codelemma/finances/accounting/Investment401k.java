@@ -52,8 +52,8 @@ public class Investment401k extends Investment
     		          Income income,
     		          BigDecimal withdrawal_tax_rate,
     		          BigDecimal employer_match,
-                      int _start_year,
-              	      int _start_month) {
+                      int start_year,
+              	      int start_month) {
     	this.name = name;
         
     	this.init_amount = Money.scale(init_amount);
@@ -82,10 +82,10 @@ public class Investment401k extends Investment
         this.withdrawal_tax_rate = Money.scaleRate(withdrawal_tax_rate);
         this.withdrawal_tax_rate_decimal = withdrawal_tax_rate.divide(Money.HUNDRED, Money.RATE_DECIMALS, Money.ROUNDING_MODE);   
         
-        history = new HistoryInvestment401k(this);
-    	start_year = _start_year;
-    	start_month = _start_month;
+    	this.start_year = start_year;
+    	this.start_month = start_month;
     	capital_gain = Money.ZERO;
+        history = new HistoryInvestment401k(this);
     	setValuesBeforeCalculation();
     }   
        		   

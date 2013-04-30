@@ -41,56 +41,55 @@ public class DebtMortgage extends Debt
     private BigDecimal loan_amount;
     private int month_counter = 1;
     private String name;
-    
-    
+       
     private HistoryDebtMortgage history;
     
     private int start_year;
     private int start_month;
     
-    public DebtMortgage(String _name, 
-    		BigDecimal _purchase_price,
-    		BigDecimal _downpayment,
-    		BigDecimal _interest_rate,
-    		int _term,
-    		BigDecimal _property_insurance,
-    		BigDecimal _property_tax,
-    		BigDecimal _pmi,
-            int _start_year,
-    	    int _start_month) {
-    	name = _name;
-    	purchase_price = _purchase_price;
-    	downpayment = Money.scale(_downpayment);
-    	loan_amount = Money.scale(_purchase_price.subtract(_downpayment));
-    	outstanding_loan = loan_amount; //TODO check if not < 0!
+    public DebtMortgage(String name, 
+    		BigDecimal purchase_price,
+    		BigDecimal downpayment,
+    		BigDecimal interest_rate,
+    		int term,
+    		BigDecimal property_insurance,
+    		BigDecimal property_tax,
+    		BigDecimal pmi,
+            int start_year,
+    	    int start_month) {
+    	this.name = name;
+    	this.purchase_price = purchase_price;
+    	this.downpayment = Money.scale(downpayment);
+    	this.loan_amount = Money.scale(purchase_price.subtract(downpayment));
+    	this.outstanding_loan = loan_amount; //TODO check if not < 0!
     	
-    	init_interest_rate = _interest_rate;  
-        interest_rate_decimal_monthly = _interest_rate.divide(new BigDecimal(1200), Money.RATE_DECIMALS, Money.ROUNDING_MODE);
+    	this.init_interest_rate = interest_rate;  
+    	this.interest_rate_decimal_monthly = interest_rate.divide(new BigDecimal(1200), Money.RATE_DECIMALS, Money.ROUNDING_MODE);
     	
-    	property_insurance = _property_insurance;
-    	property_insurance_decimal_monthly = _property_insurance.divide(new BigDecimal(1200), Money.RATE_DECIMALS, Money.ROUNDING_MODE);
-    	insurance_amount = Money.getPercentage(purchase_price, property_insurance_decimal_monthly);
+    	this.property_insurance = property_insurance;
+    	this.property_insurance_decimal_monthly = property_insurance.divide(new BigDecimal(1200), Money.RATE_DECIMALS, Money.ROUNDING_MODE);
+    	this.insurance_amount = Money.getPercentage(purchase_price, property_insurance_decimal_monthly);
     	
-    	property_tax = _property_tax;
-    	property_tax_decimal_monthly = _property_tax.divide(new BigDecimal(1200), Money.RATE_DECIMALS, Money.ROUNDING_MODE);
-    	tax_amount = Money.getPercentage(purchase_price, property_tax_decimal_monthly);
+    	this.property_tax = property_tax;
+    	this.property_tax_decimal_monthly = property_tax.divide(new BigDecimal(1200), Money.RATE_DECIMALS, Money.ROUNDING_MODE);
+    	this.tax_amount = Money.getPercentage(purchase_price, property_tax_decimal_monthly);
     	
-    	pmi = _pmi;
-    	pmi_decimal_monthly = _pmi.divide(new BigDecimal(1200), Money.RATE_DECIMALS, Money.ROUNDING_MODE);
-    	pmi_amount = Money.getPercentage(loan_amount,  pmi_decimal_monthly);
+    	this.pmi = pmi;
+    	this.pmi_decimal_monthly = pmi.divide(new BigDecimal(1200), Money.RATE_DECIMALS, Money.ROUNDING_MODE);
+    	this.pmi_amount = Money.getPercentage(loan_amount,  pmi_decimal_monthly);
     	
-    	term = _term; 
-    	term_months = _term * 12; 
+    	this.term = term; 
+    	this.term_months = term * 12; 
 
-    	additional_cost_without_pmi = insurance_amount.add(tax_amount);
-    	additional_cost_with_pmi = insurance_amount.add(tax_amount).add(pmi_amount);
+    	this.additional_cost_without_pmi = insurance_amount.add(tax_amount);
+    	this.additional_cost_with_pmi = insurance_amount.add(tax_amount).add(pmi_amount);
     	    	
-    	base_monthly_payment = calculateMonthlyPayment();
-    	monthly_payment = base_monthly_payment;
+    	this.base_monthly_payment = calculateMonthlyPayment();
+    	this.monthly_payment = base_monthly_payment;
     	
-    	history = new HistoryDebtMortgage(this);
-    	start_year = _start_year;
-    	start_month = _start_month;
+    	this.start_year = start_year;
+    	this.start_month = start_month;
+    	history = new HistoryDebtMortgage(this);    	
     }
     
     private BigDecimal calculateMonthlyPayment() {

@@ -48,8 +48,8 @@ public class InvestmentSavAcct extends Investment
     		          BigDecimal percontrib,
     		          int capitalization,
     		          BigDecimal interest_rate,
-                      int _start_year,
-              	      int _start_month) {
+                      int start_year,
+              	      int start_month) {
     	this.name = name;
         this.init_amount = Money.scale(init_amount);
         this.init_interest_rate = interest_rate;
@@ -66,9 +66,9 @@ public class InvestmentSavAcct extends Investment
         comp_factor_30 = new BigDecimal(Math.exp(this.interest_rate_decimal.doubleValue() * 30.0/365));
         comp_factor_31 = new BigDecimal(Math.exp(this.interest_rate_decimal.doubleValue() * 31.0/365));        	
         
+    	this.start_year = start_year;
+    	this.start_month = start_month;
         history = new HistoryInvestmentSavAcct(this);
-    	start_year = _start_year;
-    	start_month = _start_month;
     	setValuesBeforeCalculation();
     }   
 

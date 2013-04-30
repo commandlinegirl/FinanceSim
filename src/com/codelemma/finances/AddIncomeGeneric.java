@@ -44,7 +44,6 @@ public class AddIncomeGeneric extends SherlockFragmentActivity
 	private int setYear;
 	
     private OnClickListener clickCancelListener = new OnClickListener() {
-    	
     	@Override
 	    public void onClick(View v) {
 	        finish();	             	        
@@ -52,7 +51,6 @@ public class AddIncomeGeneric extends SherlockFragmentActivity
     };	
 	
     private OnClickListener clickDeleteListener = new OnClickListener() {
-    	
     	@Override
 	    public void onClick(View v) {
 	        final IncomeGeneric income = (IncomeGeneric) v.getTag(R.string.acct_object);
@@ -91,8 +89,6 @@ public class AddIncomeGeneric extends SherlockFragmentActivity
                        intent.putExtra("investment_id", investment401k.getId());
                        intent.putExtra("request", AcctElements.UPDATE.toString());   
             	       startActivityForResult(intent, AcctElements.UPDATE.getNumber());
-                	   
-                	   
                 	   finish();
                    }
                 })
@@ -103,12 +99,10 @@ public class AddIncomeGeneric extends SherlockFragmentActivity
                })
               .show();	        	
 	        }
-	        	    		        	        	         
 	    }
     };	
     
     private OnClickListener clickSaveListener = new OnClickListener() {
-    	
     	@Override
 	    public void onClick(View v) {
 	    	Log.d("saving income", "Saving ");
@@ -163,7 +157,7 @@ public class AddIncomeGeneric extends SherlockFragmentActivity
 	    requestCode = intent.getStringExtra("request");
 	    
 	    TextView start_date = (TextView) findViewById(R.id.incomegeneric_start_date);
-        final Calendar c = Calendar.getInstance();
+        Calendar c = Calendar.getInstance();
         setYear = c.get(Calendar.YEAR);
         setMonth = c.get(Calendar.MONTH);
 		start_date.setText((setMonth+1)+"/"+setYear, TextView.BufferType.EDITABLE);
@@ -237,7 +231,6 @@ public class AddIncomeGeneric extends SherlockFragmentActivity
             update.setBackgroundResource(R.drawable.button_green);                      
 			buttons.addView(update);									
 	    }
-		
 	}
     
 	@Override
@@ -285,7 +278,6 @@ public class AddIncomeGeneric extends SherlockFragmentActivity
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
 		getSupportMenuInflater().inflate(R.menu.add_incomegeneric, menu);
 		return true;
 	}
@@ -300,19 +292,19 @@ public class AddIncomeGeneric extends SherlockFragmentActivity
 			Dialog dialog = new Dialog(this, R.style.FullHeightDialog);			
 			dialog.setContentView(R.layout.help_incomegeneric);
 			dialog.setCanceledOnTouchOutside(true);
-			dialog.show();			
-			return true;					
+			dialog.show();
+			return true;
 		}		
 		return super.onOptionsItemSelected(item);
 	}
-	
+
 	public void addIncome(View view) {
 		Intent intent = new Intent(this, Main.class);				
 		
 	    EditText incomeName = (EditText) findViewById(R.id.income_name);
 	    String incomeNameData = incomeName.getText().toString();
 	    if (Utils.alertIfEmpty(this, incomeNameData, getResources().getString(R.string.income_name_input))) {
-	    	return;	    	
+	    	return;
 	    }
         intent.putExtra("income_name", incomeNameData);                
         				
@@ -326,19 +318,18 @@ public class AddIncomeGeneric extends SherlockFragmentActivity
 	    EditText incomeRise = (EditText) findViewById(R.id.yearly_income_rise);
 	    String incomeRiseData = incomeRise.getText().toString();
 	    if (Utils.alertIfEmpty(this, incomeRiseData, getResources().getString(R.string.yearly_income_rise_input))) {
-	    	return;	    	
-	    }	    
+	    	return;
+	    }
         intent.putExtra("yearly_income_rise", incomeRiseData);
 
 	    EditText incomeTaxRate = (EditText) findViewById(R.id.income_tax_rate);
 	    String incomeTaxRateData = incomeTaxRate.getText().toString();
 	    if (Utils.alertIfEmpty(this, incomeTaxRateData, getResources().getString(R.string.income_tax_rate_input))) {
 	    	return;	    	
-	    }	    
+	    }
         intent.putExtra("income_tax_rate", incomeTaxRateData);
 
-        intent.putExtra("income_installments", String.valueOf(installments));        
-
+        intent.putExtra("income_installments", String.valueOf(installments));
         intent.putExtra("incomegeneric_start_year",  String.valueOf(setYear));
         intent.putExtra("incomegeneric_start_month",  String.valueOf(setMonth));
         
@@ -346,18 +337,14 @@ public class AddIncomeGeneric extends SherlockFragmentActivity
 	    String incomeTermData = incomeTerm.getText().toString();
 	    if (Utils.alertIfEmpty(this, incomeTermData, getResources().getString(R.string.income_term_input))) {
 	    	return;	    	
-	    }	    
+	    }
         intent.putExtra("income_term", incomeTermData);
-        
- 	    //TODO: verify if text is alphanumeric
-	    //InputValidator.validateName(incomeNameData); 
-	    
-        
+
     	if (requestCode.equals(AcctElements.UPDATE.toString())) {
 	        intent.putExtra("income_id", incomeId);
 	    }
 	                                    
         setResult(AcctElements.INCOME.getNumber(), intent);
         finish();
-	}	
+	}
 }

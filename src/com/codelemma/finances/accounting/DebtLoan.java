@@ -27,26 +27,26 @@ public class DebtLoan extends Debt
     
     private HistoryDebtLoan history;
     
-    public DebtLoan(String _name, 
-    		BigDecimal _amount,
-    		BigDecimal _interest_rate,
-    		int _term,
-    		BigDecimal _extra_payment,
-    		int _start_year,
-    		int _start_month) {
+    public DebtLoan(String name, 
+    		BigDecimal amount,
+    		BigDecimal interest_rate,
+    		int term,
+    		BigDecimal extra_payment,
+    		int start_year,
+    		int start_month) {
     	    	
-    	name = _name;
-    	init_amount = _amount;
-    	remaining_amount = Money.scale(_amount);
-    	init_interest_rate = _interest_rate;  
-        interest_rate_decimal_monthly = _interest_rate.divide(new BigDecimal(1200), Money.RATE_DECIMALS, Money.ROUNDING_MODE);
-    	extra_payment = Money.scale(_extra_payment);
+    	this.name = name;
+    	this.init_amount = amount;
+    	this.remaining_amount = Money.scale(amount);
+    	this.init_interest_rate = interest_rate;  
+    	this.interest_rate_decimal_monthly = interest_rate.divide(new BigDecimal(1200), Money.RATE_DECIMALS, Money.ROUNDING_MODE);
+    	extra_payment = Money.scale(extra_payment);
     	
-    	term = _term; 
-    	term_months = _term * 12; 
+    	this.term = term; 
+    	this.term_months = term * 12; 
     	
-    	start_year = _start_year;
-    	start_month = _start_month;
+    	this.start_year = start_year;
+    	this.start_month = start_month;
     	
     	monthly_payment = calculateMonthlyPayment();
     	history = new HistoryDebtLoan(this);

@@ -9,9 +9,7 @@ public abstract class Expense implements AccountingElement {
 		next_id++;		
 	}
 	
-    public abstract  void initialize();     
     public void advance(int year, int month) {}
-	public abstract void setValuesBeforeCalculation();
 	
 	@Override
 	public void addToAccount(Account account) {

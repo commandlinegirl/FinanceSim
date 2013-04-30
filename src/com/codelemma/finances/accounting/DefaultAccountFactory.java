@@ -15,7 +15,7 @@ public class DefaultAccountFactory implements AccountFactory {
     // public Account createAccount(int simStartYear, int simStartMonth) {
     public Account createAccount() {
     	Account account = new Account();
-    	// AleZ: removed parameters simStartYear, simStartMonth
+    	// AleZ: removed parameters simStartYear, simStartMonth; added dates setting methods
     	// InvestmentCheckAcct checkingAccount = createDefaultCheckingAccount(simStartYear, simStartMonth);    	
     	Calendar c = Calendar.getInstance();    	
     	InvestmentCheckAcct checkingAccount = createDefaultCheckingAccount(c.get(Calendar.YEAR), c.get(Calendar.MONTH));
@@ -23,6 +23,8 @@ public class DefaultAccountFactory implements AccountFactory {
     	account.setSimulationStartMonth(c.get(Calendar.MONTH));
     	account.setCalculationStartYear(c.get(Calendar.YEAR));
     	account.setCalculationStartMonth(c.get(Calendar.MONTH));
+    	account.createDateList();
+    	
 		account.addInvestment(checkingAccount);
     	account.setCheckingAcct(checkingAccount);
     	account.setCheckingAcctPercontrib();

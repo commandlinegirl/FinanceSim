@@ -392,8 +392,8 @@ public class Main extends SherlockFragmentActivity
 	}
 	
 	public String[] getDates(){
-	    return appState.getHistory().getDates();
-	}			
+	    return appState.getAccount().getDates();
+	}
 	
 	public int getCurrentElement(){
 	    return currentElement;

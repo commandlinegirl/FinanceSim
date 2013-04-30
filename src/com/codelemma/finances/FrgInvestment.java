@@ -58,8 +58,6 @@ public class FrgInvestment extends SherlockFragment {
 	    }
 	}
 	
-
-	
 	public void add(View view) {		
 		switch(view.getId()) {
 		case R.id.investment_savacct:

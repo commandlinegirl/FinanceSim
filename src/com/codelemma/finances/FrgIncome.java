@@ -68,6 +68,13 @@ public class FrgIncome extends SherlockFragment {
         .show();		    	
 	}
 	
+	private void showBadDateAlertDialog() {
+    	new AlertDialog.Builder(getActivity()).setTitle("Date incorrect")
+        .setMessage("Please, fill in \"start date\" with a correct date.")
+        .setNeutralButton("Close", null)
+        .show();
+	}
+	
 	public void onIncomeResult(Intent data, int requestCode) {
 		String income_name;
 		BigDecimal yearly_income;
@@ -75,8 +82,8 @@ public class FrgIncome extends SherlockFragment {
         BigDecimal yearly_income_rise;
         BigDecimal income_installments;
         int income_term;
-       	int start_year = Integer.parseInt((data.getStringExtra("incomegeneric_start_year")));
-    	int start_month = Integer.parseInt((data.getStringExtra("incomegeneric_start_month")));
+       	int start_year;
+    	int start_month;
 
 		try {		
     	    income_name = data.getStringExtra("income_name");     	
@@ -147,7 +154,29 @@ public class FrgIncome extends SherlockFragment {
             .show();
         	return;
     	}
-	
+
+		try {
+			start_year = Integer.parseInt((data.getStringExtra("incomegeneric_start_year")));
+		} catch (NullPointerException npe) {
+			npe.printStackTrace();
+		    return;
+		} catch (NumberFormatException nfe) {
+		    nfe.printStackTrace();
+		    showBadDateAlertDialog();
+		    return;
+		} 
+		
+		try {
+			start_month = Integer.parseInt((data.getStringExtra("incomegeneric_start_month")));
+		} catch (NullPointerException npe) {
+			npe.printStackTrace();
+		    return;
+		} catch (NumberFormatException nfe) {
+		    nfe.printStackTrace();
+		    showBadDateAlertDialog();
+		    return;
+		} 
+		
     	String action = " added.";
     	Investment401k investment401k = null;
     	if (requestCode == AcctElements.UPDATE.getNumber()) {
@@ -171,7 +200,6 @@ public class FrgIncome extends SherlockFragment {
 			investment401k.setIncome(newIncome);	
 		}		
 		appState.getAccount().addIncome(newIncome);
-        
         Toast.makeText(getSherlockActivity(), income_name+action, Toast.LENGTH_SHORT).show();
         
         if ((appState.getAccount().getCalculationStartYear() == start_year && appState.getAccount().getCalculationStartMonth() >= start_month) 

@@ -4,12 +4,8 @@ import java.util.Collections;
 
 import android.util.Log;
 
-public class History {	
-	private int simStartMonth;  
-	private int simStartYear; 
-	private int listSize;	
-	private Months[] months = Months.values(); 
-	private String[] dates; // each elements is of "Jan 2013" format
+public class History {
+
 	private ArrayList<HistoryNew> debts = new ArrayList<HistoryNew>();
 	private ArrayList<HistoryNew> expenses = new ArrayList<HistoryNew>();
 	private ArrayList<HistoryNew> incomes = new ArrayList<HistoryNew>();
@@ -19,42 +15,14 @@ public class History {
 
     private ArrayList<ArrayList<HistoryNew>> histories = new ArrayList<ArrayList<HistoryNew>>(6);
             
-    public History(int simStartYear, int simStartMonth, int listSize) {
-    	this.simStartYear = simStartYear;   // month and year make together the date corresponding
-    	this.simStartMonth = simStartMonth; // to the first value in each of the ArrayLists
-    	this.listSize = listSize;
-    	dates = new String[listSize];
-    	
-    	createDateList();
+    public History() {
+
     	histories.add(incomes);
     	histories.add(expenses);
     	histories.add(investments);
     	histories.add(debts);
     	histories.add(cashflows);
     	histories.add(net_worth);
-    }
-    
-    public void createDateList() {
-    	int i;
-    	int y = simStartYear;
-    	int m = simStartMonth;
-    	for (i = 0; i < listSize; i++) {
-    		dates[i] = months[m]+" "+y;
-    		if (m == 11) {
-                m = 0;
-                y += 1;
-            } else {
-                m++;
-            }        	
-    	}    	    	
-    }
-    
-    public int getSimStartMonth() {
-    	return simStartMonth;
-    }
-    
-    public int getSimStartYear() {
-    	return simStartYear;
     }
     
     public void addExpenseHistory(HistoryNew n) {
@@ -79,10 +47,6 @@ public class History {
     
     public void addNetWorthHistory(HistoryNew n) {
         net_worth.add(n);
-    }
-    
-    public String[] getDates() {
-    	return dates;
     }
 
     public Iterable<HistoryNew> getHistory(int index) {

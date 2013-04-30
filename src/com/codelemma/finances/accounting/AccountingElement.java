@@ -18,6 +18,8 @@ public interface AccountingElement {
 	public void updateInputListing(InputListingUpdater modifier);
 	public int getStartYear();
 	public int getStartMonth();
+	public void setValuesBeforeCalculation();
+    public void initialize();     
 
 	public void addToAccount(Account account); // Visitor pattern to provide double-dispatch on account as well as on accounting element.
 }

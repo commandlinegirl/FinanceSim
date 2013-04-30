@@ -15,29 +15,28 @@ public class ExpenseGeneric extends Expense
     private BigDecimal hidden_periodic_expense;    
     private String name;
     private int frequency;
-    private HistoryExpenseGeneric history;
-    private int[] monthNumbersForDisplay = {12, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11};    
-    
+    private int[] monthNumbersForDisplay = {12, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11};
     private int start_year;
     private int start_month;
-    
-    public ExpenseGeneric(String _name,
-    		BigDecimal _init_expense, 
-    		BigDecimal _inflation_rate,
-    		int _frequency,
-            int _start_year,
-    	    int _start_month) {
-        name = _name;    	
-        init_expense = _init_expense;        
-        init_inflation_rate = _inflation_rate;
-        frequency = _frequency;        
-        periodic_inflation_rate_decimal = _inflation_rate.divide(new BigDecimal(1200/frequency), //TODO: check if not divided by ZERO
-                                                                    Money.RATE_DECIMALS,        		
-                                                                    Money.ROUNDING_MODE);
-        frequency = _frequency;
+    private HistoryExpenseGeneric history;
+
+    public ExpenseGeneric(String name,
+    		BigDecimal init_expense, 
+    		BigDecimal inflation_rate,
+    		int frequency,
+            int start_year,
+    	    int start_month) {
+        this.name = name;    	
+        this.init_expense = init_expense;        
+        this.init_inflation_rate = inflation_rate;
+        this.frequency = frequency;        
+        this.start_year = start_year;
+        this.start_month = start_month;
+        periodic_inflation_rate_decimal = inflation_rate.divide(
+        		new BigDecimal(1200/frequency), //TODO: check if not divided by ZERO
+                Money.RATE_DECIMALS,        		
+                Money.ROUNDING_MODE);
         history = new HistoryExpenseGeneric(this);
-    	start_year = _start_year;
-    	start_month = _start_month;
     	setValuesBeforeCalculation();
     }
 
@@ -46,7 +45,6 @@ public class ExpenseGeneric extends Expense
     	periodic_expense = Money.scale(init_expense);
     	hidden_periodic_expense = periodic_expense;
     }
-    
         
     @Override
     public void setValuesBeforeCalculation() {

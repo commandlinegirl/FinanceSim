@@ -395,8 +395,8 @@ int id income_installments 0x7f04004d
 int id income_name 0x7f040049
 int id income_summary 0x7f04008d
 int id income_tax_rate 0x7f04004c
-int id income_term 0x7f04004f
-int id incomegeneric_start_date 0x7f04004e
+int id income_term 0x7f04004e
+int id incomegeneric_start_date 0x7f04004f
 int id inflation_rate 0x7f040045
 int id init_expense 0x7f040044
 int id interests_paid 0x7f04009d

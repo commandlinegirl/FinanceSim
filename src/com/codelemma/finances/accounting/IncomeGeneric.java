@@ -1,9 +1,6 @@
 package com.codelemma.finances.accounting;
 
 import java.math.BigDecimal;
-
-import android.util.Log;
-
 import com.codelemma.finances.InputListingUpdater;
 import com.codelemma.finances.ParseException;
 import com.codelemma.finances.TypedContainer;
@@ -11,7 +8,6 @@ import com.codelemma.finances.TypedContainer;
 public class IncomeGeneric extends Income
                            implements AccountingElement {
 	
-	private int id;
     private BigDecimal init_income;
     private BigDecimal init_tax_rate;
     private BigDecimal init_rise_rate;        
@@ -24,41 +20,38 @@ public class IncomeGeneric extends Income
     private String name;
     private BigDecimal num_of_extras;
     private BigDecimal yearly_income;
-    private HistoryIncomeGeneric history;
     private int start_year;
     private int start_month;
     private int term;
     private int term_months;
     private int counter;
+    private HistoryIncomeGeneric history;
     private Investment401k investment401k;         
     
-    public IncomeGeneric(BigDecimal _init_income, 
-    		      BigDecimal _tax_rate, 
-    		      BigDecimal _rise_rate, 
-    		      BigDecimal _installments,
-                  String _name,
-                  int _term,
-                  int _start_year,
-          	      int _start_month) {
-        installments = _installments; // 12 or 13
-        init_income = _init_income;
-        init_tax_rate = _tax_rate;
-        init_rise_rate = _rise_rate;
-        yearly_income = _init_income;               
-        tax_rate_decimal = _tax_rate.divide(Money.HUNDRED, Money.RATE_DECIMALS, Money.ROUNDING_MODE);        
-        rise_rate_decimal = _rise_rate.divide(Money.HUNDRED, Money.RATE_DECIMALS, Money.ROUNDING_MODE);
-        
-        name = _name;
+    public IncomeGeneric(BigDecimal init_income, 
+    		      BigDecimal tax_rate, 
+    		      BigDecimal rise_rate, 
+    		      BigDecimal installments,
+                  String name,
+                  int term,
+                  int start_year,
+          	      int start_month) {
+        this.installments = installments; // 12 or 13
+        this.init_income = init_income;
+        this.init_tax_rate = tax_rate;
+        this.init_rise_rate = rise_rate;
+        this.yearly_income = init_income;
+        this.tax_rate_decimal = tax_rate.divide(Money.HUNDRED, Money.RATE_DECIMALS, Money.ROUNDING_MODE);        
+        this.rise_rate_decimal = rise_rate.divide(Money.HUNDRED, Money.RATE_DECIMALS, Money.ROUNDING_MODE);        
+        this.name = name;
+        this.term = term;
+        this.term_months = term * 12;        
+        this.start_year = start_year;
+        this.start_month = start_month;
         num_of_extras = installments.subtract(new BigDecimal(12));
         history = new HistoryIncomeGeneric(this);
-        
-        term = _term;
-        term_months = _term * 12;
-        
-    	start_year = _start_year;
-    	start_month = _start_month;
     	setValuesBeforeCalculation();
-    } 
+    }
 
     public Investment401k getInvestment401k() {
     	return investment401k;
@@ -75,14 +68,11 @@ public class IncomeGeneric extends Income
     	taxable_income = gross_income;
     	tax = Money.getPercentage(taxable_income, tax_rate_decimal);
     	if (investment401k != null) {    		
-    		Log.d("investment401k is not null and the investment401k.getEmployeeContribution()", investment401k.getEmployeeContribution().toString());    		
     	    taxable_income = taxable_income.subtract(investment401k.getEmployeeContribution());
     	    tax = Money.getPercentage(taxable_income, tax_rate_decimal);
     	}
-		Log.d("taxable_income initialized to: ", taxable_income.toString());
 		counter = 0;
     }
-    
     
     @Override
     public void setValuesBeforeCalculation() {
@@ -100,7 +90,7 @@ public class IncomeGeneric extends Income
     		advanceValues(year, month, checkingAcct);
     	}
     }
-      
+
     public void advanceValues(int year, int month, InvestmentCheckAcct checkingAcct) {
         /* 13th salary paid in December;
          * salary rise in January
@@ -173,11 +163,6 @@ public class IncomeGeneric extends Income
 	}  
     
     @Override
-    public int getId() {
-        return id;
-    }
-    
-    @Override
     public String getName() {
         return name;
     }
@@ -186,10 +171,6 @@ public class IncomeGeneric extends Income
     public BigDecimal getValue() {
         return init_income;
     }    
-        
-	public void setId(int id) {
-		this.id = id;		
-	}
 
 	public HistoryIncomeGeneric getHistory() {
 		return history;
@@ -225,4 +206,3 @@ public class IncomeGeneric extends Income
 		return name;
 	}
 }
-

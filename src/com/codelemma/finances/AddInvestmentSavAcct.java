@@ -6,8 +6,6 @@ import java.util.Calendar;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
-import com.codelemma.finances.accounting.Account;
-import com.codelemma.finances.accounting.History;
 import com.codelemma.finances.accounting.InvestmentSavAcct;
 
 import android.app.AlertDialog;

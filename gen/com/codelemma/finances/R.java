@@ -1080,8 +1080,8 @@ containing a value of this type.
         public static final int income_name=0x7f040049;
         public static final int income_summary=0x7f04008d;
         public static final int income_tax_rate=0x7f04004c;
-        public static final int income_term=0x7f04004f;
-        public static final int incomegeneric_start_date=0x7f04004e;
+        public static final int income_term=0x7f04004e;
+        public static final int incomegeneric_start_date=0x7f04004f;
         public static final int inflation_rate=0x7f040045;
         public static final int init_expense=0x7f040044;
         public static final int interests_paid=0x7f04009d;
