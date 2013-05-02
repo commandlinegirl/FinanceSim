@@ -133,7 +133,6 @@ public class AddIncomeGeneric extends SherlockFragmentActivity
     public void onNothingSelected(AdapterView<?> parent) {
     	parent.setSelection(1);
     }
-
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -190,7 +189,6 @@ public class AddIncomeGeneric extends SherlockFragmentActivity
 			} else {
 				spinner.setSelection(0);
 			}
-
 	    
 			setYear = income.getStartYear();
 			setMonth = income.getStartMonth() ;			
@@ -199,8 +197,9 @@ public class AddIncomeGeneric extends SherlockFragmentActivity
 	        // - add Save & Delete button view
 			
 			LinearLayout buttons = (LinearLayout) findViewById(R.id.submitIncomeButtons);
+			@SuppressWarnings("deprecation")
 			LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, 
-					                                                         LinearLayout.LayoutParams.WRAP_CONTENT);
+					                                                         LinearLayout.LayoutParams.WRAP_CONTENT); // warning: FILL_PARENT is deprecated
 			params.weight = 0.5f;			
 			
 			buttons.removeAllViews();
@@ -257,7 +256,7 @@ public class AddIncomeGeneric extends SherlockFragmentActivity
 		super.onPause();
 		Log.d("AddIncome.onPause()", "called");	
 	}	
-	
+
 	@Override
 	protected void onStop() {
 		// Here save Application state
@@ -317,7 +316,10 @@ public class AddIncomeGeneric extends SherlockFragmentActivity
             
 	    EditText incomeRise = (EditText) findViewById(R.id.yearly_income_rise);
 	    String incomeRiseData = incomeRise.getText().toString();
-	    if (Utils.alertIfEmpty(this, incomeRiseData, getResources().getString(R.string.yearly_income_rise_input))) {
+	    if(Utils.alertIfEmpty(this, incomeRiseData, getResources().getString(R.string.yearly_income_rise_input))) {
+	    	return;
+	    }
+	    if(Utils.alertIfNotInBounds(this, incomeRiseData, 0, 100, getResources().getString(R.string.yearly_income_rise_input))) {
 	    	return;
 	    }
         intent.putExtra("yearly_income_rise", incomeRiseData);
@@ -326,6 +328,9 @@ public class AddIncomeGeneric extends SherlockFragmentActivity
 	    String incomeTaxRateData = incomeTaxRate.getText().toString();
 	    if (Utils.alertIfEmpty(this, incomeTaxRateData, getResources().getString(R.string.income_tax_rate_input))) {
 	    	return;	    	
+	    }
+	    if(Utils.alertIfNotInBounds(this, incomeTaxRateData, 0, 100, getResources().getString(R.string.income_tax_rate_input))) {
+	    	return;
 	    }
         intent.putExtra("income_tax_rate", incomeTaxRateData);
 
@@ -336,14 +341,14 @@ public class AddIncomeGeneric extends SherlockFragmentActivity
 	    EditText incomeTerm = (EditText) findViewById(R.id.income_term);
 	    String incomeTermData = incomeTerm.getText().toString();
 	    if (Utils.alertIfEmpty(this, incomeTermData, getResources().getString(R.string.income_term_input))) {
-	    	return;	    	
+	    	return;
 	    }
         intent.putExtra("income_term", incomeTermData);
 
     	if (requestCode.equals(AcctElements.UPDATE.toString())) {
 	        intent.putExtra("income_id", incomeId);
-	    }
-	                                    
+    	}
+
         setResult(AcctElements.INCOME.getNumber(), intent);
         finish();
 	}

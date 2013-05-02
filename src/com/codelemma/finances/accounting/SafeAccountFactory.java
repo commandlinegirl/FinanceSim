@@ -1,7 +1,5 @@
 package com.codelemma.finances.accounting;
 
-import com.codelemma.finances.accounting.AccountFactory.AccountCreationException;
-
 /**
  * Delegate(dp) Account factory(dp) which wraps another Account factory and provides simple
  * error handling mechanism by implementing a fall-back to safe default factory in
@@ -17,21 +15,13 @@ public class SafeAccountFactory implements AccountFactory {
     	defaultAccountFactory = new DefaultAccountFactory();
     }
     
-    /**
-     * Template method(dp) providing a hook for subclasses to attempt to fix a problem.
-     */
-    protected void attemptToFix(AccountCreationException exception) {
-    }
-
     @Override
-    // AleZ: removed parameters simStartYear, simStartMonth
-    public Account createAccount() {
+    public Account loadAccount() {
     	try {
-    		return primaryFactory.createAccount();
-    	} catch (AccountCreationException ace) {
+    		return primaryFactory.loadAccount();
+    	} catch (AccountFactoryException ace) {
     		ace.printStackTrace();
-    		attemptToFix(ace);
-    		return defaultAccountFactory.createAccount();
+    		return defaultAccountFactory.loadAccount();
     	}
     }
 }

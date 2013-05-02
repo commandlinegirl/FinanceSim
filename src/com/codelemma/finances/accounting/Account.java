@@ -2,6 +2,9 @@ package com.codelemma.finances.accounting;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
+import java.util.NoSuchElementException;
 
 public class Account {
     private int simStartMonth = -1;
@@ -157,33 +160,8 @@ public class Account {
     public void addDebt(Debt debt) {
     	Preconditions.checkNotNull(debt, "Missing debt");
         debts.add(debt);       
-    }   
-           
-    // These four methods simply add an accounting element without doing other unrelated work.
-    // They should be removed once add*() are refactored to only do adding.
-    // Currently they should only be used for accounting element objects which already have an id.
-    // AleZ: OK, removed placing in the ids_* lists 
-
-    public void justAddExpense(Expense expense) {
-    	Preconditions.checkNotNull(expense, "Missing expense");
-        expenses.add(expense);
-    }   
-
-    public void justAddInvestment(Investment investment) {
-    	Preconditions.checkNotNull(investment, "Missing investment");
-        investments.add(investment);
-    }   
-
-    public void justAddIncome(Income income) {
-        Preconditions.checkNotNull(income, "Missing income");    	
-        incomes.add(income);
     }
 
-    public void justAddDebt(Debt debt) {
-    	Preconditions.checkNotNull(debt, "Missing debt");
-        debts.add(debt);
-    }
-    
     public void addAccountingElement(AccountingElement accountingElement) {
     	Preconditions.checkNotNull(accountingElement, "Missing accounting element");
     	accountingElement.addToAccount(this);
@@ -244,6 +222,58 @@ public class Account {
     public Iterable<Debt> getDebts() {
     	return Collections.unmodifiableList(debts);
     }   
+    
+    private static class ConcatenatedIterator<T> implements Iterator<T> {
+    	private List<Iterator<? extends T>> iterators;
+    	private int current;
+    	
+    	public ConcatenatedIterator(List<Iterator<? extends T>> iterators) {
+    		this.iterators = iterators;
+    		this.current = 0;
+    		advanceToNonempty();
+    	}
+    	
+    	private void advanceToNonempty() {
+    		while (current < iterators.size() && !iterators.get(current).hasNext()) current++;
+    	}
+    	
+    	@Override
+    	public boolean hasNext() {
+    		return current < iterators.size();
+    	}
+    	
+    	@Override
+    	public T next() {
+    		if (current >= iterators.size()) {
+    			throw new NoSuchElementException();
+    		}
+    		T nextValue = iterators.get(current).next();
+    		advanceToNonempty();
+    		return nextValue;
+    	}
+    	
+    	@Override
+    	public void remove() {
+    		throw new UnsupportedOperationException();
+    	}
+    }
+    
+    /**
+     * Returns an iterable that goes over all accounting elements.
+     */
+    public Iterable<AccountingElement> getAccountingElements() {
+    	return new Iterable<AccountingElement>() {
+    		@Override
+    		public Iterator<AccountingElement> iterator() {
+    			List<Iterator<? extends AccountingElement>> iterators = new ArrayList<Iterator<? extends AccountingElement>>(4);
+    			iterators.add(incomes.iterator());
+    			iterators.add(expenses.iterator());
+    			iterators.add(investments.iterator());
+    			iterators.add(debts.iterator());
+    			return new ConcatenatedIterator<AccountingElement>(iterators);
+    		}
+    	};
+    }
     
     public Income getIncomeById(int id) {
         for (Income income: incomes) {

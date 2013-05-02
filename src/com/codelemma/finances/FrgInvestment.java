@@ -17,10 +17,10 @@ import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragment;
 import com.codelemma.finances.accounting.Income;
+import com.codelemma.finances.accounting.Investment;
 import com.codelemma.finances.accounting.Investment401k;
 import com.codelemma.finances.accounting.InvestmentCheckAcct;
 import com.codelemma.finances.accounting.InvestmentSavAcct;
-import com.codelemma.finances.accounting.AccountingElement;
 
 public class FrgInvestment extends SherlockFragment {
 	
@@ -47,7 +47,7 @@ public class FrgInvestment extends SherlockFragment {
     	tip.removeAllViews();
 		
 		if (appState.getAccount().getInvestmentsSize() > 0) {	 
-		   	Iterable<? extends AccountingElement> values = (Iterable<? extends AccountingElement>) appState.getAccount().getInvestments();
+		   	Iterable<? extends Investment> values = (Iterable<? extends Investment>) appState.getAccount().getInvestments();
 		   	updateInputListing(values);		    
 		} else {
 	        TextView tv = new TextView(getSherlockActivity());
@@ -112,7 +112,7 @@ public class FrgInvestment extends SherlockFragment {
     		action = " updated.";
       	}
     	
-    	InvestmentSavAcct investment = new InvestmentSavAcct(name,
+    	InvestmentSavAcct investment = InvestmentSavAcct.create(name,
     			init_amount,
     			tax_rate,                
                 percontrib,
@@ -152,7 +152,7 @@ public class FrgInvestment extends SherlockFragment {
     		Log.d("Main.onInvestmentResult()", "removed Investment No. "+investment_id);
       	}
     	
-    	InvestmentCheckAcct investment = new InvestmentCheckAcct(name,
+    	InvestmentCheckAcct investment = InvestmentCheckAcct.create(name,
     			init_amount,
     			tax_rate,     
                 capitalization,
@@ -193,7 +193,7 @@ public class FrgInvestment extends SherlockFragment {
 
       	}
 
-    	Investment401k investment = new Investment401k(name,
+    	Investment401k investment = Investment401k.create(name,
     			init_amount,
                 percontrib,
                 period,
@@ -215,9 +215,9 @@ public class FrgInvestment extends SherlockFragment {
         }
 	}
 
-    private void updateInputListing(Iterable<? extends AccountingElement> values) {        
+    private void updateInputListing(Iterable<? extends Investment> values) {        
         InputListingUpdater modifier = new  InputListingUpdater(getSherlockActivity());
-        for(AccountingElement value : values) {        	
+        for(Investment value : values) {        	
         	value.updateInputListing(modifier);        	
         } 		   		       
     }

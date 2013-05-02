@@ -11,10 +11,6 @@ public class Preconditions {
         }
     }
 
-    public static void checkContainerNotEmpty(TypedContainer container, String message) {
-        check((container.size() > 0), message);
-    }
-
     public static void checkNotNull(Object value, String message) {
         check(value != null, message);
     }

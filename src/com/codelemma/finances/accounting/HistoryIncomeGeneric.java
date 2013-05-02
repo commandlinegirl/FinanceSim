@@ -12,7 +12,7 @@ public class HistoryIncomeGeneric extends HistoryNew {
     private BigDecimal[] netIncomeHistory;
     private BigDecimal[] preTaxInvestmentHistory;
 	private boolean incomeHas401k = false;
-    
+
 	public HistoryIncomeGeneric(IncomeGeneric income) {		
 		amountHistory = new BigDecimal[listSize];
 		grossIncomeHistory = new BigDecimal[listSize];
@@ -81,9 +81,9 @@ public class HistoryIncomeGeneric extends HistoryNew {
 
 	@Override
 	public void plot(PlotVisitor visitor) {
-		visitor.plotIncomeGeneric(this);								
+		visitor.plotIncomeGeneric(this);
 	}
-	
+
 	@Override
 	public void makeTable(TableVisitor visitor) {
 		if (incomeHas401k) {

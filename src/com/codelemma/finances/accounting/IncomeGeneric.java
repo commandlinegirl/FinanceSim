@@ -2,11 +2,8 @@ package com.codelemma.finances.accounting;
 
 import java.math.BigDecimal;
 import com.codelemma.finances.InputListingUpdater;
-import com.codelemma.finances.ParseException;
-import com.codelemma.finances.TypedContainer;
 
-public class IncomeGeneric extends Income
-                           implements AccountingElement {
+public class IncomeGeneric extends Income {
 	
     private BigDecimal init_income;
     private BigDecimal init_tax_rate;
@@ -27,8 +24,8 @@ public class IncomeGeneric extends Income
     private int counter;
     private HistoryIncomeGeneric history;
     private Investment401k investment401k;         
-    
-    public IncomeGeneric(BigDecimal init_income, 
+        
+    private IncomeGeneric(BigDecimal init_income, 
     		      BigDecimal tax_rate, 
     		      BigDecimal rise_rate, 
     		      BigDecimal installments,
@@ -53,7 +50,26 @@ public class IncomeGeneric extends Income
     	setValuesBeforeCalculation();
     }
 
-    public Investment401k getInvestment401k() {
+    public static IncomeGeneric create(BigDecimal init_income, 
+		      BigDecimal tax_rate, 
+		      BigDecimal rise_rate, 
+		      BigDecimal installments,
+              String name,
+              int term,
+              int start_year,
+  	          int start_month) {
+  	  // here call Preconditions
+  	  return new IncomeGeneric(init_income, 
+              tax_rate, 
+              rise_rate,
+              installments, 
+              name,
+              term,
+		      start_year,
+		      start_month);
+    }
+    
+	public Investment401k getInvestment401k() {
     	return investment401k;
     }
     
@@ -197,12 +213,12 @@ public class IncomeGeneric extends Income
     }
 
 	@Override
-	public TypedContainer getFieldContainer(PackToContainerVisitor saver) throws ParseException {
-		return saver.packIncomeGeneric(this);		
-	}
-	
-	@Override
 	public String toString() {
 		return name;
+	}
+
+	@Override
+	public void setInvestment401k(Investment investment) { 
+		investment401k = (Investment401k) investment; //TODO
 	}
 }

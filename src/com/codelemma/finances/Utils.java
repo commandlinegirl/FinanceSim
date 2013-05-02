@@ -39,5 +39,22 @@ public class Utils {
 	    return false;
 	}
 	
+	static public boolean alertIfNotInBounds(Context context, String fieldData, int min, int max, String fieldName) {
+	    if (Double.parseDouble(fieldData) < min) {
+	    	new AlertDialog.Builder(context).setTitle("\""+ fieldName +"\" too low")
+	        	                             .setMessage("Please, fill in the field with value higher than " +min+".")
+	        	                             .setNeutralButton("Close", null)
+	        	                             .show();
+	    	return true;
+	    } else if(Double.parseDouble(fieldData) > max) {
+	    	new AlertDialog.Builder(context).setTitle("\""+ fieldName +"\" too high")
+            .setMessage("Please, fill in the field with value lower than " +max+".")
+            .setNeutralButton("Close", null)
+            .show();
+return true;
+	    	
+	    }
+	    return false;
+	}
 
 }

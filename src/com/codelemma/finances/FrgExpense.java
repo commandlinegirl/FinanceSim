@@ -14,8 +14,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragment;
+import com.codelemma.finances.accounting.Expense;
 import com.codelemma.finances.accounting.ExpenseGeneric;
-import com.codelemma.finances.accounting.AccountingElement;
 
 public class FrgExpense extends SherlockFragment {
 	
@@ -41,7 +41,7 @@ public class FrgExpense extends SherlockFragment {
     	tip.removeAllViews();    	
 		
 		if (appState.getAccount().getExpensesSize() > 0) {	 
-		   	Iterable<? extends AccountingElement> values = (Iterable<? extends AccountingElement>) appState.getAccount().getExpenses();
+		   	Iterable<? extends Expense> values = (Iterable<? extends Expense>) appState.getAccount().getExpenses();
 		   	updateInputListing(values);		    
 		} else {
 	        TextView tv = new TextView(getSherlockActivity());
@@ -75,7 +75,7 @@ public class FrgExpense extends SherlockFragment {
     		action = " updated.";
       	}	    		
     		
-    	ExpenseGeneric expense = new ExpenseGeneric(expense_name,
+    	ExpenseGeneric expense = ExpenseGeneric.create(expense_name,
     			                      init_expense, 
     			                      inflation_rate, 
     			                      expense_frequency,
@@ -91,9 +91,9 @@ public class FrgExpense extends SherlockFragment {
         }
 	}
 	
-    private void updateInputListing(Iterable<? extends AccountingElement> values) {        
+    private void updateInputListing(Iterable<? extends Expense> values) {        
         InputListingUpdater modifier = new  InputListingUpdater(getSherlockActivity());
-        for(AccountingElement value : values) {        	
+        for(Expense value : values) {        	
         	value.updateInputListing(modifier);        	
         } 		   		       
     }

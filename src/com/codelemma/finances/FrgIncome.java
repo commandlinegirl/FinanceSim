@@ -15,9 +15,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragment;
+import com.codelemma.finances.accounting.Income;
 import com.codelemma.finances.accounting.IncomeGeneric;
 import com.codelemma.finances.accounting.Investment401k;
-import com.codelemma.finances.accounting.AccountingElement;
 
 public class FrgIncome extends SherlockFragment {
 	
@@ -44,7 +44,7 @@ public class FrgIncome extends SherlockFragment {
     	tip.removeAllViews();
 		
 		if (appState.getAccount().getIncomesSize() > 0) {	 
-		   	Iterable<? extends AccountingElement> values = (Iterable<? extends AccountingElement>) appState.getAccount().getIncomes();
+		   	Iterable<? extends Income> values = (Iterable<? extends Income>) appState.getAccount().getIncomes();
 		   	updateInputListing(values);		    
 		} else {
 			TextView tv = new TextView(getSherlockActivity());
@@ -187,7 +187,7 @@ public class FrgIncome extends SherlockFragment {
     		action = " updated.";
       	}
     	
-		IncomeGeneric newIncome = new IncomeGeneric(yearly_income, 
+    	IncomeGeneric newIncome = IncomeGeneric.create(yearly_income, 
                 income_tax_rate, 
                 yearly_income_rise,
                 income_installments, 
@@ -209,9 +209,9 @@ public class FrgIncome extends SherlockFragment {
         }
 	}	
 		
-    private void updateInputListing(Iterable<? extends AccountingElement> values) {        
+    private void updateInputListing(Iterable<? extends Income> values) {        
         InputListingUpdater modifier = new  InputListingUpdater(getSherlockActivity());
-        for(AccountingElement value : values) {        	
+        for(Income value : values) {        	
         	value.updateInputListing(modifier);        	
         } 		   		       
     }		

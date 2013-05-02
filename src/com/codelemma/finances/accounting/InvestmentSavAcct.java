@@ -1,14 +1,11 @@
 package com.codelemma.finances.accounting;
+
 import java.math.BigDecimal;
 
-
 import com.codelemma.finances.InputListingUpdater;
-import com.codelemma.finances.ParseException;
-import com.codelemma.finances.TypedContainer;
 import java.util.NoSuchElementException;
 
-public class InvestmentSavAcct extends Investment 
-                               implements AccountingElement {
+public class InvestmentSavAcct extends Investment {
 	
 	private String name;	
     private BigDecimal init_amount;
@@ -42,7 +39,7 @@ public class InvestmentSavAcct extends Investment
     private int start_year;
     private int start_month;
     
-    public InvestmentSavAcct(String name,
+    private InvestmentSavAcct(String name,
     		          BigDecimal init_amount,
     		          BigDecimal tax_rate,
     		          BigDecimal percontrib,
@@ -70,7 +67,25 @@ public class InvestmentSavAcct extends Investment
     	this.start_month = start_month;
         history = new HistoryInvestmentSavAcct(this);
     	setValuesBeforeCalculation();
-    }   
+    }
+    
+	public static InvestmentSavAcct create(String name,
+	          BigDecimal init_amount,
+	          BigDecimal tax_rate,
+	          BigDecimal percontrib,
+	          int capitalization,
+	          BigDecimal interest_rate,
+              int start_year,
+  	          int start_month) {
+		return new InvestmentSavAcct(name,
+				init_amount,
+				tax_rate,                
+			    percontrib,
+			    capitalization,
+			    interest_rate,
+			    start_year,
+				start_month);
+	}
 
     @Override
     public boolean isPreTax() {
@@ -224,11 +239,6 @@ public class InvestmentSavAcct extends Investment
      	}
     }       
 
-	@Override
-	public TypedContainer getFieldContainer(PackToContainerVisitor saver) throws ParseException {
-		return saver.packInvestmentSavAcct(this);		
-	}
-	
 	@Override
 	public HistoryInvestmentSavAcct getHistory() {
 		return history;

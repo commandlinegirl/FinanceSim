@@ -14,9 +14,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragment;
+import com.codelemma.finances.accounting.Debt;
 import com.codelemma.finances.accounting.DebtLoan;
 import com.codelemma.finances.accounting.DebtMortgage;
-import com.codelemma.finances.accounting.AccountingElement;
 
 public class FrgDebt extends SherlockFragment {
 	
@@ -42,8 +42,8 @@ public class FrgDebt extends SherlockFragment {
     	
         
 		if (appState.getAccount().getDebtsSize() > 0) {	 
-		   	Iterable<? extends AccountingElement> values = appState.getAccount().getDebts();
-		   	updateInputListing(values);		    
+		   	Iterable<? extends Debt> values = appState.getAccount().getDebts();
+		   	updateInputListing(values);	    
 		} else {
 	        TextView tv = new TextView(getSherlockActivity());
 	        tv.setText(R.string.no_debt_info);
@@ -69,9 +69,7 @@ public class FrgDebt extends SherlockFragment {
 		}	    
 	    
 	}
-	
 
-	
 	public void onDebtLoanResult(Intent data, int requestCode) {		
     	String name = data.getStringExtra("debtloan_name"); //TODO: trhwo exception when there is no such key!!!
     	BigDecimal amount = new BigDecimal(data.getStringExtra("debtloan_amount"));
@@ -91,7 +89,7 @@ public class FrgDebt extends SherlockFragment {
 		    action = " updated.";		    
 		}
 		
-		DebtLoan debt = new DebtLoan(name, 
+		DebtLoan debt = DebtLoan.create(name, 
 	    		amount,
 	    		interest_rate,
 	    		term,
@@ -132,7 +130,7 @@ public class FrgDebt extends SherlockFragment {
 		    action = " updated.";
 		}
 		
-		DebtMortgage debt = new DebtMortgage(
+		DebtMortgage debt = DebtMortgage.create(
 				 name, 
 	    		 price,
 	    		 downpayment,
@@ -154,9 +152,9 @@ public class FrgDebt extends SherlockFragment {
 
 	}	
 		
-    private void updateInputListing(Iterable<? extends AccountingElement> values) {        
+    private void updateInputListing(Iterable<? extends Debt> values) {        
         InputListingUpdater modifier = new  InputListingUpdater(getSherlockActivity());
-        for(AccountingElement value : values) {        	
+        for(Debt value : values) {        	
         	value.updateInputListing(modifier);        	
         } 		   		       
     }	

@@ -1,21 +1,17 @@
 package com.codelemma.finances.accounting;
-import java.math.BigDecimal;
 
+import java.math.BigDecimal;
 
 import android.util.Log;
 
 import com.codelemma.finances.InputListingUpdater;
-import com.codelemma.finances.ParseException;
-import com.codelemma.finances.TypedContainer;
 
-public class Investment401k extends Investment 
-                            implements AccountingElement {
+public class Investment401k extends Investment {
 	
 	private String name;	
     private BigDecimal init_amount;
     private BigDecimal init_percontrib;  
     private BigDecimal init_interest_rate;  
-    private BigDecimal init_payrise;  
     private BigDecimal init_withdrawal_tax_rate;  
     private BigDecimal init_employer_match;  
     private BigDecimal percontrib; // percentage of salary
@@ -36,6 +32,7 @@ public class Investment401k extends Investment
     private BigDecimal hidden_interests;
     private HistoryInvestment401k history;    
     private Income income;
+    private int income_id;
     private BigDecimal salary;
 
     int counter = 0;
@@ -44,7 +41,7 @@ public class Investment401k extends Investment
     private int start_year;
     private int start_month;
     
-    public Investment401k(String name,
+    private Investment401k(String name,
     		          BigDecimal init_amount,
     		          BigDecimal percontrib,
     		          int period,
@@ -88,7 +85,29 @@ public class Investment401k extends Investment
         history = new HistoryInvestment401k(this);
     	setValuesBeforeCalculation();
     }   
-       		   
+
+	public static Investment401k create(String name,
+	          BigDecimal init_amount,
+	          BigDecimal percontrib,
+	          int period,
+	          BigDecimal interest_rate,
+	          Income income,
+	          BigDecimal withdrawal_tax_rate,
+	          BigDecimal employer_match,
+              int start_year,
+  	          int start_month) {
+		return new Investment401k(name,
+				init_amount,
+	            percontrib,
+	            period,
+	            interest_rate, 
+	            income,
+	            withdrawal_tax_rate,
+	            employer_match,
+		        start_year,
+		    	start_month);
+	}
+	
 	@Override
     public boolean isPreTax() {
     	return true;
@@ -116,7 +135,16 @@ public class Investment401k extends Investment
 		income = inc;
 		salary = inc.getGrossIncome();
 	}
-	
+
+	public void setIncomeId(int id) {
+		income_id = id;
+	}
+
+	@Override
+	public int getStoredIncomeId() {
+		return income_id;
+	}
+
 	public int getInterestPay() {
 		return interest_pay;
 	}
@@ -125,10 +153,6 @@ public class Investment401k extends Investment
 		return init_interest_rate;
 	}
 		
-	public BigDecimal getInitPayrise() {
-		return init_payrise;
-	}
-
 	public BigDecimal getSalary() {
 		return salary;
 	}
@@ -263,12 +287,7 @@ public class Investment401k extends Investment
         employer_match_decimal = employer_match.divide(Money.HUNDRED, Money.RATE_DECIMALS, Money.ROUNDING_MODE);
         monthly_employer_contribution = Money.getPercentage(monthly_employee_contribution, employer_match_decimal);
 	}
-	
-	@Override
-	public TypedContainer getFieldContainer(PackToContainerVisitor saver) throws ParseException {
-		return saver.packInvestment401k(this);		
-	}
-	
+
 	public HistoryInvestment401k getHistory() {
 		return history;
 	}
@@ -287,6 +306,4 @@ public class Investment401k extends Investment
 	public void updateInputListing(InputListingUpdater modifier) {
 		modifier.updateInputListingForInvestment401k(this);				
 	}
-		
-
 }

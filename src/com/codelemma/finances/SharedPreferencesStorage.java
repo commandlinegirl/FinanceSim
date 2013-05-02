@@ -2,93 +2,140 @@ package com.codelemma.finances;
 
 import java.math.BigDecimal;
 
+import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
+import android.util.Log;
 
-import com.codelemma.finances.accounting.Account;
-import com.codelemma.finances.accounting.AccountingElement;
-import com.codelemma.finances.accounting.PackToContainerVisitor;
 import com.codelemma.finances.accounting.Storage;
 
 class SharedPreferencesStorage implements Storage {
 	private SharedPreferences preferences;
+	private SharedPreferences.Editor editor;
+	private boolean open;
 	
 	SharedPreferencesStorage(SharedPreferences sharedPreferences) {
 		preferences = sharedPreferences;
+		editor = null;
+		open = false;
 	}		
-		
-	private String saveElements(Iterable<? extends AccountingElement> element) throws ParseException {
-		PackToContainerVisitor packToContainerVisitor = new PackToContainerLauncher();
-		TypedContainer container = new TypedContainer();		
-		for(AccountingElement value : element) {
-			container.put(TypedKey.getNumericKey(value.getId()), value.getFieldContainer(packToContainerVisitor));
-		}
-        return container.toString();		
-	}
-	
-	@Override
-	public void saveAccount(Account account) throws ParseException {
-		SharedPreferences.Editor editor = preferences.edit();
-		Iterable<? extends AccountingElement> incomes = (Iterable<? extends AccountingElement>) account.getIncomes();
-	    String incomesStr = saveElements(incomes); //TODO: check size!
-		
-		Iterable<? extends AccountingElement> investments = (Iterable<? extends AccountingElement>) account.getInvestments();		
-		String investmentsStr = saveElements(investments);
 
-		Iterable<? extends AccountingElement> expenses = (Iterable<? extends AccountingElement>) account.getExpenses();		
-		String expensesStr = saveElements(expenses);
-		
-		Iterable<? extends AccountingElement> debts = (Iterable<? extends AccountingElement>) account.getDebts();		
-		String debtsStr = saveElements(debts);
-		
-	  	editor.putString(TypedKey.INCOMES.getKeyword(), incomesStr);
-	  	editor.putString(TypedKey.INVESTMENTS.getKeyword(), investmentsStr);
-	  	editor.putString(TypedKey.EXPENSES.getKeyword(), expensesStr);
-	  	editor.putString(TypedKey.DEBTS.getKeyword(), debtsStr);	  	
-	  	editor.commit();	  	
-	}	
-	
-	@Override
-	public String getString(String key) throws StorageException {
-		if (!preferences.contains(key)) {
-			throw new StorageException("Key not found in storage: " + key);
+	private void ensureOpen() throws StorageException {
+		if (!open) {
+			throw new StorageException("Storage not open");
 		}
-		return preferences.getString(key, null);
 	}
 	
-	@Override
-	public void setString(String key, String value) throws StorageException {
-		//TODO
-	}
-	
-	@Override
-	public int getInt(String key) throws StorageException {
-		if (!preferences.contains(key)) {
-			throw new StorageException("Key not found in storage: " + key);
+	private void ensureClosed() throws StorageException {
+		if (open) {
+			throw new StorageException("Storage not closed");
 		}
-		return preferences.getInt(key, 0);
+	}
+	
+	private void ensureOpenForReading() throws StorageException {
+		ensureOpen();
+		if (editor != null) {
+			throw new StorageException("Storage not open for reading");
+		}
+	}
+
+	private void ensureOpenForWriting() throws StorageException {
+		ensureOpen();
+		if (editor == null) {
+			throw new StorageException("Storage not open for writing");
+		}
+	}
+	
+	private static String makeStorageKey(String prefix, String key) {
+		return prefix + "-" + key;
 	}
 	
 	@Override
-	public void setInt(String key, int value) throws StorageException {
-		//TODO
+	@SuppressLint("CommitPrefEdits")
+	public void open(OpenState openState) throws StorageException {
+		Log.d("open is: ", String.valueOf(open));
+		//ensureClosed();
+		if (openState == OpenState.WRITE) {
+			editor = preferences.edit();
+			if (editor == null) {
+				throw new StorageException("Could not open storage for writing (edit() returned null)");
+			}
+		}
+		Log.d("Setting open to true", "called");
+		open = true;
 	}
 
 	@Override
-	public BigDecimal getBigDecimal(String key) throws StorageException {
-		if (!preferences.contains(key)) {
-			throw new StorageException("Key not found in storage: " + key);
+	public void close() throws StorageException {
+		//ensureOpen();
+		if (editor != null) {
+			Log.d("storage editor commit called", "called");
+			editor.commit();
+			editor = null;
 		}
-		return new BigDecimal(preferences.getString(key, null));
-	}
-	
-	@Override
-	public void setBigDecimal(String key, BigDecimal value) throws StorageException {
-		//TODO
+		open = false;
 	}
 
 	@Override
 	public void clear() throws StorageException {
-		// TODO Auto-generated method stub	
+		ensureOpenForWriting();
+		editor.clear();
+	}
+	
+	@Override
+	public String getString(String prefix, String key) throws StorageException {
+		ensureOpenForReading();
+		String storageKey = makeStorageKey(prefix, key);
+		if (!preferences.contains(storageKey)) {
+			throw new StorageException("Key not found in storage: " + storageKey);
+		}
+		return preferences.getString(storageKey, null);
+	}
+	
+	@Override
+	public void putString(String prefix, String key, String value) throws StorageException {
+		ensureOpenForWriting();
+		String storageKey = makeStorageKey(prefix, key);
+		editor.putString(storageKey, value);
+	}
+	
+	@Override
+	public int getInt(String prefix, String key) throws StorageException {
+		ensureOpenForReading();
+		String storageKey = makeStorageKey(prefix, key);
+		if (!preferences.contains(storageKey)) {
+			throw new StorageException("Key not found in storage: " + storageKey);
+		}
+		return preferences.getInt(storageKey, 0);
+	}
+	
+	@Override
+	public void putInt(String prefix, String key, int value) throws StorageException {
+		ensureOpenForWriting();
+		String storageKey = makeStorageKey(prefix, key);
+		editor.putInt(storageKey, value);
+	}
+
+	@Override
+	public BigDecimal getBigDecimal(String prefix, String key) throws StorageException {
+		ensureOpenForReading();
+		String storageKey = makeStorageKey(prefix, key);
+		if (!preferences.contains(storageKey)) {
+			throw new StorageException("Key not found in storage: " + storageKey);
+		}
+		return new BigDecimal(preferences.getString(storageKey, null));
+	}
+	
+	@Override
+	public void putBigDecimal(String prefix, String key, BigDecimal value) throws StorageException {
+		ensureOpenForWriting();
+		String storageKey = makeStorageKey(prefix, key);
+		editor.putString(storageKey, value.toString());
+	}
+
+	@Override
+	public void remove(String prefix, String key) throws StorageException {
+		ensureOpenForWriting();
+		String storageKey = makeStorageKey(prefix, key);
+		editor.remove(storageKey);
 	}
 }
- 

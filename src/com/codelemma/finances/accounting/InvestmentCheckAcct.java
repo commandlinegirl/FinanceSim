@@ -1,20 +1,17 @@
 package com.codelemma.finances.accounting;
+
 import java.math.BigDecimal;
 
-
 import com.codelemma.finances.InputListingUpdater;
-import com.codelemma.finances.ParseException;
-import com.codelemma.finances.TypedContainer;
 import java.util.NoSuchElementException;
 
-public class InvestmentCheckAcct extends Investment 
-                               implements AccountingElement {
+public class InvestmentCheckAcct extends Investment {
 	
 	private String name;	
     private BigDecimal init_amount;
     private BigDecimal init_tax_rate;
-    private BigDecimal init_percontrib;
     private BigDecimal init_interest_rate;
+    
     private BigDecimal percontrib;
     private BigDecimal percontrib_decimal;
     
@@ -39,11 +36,11 @@ public class InvestmentCheckAcct extends Investment
     private int[] months = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
     private HistoryInvestmentCheckAcct history;
     private BigDecimal withdrawal401k = Money.ZERO;
- 
+
     private int start_year;
     private int start_month;
-    
-    public InvestmentCheckAcct(String name,
+
+    private InvestmentCheckAcct(String name,
     		          BigDecimal init_amount,
     		          BigDecimal tax_rate,
     		          int capitalization,
@@ -69,6 +66,22 @@ public class InvestmentCheckAcct extends Investment
     	setValuesBeforeCalculation();
     }   
 
+	public static InvestmentCheckAcct create(String name,
+	          BigDecimal init_amount,
+	          BigDecimal tax_rate,
+	          int capitalization,
+	          BigDecimal interest_rate,
+              int start_year,
+    	      int start_month) {
+        return new InvestmentCheckAcct(name,
+		    init_amount,
+		    tax_rate,
+            capitalization,
+            interest_rate,
+            start_year,
+            start_month);
+    }
+    
 	@Override
     public boolean isCheckingAcct() {
     	return true;
@@ -120,11 +133,7 @@ public class InvestmentCheckAcct extends Investment
 	public BigDecimal getInitTaxRate() {
 		return init_tax_rate;
 	}
-	
-	public BigDecimal getInitPercontrib() {
-		return init_percontrib;
-	}
-	
+
 	public BigDecimal getInitInterestRate() {
 		return init_interest_rate;
 	}
@@ -238,11 +247,6 @@ public class InvestmentCheckAcct extends Investment
      		capitalization_counter++;
      	}
     }
-
-	@Override
-	public TypedContainer getFieldContainer(PackToContainerVisitor saver) throws ParseException {
-		return saver.packInvestmentCheckAcct(this);		
-	}
 	
 	@Override
 	public HistoryInvestmentCheckAcct getHistory() {

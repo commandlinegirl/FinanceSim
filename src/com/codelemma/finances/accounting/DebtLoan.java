@@ -3,11 +3,8 @@ package com.codelemma.finances.accounting;
 import java.math.BigDecimal;
 
 import com.codelemma.finances.InputListingUpdater;
-import com.codelemma.finances.ParseException;
-import com.codelemma.finances.TypedContainer;
 
-public class DebtLoan extends Debt 
-                         implements AccountingElement {
+public class DebtLoan extends Debt {
 	
     private BigDecimal init_amount;
     private BigDecimal init_interest_rate;
@@ -24,23 +21,21 @@ public class DebtLoan extends Debt
     private String name;
     private int start_year;
     private int start_month;
-    
     private HistoryDebtLoan history;
     
-    public DebtLoan(String name, 
+    private DebtLoan(String name, 
     		BigDecimal amount,
     		BigDecimal interest_rate,
     		int term,
     		BigDecimal extra_payment,
     		int start_year,
     		int start_month) {
-    	    	
     	this.name = name;
     	this.init_amount = amount;
     	this.remaining_amount = Money.scale(amount);
     	this.init_interest_rate = interest_rate;  
     	this.interest_rate_decimal_monthly = interest_rate.divide(new BigDecimal(1200), Money.RATE_DECIMALS, Money.ROUNDING_MODE);
-    	extra_payment = Money.scale(extra_payment);
+    	this.extra_payment = Money.scale(extra_payment);
     	
     	this.term = term; 
     	this.term_months = term * 12; 
@@ -51,6 +46,22 @@ public class DebtLoan extends Debt
     	monthly_payment = calculateMonthlyPayment();
     	history = new HistoryDebtLoan(this);
     	setValuesBeforeCalculation();
+    }
+    
+    public static DebtLoan create(String name,
+    		BigDecimal amount,
+    		BigDecimal interest_rate,
+    		int term,
+    		BigDecimal extra_payment,
+    		int start_year,
+    		int start_month) {
+    	return new DebtLoan(name,
+    			amount,
+    			interest_rate,
+    			term, 
+    			extra_payment,
+    			start_year,
+    			start_month);
     }
     
     public void setInitAmount() {
@@ -72,22 +83,21 @@ public class DebtLoan extends Debt
     }
 
     /* event methods*/
-    
     public void setValuesBeforeCalculation() {
 		monthly_payment = Money.ZERO;
 		interests_paid = Money.ZERO;
 		principal_paid = Money.ZERO;
 		total_interests = Money.ZERO;
-		remaining_amount = Money.ZERO;    
+		remaining_amount = Money.ZERO;
     }
-    
+
     private void setValuesAfterCalculation() {
 		monthly_payment = Money.ZERO;
 		interests_paid = Money.ZERO;
 		principal_paid = Money.ZERO;
 		remaining_amount = Money.ZERO;    
     }
-        
+
     @Override
     public void advance(int year, int month) {
 
@@ -98,7 +108,7 @@ public class DebtLoan extends Debt
 	    	advanceValues(month);
 	    }       	    	
     }
-    
+
     private void advanceValues(int month) {
     	if (month_counter <= term_months && remaining_amount.compareTo(Money.ZERO) == 1) {
 		    interests_paid = Money.scale(remaining_amount.multiply(interest_rate_decimal_monthly));
@@ -115,7 +125,7 @@ public class DebtLoan extends Debt
         	setValuesAfterCalculation();
         }
     }
-    
+
     @Override
     public BigDecimal getMonthlyPayment() {
     	return monthly_payment;
@@ -153,11 +163,6 @@ public class DebtLoan extends Debt
     public String getName() {
         return name;
     }  
-    
-    @Override
-	public TypedContainer getFieldContainer(PackToContainerVisitor saver) throws ParseException {
-		return saver.packDebtLoan(this);		
-	}
     
     @Override
     public BigDecimal getValue() {

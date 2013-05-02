@@ -1,15 +1,8 @@
 package com.codelemma.finances.accounting;
 import java.math.BigDecimal;
 
-public abstract class Investment implements AccountingElement {
-	
-	private static int next_id = 0;
-	private final int id = next_id;
-	
-	public Investment() {
-		next_id++;		
-	}
-		
+public abstract class Investment extends AccountingElement {
+
 	public abstract  BigDecimal getInitAmount();
     public abstract  BigDecimal getPercontrib();
     public abstract boolean isCheckingAcct();
@@ -27,15 +20,12 @@ public abstract class Investment implements AccountingElement {
     		BigDecimal checkingAcctPercontrib, 
     		InvestmentCheckAcct checkingAcct) {};
     public Income getIncome() {return null;};
-    public BigDecimal getEmployeeContribution() {return null;}
-	
+    public int getStoredIncomeId() {return -1;};
+    public void setIncome(Income income) {};
+    public BigDecimal getEmployeeContribution() {return null;}	
+    
 	@Override
 	public void addToAccount(Account account) {
-		account.justAddInvestment(this);
+		account.addInvestment(this);
 	}
-	
-	@Override 
-	public int getId() {
-		return id;
-	}	
 }

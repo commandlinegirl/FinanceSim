@@ -2,11 +2,8 @@ package com.codelemma.finances.accounting;
 import java.math.BigDecimal;
 
 import com.codelemma.finances.InputListingUpdater;
-import com.codelemma.finances.ParseException;
-import com.codelemma.finances.TypedContainer;
 
-public class ExpenseGeneric extends Expense 
-                            implements AccountingElement {
+public class ExpenseGeneric extends Expense {
 		
     private BigDecimal init_expense;
     private BigDecimal init_inflation_rate;
@@ -20,7 +17,7 @@ public class ExpenseGeneric extends Expense
     private int start_month;
     private HistoryExpenseGeneric history;
 
-    public ExpenseGeneric(String name,
+    private ExpenseGeneric(String name,
     		BigDecimal init_expense, 
     		BigDecimal inflation_rate,
     		int frequency,
@@ -38,6 +35,20 @@ public class ExpenseGeneric extends Expense
                 Money.ROUNDING_MODE);
         history = new HistoryExpenseGeneric(this);
     	setValuesBeforeCalculation();
+    }
+
+    public static ExpenseGeneric create(String name,
+    		BigDecimal init_expense, 
+    		BigDecimal inflation_rate,
+    		int frequency,
+            int start_year,
+    	    int start_month) {
+    	return new ExpenseGeneric(name,
+                init_expense, 
+                inflation_rate, 
+                frequency,
+		        start_year,
+		    	start_month);
     }
 
     @Override
@@ -109,11 +120,6 @@ public class ExpenseGeneric extends Expense
     	modifyUiVisitor.launchModifyUiForExpense(this);
     }   
     
-	@Override
-	public TypedContainer getFieldContainer(PackToContainerVisitor saver) throws ParseException {
-		return saver.packExpenseGeneric(this);		
-	}
-	
 	@Override
 	public int getStartYear() {
 		return start_year;

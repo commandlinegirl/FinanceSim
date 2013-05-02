@@ -1,7 +1,6 @@
 package com.codelemma.finances;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashMap;
 
 import com.actionbarsherlock.app.ActionBar;
@@ -40,7 +39,8 @@ public class Main extends SherlockFragmentActivity
 	private MenuItem currentMenuItem;
 	private HashMap<MenuItem,Drawable> menuItems = new HashMap<MenuItem,Drawable>();
 	private int[][] optionsMenuIds = new int[6][3];
-	private ProgressBar progressBar;		
+	private ProgressBar progressBar;
+	private Dialog progressBarDialog;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -143,11 +143,15 @@ public class Main extends SherlockFragmentActivity
 	public void onPause() {
 		super.onPause();
 		Log.d("Main.onPause()", "called");
-		if (isFinishing() == true) {
+		//if (isFinishing() == true) {
 			Log.d("Main.onPause()", "saving when finishing");
             Preconditions.checkNotNull(Finances.getInstance(), "Finances instance doesn't exist");
 	        Finances.getInstance().saveAccount();
-		}		
+		//}
+		// close dialog before exiting activity
+		if (progressBarDialog != null) {
+		    progressBarDialog.dismiss();
+		}
 	}	
 	
 	@Override
@@ -162,12 +166,10 @@ public class Main extends SherlockFragmentActivity
 		menuItems.put(menuChart, getResources().getDrawable(R.drawable.ico_chart));
 		menuItems.put(menuTable, getResources().getDrawable(R.drawable.ico_table));
 		menuItems.put(menuAdd, getResources().getDrawable(R.drawable.ico_add));
-		
 		currentMenuItem = menuAdd;
 	    return true;
 	}
-	
-	
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
@@ -313,17 +315,15 @@ public class Main extends SherlockFragmentActivity
 	}
 	
 	private class AsyncSimGenerator extends AsyncTask<SherlockFragment, Integer, SherlockFragment> {
-		
-		private Dialog dialog;		
-		 
+
 		@Override
 	    protected void onPreExecute() {
-			dialog = new Dialog(Main.this, R.style.FullHeightDialog);			
-			dialog.setContentView(R.layout.progress_bar);
-			progressBar = (ProgressBar) dialog.findViewById(R.id.progressbar_horizontal);
+			progressBarDialog = new Dialog(Main.this, R.style.FullHeightDialog);			
+			progressBarDialog.setContentView(R.layout.progress_bar);
+			progressBar = (ProgressBar) progressBarDialog.findViewById(R.id.progressbar_horizontal);
 	        progressBar.setProgress(0);
-			dialog.setCanceledOnTouchOutside(true);
-			dialog.show();
+	        progressBarDialog.setCanceledOnTouchOutside(true);
+	        progressBarDialog.show();
 	    };
 		
 		@Override
@@ -341,9 +341,13 @@ public class Main extends SherlockFragmentActivity
 	        int month = appState.getAccount().getCalculationStartMonth();
 	        int year = appState.getAccount().getCalculationStartYear();	        	        
 	        appState.getAccount().computeCalculationLength();
-	        	        
 	        int totalCalculationLength = appState.getAccount().getTotalCalculationLength();
 	        int preCalculationLength = appState.getAccount().getPreCalculationLength(); 
+	        
+	        Log.d("totalCalculationLength", String.valueOf(totalCalculationLength));
+	        Log.d("preCalculationLength", String.valueOf(preCalculationLength));
+	        Log.d("year", String.valueOf(year));
+	        Log.d("month", String.valueOf(month));
 	        
 	        int index = -1; //TODO: should be -1???
 	        for (int i = 0; i < totalCalculationLength; i++) {
@@ -376,8 +380,8 @@ public class Main extends SherlockFragmentActivity
 			super.onPostExecute(fragment);
 			FragmentTransaction ft = getSupportFragmentManager().beginTransaction(); 
 			ft.replace(R.id.main_container, fragment); 
-    	    ft.commit();			
-			dialog.dismiss();
+    	    ft.commit();
+    	    progressBarDialog.dismiss();
 	    }
 	}
 		
@@ -403,9 +407,7 @@ public class Main extends SherlockFragmentActivity
 	public void onClickOnEmptySelected(View view, int element) {
 		/* Called when used clicks on CHART or TABLE icons while there is no input data
 		 * so instead of showing empty chart/table, the user is directed to HOME (input) view */
-        currentIcon = 0;    	
-       // Log.d("getFragment(currentIcon, currentElement))", getFragment(currentIcon, currentElement).toString());
-        
+        currentIcon = 0;        
         if (currentElement == 0) {
         	FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
     	    ft.replace(R.id.main_container, getFragment(0, 0));    	    

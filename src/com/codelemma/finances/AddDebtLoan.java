@@ -257,6 +257,4 @@ public class AddDebtLoan extends SherlockFragmentActivity
 		}	
 		return super.onOptionsItemSelected(item);
 	}
-
-
 }

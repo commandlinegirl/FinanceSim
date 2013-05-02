@@ -11,12 +11,8 @@ import java.util.Calendar;
  */
 public class DefaultAccountFactory implements AccountFactory {
     @Override
-	// AleZ: removed parameters simStartYear, simStartMonth
-    // public Account createAccount(int simStartYear, int simStartMonth) {
-    public Account createAccount() {
+    public Account loadAccount() {
     	Account account = new Account();
-    	// AleZ: removed parameters simStartYear, simStartMonth; added dates setting methods
-    	// InvestmentCheckAcct checkingAccount = createDefaultCheckingAccount(simStartYear, simStartMonth);    	
     	Calendar c = Calendar.getInstance();    	
     	InvestmentCheckAcct checkingAccount = createDefaultCheckingAccount(c.get(Calendar.YEAR), c.get(Calendar.MONTH));
     	account.setSimulationStartYear(c.get(Calendar.YEAR));
@@ -32,7 +28,7 @@ public class DefaultAccountFactory implements AccountFactory {
     }
 
     private InvestmentCheckAcct createDefaultCheckingAccount(int simStartYear, int simStartMonth) {
-    	return new InvestmentCheckAcct(
+    	return InvestmentCheckAcct.create(
     			"Checking account",    // name
     			Money.ZERO,            // init_amount
     			new BigDecimal(30),    // tax_rate

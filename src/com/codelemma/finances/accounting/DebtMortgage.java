@@ -3,11 +3,8 @@ package com.codelemma.finances.accounting;
 import java.math.BigDecimal;
 
 import com.codelemma.finances.InputListingUpdater;
-import com.codelemma.finances.ParseException;
-import com.codelemma.finances.TypedContainer;
 
-public class DebtMortgage extends Debt 
-                          implements AccountingElement {
+public class DebtMortgage extends Debt {
  
     private BigDecimal purchase_price;
     private BigDecimal init_interest_rate;
@@ -47,7 +44,7 @@ public class DebtMortgage extends Debt
     private int start_year;
     private int start_month;
     
-    public DebtMortgage(String name, 
+    private DebtMortgage(String name, 
     		BigDecimal purchase_price,
     		BigDecimal downpayment,
     		BigDecimal interest_rate,
@@ -90,6 +87,28 @@ public class DebtMortgage extends Debt
     	this.start_year = start_year;
     	this.start_month = start_month;
     	history = new HistoryDebtMortgage(this);    	
+    }
+    
+    public static DebtMortgage create(String name, 
+    		BigDecimal purchase_price,
+    		BigDecimal downpayment,
+    		BigDecimal interest_rate,
+    		int term,
+    		BigDecimal property_insurance,
+    		BigDecimal property_tax,
+    		BigDecimal pmi,
+            int start_year,
+    	    int start_month) {
+    	return new DebtMortgage(name, 
+    			 purchase_price,
+	    		 downpayment,
+	    		 interest_rate,
+	    		 term,
+	    		 property_insurance,
+	    		 property_tax,
+	    		 pmi,
+		         start_year,
+		    	 start_month);
     }
     
     private BigDecimal calculateMonthlyPayment() {
@@ -266,11 +285,6 @@ public class DebtMortgage extends Debt
     }  
     
     @Override
-	public TypedContainer getFieldContainer(PackToContainerVisitor saver) throws ParseException {
-		return saver.packDebtMortgage(this);		
-	}
-    
-    @Override
     public BigDecimal getValue() {
     	return purchase_price;
     }
@@ -317,8 +331,4 @@ public class DebtMortgage extends Debt
 	public int getStartMonth() {
 		return start_month;
 	}
-
-
-
-
 }
