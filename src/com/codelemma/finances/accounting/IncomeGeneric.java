@@ -50,7 +50,8 @@ public class IncomeGeneric extends Income {
     	setValuesBeforeCalculation();
     }
 
-    public static IncomeGeneric create(BigDecimal init_income, 
+    public static IncomeGeneric create(
+    		BigDecimal init_income, 
 		      BigDecimal tax_rate, 
 		      BigDecimal rise_rate, 
 		      BigDecimal installments,
@@ -58,8 +59,11 @@ public class IncomeGeneric extends Income {
               int term,
               int start_year,
   	          int start_month) {
-  	  // here call Preconditions
-  	  return new IncomeGeneric(init_income, 
+  	  Preconditions.checkInBounds(tax_rate, BigDecimal.ZERO, Money.HUNDRED, "Income tax rate must be in 0..100");
+  	  Preconditions.checkInBounds(rise_rate, BigDecimal.ZERO, Money.HUNDRED, "Income rise rate must be in 0..100");
+  	  Preconditions.checkInBounds(installments, BigDecimal.ONE, Money.HUNDRED, "Installments must be in 1..100");
+  	  return new IncomeGeneric(
+  			  init_income, 
               tax_rate, 
               rise_rate,
               installments, 

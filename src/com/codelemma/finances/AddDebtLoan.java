@@ -1,11 +1,13 @@
 package com.codelemma.finances;
 
+import java.math.BigDecimal;
 import java.util.Calendar;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.codelemma.finances.accounting.DebtLoan;
+import com.codelemma.finances.accounting.Money;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -15,7 +17,6 @@ import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.NavUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -72,7 +73,6 @@ public class AddDebtLoan extends SherlockFragmentActivity
     	
     	@Override
 	    public void onClick(View v) {
-	    	Log.d("saving debt", "Saving ");
 	        addDebt(null);	             	        
 	    }
     };
@@ -100,7 +100,6 @@ public class AddDebtLoan extends SherlockFragmentActivity
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 		
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-		Log.d("AddDebtLoan.onCreate()", "called");
 		appState = Finances.getInstance();
 	    
 	    Intent intent = getIntent(); //TODO: check if there are 
@@ -117,8 +116,7 @@ public class AddDebtLoan extends SherlockFragmentActivity
 	    	int id = intent.getIntExtra("debt_id", -1);
 	    	DebtLoan debt = (DebtLoan) appState.getAccount().getDebtById(id); // TODO: if id == -1
 	    	
-	    	debtId = debt.getId();	    
-	    	Log.d("supposed to be MORTGAGE ID", String.valueOf(id));
+	    	debtId = debt.getId();
 	    	
 			EditText debtName = (EditText) findViewById(R.id.debtloan_name);
 			debtName.setText(debt.getName().toString(), TextView.BufferType.EDITABLE);
@@ -199,16 +197,26 @@ public class AddDebtLoan extends SherlockFragmentActivity
 
 	    EditText interestRate = (EditText) findViewById(R.id.debtloan_interest_rate);
 	    String interestRateData = interestRate.getText().toString();
-	    if (Utils.alertIfEmpty(this, interestRateData, getResources().getString(R.string.debtloan_interest_rate_input))) {
+	    if (Utils.alertIfEmpty(this, interestRateData, 
+	    		getResources().getString(R.string.debtloan_interest_rate_input))) {
 	    	return;	    	
 	    }	
+	    if (Utils.alertIfNotInBounds(this, interestRateData, 0, 100,
+	    		getResources().getString(R.string.debtloan_interest_rate_input))) {
+	    	return;	    	
+	    }
         intent.putExtra("debtloan_interest_rate", interestRateData);  
         
 	    EditText term = (EditText) findViewById(R.id.debtloan_term);
 	    String termData = term.getText().toString();
 	    if (Utils.alertIfEmpty(this, termData, getResources().getString(R.string.debtloan_term_input))) {
 	    	return;	    	
-	    }	
+	    }
+	    if (Utils.alertIfNotInBounds(this, termData, 0, 100,
+	    		getResources().getString(R.string.debtloan_term_input))) {
+	    	return;	    	
+	    }
+	    
         intent.putExtra("debtloan_term", termData);  
         
 	    EditText extra = (EditText) findViewById(R.id.debtloan_extra_payment);
@@ -218,23 +226,17 @@ public class AddDebtLoan extends SherlockFragmentActivity
 	    }	
         intent.putExtra("debtloan_extra_payment", extraData);  
         
-        Log.d("DebtLoan setYear", String.valueOf(setYear));
-        Log.d("DebtLoan setMonth", String.valueOf(setMonth));
-        
         intent.putExtra("debtloan_start_year",  String.valueOf(setYear));
         intent.putExtra("debtloan_start_month",  String.valueOf(setMonth));
         
         
         if (requestCode.equals(AcctElements.UPDATE.toString())) {
-    		Log.d("AddDebt.addDebt() requestCode", requestCode);
 	        intent.putExtra("debt_id", debtId);
 	    }
         
         setResult(AcctElements.DEBTLOAN.getNumber(), intent);
         finish();
 	}
-			
-
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {

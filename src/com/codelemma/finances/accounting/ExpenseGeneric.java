@@ -37,13 +37,17 @@ public class ExpenseGeneric extends Expense {
     	setValuesBeforeCalculation();
     }
 
-    public static ExpenseGeneric create(String name,
+    public static ExpenseGeneric create(
+    		String name,
     		BigDecimal init_expense, 
     		BigDecimal inflation_rate,
     		int frequency,
             int start_year,
     	    int start_month) {
-    	return new ExpenseGeneric(name,
+    	Preconditions.checkInBounds(inflation_rate, BigDecimal.ZERO, Money.HUNDRED, "Inflation rate must be in 0..100");
+    	Preconditions.checkInBounds(frequency, 0, 12, "Frequency rate must be 1, 3, 6, or 12");
+    	return new ExpenseGeneric(
+    			name,
                 init_expense, 
                 inflation_rate, 
                 frequency,

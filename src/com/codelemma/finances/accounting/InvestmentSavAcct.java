@@ -69,7 +69,8 @@ public class InvestmentSavAcct extends Investment {
     	setValuesBeforeCalculation();
     }
     
-	public static InvestmentSavAcct create(String name,
+	public static InvestmentSavAcct create(
+			String name,
 	          BigDecimal init_amount,
 	          BigDecimal tax_rate,
 	          BigDecimal percontrib,
@@ -77,7 +78,16 @@ public class InvestmentSavAcct extends Investment {
 	          BigDecimal interest_rate,
               int start_year,
   	          int start_month) {
-		return new InvestmentSavAcct(name,
+       	Preconditions.checkInBounds(tax_rate, BigDecimal.ZERO, 
+       			Money.HUNDRED, "Savings account tax rate must be in 0..100");
+       	Preconditions.checkInBounds(percontrib, BigDecimal.ZERO, 
+       			Money.HUNDRED, "Savings excess money (percontrib) contribution must be in 0..100");
+       	Preconditions.checkInBounds(capitalization, 1, 
+       			24, "Savings account capitalization must be in 1, 3, 6, 12, or 24");
+    	Preconditions.checkInBounds(interest_rate, BigDecimal.ZERO,
+    			Money.HUNDRED, "Savings account interest rate must be higher than 0 and lower than 100");
+		return new InvestmentSavAcct(
+				name,
 				init_amount,
 				tax_rate,                
 			    percontrib,

@@ -66,14 +66,22 @@ public class InvestmentCheckAcct extends Investment {
     	setValuesBeforeCalculation();
     }   
 
-	public static InvestmentCheckAcct create(String name,
+	public static InvestmentCheckAcct create(
+			String name,
 	          BigDecimal init_amount,
 	          BigDecimal tax_rate,
 	          int capitalization,
 	          BigDecimal interest_rate,
               int start_year,
     	      int start_month) {
-        return new InvestmentCheckAcct(name,
+       	Preconditions.checkInBounds(tax_rate, BigDecimal.ZERO, 
+       			Money.HUNDRED, "Checking account tax rate must be in 0..100");
+    	Preconditions.checkInBounds(interest_rate, BigDecimal.ZERO,
+    			Money.HUNDRED, "Checking account interest rate must be higher than 0 and lower than 100");
+       	Preconditions.checkInBounds(capitalization, 1, 
+       			24, "Checking account capitalization must be in 1, 3, 6, 12, or 24");
+        return new InvestmentCheckAcct(
+        	name,
 		    init_amount,
 		    tax_rate,
             capitalization,

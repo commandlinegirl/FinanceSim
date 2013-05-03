@@ -99,6 +99,18 @@ public class DebtMortgage extends Debt {
     		BigDecimal pmi,
             int start_year,
     	    int start_month) {
+       	Preconditions.checkInBounds(downpayment, BigDecimal.ZERO, 
+       			Money.HUNDRED, "Debt mortgage downpayment rate must be in 0..100");
+       	Preconditions.checkInBounds(interest_rate, BigDecimal.ZERO, 
+       			Money.HUNDRED, "Debt mortgage interest rate must be in 0..100");
+       	Preconditions.checkInBounds(property_insurance, BigDecimal.ZERO, 
+       			Money.HUNDRED, "Debt mortgage porperty insurance rate must be in 0..100");
+        Preconditions.checkInBounds(pmi, BigDecimal.ZERO, 
+        		Money.HUNDRED, "Debt mortgage pmi rate must be in 0..100");
+       	Preconditions.checkInBounds(property_tax, BigDecimal.ZERO, 
+       			Money.HUNDRED, "Debt mortgage property tax rate must be in 0..100");
+    	Preconditions.checkInBounds(term, 0, 
+    			100, "Debt mortgage term must be higher than 0 and lower than 100");
     	return new DebtMortgage(name, 
     			 purchase_price,
 	    		 downpayment,

@@ -96,7 +96,18 @@ public class Investment401k extends Investment {
 	          BigDecimal employer_match,
               int start_year,
   	          int start_month) {
-		return new Investment401k(name,
+       	Preconditions.checkInBounds(percontrib, BigDecimal.ZERO, 
+       			Money.HUNDRED, "401(k) employee contribution rate must be in 0..100");
+    	Preconditions.checkInBounds(period, 0, 
+    			100, "401(k) period must be higher than 0 and lower than 100");
+       	Preconditions.checkInBounds(interest_rate, BigDecimal.ZERO, 
+       			Money.HUNDRED, "401(k) interest rate must be in 0..100");
+       	Preconditions.checkInBounds(withdrawal_tax_rate, BigDecimal.ZERO, 
+       			Money.HUNDRED, "401(k) withdrawal tax rate must be in 0..100");
+        Preconditions.checkInBounds(employer_match, BigDecimal.ZERO, 
+        		Money.HUNDRED, "401(k) employer contribution match rate must be in 0..100");
+		return new Investment401k(
+				name,
 				init_amount,
 	            percontrib,
 	            period,
