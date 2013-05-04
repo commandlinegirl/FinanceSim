@@ -52,7 +52,7 @@ public class Main extends SherlockFragmentActivity
         setupActionBar();
              
 	    appState = Finances.getInstance();
-        StorageFactory.create(PreferenceManager.getDefaultSharedPreferences(this));	    
+        //StorageFactory.create(PreferenceManager.getDefaultSharedPreferences(this));  
 	                            	    
 	    if (appState.getAccount() == null) {
 			appState.setAccount();
@@ -214,6 +214,10 @@ public class Main extends SherlockFragmentActivity
 			Intent intent2 = new Intent(this, Feedback.class);					
 		    startActivity(intent2);	
 			return true;		
+		case R.id.menu_settings:
+			Intent intent3 = new Intent(this, Settings.class);					
+		    startActivity(intent3);
+			return true;	
 		case R.id.menu_explain:	
 			Dialog dialog = new Dialog(this, R.style.FullHeightDialog);			
 			dialog.setContentView(R.layout.help_incomegeneric);
@@ -224,7 +228,7 @@ public class Main extends SherlockFragmentActivity
 		}
 		return super.onOptionsItemSelected(item);
 	}
-		
+
 	private void setupActionBar() {
 		ActionBar actionbar = getSupportActionBar();		
 		actionbar.setDisplayShowTitleEnabled(false);

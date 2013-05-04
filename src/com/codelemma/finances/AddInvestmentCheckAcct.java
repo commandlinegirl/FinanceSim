@@ -155,14 +155,20 @@ public class AddInvestmentCheckAcct extends SherlockFragmentActivity
 		String investmentTaxRateData = investmentTaxRate.getText().toString();
 		if (Utils.alertIfEmpty(this, investmentTaxRateData, getResources().getString(R.string.investmentcheck_tax_rate_input))) {
 	    	return;	    	
-	    }	
+	    }
+	    if (Utils.alertIfNotInBounds(this, investmentTaxRateData, 0, 100, getResources().getString(R.string.investmentcheck_tax_rate_input))) {
+	    	return;	    	
+	    }
 	    intent.putExtra("investmentcheck_tax_rate", investmentTaxRateData);		
 			    	           
 		EditText investmentInterestRate = (EditText) findViewById(R.id.investmentcheck_interest_rate);
 		String investmentInterestRateData = investmentInterestRate.getText().toString();
 		if (Utils.alertIfEmpty(this, investmentInterestRateData, getResources().getString(R.string.investmentcheck_interest_rate_input))) {
 	    	return;	    	
-	    }	
+	    }
+	    if (Utils.alertIfNotInBounds(this, investmentInterestRateData, 0, 100, getResources().getString(R.string.investmentcheck_interest_rate_input))) {
+	    	return;	    	
+	    }
 	    intent.putExtra("investmentcheck_interest_rate", investmentInterestRateData);	  
 
         intent.putExtra("investmentcheck_capitalization", String.valueOf(capitalization));  	

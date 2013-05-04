@@ -1,0 +1,8 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <com.codelemma.finances.DatePickerPreference
+        android:defaultValue="2013.06.01"
+        android:key="simulation_start_date"
+        android:summary="@string/pref_description_social_recommendations"
+        android:title="@string/pref_simulation_start_date"
+        android:calendarViewShown="false"/>
+</PreferenceScreen>

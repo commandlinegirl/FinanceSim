@@ -24,22 +24,24 @@ public class Finances extends Application {
     private int spinnerPosition = 0;     
 	
     @Override
-    public void onCreate() {        
+    public void onCreate() {
         super.onCreate();
         Preconditions.check(appInstance == null, "appInstance already set");
         appInstance = this;
 		Storage storage = StorageFactory.create(
 				PreferenceManager.getDefaultSharedPreferences(
 						getApplicationContext()));
+		// TODO: remove debugger when finished with application
 		DebugStorage debugStorage = new DebugStorage(
 				PreferenceManager.getDefaultSharedPreferences(
 						getApplicationContext()));
 		debugStorage.printSharedPreferences();
+		//AccountStorage accountStorage = new AccountStorage(storage);
 		AccountStorage accountStorage = new AccountStorage(storage);
 		accountSaver = accountStorage;
         accountFactory = new SafeAccountFactory(accountStorage);
     }
-    
+
     public static Finances getInstance() {
          return appInstance;
     }
@@ -66,14 +68,15 @@ public class Finances extends Application {
 
 	public void saveAccount() {
 		try {
+			Log.d("Finances.saveAccount()", "Saving Account");
 			accountSaver.saveAccount(account);
 		} catch (AccountSaverException se) {
 			// TODO for Ola
-			Log.d("Finances.saveAccount()", "cannot save account");
+			Log.d("Finances.saveAccount()", "Cannot save account");
 			se.printStackTrace();
 		}
 	}
-
+ 
 	public void setHistory() {
 		history = new History();
 	}

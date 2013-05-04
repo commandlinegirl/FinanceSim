@@ -4,7 +4,6 @@ import java.math.BigDecimal;
 
 import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
-import android.util.Log;
 
 import com.codelemma.finances.accounting.Storage;
 
@@ -52,23 +51,19 @@ class SharedPreferencesStorage implements Storage {
 	@Override
 	@SuppressLint("CommitPrefEdits")
 	public void open(OpenState openState) throws StorageException {
-		Log.d("open is: ", String.valueOf(open));
-		//ensureClosed();
+		ensureClosed();
 		if (openState == OpenState.WRITE) {
 			editor = preferences.edit();
 			if (editor == null) {
 				throw new StorageException("Could not open storage for writing (edit() returned null)");
 			}
 		}
-		Log.d("Setting open to true", "called");
 		open = true;
 	}
 
 	@Override
-	public void close() throws StorageException {
-		//ensureOpen();
+	public void close() {
 		if (editor != null) {
-			Log.d("storage editor commit called", "called");
 			editor.commit();
 			editor = null;
 		}

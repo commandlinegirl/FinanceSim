@@ -44,8 +44,6 @@ public class ExpenseGeneric extends Expense {
     		int frequency,
             int start_year,
     	    int start_month) {
-    	Preconditions.checkInBounds(inflation_rate, BigDecimal.ZERO, Money.HUNDRED, "Inflation rate must be in 0..100");
-    	Preconditions.checkInBounds(frequency, 0, 12, "Frequency rate must be 1, 3, 6, or 12");
     	return new ExpenseGeneric(
     			name,
                 init_expense, 

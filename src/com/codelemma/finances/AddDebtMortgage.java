@@ -210,7 +210,7 @@ public class AddDebtMortgage extends SherlockFragmentActivity
 	    String downpaymentData = downpayment.getText().toString();
 	    if (Utils.alertIfEmpty(this, downpaymentData, getResources().getString(R.string.debtmortgage_downpayment_input))) {
 	    	return;	    	
-	    }	
+	    }
         intent.putExtra("debtmortgage_downpayment", downpaymentData);   
         
 	    EditText interestRate = (EditText) findViewById(R.id.debtmortgage_interest_rate);
@@ -224,28 +224,41 @@ public class AddDebtMortgage extends SherlockFragmentActivity
 	    String termData = term.getText().toString();
 	    if (Utils.alertIfEmpty(this, termData, getResources().getString(R.string.debtmortgage_term_input))) {
 	    	return;	    	
-	    }	
+	    }
+	    if (Utils.alertIfNotInBounds(this, termData, 0, 100,
+	    		getResources().getString(R.string.debtmortgage_term_input))) {
+	    	return;	    	
+	    }
         intent.putExtra("debtmortgage_term", termData);   
         
 	    EditText propertyInsurance = (EditText) findViewById(R.id.debtmortgage_property_insurance);
 	    String propertyInsuranceData = propertyInsurance.getText().toString();
 	    if (Utils.alertIfEmpty(this, propertyInsuranceData, getResources().getString(R.string.debtmortgage_property_insurance_input))) {
 	    	return;	    	
-	    }	
+	    }
+	    if (Utils.alertIfNotInBounds(this, propertyInsuranceData, 0, 100, getResources().getString(R.string.debtmortgage_property_insurance_input))) {
+	    	return;	    	
+	    }
         intent.putExtra("debtmortgage_property_insurance", propertyInsuranceData);   
         
 	    EditText propertyTax = (EditText) findViewById(R.id.debtmortgage_property_tax);
 	    String propertyTaxData = propertyTax.getText().toString();
 	    if (Utils.alertIfEmpty(this, propertyTaxData, getResources().getString(R.string.debtmortgage_property_tax_input))) {
 	    	return;	    	
-	    }	
+	    }
+	    if (Utils.alertIfNotInBounds(this, propertyTaxData, 0, 100, getResources().getString(R.string.debtmortgage_property_tax_input))) {
+	    	return;	    	
+	    }
         intent.putExtra("debtmortgage_property_tax", propertyTaxData);   
 
 	    EditText pmi = (EditText) findViewById(R.id.debtmortgage_pmi);
 	    String pmiData = pmi.getText().toString();
 	    if (Utils.alertIfEmpty(this, pmiData, getResources().getString(R.string.debtmortgage_pmi_input))) {
 	    	return;	    	
-	    }	
+	    }
+	    if (Utils.alertIfNotInBounds(this, pmiData, 0, 100, getResources().getString(R.string.debtmortgage_pmi_input))) {
+	    	return;	    	
+	    }
         intent.putExtra("debtmortgage_pmi", pmiData);  
         
         intent.putExtra("debtmortgage_start_year",  String.valueOf(setYear));

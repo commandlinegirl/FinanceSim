@@ -42,7 +42,6 @@ public class DebtMortgageStorer implements AccountingElementStorer<DebtMortgage>
 				storage.getBigDecimal(prefix, PMI),
 				storage.getInt(prefix, START_YEAR),
 				storage.getInt(prefix, START_MONTH));
-		mortgage.setId(id);
 		return mortgage;
 	}
 	

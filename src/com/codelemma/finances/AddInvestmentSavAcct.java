@@ -139,29 +139,6 @@ public class AddInvestmentSavAcct extends SherlockFragmentActivity
         setMonth = c.get(Calendar.MONTH);
 		start_date.setText((setMonth+1)+"/"+setYear, TextView.BufferType.EDITABLE);
 		
-	    /*
-		picker = (DatePicker) findViewById(R.id.thePicker);
-		try {
-		    Field f[] = picker.getClass().getDeclaredFields();
-		    for (Field field : f) {
-		        if (field.getName().equals("mYearPicker")) {
-		            field.setAccessible(true);
-		            Object yearPicker = new Object();
-		            yearPicker = field.get(picker);
-		            ((View) yearPicker).setVisibility(View.GONE);
-            	}
-		    }
-		} catch (SecurityException e) {
-		    Log.d("ERROR", e.getMessage());
-		} 
-		    catch (IllegalArgumentException e) {
-		    Log.d("ERROR", e.getMessage());
-		} catch (IllegalAccessException e) {
-		    Log.d("ERROR", e.getMessage());
-		}}
-		*/
-		
-		
         if (requestCode.equals(AcctElements.UPDATE.toString())) {
 	    	
 	    	int id = intent.getIntExtra("investment_id", -1);
@@ -258,15 +235,20 @@ public class AddInvestmentSavAcct extends SherlockFragmentActivity
 		String investmentTaxRateData = investmentTaxRate.getText().toString();
 		if (Utils.alertIfEmpty(this, investmentTaxRateData, getResources().getString(R.string.investmentsav_tax_rate_input))) {
 	    	return;	    	
-	    }	
+	    }
+	    if (Utils.alertIfNotInBounds(this, investmentTaxRateData, 0, 100, getResources().getString(R.string.investmentsav_tax_rate_input))) {
+	    	return;	    	
+	    }
 	    intent.putExtra("investmentsav_tax_rate", investmentTaxRateData);
 		
 	    EditText percontrib = (EditText) findViewById(R.id.investmentsav_percontrib);
 	    String percontribData = percontrib.getText().toString();
 	    if (Utils.alertIfEmpty(this, percontribData, getResources().getString(R.string.investmentsav_percontrib_input))) {
 	    	return;	    	
-	    }	
-	    	    
+	    }
+	    if (Utils.alertIfNotInBounds(this, percontribData, 0, 100, getResources().getString(R.string.investmentsav_percontrib_input))) {
+	    	return;	    	
+	    }
 	    
 	    /* If view == null, it means the data is being updated, not new added */
 	    
@@ -278,7 +260,6 @@ public class AddInvestmentSavAcct extends SherlockFragmentActivity
 	    } else {
 	    	totalPercontribToCheck = currentinvestmentsPercontrib.add(perc);
 	    }
-	    
 	    
 	    if (totalPercontribToCheck.compareTo(new BigDecimal(100)) > 0) {
 	    	

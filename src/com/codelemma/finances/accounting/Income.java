@@ -13,6 +13,8 @@ public abstract class Income extends AccountingElement {
 	public abstract void setInvestment401k(Investment401k investment401k);
 	public abstract Investment401k getInvestment401k();
 	public abstract void setInvestment401k(Investment investment);
+    public abstract void setPreviousId(int id);
+    public abstract int getPreviousId();
 
 	@Override
 	public void addToAccount(Account account) {

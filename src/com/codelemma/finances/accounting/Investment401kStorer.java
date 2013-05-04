@@ -44,10 +44,9 @@ public class Investment401kStorer implements AccountingElementStorer<Investment4
 				storage.getBigDecimal(prefix, EMPLOYER_MATCH),
 				storage.getInt(prefix, START_YEAR),
 				storage.getInt(prefix, START_MONTH));
-		investment.setId(id);
-		Log.d("income id of 401k", String.valueOf(storage.getInt(prefix, INCOME_ID)));
-		investment.setIncomeId(storage.getInt(prefix, INCOME_ID));
-		Log.d("investment.getStoredIncomeId()", String.valueOf(investment.getStoredIncomeId()));
+		//Log.d("income id of 401k", String.valueOf(storage.getInt(prefix, INCOME_ID)));
+		investment.setIncomePreviousId(storage.getInt(prefix, INCOME_ID));
+		//Log.d("investment.getStoredIncomeId()", String.valueOf(investment.getStoredIncomePreviousId()));
 		return investment;
 	}
 
@@ -59,7 +58,8 @@ public class Investment401kStorer implements AccountingElementStorer<Investment4
 		storage.putBigDecimal(prefix, PERCONTRIB, investment.getInitPercontrib());
 		storage.putInt(prefix, PERIOD, investment.getPeriod());
 		storage.putBigDecimal(prefix, INTEREST_RATE, investment.getInitInterestRate());
-		storage.putInt(prefix, INCOME_ID, investment.getIncome().getId()); //TODO: handle nullpointerexception when no income attached to investment401k 
+		storage.putInt(prefix, INCOME_ID, investment.getStoredIncomePreviousId());
+		assert investment.getIncome().getId() == investment.getStoredIncomePreviousId();
 		storage.putBigDecimal(prefix, WITHDRAWAL_TAX_RATE, investment.getInitWithdrawalTaxRate());
 		storage.putBigDecimal(prefix, EMPLOYER_MATCH, investment.getInitEmployerMatch());
 		storage.putInt(prefix, START_YEAR, investment.getStartYear());

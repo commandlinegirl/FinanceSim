@@ -221,10 +221,13 @@ public class AddExpenseGeneric extends SherlockFragmentActivity
 		String inflationRateData = inflationRate.getText().toString();
 	    if (Utils.alertIfEmpty(this, inflationRateData, getResources().getString(R.string.inflation_rate_input))) {
 	    	return;	    	
-	    }		
+	    }
+	    if (Utils.alertIfNotInBounds(this, inflationRateData, 0, 100, getResources().getString(R.string.inflation_rate_input))) {
+	    	return;	    	
+	    }
 	    intent.putExtra("inflation_rate", inflationRateData);
 	    
-	    intent.putExtra("expense_frequency", String.valueOf(frequency));		         
+	    intent.putExtra("expense_frequency", String.valueOf(frequency));
         intent.putExtra("expensegeneric_start_year",  String.valueOf(setYear));
         intent.putExtra("expensegeneric_start_month",  String.valueOf(setMonth));
 	    

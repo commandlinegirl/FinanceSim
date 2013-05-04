@@ -247,21 +247,30 @@ public class AddInvestment401k extends SherlockFragmentActivity
 		String percontribData = percontrib.getText().toString();
 	    if (Utils.alertIfEmpty(this, percontribData, getResources().getString(R.string.investment401k_percontrib_input))) {
 	    	return;	    	
-	    }	
+	    }
+	    if (Utils.alertIfNotInBounds(this, percontribData, 0, 100, getResources().getString(R.string.investment401k_percontrib_input))) {
+	    	return;	    	
+	    }
 	    intent.putExtra("investment401k_percontrib", percontribData);		     
 	    
 	    EditText period = (EditText) findViewById(R.id.investment401k_period);
-	    String withdrawalData = period.getText().toString();
-	    if (Utils.alertIfEmpty(this, withdrawalData, getResources().getString(R.string.investment401k_period_input))) {
+	    String periodData = period.getText().toString();
+	    if (Utils.alertIfEmpty(this, periodData, getResources().getString(R.string.investment401k_period_input))) {
 	    	return;	    	
-	    }	
-        intent.putExtra("investment401k_period", withdrawalData); 
+	    }
+	    if (Utils.alertIfNotInBounds(this, periodData, 1, 50, getResources().getString(R.string.investment401k_period_input))) {
+	    	return;	    	
+	    }
+        intent.putExtra("investment401k_period", periodData); 
         
 	    EditText interestRate = (EditText) findViewById(R.id.investment401k_interest_rate);
 	    String interestRateData = interestRate.getText().toString();
 	    if (Utils.alertIfEmpty(this, interestRateData, getResources().getString(R.string.investment401k_interest_rate_input))) {
 	    	return;	    	
-	    }	
+	    }
+	    if (Utils.alertIfNotInBounds(this, interestRateData, 0, 100, getResources().getString(R.string.investment401k_interest_rate_input))) {
+	    	return;	    	
+	    }
         intent.putExtra("investment401k_interest_rate", interestRateData);  
        
 	    intent.putExtra("investment401k_salary", salary.getValue().toString());	  
@@ -272,14 +281,20 @@ public class AddInvestment401k extends SherlockFragmentActivity
 	    String withdrawalTaxData = withdrawalTax.getText().toString();
 	    if (Utils.alertIfEmpty(this, withdrawalTaxData, getResources().getString(R.string.investment401k_withdrawal_tax_rate_input))) {
 	    	return;	    	
-	    }	
+	    }
+	    if (Utils.alertIfNotInBounds(this, withdrawalTaxData, 0, 100, getResources().getString(R.string.investment401k_withdrawal_tax_rate_input))) {
+	    	return;	    	
+	    }
         intent.putExtra("investment401k_withdrawal_tax_rate", withdrawalTaxData);  	
         
 	    EditText match = (EditText) findViewById(R.id.investment401k_employer_match);
 	    String matchData = match.getText().toString();
 	    if (Utils.alertIfEmpty(this, matchData, getResources().getString(R.string.investment401k_employer_match_input))) {
 	    	return;	    	
-	    }	
+	    }
+	    if (Utils.alertIfNotInBounds(this, matchData, 0, 100, getResources().getString(R.string.investment401k_employer_match_input))) {
+	    	return;	    	
+	    }
         intent.putExtra("investment401k_employer_match", matchData);  	
           
         

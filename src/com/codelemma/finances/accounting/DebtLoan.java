@@ -56,10 +56,6 @@ public class DebtLoan extends Debt {
     		BigDecimal extra_payment,
     		int start_year,
     		int start_month) {
-       	Preconditions.checkInBounds(interest_rate, BigDecimal.ZERO, 
-       			Money.HUNDRED, "Debt loan interest rate must be in 0..100");
-    	Preconditions.checkInBounds(term, 0, 
-    			100, "Debt loan term must be higher than 0 and lower than 100");
     	return new DebtLoan(name,
     			amount,
     			interest_rate,

@@ -6,7 +6,8 @@ public class IncomeGenericStorer implements AccountingElementStorer<IncomeGeneri
 	// Class tag
 	private static final String INCOME_GENERIC = "ig";
 
-	private static final String INIT_INCOME = "ii";
+	private static final String INCOME_ID = "iid";
+	private static final String INIT_INCOME = "ii";	
 	private static final String TAX_RATE = "tr";
 	private static final String RISE_RATE = "rr";
 	private static final String INSTALLMENTS = "i";
@@ -38,13 +39,14 @@ public class IncomeGenericStorer implements AccountingElementStorer<IncomeGeneri
 				storage.getInt(prefix, TERM),
 				storage.getInt(prefix, START_YEAR),
 				storage.getInt(prefix, START_MONTH));
-		income.setId(id);
+		income.setPreviousId(storage.getInt(prefix, INCOME_ID));
 		return income;
 	}
 
 	@Override
 	public void save(IncomeGeneric income) throws StorageException {
 		String prefix = Integer.toString(income.getId());
+		storage.putInt(prefix, INCOME_ID, income.getId());
 		storage.putBigDecimal(prefix, INIT_INCOME, income.getValue());
 		storage.putBigDecimal(prefix, TAX_RATE, income.getInitTaxRate());
 		storage.putBigDecimal(prefix, RISE_RATE, income.getInitRiseRate());
@@ -58,6 +60,7 @@ public class IncomeGenericStorer implements AccountingElementStorer<IncomeGeneri
 	@Override
 	public void remove(IncomeGeneric income) throws StorageException {
 		String prefix = Integer.toString(income.getId());
+		storage.remove(prefix, INCOME_ID);
 		storage.remove(prefix, INIT_INCOME);
 		storage.remove(prefix, TAX_RATE);
 		storage.remove(prefix, RISE_RATE);

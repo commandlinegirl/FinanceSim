@@ -20,7 +20,7 @@ public abstract class Investment extends AccountingElement {
     		BigDecimal checkingAcctPercontrib, 
     		InvestmentCheckAcct checkingAcct) {};
     public Income getIncome() {return null;};
-    public int getStoredIncomeId() {return -1;};
+    public int getStoredIncomePreviousId() {return -1;};
     public void setIncome(Income income) {};
     public BigDecimal getEmployeeContribution() {return null;}	
     

@@ -1,0 +1,13 @@
+<resources>
+
+    <string name="title_activity_settings">Settings</string>
+
+    <!-- Strings related to Settings -->
+
+
+    <!-- Example General settings -->
+    <string name="pref_header_general">General</string>
+    <string name="pref_simulation_start_date">Simulation start date</string>
+    <string name="pref_description_social_recommendations">Change the date the financial simulation starts</string>
+
+</resources>

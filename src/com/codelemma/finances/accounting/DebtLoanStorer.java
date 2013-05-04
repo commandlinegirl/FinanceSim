@@ -40,7 +40,6 @@ public class DebtLoanStorer implements AccountingElementStorer<DebtLoan> {
 	    		storage.getBigDecimal(prefix, EXTRA_PAYMENT),
 	    		storage.getInt(prefix, START_YEAR),
 	    		storage.getInt(prefix, START_MONTH));
-		loan.setId(id);
 		return loan;
 	}
 	

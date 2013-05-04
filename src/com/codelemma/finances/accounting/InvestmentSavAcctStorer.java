@@ -38,7 +38,6 @@ public class InvestmentSavAcctStorer implements AccountingElementStorer<Investme
 				storage.getBigDecimal(prefix, INTEREST_RATE),
 				storage.getInt(prefix, START_YEAR),
 				storage.getInt(prefix, START_MONTH));
-		investment.setId(id);
 		return investment;
 	}
 

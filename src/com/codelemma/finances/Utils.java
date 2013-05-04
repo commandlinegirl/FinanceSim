@@ -14,10 +14,10 @@ public class Utils {
 	}
 	
 	static public int dip(Context context, int px) {
-	    /* Convert from px into dip (density independent pixels) */
-		    float DP = context.getResources().getDisplayMetrics().density;
-		    return Math.round(px / DP);
-		}
+	/* Convert from px into dip (density independent pixels) */
+		float DP = context.getResources().getDisplayMetrics().density;
+		return Math.round(px / DP);
+    }
 
 	static public int getIndex(int[] a, int x) {
 		for (int i = 0; (i < a.length); i++) {
@@ -38,21 +38,71 @@ public class Utils {
 	    }
 	    return false;
 	}
-	
-	static public boolean alertIfNotInBounds(Context context, String fieldData, int min, int max, String fieldName) {
-	    if (Integer.parseInt(fieldData) < min) {
+
+	static public boolean alertIfIntNotInBounds(
+			Context context,
+			String fieldData,
+			int min,
+			int max,
+			String fieldName) {
+		int value;
+		try {
+			value = Integer.parseInt(fieldData);
+		} catch (NumberFormatException nfe) {
+			showDialog(context, 
+					"\""+ fieldName +"\" value incorrect", 
+					"Please, fill in the field with a whole number."); //TODO: better mesg, please!
+			return true;
+		}
+		
+	    if (value < min) {
 	    	new AlertDialog.Builder(context).setTitle("\""+ fieldName +"\" too low")
-	        	                             .setMessage("Please, fill in the field with value higher than " +min+".")
-	        	                             .setNeutralButton("Close", null)
-	        	                             .show();
+             .setMessage("Please, fill in the field with value not lower than " +min+".")
+	         .show();
 	    	return true;
-	    } else if(Integer.parseInt(fieldData) > max) {
+	    } else if(value > max) {
 	    	new AlertDialog.Builder(context).setTitle("\""+ fieldName +"\" too high")
-            .setMessage("Please, fill in the field with value lower than " +max+".")
-            .setNeutralButton("Close", null)
+            .setMessage("Please, fill in the field with value not higher than " +max+".")
             .show();
             return true;
 	    }
 	    return false;
 	}
+	
+	static public boolean alertIfNotInBounds(
+			Context context,
+			String fieldData,
+			int min,
+			int max,
+			String fieldName) {
+		int value;
+		try {
+			value = Integer.parseInt(fieldData);
+		} catch (NumberFormatException nfe) {
+			showDialog(context, 
+					"\""+ fieldName +"\" value incorrect", 
+					"Please, fill in the field with a whole number."); //TODO: better mesg, please!
+			return true;
+		}
+		
+	    if (value < min) {
+	    	new AlertDialog.Builder(context).setTitle("\""+ fieldName +"\" too low")
+             .setMessage("Please, fill in the field with value not lower than " +min+".")
+	         .show();
+	    	return true;
+	    } else if(value > max) {
+	    	new AlertDialog.Builder(context).setTitle("\""+ fieldName +"\" too high")
+            .setMessage("Please, fill in the field with value not higher than " +max+".")
+            .show();
+            return true;
+	    }
+	    return false;
+	}
+
+	static private void showDialog(Context context, String message_title, String message_text) {
+		new AlertDialog.Builder(context).setTitle(message_title)
+        .setMessage(message_text)
+        .show();
+	}
+	
 }

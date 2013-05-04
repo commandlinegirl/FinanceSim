@@ -99,11 +99,11 @@
             android:name="com.codelemma.finances.AddInvestmentCheckAcct"
             android:label="@string/title_activity_add_investment_check_acct"
             android:parentActivityName="com.codelemma.finances.Main"
-            android:windowSoftInputMode="stateHidden">
+            android:windowSoftInputMode="stateHidden" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.codelemma.finances.Main" />
-        </activity>        
+        </activity>
         <activity
             android:name="com.codelemma.finances.About"
             android:label="@string/title_activity_about"
@@ -115,6 +115,14 @@
         <activity
             android:name="com.codelemma.finances.Feedback"
             android:label="@string/title_activity_feedback"
+            android:parentActivityName="com.codelemma.finances.Main" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.codelemma.finances.Main" />
+        </activity>
+        <activity
+            android:name="com.codelemma.finances.Settings"
+            android:label="@string/title_activity_settings"
             android:parentActivityName="com.codelemma.finances.Main" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

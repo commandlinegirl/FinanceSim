@@ -47,7 +47,7 @@
     <string name="acct_object">acct_object</string>
     <string name="action_settings">Settings</string>
     <string name="feedback_text1">If you have any comments, questions, complaints please send an email to: <b>finances@codelemma.com</b>.</string>
-    <string name="feedback_text2">We will answer you back as soon as we can.</string>
+    <string name="feedback_text2">We will answer you back as soon as we can.\n\nPlease, rate <b>FinanceSim</b> in GooglePlay.</string>
     <string name="about_title1"><b>Financial simulator</b></string>
     <string name="about_text1"><b>FinanceSim</b> simulates and projects your future financial situation based on all the earnings (capital 
         and non-capital income) and spendings (debts and expenses) you have each month. It generates simulations showing the rate of growth of your 
@@ -93,7 +93,7 @@
         difference in a given point of time.</string>    
    
     <string name="debts_title">DEBTS</string>
-    <string name="debt_description">Mortgage, consumer loans, etc.</string>
+    <string name="debt_description">Mortgage, student, consumer loans, etc.</string>
     <string name="expenses_title">EXPENSES</string>
     <string name="expenses_description">Monthly expenses, travel, insurance, rent, etc.</string>
     <string name="income_title">INCOME</string>

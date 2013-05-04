@@ -34,7 +34,6 @@ public class ExpenseGenericStorer implements AccountingElementStorer<ExpenseGene
 				storage.getInt(prefix, FREQUENCY),
 				storage.getInt(prefix, START_YEAR),
 				storage.getInt(prefix, START_MONTH));
-		expense.setId(id);
 		return expense;
 	}
 

@@ -197,12 +197,10 @@ public class AddDebtLoan extends SherlockFragmentActivity
 
 	    EditText interestRate = (EditText) findViewById(R.id.debtloan_interest_rate);
 	    String interestRateData = interestRate.getText().toString();
-	    if (Utils.alertIfEmpty(this, interestRateData, 
-	    		getResources().getString(R.string.debtloan_interest_rate_input))) {
+	    if (Utils.alertIfEmpty(this, interestRateData, getResources().getString(R.string.debtloan_interest_rate_input))) {
 	    	return;	    	
 	    }	
-	    if (Utils.alertIfNotInBounds(this, interestRateData, 0, 100,
-	    		getResources().getString(R.string.debtloan_interest_rate_input))) {
+	    if (Utils.alertIfNotInBounds(this, interestRateData, 0, 100, getResources().getString(R.string.debtloan_interest_rate_input))) {
 	    	return;	    	
 	    }
         intent.putExtra("debtloan_interest_rate", interestRateData);  
@@ -210,13 +208,11 @@ public class AddDebtLoan extends SherlockFragmentActivity
 	    EditText term = (EditText) findViewById(R.id.debtloan_term);
 	    String termData = term.getText().toString();
 	    if (Utils.alertIfEmpty(this, termData, getResources().getString(R.string.debtloan_term_input))) {
+	    	return;
+	    }
+	    if (Utils.alertIfNotInBounds(this, termData, 1, 100, getResources().getString(R.string.debtloan_term_input))) {
 	    	return;	    	
 	    }
-	    if (Utils.alertIfNotInBounds(this, termData, 0, 100,
-	    		getResources().getString(R.string.debtloan_term_input))) {
-	    	return;	    	
-	    }
-	    
         intent.putExtra("debtloan_term", termData);  
         
 	    EditText extra = (EditText) findViewById(R.id.debtloan_extra_payment);

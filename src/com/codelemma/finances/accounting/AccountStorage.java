@@ -47,9 +47,10 @@ public class AccountStorage implements AccountFactory, AccountSaver {
         	storage.open(OpenState.READ);
     		readAccountData(account);
     		readAccountingElements(account);
-    		storage.close();
     	} catch (StorageException se) {
     		throw new AccountFactoryException("Storage exception occured", se);
+    	} finally {
+    		storage.close();
     	}
     	mendIncomeWithInvestment401k(account);
     	setCheckingAccount(account);
@@ -64,9 +65,10 @@ public class AccountStorage implements AccountFactory, AccountSaver {
     		storage.clear();
     		writeAccountData(account);
     		writeAccountingElements(account);
-    		storage.close();
     	} catch (StorageException se) {
     		throw new AccountSaverException("Storage exception occured", se);
+    	} finally {
+    		storage.close();
     	}
     }
 
@@ -75,9 +77,10 @@ public class AccountStorage implements AccountFactory, AccountSaver {
     	try {
     		storage.open(OpenState.WRITE);
     		writeAccountingElement(accountingElement);
-    		storage.close();
     	} catch (StorageException se) {
     		throw new AccountSaverException("Storage exception occured", se);
+    	} finally {
+    		storage.close();
     	}
 	}
 	
@@ -86,9 +89,10 @@ public class AccountStorage implements AccountFactory, AccountSaver {
     	try {
     		storage.open(OpenState.WRITE);
         	storage.clear();
-        	storage.close();
     	} catch (StorageException se) {
     		throw new AccountSaverException("Storage exception occured", se);
+    	} finally {
+    		storage.close();
     	}
 	}
 
@@ -97,20 +101,21 @@ public class AccountStorage implements AccountFactory, AccountSaver {
     	try {
     		storage.open(OpenState.WRITE);
     		deleteAccountingElement(accountingElement);
-        	storage.close();
     	} catch (StorageException se) {
     		throw new AccountSaverException("Storage exception occured", se);
+    	} finally {
+    		storage.close();
     	}
     }
 
     private void mendIncomeWithInvestment401k(Account account) {
     	for(Investment investment : account.getInvestments()) {
-    		Log.d("investment name", investment.getName());
-			int income_id = investment.getStoredIncomeId();
-			Log.d("income_id", String.valueOf(income_id));
-			if (income_id != -1) {
-				Income income = account.getIncomeById(income_id);
-				Log.d("income name", income.getName());
+    		//Log.d("investment name", investment.getName());
+			int income_previous_id = investment.getStoredIncomePreviousId();
+			//Log.d("income_id", String.valueOf(income_previous_id));
+			Income income = account.getIncomeByPreviousId(income_previous_id);
+			if (income != null) {
+				//Log.d("income name", income.getName());
 	    		investment.setIncome(income);
 	    		income.setInvestment401k(investment);
 			}

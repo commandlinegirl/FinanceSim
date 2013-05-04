@@ -19,7 +19,7 @@ public interface Storage {
 	}
 
 	void open(OpenState openState) throws StorageException;
-	void close() throws StorageException;
+	void close();
 	void clear() throws StorageException;
 
 	String getString(String prefix, String key) throws StorageException;

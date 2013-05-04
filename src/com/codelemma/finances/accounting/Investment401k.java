@@ -32,11 +32,11 @@ public class Investment401k extends Investment {
     private BigDecimal hidden_interests;
     private HistoryInvestment401k history;    
     private Income income;
-    private int income_id;
+    private int income_previous_id;
     private BigDecimal salary;
-
-    int counter = 0;
-    int period_months;
+    
+    private int counter = 0;
+    private int period_months;
         
     private int start_year;
     private int start_month;
@@ -96,16 +96,6 @@ public class Investment401k extends Investment {
 	          BigDecimal employer_match,
               int start_year,
   	          int start_month) {
-       	Preconditions.checkInBounds(percontrib, BigDecimal.ZERO, 
-       			Money.HUNDRED, "401(k) employee contribution rate must be in 0..100");
-    	Preconditions.checkInBounds(period, 0, 
-    			100, "401(k) period must be higher than 0 and lower than 100");
-       	Preconditions.checkInBounds(interest_rate, BigDecimal.ZERO, 
-       			Money.HUNDRED, "401(k) interest rate must be in 0..100");
-       	Preconditions.checkInBounds(withdrawal_tax_rate, BigDecimal.ZERO, 
-       			Money.HUNDRED, "401(k) withdrawal tax rate must be in 0..100");
-        Preconditions.checkInBounds(employer_match, BigDecimal.ZERO, 
-        		Money.HUNDRED, "401(k) employer contribution match rate must be in 0..100");
 		return new Investment401k(
 				name,
 				init_amount,
@@ -145,16 +135,17 @@ public class Investment401k extends Investment {
 	public void setIncome(Income inc) {
 		income = inc;
 		salary = inc.getGrossIncome();
+		income_previous_id = inc.getId();
 	}
 
-	public void setIncomeId(int id) {
-		income_id = id;
+	public void setIncomePreviousId(int id) {
+		income_previous_id = id;
 	}
 
 	@Override
-	public int getStoredIncomeId() {
-		return income_id;
-	}
+	public int getStoredIncomePreviousId() {
+		return income_previous_id;
+	}	
 
 	public int getInterestPay() {
 		return interest_pay;

@@ -5,12 +5,12 @@ import java.math.BigDecimal;
 import com.codelemma.finances.InputListingUpdater;
 
 abstract class AccountingElement implements AccountingElementInterface {
-	
+
 	private static int next_id = 0;
 	private int id = next_id;
 
 	protected AccountingElement() {
-		next_id++;		
+		next_id++;
 	}
 	
 	public int getId() {

@@ -284,6 +284,15 @@ public class Account {
    	    return null;
    	}
 
+    public Income getIncomeByPreviousId(int id){
+        for (Income income: incomes) {
+            if (income.getPreviousId() == id) {
+                return income;
+            }
+        }
+    	return null;    	
+    }
+    
     public Expense getExpenseById(int id) {
        for (Expense expense: expenses) {
            if (expense.getId() == id) {

@@ -22,6 +22,7 @@ public class IncomeGeneric extends Income {
     private int term;
     private int term_months;
     private int counter;
+    private int previous_id;
     private HistoryIncomeGeneric history;
     private Investment401k investment401k;         
         
@@ -59,9 +60,6 @@ public class IncomeGeneric extends Income {
               int term,
               int start_year,
   	          int start_month) {
-  	  Preconditions.checkInBounds(tax_rate, BigDecimal.ZERO, Money.HUNDRED, "Income tax rate must be in 0..100");
-  	  Preconditions.checkInBounds(rise_rate, BigDecimal.ZERO, Money.HUNDRED, "Income rise rate must be in 0..100");
-  	  Preconditions.checkInBounds(installments, BigDecimal.ONE, Money.HUNDRED, "Installments must be in 1..100");
   	  return new IncomeGeneric(
   			  init_income, 
               tax_rate, 
@@ -192,6 +190,16 @@ public class IncomeGeneric extends Income {
         return init_income;
     }    
 
+    @Override
+    public void setPreviousId(int id) {
+    	previous_id = id;
+    }
+
+    @Override
+    public int getPreviousId() {
+    	return previous_id;
+    }
+    
 	public HistoryIncomeGeneric getHistory() {
 		return history;
 	}

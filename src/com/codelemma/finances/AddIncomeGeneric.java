@@ -322,6 +322,7 @@ public class AddIncomeGeneric extends SherlockFragmentActivity
 	    if(Utils.alertIfNotInBounds(this, incomeRiseData, 0, 100, getResources().getString(R.string.yearly_income_rise_input))) {
 	    	return;
 	    }
+	    
         intent.putExtra("yearly_income_rise", incomeRiseData);
 
 	    EditText incomeTaxRate = (EditText) findViewById(R.id.income_tax_rate);
@@ -341,6 +342,9 @@ public class AddIncomeGeneric extends SherlockFragmentActivity
 	    EditText incomeTerm = (EditText) findViewById(R.id.income_term);
 	    String incomeTermData = incomeTerm.getText().toString();
 	    if (Utils.alertIfEmpty(this, incomeTermData, getResources().getString(R.string.income_term_input))) {
+	    	return;
+	    }
+	    if(Utils.alertIfNotInBounds(this, incomeTaxRateData, 1, 50, getResources().getString(R.string.income_term_input))) {
 	    	return;
 	    }
         intent.putExtra("income_term", incomeTermData);
