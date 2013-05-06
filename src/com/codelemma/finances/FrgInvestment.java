@@ -128,7 +128,7 @@ public class FrgInvestment extends SherlockFragment {
 
         Toast.makeText(getSherlockActivity(), name+action, Toast.LENGTH_SHORT).show();
         
-        if ((appState.getAccount().getCalculationStartYear() == start_year && appState.getAccount().getCalculationStartMonth() >= start_month) 
+        if ((appState.getAccount().getCalculationStartYear() == start_year && appState.getAccount().getCalculationStartMonth() > start_month) 
     			|| (appState.getAccount().getCalculationStartYear() > start_year)) {    
         	appState.getAccount().setCalculationStartYear(start_year);
         	appState.getAccount().setCalculationStartMonth(start_month);
@@ -208,7 +208,7 @@ public class FrgInvestment extends SherlockFragment {
     	appState.getAccount().addInvestment(investment);
         Toast.makeText(getSherlockActivity(), name+action, Toast.LENGTH_SHORT).show();
         
-        if ((appState.getAccount().getCalculationStartYear() == start_year && appState.getAccount().getCalculationStartMonth() >= start_month) 
+        if ((appState.getAccount().getCalculationStartYear() == start_year && appState.getAccount().getCalculationStartMonth() > start_month) 
     			|| (appState.getAccount().getCalculationStartYear() > start_year)) {    
         	appState.getAccount().setCalculationStartYear(start_year);
         	appState.getAccount().setCalculationStartMonth(start_month);

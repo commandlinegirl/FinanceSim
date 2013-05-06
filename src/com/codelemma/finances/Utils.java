@@ -32,7 +32,7 @@ public class Utils {
 	    if (fieldData.trim().length() == 0) {
 	    	new AlertDialog.Builder(context).setTitle("\""+ fieldName +"\" empty")
 	        	                             .setMessage("Please, fill in the field.")
-	        	                             .setNeutralButton("Close", null)
+	        	                             .setNeutralButton("OK", null)
 	        	                             .show();
 	    	return true;
 	    }
@@ -56,14 +56,10 @@ public class Utils {
 		}
 		
 	    if (value < min) {
-	    	new AlertDialog.Builder(context).setTitle("\""+ fieldName +"\" too low")
-             .setMessage("Please, fill in the field with value not lower than " +min+".")
-	         .show();
+	    	showDialog(context, "\""+ fieldName +"\" too low", "Please, fill in the field with value not lower than " +min+".");
 	    	return true;
 	    } else if(value > max) {
-	    	new AlertDialog.Builder(context).setTitle("\""+ fieldName +"\" too high")
-            .setMessage("Please, fill in the field with value not higher than " +max+".")
-            .show();
+	    	showDialog(context, "\""+ fieldName +"\" too high", "Please, fill in the field with value not higher than " +max+".");
             return true;
 	    }
 	    return false;
@@ -75,25 +71,13 @@ public class Utils {
 			int min,
 			int max,
 			String fieldName) {
-		int value;
-		try {
-			value = Integer.parseInt(fieldData);
-		} catch (NumberFormatException nfe) {
-			showDialog(context, 
-					"\""+ fieldName +"\" value incorrect", 
-					"Please, fill in the field with a whole number."); //TODO: better mesg, please!
-			return true;
-		}
+		double value = Double.parseDouble(fieldData);
 		
 	    if (value < min) {
-	    	new AlertDialog.Builder(context).setTitle("\""+ fieldName +"\" too low")
-             .setMessage("Please, fill in the field with value not lower than " +min+".")
-	         .show();
+	    	showDialog(context, "\""+ fieldName +"\" too low", "Please, fill in the field with value not lower than " +min+".");
 	    	return true;
 	    } else if(value > max) {
-	    	new AlertDialog.Builder(context).setTitle("\""+ fieldName +"\" too high")
-            .setMessage("Please, fill in the field with value not higher than " +max+".")
-            .show();
+	    	showDialog(context, "\""+ fieldName +"\" too high", "Please, fill in the field with value not higher than " +max+".");
             return true;
 	    }
 	    return false;
@@ -102,6 +86,7 @@ public class Utils {
 	static private void showDialog(Context context, String message_title, String message_text) {
 		new AlertDialog.Builder(context).setTitle(message_title)
         .setMessage(message_text)
+        .setNeutralButton("OK", null)
         .show();
 	}
 	

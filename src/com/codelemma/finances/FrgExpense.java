@@ -84,7 +84,7 @@ public class FrgExpense extends SherlockFragment {
     	appState.getAccount().addExpense(expense);
         Toast.makeText(getSherlockActivity(), expense_name+action, Toast.LENGTH_SHORT).show();
         
-        if ((appState.getAccount().getCalculationStartYear() == start_year && appState.getAccount().getCalculationStartMonth() >= start_month) 
+        if ((appState.getAccount().getCalculationStartYear() == start_year && appState.getAccount().getCalculationStartMonth() > start_month) 
     			|| (appState.getAccount().getCalculationStartYear() > start_year)) {    
         	appState.getAccount().setCalculationStartYear(start_year);
         	appState.getAccount().setCalculationStartMonth(start_month);

@@ -62,7 +62,7 @@ public class AddDebtLoan extends SherlockFragmentActivity
             })
             .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                public void onClick(DialogInterface dialog, int id) {
-            	   dialog.cancel();
+            	   dialog.cancel();            	   
                }
            })
           .show();	 	        	         
@@ -210,7 +210,7 @@ public class AddDebtLoan extends SherlockFragmentActivity
 	    if (Utils.alertIfEmpty(this, termData, getResources().getString(R.string.debtloan_term_input))) {
 	    	return;
 	    }
-	    if (Utils.alertIfNotInBounds(this, termData, 1, 100, getResources().getString(R.string.debtloan_term_input))) {
+	    if (Utils.alertIfIntNotInBounds(this, termData, 1, 100, getResources().getString(R.string.debtloan_term_input))) {
 	    	return;	    	
 	    }
         intent.putExtra("debtloan_term", termData);  

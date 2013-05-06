@@ -236,7 +236,7 @@ public class AddDebtMortgage extends SherlockFragmentActivity
 	    if (Utils.alertIfEmpty(this, propertyInsuranceData, getResources().getString(R.string.debtmortgage_property_insurance_input))) {
 	    	return;	    	
 	    }
-	    if (Utils.alertIfNotInBounds(this, propertyInsuranceData, 0, 100, getResources().getString(R.string.debtmortgage_property_insurance_input))) {
+	    if (Utils.alertIfIntNotInBounds(this, propertyInsuranceData, 0, 100, getResources().getString(R.string.debtmortgage_property_insurance_input))) {
 	    	return;	    	
 	    }
         intent.putExtra("debtmortgage_property_insurance", propertyInsuranceData);   

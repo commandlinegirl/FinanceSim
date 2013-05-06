@@ -202,7 +202,7 @@ public class FrgIncome extends SherlockFragment {
 		appState.getAccount().addIncome(newIncome);
         Toast.makeText(getSherlockActivity(), income_name+action, Toast.LENGTH_SHORT).show();
         
-        if ((appState.getAccount().getCalculationStartYear() == start_year && appState.getAccount().getCalculationStartMonth() >= start_month) 
+        if ((appState.getAccount().getCalculationStartYear() == start_year && appState.getAccount().getCalculationStartMonth() > start_month) 
     			|| (appState.getAccount().getCalculationStartYear() > start_year)) {    
         	appState.getAccount().setCalculationStartYear(start_year);
         	appState.getAccount().setCalculationStartMonth(start_month);

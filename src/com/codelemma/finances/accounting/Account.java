@@ -73,11 +73,11 @@ public class Account {
 	public int getPreCalculationLength() {
 		return preCalculationLength;
 	}
-	
+
 	public int getSimulationLength() {
 		return simulationLength;
 	}
-	
+
 	public void computeCalculationLength() {
 		/* Get the total number of months the calculation (ie. advance iteration in Account)
 		 * needs to proceed for. It is the sum of simulation time (eg. 30 years) and 

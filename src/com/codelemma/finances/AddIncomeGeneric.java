@@ -344,7 +344,7 @@ public class AddIncomeGeneric extends SherlockFragmentActivity
 	    if (Utils.alertIfEmpty(this, incomeTermData, getResources().getString(R.string.income_term_input))) {
 	    	return;
 	    }
-	    if(Utils.alertIfNotInBounds(this, incomeTaxRateData, 1, 50, getResources().getString(R.string.income_term_input))) {
+	    if(Utils.alertIfIntNotInBounds(this, incomeTaxRateData, 1, 100, getResources().getString(R.string.income_term_input))) {
 	    	return;
 	    }
         intent.putExtra("income_term", incomeTermData);

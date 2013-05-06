@@ -258,7 +258,7 @@ public class AddInvestment401k extends SherlockFragmentActivity
 	    if (Utils.alertIfEmpty(this, periodData, getResources().getString(R.string.investment401k_period_input))) {
 	    	return;	    	
 	    }
-	    if (Utils.alertIfNotInBounds(this, periodData, 1, 50, getResources().getString(R.string.investment401k_period_input))) {
+	    if (Utils.alertIfIntNotInBounds(this, periodData, 1, 100, getResources().getString(R.string.investment401k_period_input))) {
 	    	return;	    	
 	    }
         intent.putExtra("investment401k_period", periodData); 

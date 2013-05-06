@@ -1,5 +1,8 @@
 package com.codelemma.finances;
 
+import java.util.Calendar;
+
+import com.codelemma.finances.accounting.Months;
 import com.codelemma.finances.accounting.Storage.StorageException;
 
 import android.annotation.TargetApi;
@@ -9,9 +12,12 @@ import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
+import android.util.Log;
 
 public class Settings extends PreferenceActivity {
 
+	private Months[] months = Months.values();
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -41,7 +47,8 @@ public class Settings extends PreferenceActivity {
 	private void setupSimplePreferencesScreen() throws StorageException {
 		addPreferencesFromResource(R.xml.pref_general);
 		DatePickerPreference dataPref = (DatePickerPreference) findPreference("simulation_start_date");
-		dataPref.getDateFor("simulation_start_date");
+		Calendar calendar = dataPref.getDate();
+		dataPref.setSummary(months[calendar.get(Calendar.MONTH)]+"/"+calendar.get(Calendar.YEAR));
 	}
 
 	/**
@@ -53,6 +60,7 @@ public class Settings extends PreferenceActivity {
 		public boolean onPreferenceChange(Preference preference, Object value) {
 			String stringValue = value.toString();
 
+			Log.d("Preference.OnPreferenceChangeListener", "Preference.OnPreferenceChangeListener");
 			if (preference instanceof ListPreference) {
 				// For list preferences, look up the correct display value in
 				// the preference's 'entries' list.

@@ -1,6 +1,6 @@
 package com.codelemma.finances.accounting;
 
-enum Months {
+public enum Months {
     Jan,
     Feb,
     Mar,

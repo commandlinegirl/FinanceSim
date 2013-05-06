@@ -12,11 +12,9 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.codelemma.finances.Finances;
-import com.codelemma.finances.StorageFactory;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -464,4 +462,14 @@ public class Main extends SherlockFragmentActivity
 	    currentMenuItem.setIcon(menuItems.get(currentMenuItem));
 	    currentMenuItem = menuTable;
 	}
+	/*
+	private void showPopupAtFirstRun() {
+        SharedPreferences settings = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        if (settings.getBoolean("isFirstRun", true)) {
+            showDialog(DIALOG_HELP);
+            SharedPreferences.Editor editor = settings.edit();
+            editor.putBoolean("isFirstRun", false);
+            editor.commit();
+        }
+    }*/
 }
