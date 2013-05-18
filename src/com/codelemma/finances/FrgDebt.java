@@ -4,7 +4,6 @@ import java.math.BigDecimal;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,7 +35,6 @@ public class FrgDebt extends SherlockFragment {
 	@Override
 	public void onStart() {
 		super.onStart();
-		Log.d("FrgDebt.onStart()", "called");	
 		LinearLayout tip = (LinearLayout) getSherlockActivity().findViewById(R.id.debt_summary);
     	tip.removeAllViews();
     	
@@ -85,7 +83,6 @@ public class FrgDebt extends SherlockFragment {
 		    int debt_id = data.getIntExtra("debt_id", -1);    		
 		    DebtLoan debt = (DebtLoan) appState.getAccount().getDebtById(debt_id); 
 		    appState.getAccount().removeDebt(debt);
-		    Log.d("FrgDebt.onDebtLoanResult()", "removed Debt No. "+debt_id);
 		    action = " updated.";		    
 		}
 		
@@ -126,7 +123,6 @@ public class FrgDebt extends SherlockFragment {
 		    int debt_id = data.getIntExtra("debt_id", -1);    		
 		    DebtMortgage debt = (DebtMortgage) appState.getAccount().getDebtById(debt_id); 
 		    appState.getAccount().removeDebt(debt);
-		    Log.d("FrgDebt.onDebtMortgageResult()", "removed Debt No. "+debt_id);
 		    action = " updated.";
 		}
 		

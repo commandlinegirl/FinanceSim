@@ -5,7 +5,6 @@ import java.math.BigDecimal;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,14 +30,12 @@ public class FrgIncome extends SherlockFragment {
 	@Override
     public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		Log.d("FrgIncome.onActivityCreated()", "called");
 		appState = Finances.getInstance();
 	}
 
 	@Override
 	public void onStart() {
 		super.onStart();
-		Log.d("FrgIncome.onStart()", "called");
 		
     	LinearLayout tip = (LinearLayout) getSherlockActivity().findViewById(R.id.income_summary);
     	tip.removeAllViews();

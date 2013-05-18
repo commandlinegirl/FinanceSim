@@ -17,7 +17,6 @@ import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.NavUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -43,7 +42,6 @@ public class AddInvestment401k extends SherlockFragmentActivity
 	private Income salary;
 	
     private OnClickListener clickCancelListener = new OnClickListener() {
-    	
     	@Override
 	    public void onClick(View v) {
 	        finish();	             	        
@@ -63,7 +61,10 @@ public class AddInvestment401k extends SherlockFragmentActivity
            		   /* Before removing investment account, set the income with which it is associated
              		* to null.
             		*/
-            	   investment.getIncome().setInvestment401k(null);
+            	   Income income = investment.getIncome();
+            	   if (income != null) {
+            	       income.setInvestment401k(null);
+            	   }
             	   appState.getAccount().removeInvestment(investment); 
             	   appState.getHistory().removeInvestmentHistory(investment.getHistory()); 
             	   appState.needToRecalculate(true);
@@ -84,7 +85,6 @@ public class AddInvestment401k extends SherlockFragmentActivity
     	
     	@Override
 	    public void onClick(View v) {
-	    	Log.d("saving investment", "Saving ");
 	        addInvestment(null);	             	        
 	    }
     };	
@@ -121,7 +121,6 @@ public class AddInvestment401k extends SherlockFragmentActivity
 		setContentView(R.layout.act_add_investment401k);
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-		Log.d("AddInvestment.onCreate()", "called");
 		appState = Finances.getInstance();
 	    	       
         for (Income i : appState.getAccount().getIncomes()) {
@@ -187,6 +186,7 @@ public class AddInvestment401k extends SherlockFragmentActivity
 	        // Add Save & Delete button view
 			
 			LinearLayout buttons = (LinearLayout) findViewById(R.id.submitInvestmentButtons);
+			@SuppressWarnings("deprecation")
 			LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, 
 					                                                         LinearLayout.LayoutParams.WRAP_CONTENT);
 			params.weight = 0.5f;
@@ -307,7 +307,6 @@ public class AddInvestment401k extends SherlockFragmentActivity
         }	
         
         if (requestCode.equals(AcctElements.UPDATE.toString())) {
-    		Log.d("Addinvestment401k.addinvestment401k() requestCode", requestCode);
 	        intent.putExtra("investment401k_id", investmentId);
 	    }
         

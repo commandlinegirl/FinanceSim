@@ -42,12 +42,13 @@ public class InputListingUpdater implements InputListingVisitor {
 		int padding = Utils.px(frgActivity, 10);
 		rLayout.setPadding(padding, padding, padding, padding); // int left, int top, int right, int bottom     
 
-	    RelativeLayout.LayoutParams relativeParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.FILL_PARENT, 
+	    @SuppressWarnings("deprecation")
+		RelativeLayout.LayoutParams relativeParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.FILL_PARENT, 
 	    		RelativeLayout.LayoutParams.WRAP_CONTENT);
 	    relativeParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
 	    
 		TextView tv = new TextView(frgActivity);
-        tv.setText(expense.getName() + " " + formatter.formatNumber(expense.getValue())); //TODO: 
+        tv.setText(expense.getName() + " " + formatter.formatNumber(expense.getValue())); 
         tv.setLayoutParams(relativeParams);	    
 	    rLayout.addView(tv);      
         
@@ -68,7 +69,8 @@ public class InputListingUpdater implements InputListingVisitor {
 		int padding = Utils.px(frgActivity, 10);
 		rLayout.setPadding(padding, padding, padding, padding); // int left, int top, int right, int bottom     
 
-	    RelativeLayout.LayoutParams relativeParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.FILL_PARENT, 
+	    @SuppressWarnings("deprecation")
+		RelativeLayout.LayoutParams relativeParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.FILL_PARENT, 
 	    		RelativeLayout.LayoutParams.WRAP_CONTENT);
 	    relativeParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
 	    
@@ -95,7 +97,8 @@ public class InputListingUpdater implements InputListingVisitor {
 		int padding = Utils.px(frgActivity, 10);
 		rLayout.setPadding(padding, padding, padding, padding); // int left, int top, int right, int bottom     
 
-	    RelativeLayout.LayoutParams relativeParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.FILL_PARENT, 
+	    @SuppressWarnings("deprecation")
+		RelativeLayout.LayoutParams relativeParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.FILL_PARENT, 
 	    		RelativeLayout.LayoutParams.WRAP_CONTENT);
 	    relativeParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
 	    
@@ -121,7 +124,8 @@ public class InputListingUpdater implements InputListingVisitor {
 		int padding = Utils.px(frgActivity, 10);
 		rLayout.setPadding(padding, padding, padding, padding); // int left, int top, int right, int bottom     
 
-	    RelativeLayout.LayoutParams relativeParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.FILL_PARENT, 
+	    @SuppressWarnings("deprecation")
+		RelativeLayout.LayoutParams relativeParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.FILL_PARENT, 
 	    		RelativeLayout.LayoutParams.WRAP_CONTENT);
 	    relativeParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
 	    
@@ -148,7 +152,8 @@ public class InputListingUpdater implements InputListingVisitor {
 		int padding = Utils.px(frgActivity, 10);
 		rLayout.setPadding(padding, padding, padding, padding); // int left, int top, int right, int bottom     
 
-	    RelativeLayout.LayoutParams relativeParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.FILL_PARENT, 
+	    @SuppressWarnings("deprecation")
+		RelativeLayout.LayoutParams relativeParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.FILL_PARENT, 
 	    		RelativeLayout.LayoutParams.WRAP_CONTENT);
 	    relativeParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
 	    
@@ -161,6 +166,7 @@ public class InputListingUpdater implements InputListingVisitor {
         addUnderline(tip); 
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public void updateInputListingForDebtLoan(DebtLoan debt) {
 		LinearLayout tip = (LinearLayout) frgActivity.findViewById(R.id.debt_summary);
@@ -174,7 +180,7 @@ public class InputListingUpdater implements InputListingVisitor {
 		rLayout.setPadding(padding, padding, padding, padding); // int left, int top, int right, int bottom     
 
 		
-	    RelativeLayout.LayoutParams relativeParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.FILL_PARENT, 
+		RelativeLayout.LayoutParams relativeParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.FILL_PARENT, 
 	    		RelativeLayout.LayoutParams.WRAP_CONTENT);
 	    relativeParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
         
@@ -254,6 +260,7 @@ public class InputListingUpdater implements InputListingVisitor {
         addUnderline(tip); 
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public void updateInputListingForDebtMortgage(DebtMortgage debt) {
 		LinearLayout tip = (LinearLayout) frgActivity.findViewById(R.id.debt_summary);
@@ -267,7 +274,7 @@ public class InputListingUpdater implements InputListingVisitor {
 		rLayout.setPadding(padding, padding, padding, padding); // int left, int top, int right, int bottom     
 
 		
-	    RelativeLayout.LayoutParams relativeParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.FILL_PARENT, 
+		RelativeLayout.LayoutParams relativeParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.FILL_PARENT, 
 	    		RelativeLayout.LayoutParams.WRAP_CONTENT);
 	    relativeParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
         

@@ -1,13 +1,11 @@
 package com.codelemma.finances;
 
-import java.math.BigDecimal;
 import java.util.Calendar;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.codelemma.finances.accounting.DebtLoan;
-import com.codelemma.finances.accounting.Money;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -140,6 +138,7 @@ public class AddDebtLoan extends SherlockFragmentActivity
 	        // - add Save & Delete button view
 			
 			LinearLayout buttons = (LinearLayout) findViewById(R.id.submitDebtButtons);
+			@SuppressWarnings("deprecation")
 			LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, 
 					                                                         LinearLayout.LayoutParams.WRAP_CONTENT);
 			params.weight = 0.5f;		

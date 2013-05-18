@@ -47,5 +47,4 @@ public class About extends SherlockActivity {
 		}							
 		return super.onOptionsItemSelected(item);
 	}
-
 }

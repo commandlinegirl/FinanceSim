@@ -20,7 +20,6 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.drawable.Drawable;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 
@@ -43,14 +42,12 @@ public class Main extends SherlockFragmentActivity
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		Log.d("Main.onCreate()", "called");
 		setContentView(R.layout.main);		
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);       
     
         setupActionBar();
-             
 	    appState = Finances.getInstance();
-        //StorageFactory.create(PreferenceManager.getDefaultSharedPreferences(this));  
+        showStartPopup();  
 	                            	    
 	    if (appState.getAccount() == null) {
 			appState.setAccount();
@@ -77,6 +74,16 @@ public class Main extends SherlockFragmentActivity
 	    optionsMenuIds[5][0] = R.layout.expl_networth_add;
 	    optionsMenuIds[5][1] = R.layout.expl_networth_chart;
 	    optionsMenuIds[5][2] = R.layout.expl_networth_table;
+	}
+
+	protected void showStartPopup() {		
+		if (appState.showStartupWindow() == 1) {
+			Dialog dialog = new Dialog(this, R.style.FullHeightDialog);
+			dialog.setContentView(R.layout.start_popup);
+			dialog.setCanceledOnTouchOutside(true);
+			dialog.show();
+			appState.setShowStartupWindow(0);
+		}
 	}
 
 	@Override
@@ -117,7 +124,6 @@ public class Main extends SherlockFragmentActivity
 
 	@Override
 	public void onTabSelected(Tab tab, FragmentTransaction ft) {
-		Log.d("onTabSelected ", "called");
 		currentElement = tab.getPosition();
 		if (appState != null) {
 		    appState.setSpinnerPosition(0);
@@ -140,12 +146,8 @@ public class Main extends SherlockFragmentActivity
 	@Override
 	public void onPause() {
 		super.onPause();
-		Log.d("Main.onPause()", "called");
-		//if (isFinishing() == true) {
-			Log.d("Main.onPause()", "saving when finishing");
-            Preconditions.checkNotNull(Finances.getInstance(), "Finances instance doesn't exist");
-	        Finances.getInstance().saveAccount();
-		//}
+        Preconditions.checkNotNull(Finances.getInstance(), "Finances instance doesn't exist");
+	    Finances.getInstance().saveAccount();
 		// close dialog before exiting activity
 		if (progressBarDialog != null) {
 		    progressBarDialog.dismiss();
@@ -217,8 +219,7 @@ public class Main extends SherlockFragmentActivity
 		    startActivity(intent3);
 			return true;	
 		case R.id.menu_explain:	
-			Dialog dialog = new Dialog(this, R.style.FullHeightDialog);			
-			dialog.setContentView(R.layout.help_incomegeneric);
+			Dialog dialog = new Dialog(this, R.style.FullHeightDialog);
 			dialog.setContentView(optionsMenuIds[currentElement][currentIcon]);
 			dialog.setCanceledOnTouchOutside(true);
 			dialog.show();
@@ -255,7 +256,6 @@ public class Main extends SherlockFragmentActivity
 	public void addInvestment(View view) {
 		/* It is assumed AddInvestment button is clicked from within FrgInvestment fragment */
 		FrgInvestment frgInvestment = (FrgInvestment) getSupportFragmentManager().findFragmentById(R.id.main_container);
-		Log.d("Main.addInvestment()", view.toString());
 		frgInvestment.add(view);
 	}
 	
@@ -345,11 +345,6 @@ public class Main extends SherlockFragmentActivity
 	        appState.getAccount().computeCalculationLength();
 	        int totalCalculationLength = appState.getAccount().getTotalCalculationLength();
 	        int preCalculationLength = appState.getAccount().getPreCalculationLength(); 
-	        
-	        Log.d("totalCalculationLength", String.valueOf(totalCalculationLength));
-	        Log.d("preCalculationLength", String.valueOf(preCalculationLength));
-	        Log.d("year", String.valueOf(year));
-	        Log.d("month", String.valueOf(month));
 	        
 	        int index = -1; //TODO: should be -1???
 	        for (int i = 0; i < totalCalculationLength; i++) {

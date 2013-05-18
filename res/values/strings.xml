@@ -20,7 +20,6 @@
     <string name="title_activity_add_investmentbond">Bond</string>
     <string name="title_activity_add_debtmortgage">Mortgage</string>
     <string name="title_activity_add_investment_check_acct">Checking account</string>
-  
     <string name="title_activity_about">About</string>
     <string name="title_activity_feedback">Feedback</string>
     <string name="title_activity_list_fragment">List</string>
@@ -34,13 +33,12 @@
     <string name="percent">%</string>
     <string name="show_predictions">Show predictions</string>
     <string name="progress_bar_info">Simulating your financial future..</string>
-    
-    <string name="add_income">Add income</string>    
+    <string name="add_income">Add income</string>
     <string name="add_investmentsav">Add savings acct</string>
     <string name="add_investmentcheckacct">Add checking acct</string>
     <string name="add_investment401k">Add 401(k)</string>
     <string name="add_investmentbond">Add bond</string>
-    <string name="add_investmentstock">Add stock</string>    
+    <string name="add_investmentstock">Add stock</string>
     <string name="add_debtloan">Add loan</string>
     <string name="add_debtmortgage">Add mortgage</string>
     <string name="add_expense">Add expense</string>
@@ -51,7 +49,7 @@
     <string name="about_title1"><b>Financial simulator</b></string>
     <string name="about_text1"><b>FinanceSim</b> simulates and projects your future financial situation based on all the earnings (capital 
         and non-capital income) and spendings (debts and expenses) you have each month. It generates simulations showing the rate of growth of your 
-        assets and liabilities. 
+        assets and liabilities.
         It will tell you: \n
          - when you are going to get your (first) million \n
          - how fast will your 401(k) grow \n
@@ -62,36 +60,27 @@
     <string name="about_title3"><b>What this app is not</b></string>
     <string name="about_text3">This app is not an expense, income or debt tracker. It uses the tracked data, though, as input for the simulations.</string>
     <string name="about_title4"><b>Upcoming new features</b></string>
-    <string name="about_text4">
-        - ability to add 401(k) Roth pension plan,\n
+    <string name="about_text4"> - ability to add 401(k) Roth pension plan,\n
         - year by year (aside from month by month) simulation resolution,\n
         - ability to add bond investments,\n
         - and more.</string>
-    
     <string name="about_title5"><b>Questions, suggestions, bug reports</b></string>
     <string name="about_text5">I\'ll be happy to hear you at: <b>finances@codelemma.com</b></string>
-    
     <string name="about_title6"><b>Disclaimer</b></string>
     <string name="about_text6">FinanceSim serves informative functions only and may not be used as a replacement of legal advice.</string>
-        
     <string name="chart_no_data_info_text">Chart empty.\n\n No %s data has yet been added.</string>
     <string name="no_data_info_text">Table empty.\n\n No %s data has yet been added.</string>
     <string name="no_data_info_button">Add %s data</string>
-    
     <string name="view_chart">VIEW CHART</string>
     <string name="view_table">VIEW TABLE</string>
-    
     <string name="years">Years: </string>
     <string name="start_date_input">Start date</string>
-    
     <string name="cashflows1">For cashflows the input comes from income, expenses, savings, and debts. </string>
     <string name="cashflows2">Cashflow chart and table depicts monthly inflow and outflow of your 
         capital.</string>
-    
-    <string name="networth1">For net worth the input comes from income, expenses, savings, and debts. </string> 
+    <string name="networth1">For net worth the input comes from income, expenses, savings, and debts. </string>
     <string name="networth2">Net worth chart and table show your accumulated savings, total debt and their 
-        difference in a given point of time.</string>    
-   
+        difference in a given point of time.</string>
     <string name="debts_title">DEBTS</string>
     <string name="debt_description">Mortgage, student, consumer loans, etc.</string>
     <string name="expenses_title">EXPENSES</string>
@@ -115,20 +104,16 @@
     <string name="income_installments_text">12</string>
     <string name="income_term_input">Income term (years)</string>
     <string name="income_term_text">30</string>
-    
     <string name="income_help_intro">Here add any regular source of income (eg. salary, returns 
-        from renting a flat, dividends, etc.).</string>   
+        from renting a flat, dividends, etc.).</string>
     <string name="income_help_yearly_income"><b>Income per year</b> - gross yearly income.</string>
     <string name="income_help_rise_per_year"><b>Rise per year</b> - estimated yearly payment increase 
         rate.</string>
     <string name="income_help_tax_rate"><b>Tax rate</b> - total tax rate.</string>
     <string name="income_help_installments"><b>Payment frequency</b> - number of payments in a year 
         (12 - monthly, 13 - monthly with an additional payment at the end of the year).</string>
-    <string name="income_help_start_date"><b>Start date</b> 
-        - date of income commencement. For current salary, specify current month and year.</string>
-    <string name="income_help_income_term"><b>Income term</b> 
-        - number of years to gather income.</string>
-    
+    <string name="income_help_start_date"><b>Start date</b>        - date of income commencement. For current salary, specify current month and year.</string>
+    <string name="income_help_income_term"><b>Income term</b>        - number of years to gather income.</string>
     <string name="debtloan_name_input">Name</string>
     <string name="debtloan_name_text">Car loan</string>
     <string name="debtloan_amount_input">Amount</string>
@@ -139,13 +124,11 @@
     <string name="debtloan_term_text">12</string>
     <string name="debtloan_extra_payment_input">Monthly extra payment</string>
     <string name="debtloan_extra_payment_text">0</string>
-    
     <string name="debtloan_help_amount"><b>Amount</b> - loan amount.</string>
     <string name="debtloan_help_interest_rate"><b>Interest rate</b> - yearly interest rate.</string>
     <string name="debtloan_help_term"><b>Loan term</b> - loan term (in years).</string>
     <string name="debtloan_help_extra_payment"><b>Monthly extra payment</b> - amount added to your monthly payment.</string>
     <string name="debtloan_help_start_date"><b>Start date</b> - date of loan commencement.</string>
-    
     <string name="debtmortgage_name_input">Name</string>
     <string name="debtmortgage_name_text">Mortgage</string>
     <string name="debtmortgage_purchase_price_input">Purchase price</string>
@@ -162,11 +145,9 @@
     <string name="debtmortgage_property_tax_text">0</string>
     <string name="debtmortgage_pmi_input">PMI</string>
     <string name="debtmortgage_pmi_text">0.52</string>
-    
     <string name="debtmortgage_help_amount"><b>Purchase price</b> - purchased property price.</string>
     <string name="debtmortgage_help_downpayment"><b>Downpayment</b> - amount paid in cash at the onset of the loan as 
         a percentage of the purchased property price.</string>
-   
     <string name="debtmortgage_help_interest_rate"><b>Interest rate</b> - yearly interest rate.</string>
     <string name="debtmortgage_help_term"><b>Mortgage term</b> - the length of time the mortgage terms and conditions 
         (including interest rate) are in effect.</string>
@@ -176,8 +157,7 @@
         paid to the lender if the downpayment is lower than 20% of the purchased 
         property price or when the loan-to-value ratio is lower than 80 percent. Loan-to-value 
         ratio is a ratio of the loan to the value of an asset purchased. </string>
-    <string name="debtmortgage_help_start_date"><b>Start date</b> - date of loan commencement.</string>       
-    
+    <string name="debtmortgage_help_start_date"><b>Start date</b> - date of loan commencement.</string>
     <string name="expense_name_input">Name</string>
     <string name="expense_name_text">Monthly expenses</string>
     <string name="init_expense_input">Amount</string>
@@ -185,15 +165,10 @@
     <string name="inflation_rate_input">Inflation rate (yr)</string>
     <string name="inflation_rate_text">2</string>
     <string name="expense_frequency_input">Frequency of expense</string>
-    <string name="help_header">Instructions</string>
-    <string name="expense_help_intro">Any regular expenses (living expenses, insurance, travel, 
-        house rent, house ownership costs, etc.). Expense amounts will rise monthly due 
-        to inflation.</string>
     <string name="expense_help_amount"><b>Amount</b> - average/estimated expense in the specified period of time.</string>
     <string name="expense_help_inflation_rate"><b>Inflation rate</b> - estimated mean yearly rate of inflation.</string>
     <string name="expense_help_frequency"><b>Frequency</b> - number of times per year the expense is made.</string>
     <string name="expense_help_start_date"><b>Start date</b> - date of expense commencement.</string>
-    
     <string name="investmentsav_name_input">Name</string>
     <string name="investmentsav_name_text">Savings account</string>
     <string name="investmentsav_init_amount_input">Current amount</string>
@@ -206,8 +181,6 @@
     <string name="investmentsav_percontrib_text">0</string>
     <string name="investmentsav_capitalization_input">Interest payment frequency</string>
     <string name="investmentsav_capitalization_text">12</string>
-    <string name="investmentsavacct_help_intro">This is a savings account, where you can store a given percentage of your excess money (see percent contribution below). 
-        Compounding is continuous.</string>
     <string name="investmentsavacct_help_amount"><b>Current amount</b> - current balance on your account.</string>
     <string name="investmentsavacct_help_interest_rate"><b>Interest rate</b> - yearly interest rate.</string>
     <string name="investmentsavacct_help_tax_rate"><b>Tax rate</b> - tax rate on the interests.</string>
@@ -215,7 +188,6 @@
     <string name="investmentsavacct_help_percontrib"><b>Contribution</b> - what percentage of your total monthly excess money (capital and non-capital income 
          minus expenses, debt rates, retirement plan account and other savings or investments) you want to put into the savings account.</string>
     <string name="investmentsavacct_help_start_date"><b>Start date</b> - date of savings account commencement.</string>
-    
     <string name="investmentcheck_name_input">Name</string>
     <string name="investmentcheck_name_text">Checking account</string>
     <string name="investmentcheck_init_amount_input">Current amount</string>
@@ -226,14 +198,10 @@
     <string name="investmentcheck_tax_rate_text">19</string>
     <string name="investmentcheck_capitalization_input">Payment frequency</string>
     <string name="investmentcheck_capitalization_text">12</string>
-    <string name="investmentcheckacct_help_intro">Checking account is a fixed account used here to deposit all of the remaining monthly income (capital and 
-        non-capital) after it has been partitioned into expenses, investments, any 401(k) accounts, savings accounts, and debt rates.   
-        The interests are compounded continuously. </string>
     <string name="investmentcheckacct_help_amount"><b>Current amount</b> - current balance on your account.</string>
     <string name="investmentcheckacct_help_interest_rate"><b>Interest rate</b> - yearly interest rate.</string>
     <string name="investmentcheckacct_help_tax_rate"><b>Tax rate</b> - tax rate on the interests.</string>
     <string name="investmentcheckacct_help_capitalization"><b>Payment frequency</b> - how often the interests are paid to your account (usually monthly).</string>
-        
     <string name="investment401k_name_input">Name</string>
     <string name="investment401k_name_text">401(k)</string>
     <string name="investment401k_init_amount_input">Current balance</string>
@@ -252,8 +220,6 @@
     <string name="investment401k_employer_match_text">50</string>
     <string name="investment401k_interest_rate_input">Expected return (per year) </string>
     <string name="investment401k_interest_rate_text">8</string>
-    <string name="investment401k_help_intro">Contributons to this 401(k) account plan are made on a pre-tax basis so the earnings are tax-deferred. Tax
-        is subtracted from the earnings on withdrawal and deposited in the checking account. </string>
     <string name="investment401k_help_amount"><b>Current balance</b> - current balance on your 401(k) account.</string>
     <string name="investment401k_help_annual_salary"><b>Salary</b> - salary account associated with the 401(k) plan.</string>
     <string name="investment401k_help_percontrib"><b>Your contribution</b> - your annual contribution rate to the account.</string>
@@ -262,7 +228,6 @@
     <string name="investment401k_help_withdrawabl_tax_rate"><b>Tax rate at withdrawal</b> - estimated tax rate at withdrawal.</string>
     <string name="investment401k_help_interest_rate"><b>Expected return (per year)</b> - expected rate of return from the invested 401(k) earnings.</string>
     <string name="investment401k_help_start_date"><b>Start date</b> - date of 401(k) plan commencement (has to start after the salary start date).</string>
-    
     <string name="investmentbond_name_input">Name</string>
     <string name="investmentbond_name_text">Bonds</string>
     <string name="investmentbond_init_amount_input">Invested amount</string>
@@ -277,7 +242,6 @@
     <string name="investmentbond_appreciation_text">12</string>
     <string name="investmentbond_dividend_input">Percent contribution (of excess money)</string>
     <string name="investmentbond_dividend_text">0</string>
-    
     <string name="investmentstock_name_input">Name</string>
     <string name="investmentstock_name_text">Stocks</string>
     <string name="investmentstock_init_amount_input">Invested amount</string>
@@ -292,60 +256,60 @@
     <string name="investmentstock_appreciation_text">12</string>
     <string name="investmentstock_dividends_input">Percent contribution (of excess money)</string>
     <string name="investmentstock_dividends_text">0</string>
-
     <string name="expl_income_add_intro">Description of input</string>
-    
-    <string name="expl_income_chart_intro">Description of chart</string>
-    
-    <string name="expl_income_table_intro">Description of table</string>
-    
+    <string name="expl_income_chart_intro">The chart shows a net and gross income in a given month.</string>
+    <string name="expl_income_table_intro">If 401k(k) is associated with a fiven income account, the 401(k) contribution is subtracted from the account before tax.</string>
     <string name="expl_expenses_add_intro">Here input your regular expenses, such as monthly spendings, insurance, house or apartment rent, yearly travel 
         budget, etc. \n\nThe submitted amounts are used as starting points in projecting the future values of your spending taking into account inflation,
-        which is assumed to be constant over the years.</string>
-    
+        which is assumed to be constant over the years.        </string>
     <string name="expl_expenses_chart_intro">The chart shows the rise of monthly expenses over years due to inflation.</string>
-    
     <string name="expl_expenses_table_intro">Each month the expenses you incur rise due to inflation. They will be lower if inflation is negative.</string>
-      
-    <string name="savings_expl_add_intro">Here input your bank and retirement plan accounts data. \n\n<b>Checking account</b> is a fixed account used here 
-        to deposit all of the remaining monthly income after it has been partitioned into expenses, 401(k) accounts, savings accounts, and debt rates. 
-        Also, when 401(k) interests and earnings are withdrawn from the 401(k) account they are deposited to the checking account.</string>
-    
-    <string name="savings_expl_chart_intro">Description of chart</string>
-    
-    <string name="savings_expl_table_intro">Description of table</string>
-    
+    <string name="savings_expl_add_intro">Here input your bank and retirement plan accounts data.
+        \n\n<b>::: CHECKING ACCOUNT:::</b>\nIt is a fixed account used here to deposit all of the remaining monthly income (capital and 
+        non-capital) after it has been partitioned into expenses, investments, any 401(k) accounts, savings accounts, and debt rates.   
+        The interests are compounded continuously. 
+        \n\n<b>::: SAVINGS ACCOUNT:::</b>\nIn a savings account you can store a given percentage of your excess money (see percent contribution below). 
+        Compounding is continuous.
+        \n\n<b>::: 401(K) ACCOUNT :::</b>\nContributons to this 401(k) account plan are made on a pre-tax basis so the earnings are tax-deferred. Tax
+        is subtracted from the earnings on withdrawal and deposited in the checking account.</string>
+    <string name="savings_expl_chart_intro">The chart shows the rise of amount of money on a given account over years.</string>
+    <string name="savings_expl_table_intro"><b>::: CHECKING AND SAVINGS ACCOUNT :::</b>\n\n<b>Deposit</b> is an amount of money saved monthly into an account. 
+        For a savings account it is a percentage (specified by the user) of the excess money, which is the amount left after expenses are made, debts and retirement
+        plans served. For a checking account it is all the money that remain after all the monthly expenses and savings and made. 
+        \n\n<b>Total</b> is a cumulative amount of money stored in an account at a given time.
+        \n\n<b>::: 401(K) :::\n\nEmployee and Employer contrib</b> are the monthly contributions to the account from the employee and employer.</string>
     <string name="expl_debts_add_intro"><b>::: LOAN ::: </b>\nThis is the most typical loan payment type (a fully amortizing payment), in which each 
         monthly rate has the same value over time. Interests are compounded monthly.
         \n\n<b>::: MORTGAGE :::</b>\nThis is a fixed rate mortgage, which has a fixed interest rate through the entire term of the loan. 
         As a result payment amounts and the duration of the loan are fixed. It also assumes the typical case 
         when PMI (private mortgage insurance) is paid until loan-to-value ratio reaches 80%. Interests are compounded monthly.</string>
-    
     <string name="expl_debts_chart_intro"><b>Total interest</b> is a cumulative amount of interests you\'ve paid up to a given point in time.
         \n\n<b>Outstanding loan</b> is the loan amount you still need to pay off.</string>
-    
     <string name="expl_debts_table_intro"><b>::: LOAN :::</b>\n\n<b>Principal</b> is a part of a monthly payment of the amount borrowed. \n\n<b>Interest</b> is the part of payment. 
         \n\nTo calculate <b>monthly payment</b> add principal and interest. \n\n<b>Total interest</b> is the total a cumulative amount of interests you\'ve paid up 
         to a given point in time. \n\n<b>Remaining amount</b> is the loan amount you still need to pay off.\n\n<b>::: MORTGAGE :::</b>\n\n<b>Principal</b> is a part 
         of monthly payment of the amount borrowed. \n\n<b>Interest</b> is the part of payment. \n\n<b>Tax, PMI, insurance</b> are extra property tax, property insurance and
         Private Mortgage Insurance paid monthly. \n\nTo calculate <b>monthly payment</b> add principal, interest and the extra costs. \n\n<b>Total interest</b> is the 
         total a cumulative amount of interests you\'ve paid up to a given point in time. \n\n<b>Remaining amount</b> is the loan amount  you still need to pay off.\n\n</string>
-        
     <string name="expl_cashflows_chart_intro"><b>Net income</b> is a sum of all your net income sources in a given month.\n\n<b>Capital gains</b> is
         a sum of the interests and earnings made in a given month, excluding 401(k) earnings (which are deposited in a lump sum to the Checking Account at
         withdrawal). \n\n<b>Total expenses</b> is a sum of all the spendings made in a given month. \n\n<b>Debt service</b> is a sum of your monthly 
         debt payments. \n\n<b>Saved</b> is the amount of money put away into bank accounts (checking, savings, etc.) in a given month. It includes 401(k) earnings 
         deposited in a lump sum at withdrawal.</string>
-    
     <string name="expl_cashflows_table_intro"><b>Net income</b> is a sum of all your net income sources in a given month.\n\n<b>Capital gains</b> is
         a sum of the interests and earnings made in a given month, excluding 401(k) earnings (which are deposited in a lump sum to the Checking Account at
         withdrawal). \n\n<b>Total expenses</b> is a sum of all the spendings made in a given month. \n\n<b>Debt service</b> is a sum of your monthly 
         debt payments. \n\n<b>Saved</b> is the amount of money put away into bank accounts (checking, savings, etc.) in a given month. It includes 401(k) earnings 
         deposited in a lump sum at withdrawal. \n\nThe total of all these amounts in a given month should be 0.</string>
-    
-        <string name="expl_net_worth_table_intro">Accumulated savings is a sum of all the savings you\'ve gathered up to a given point 
+    <string name="expl_net_worth_table_intro">Accumulated savings is a sum of all the savings you\'ve gathered up to a given point 
         of time. This includes 401(k) savings, while the tax on the 401(k) return is subtracted from the savings at  
         withdrawal. \n\nOutstanding debts is a sum of all your debts in a given point of time. \n\nNet worth = 
         savings - debts.</string>
+    <string name="title_activity_start_popup">StartPopup</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="start_popup_intro"><b>FinanceSim</b> simulates and projects your future financial situation based on your earnings and spendings. 
+        It generates simulations showing the rate of growth of your assets and liabilities.
+        </string>
+    
     
 </resources>

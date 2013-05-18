@@ -6,7 +6,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,14 +33,12 @@ public class FrgInvestment extends SherlockFragment {
 	@Override
     public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		Log.d("FrgInvestment.onActivityCreated()", "called");	
 		appState = Finances.getInstance();
 	}
 	
 	@Override
 	public void onStart() {
 		super.onStart();
-		Log.d("FrgInvestment.onStart()", "called");
 		
 	   	LinearLayout tip = (LinearLayout) getSherlockActivity().findViewById(R.id.investment_summary);
     	tip.removeAllViews();
@@ -108,7 +105,6 @@ public class FrgInvestment extends SherlockFragment {
     		appState.getAccount().removeInvestment(investment);
     		appState.getAccount().subtractFromInvestmentsPercontrib(investment.getPercontrib()); // update total percent contribution to investments  
     		appState.getAccount().setCheckingAcctPercontrib();
-    		Log.d("Main.onInvestmentResult()", "removed Investment No. "+investment_id);
     		action = " updated.";
       	}
     	
@@ -123,8 +119,6 @@ public class FrgInvestment extends SherlockFragment {
     	appState.getAccount().addInvestment(investment);
     	appState.getAccount().addToInvestmentsPercontrib(percontrib); // update total percent contribution to investments  
     	appState.getAccount().setCheckingAcctPercontrib();
-    	Log.d("FrgInvestment TotalInvestmentsPercontrib", appState.getAccount().getInvestmentsPercontrib().toString());
-    	Log.d("FrgInvestment checkingAcctPercontrib", appState.getAccount().getCheckingAcctPercontrib().toString());
 
         Toast.makeText(getSherlockActivity(), name+action, Toast.LENGTH_SHORT).show();
         
@@ -149,7 +143,6 @@ public class FrgInvestment extends SherlockFragment {
     		InvestmentCheckAcct investment = (InvestmentCheckAcct) appState.getAccount().getInvestmentById(investment_id);
     		appState.getAccount().setCheckingAcct(null);
     		appState.getAccount().removeInvestment(investment);
-    		Log.d("Main.onInvestmentResult()", "removed Investment No. "+investment_id);
       	}
     	
     	InvestmentCheckAcct investment = InvestmentCheckAcct.create(name,

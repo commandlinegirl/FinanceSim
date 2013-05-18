@@ -53,7 +53,7 @@ public class ListAdapterInvestmentCheckAcct extends BaseExpandableListAdapter {
 	private View populateView(View view, ListInvestmentCheckAcct group) {
 		
 		if (view == null) {
-			LayoutInflater infalInflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
+			LayoutInflater infalInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			view = infalInflater.inflate(R.layout.list_investmentcheckacct, null);
 		}
 		

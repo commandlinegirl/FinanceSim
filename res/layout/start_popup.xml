@@ -7,12 +7,11 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin" >
-
+    
     <TextView
         android:layout_height="wrap_content"
         android:layout_width="fill_parent"
-        android:text="@string/expl_debts_add_intro"
-        android:paddingBottom="10dp">                      
-    </TextView>      
-    
+        android:text="@string/start_popup_intro">
+    </TextView>
+      
 </LinearLayout>

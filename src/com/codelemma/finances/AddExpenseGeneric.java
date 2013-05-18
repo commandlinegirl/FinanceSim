@@ -15,7 +15,6 @@ import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.NavUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -78,7 +77,6 @@ public class AddExpenseGeneric extends SherlockFragmentActivity
     	
     	@Override
 	    public void onClick(View v) {
-	    	Log.d("saving expense", "Saving ");
 	        addExpense(null);	             	        
 	    }
     };
@@ -116,7 +114,6 @@ public class AddExpenseGeneric extends SherlockFragmentActivity
 		
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-		Log.d("AddExpense.onCreate()", "called");		
 		appState = Finances.getInstance();
 
 	    Spinner spinner = (Spinner) findViewById(R.id.expense_frequency);
@@ -164,6 +161,7 @@ public class AddExpenseGeneric extends SherlockFragmentActivity
 	        // - add Save & Delete button view
 			
 			LinearLayout buttons = (LinearLayout) findViewById(R.id.submitExpenseButtons);
+			@SuppressWarnings("deprecation")
 			LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, 
 					                                                         LinearLayout.LayoutParams.WRAP_CONTENT);
 			params.weight = 0.5f;
@@ -232,7 +230,6 @@ public class AddExpenseGeneric extends SherlockFragmentActivity
         intent.putExtra("expensegeneric_start_month",  String.valueOf(setMonth));
 	    
         if (requestCode.equals(AcctElements.UPDATE.toString())) {
-    		Log.d("AddExpense.addExpense() requestCode", requestCode);
 	        intent.putExtra("expense_id", expenseId);
 	    }
         

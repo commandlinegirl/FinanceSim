@@ -4,7 +4,6 @@ import java.math.BigDecimal;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,7 +34,6 @@ public class FrgExpense extends SherlockFragment {
 	@Override
 	public void onStart() {
 		super.onStart();
-		Log.d("FrgExpense.onStart()", "called");
 
     	LinearLayout tip = (LinearLayout) getSherlockActivity().findViewById(R.id.expense_summary);
     	tip.removeAllViews();    	
@@ -71,7 +69,6 @@ public class FrgExpense extends SherlockFragment {
         	int expense_id = data.getIntExtra("expense_id", -1);    		
     		ExpenseGeneric expense = (ExpenseGeneric) appState.getAccount().getExpenseById(expense_id); 
     		appState.getAccount().removeExpense(expense);
-    		Log.d("FrgExpense.onExpenseResult()", "removed Expense No. "+expense_id);
     		action = " updated.";
       	}	    		
     		

@@ -156,20 +156,4 @@ public class DatePickerPreference extends DialogPreference
         Log.d("### defaultCalendar()", "called");
         return new GregorianCalendar(2014, 0, 1);
     }
-
-    /**
-    * Produces the date the user has selected for the given preference, as a
-    * calendar.
-    */
-    //public Calendar getDateFor(String field) throws StorageException {
-      //  Log.d("### getDateFor()", "called");
-        //Calendar cal = getDate();
-        //storage.open(Storage.OpenState.READ);
-        //int year = storage.getInt("", "ssy");
-        //int month = storage.getInt("", "ssm");
-        //storage.close();
-        //Calendar cal = Calendar.getInstance();
-        //cal.set(year, month, 1);
-        //return cal;
-    //}
 }

@@ -53,7 +53,7 @@ public class ListAdapterInvestment401k extends BaseExpandableListAdapter {
 	private View populateView(View view, ListInvestment401k group) {
 		
 		if (view == null) {
-			LayoutInflater infalInflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
+			LayoutInflater infalInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			view = infalInflater.inflate(R.layout.list_investment401k, null);
 		}
 		

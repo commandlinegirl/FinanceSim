@@ -17,7 +17,6 @@ import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.NavUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -62,7 +61,6 @@ public class AddIncomeGeneric extends SherlockFragmentActivity
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                    public void onClick(DialogInterface dialog, int id) {
                 	   appState.getAccount().removeIncome(income);
-                	   income.getInvestment401k(); // TODO: 
                 	   appState.getHistory().removeIncomeHistory(income.getHistory());
                 	   appState.needToRecalculate(true);
                        Toast.makeText(AddIncomeGeneric.this, income.getName()+" deleted.", Toast.LENGTH_SHORT).show();
@@ -80,11 +78,9 @@ public class AddIncomeGeneric extends SherlockFragmentActivity
 	            .setTitle("Delete")
                 .setMessage("This income is associated with a 401(k) account. To remove it, please " +
                 		"remove or update the 401(k).")                
-                .setNeutralButton("Take me to the associated 401(k) account", new DialogInterface.OnClickListener() {
+                .setNeutralButton("Take me to the 401(k) account", new DialogInterface.OnClickListener() {
                    public void onClick(DialogInterface dialog, int id) {
-                	   
-                	   Investment401k investment401k = income.getInvestment401k(); // TODO: 
-                	   
+                	   Investment401k investment401k = income.getInvestment401k();               	   
                        Intent intent = new Intent(getApplicationContext(), AddInvestment401k.class);
                        intent.putExtra("investment_id", investment401k.getId());
                        intent.putExtra("request", AcctElements.UPDATE.toString());   
@@ -105,7 +101,6 @@ public class AddIncomeGeneric extends SherlockFragmentActivity
     private OnClickListener clickSaveListener = new OnClickListener() {
     	@Override
 	    public void onClick(View v) {
-	    	Log.d("saving income", "Saving ");
 	        addIncome(null);	             	        
 	    }
     };	    
@@ -141,7 +136,6 @@ public class AddIncomeGeneric extends SherlockFragmentActivity
 		// Show the Up button in the action bar.
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-		Log.d("AddIncome.onCreate()", "called");
 		appState = Finances.getInstance();
 	    
 	    Spinner spinner = (Spinner) findViewById(R.id.income_installments);
@@ -152,7 +146,7 @@ public class AddIncomeGeneric extends SherlockFragmentActivity
 	    spinner.setSelection(0);
 	    spinner.setOnItemSelectedListener(this);
 	    
-	    Intent intent = getIntent(); //TODO: check if there are 
+	    Intent intent = getIntent();
 	    requestCode = intent.getStringExtra("request");
 	    
 	    TextView start_date = (TextView) findViewById(R.id.incomegeneric_start_date);
@@ -165,7 +159,6 @@ public class AddIncomeGeneric extends SherlockFragmentActivity
 	    	
 	    	int id = intent.getIntExtra("income_id", -1);
 	    	IncomeGeneric income = (IncomeGeneric) appState.getAccount().getIncomeById(id); // TODO: if id == -1
-	    	
 	    	incomeId = income.getId();	    
 			
 			EditText incomeName = (EditText) findViewById(R.id.income_name);
@@ -182,7 +175,6 @@ public class AddIncomeGeneric extends SherlockFragmentActivity
 
 			EditText incomeTerm = (EditText) findViewById(R.id.income_term);
 			incomeTerm.setText(String.valueOf(income.getTerm()), TextView.BufferType.EDITABLE);
-
 			
 			if (income.getInitInstallments().doubleValue() == 13) {			
 			    spinner.setSelection(1);
@@ -230,45 +222,6 @@ public class AddIncomeGeneric extends SherlockFragmentActivity
             update.setBackgroundResource(R.drawable.button_green);                      
 			buttons.addView(update);									
 	    }
-	}
-    
-	@Override
-	protected void onStart() {
-		super.onStart();
-		Log.d("AddIncome.onStart()", "called");
-	}
-	
-	@Override
-	protected void onRestart() {
-		super.onRestart();
-		Log.d("AddIncome.onRestart()", "called");
-	}
-	
-	@Override
-	protected void onResume() {
-		super.onResume();
-		Log.d("AddIncome.onResume()", "called");
-	}	
-	
-	@Override
-	protected void onPause() {
-		// Here save Application state
-		super.onPause();
-		Log.d("AddIncome.onPause()", "called");	
-	}	
-
-	@Override
-	protected void onStop() {
-		// Here save Application state
-		super.onStop();
-		Log.d("AddIncome.onStop()", "called");
-	}		
-	
-	@Override
-	protected void onDestroy() {
-		// Here save Application state
-		super.onStop();
-		Log.d("AddIncome.onDestroyed()", "called");
 	}
 	
 	public void cancelAdding(View view) {

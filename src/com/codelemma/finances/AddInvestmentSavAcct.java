@@ -16,7 +16,6 @@ import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.NavUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -83,7 +82,6 @@ public class AddInvestmentSavAcct extends SherlockFragmentActivity
     	
     	@Override
 	    public void onClick(View v) {
-	    	Log.d("saving investment", "Saving ");
 	    	addInvestment(null);	             	        
 	    }
     };	
@@ -119,10 +117,9 @@ public class AddInvestmentSavAcct extends SherlockFragmentActivity
 		setContentView(R.layout.act_add_investmentsavacct);
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-		Log.d("AddInvestmentSavAcct.onCreate()", "called");
 		appState = Finances.getInstance();
 	    
-	    Intent intent = getIntent(); //TODO: check if there are 
+	    Intent intent = getIntent();
 	    requestCode = intent.getStringExtra("request");
 	    
 	    Spinner spinner = (Spinner) findViewById(R.id.investmentsav_capitalization);
@@ -175,6 +172,7 @@ public class AddInvestmentSavAcct extends SherlockFragmentActivity
 	        // Add Save & Delete button view
 			
 			LinearLayout buttons = (LinearLayout) findViewById(R.id.submitInvestmentButtons);
+			@SuppressWarnings("deprecation")
 			LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, 
 					                                                         LinearLayout.LayoutParams.WRAP_CONTENT);
 			params.weight = 0.5f;
@@ -290,7 +288,6 @@ public class AddInvestmentSavAcct extends SherlockFragmentActivity
         intent.putExtra("investmentsav_start_month",  String.valueOf(setMonth));
 	    
         if (requestCode.equals(AcctElements.UPDATE.toString())) {
-    		Log.d("AddInvestment.addInvestment() requestCode", requestCode);
 	        intent.putExtra("investmentsav_id", investmentId);
 	    }
         

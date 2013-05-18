@@ -8,20 +8,6 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".HelpExpenseGeneric" >
-
-    <TextView
-        android:layout_height="wrap_content"
-        android:layout_width="fill_parent"
-        android:text="@string/help_header"
-        android:paddingBottom="10dp">                      
-    </TextView>  
-
-    <TextView
-        android:layout_height="wrap_content"
-        android:layout_width="fill_parent"
-        android:text="@string/expense_help_intro"
-        android:paddingBottom="10dp">                      
-    </TextView>     
     
     <TextView
         android:layout_height="wrap_content"

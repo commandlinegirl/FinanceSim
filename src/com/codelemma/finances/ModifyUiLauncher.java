@@ -2,7 +2,6 @@ package com.codelemma.finances;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.util.Log;
 
 import com.codelemma.finances.accounting.DebtLoan;
 import com.codelemma.finances.accounting.DebtMortgage;
@@ -25,7 +24,6 @@ public class ModifyUiLauncher implements ModifyUiVisitor {
 	public void launchModifyUiForDebtLoan(DebtLoan debt) {
     	Intent intent = new Intent(activity.getApplicationContext(), AddDebtLoan.class);
         intent.putExtra("debt_id", debt.getId());
-        Log.d("debt LOAN id", String.valueOf(debt.getId()));
         intent.putExtra("request", AcctElements.UPDATE.toString());   
 	    activity.startActivityForResult(intent, AcctElements.UPDATE.getNumber());
 	}
@@ -34,7 +32,6 @@ public class ModifyUiLauncher implements ModifyUiVisitor {
 	public void launchModifyUiForDebtMortgage(DebtMortgage debt) {
     	Intent intent = new Intent(activity.getApplicationContext(), AddDebtMortgage.class);
         intent.putExtra("debt_id", debt.getId());
-        Log.d("debt MORTGAGE id", String.valueOf(debt.getId()));
         intent.putExtra("request", AcctElements.UPDATE.toString());   
 	    activity.startActivityForResult(intent, AcctElements.UPDATE.getNumber());
 	}

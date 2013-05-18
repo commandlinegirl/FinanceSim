@@ -53,7 +53,7 @@ public class ListAdapterDebtLoan extends BaseExpandableListAdapter {
 	private View populateView(View view, ListDebtLoan group) {
 		
 		if (view == null) {
-			LayoutInflater infalInflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
+			LayoutInflater infalInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			view = infalInflater.inflate(R.layout.list_debtloan, null);
 		}
 		

@@ -10,7 +10,6 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -43,7 +42,6 @@ public class AddInvestmentCheckAcct extends SherlockFragmentActivity
     private OnClickListener clickSaveListener = new OnClickListener() {    	
     	@Override
 	    public void onClick(View v) {
-	    	Log.d("saving investment", "Saving ");
 	    	addInvestment(null);	             	        
 	    }
     };	
@@ -63,7 +61,6 @@ public class AddInvestmentCheckAcct extends SherlockFragmentActivity
 		setContentView(R.layout.act_add_investmentcheckacct);
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-		Log.d("AddInvestmentCheckAcct.onCreate()", "called");
 		appState = Finances.getInstance();
 	    
 	    Intent intent = getIntent(); //TODO: check if there are 
@@ -104,6 +101,7 @@ public class AddInvestmentCheckAcct extends SherlockFragmentActivity
 	        // Add Save & Delete button view
 			
 			LinearLayout buttons = (LinearLayout) findViewById(R.id.submitInvestmentButtons);
+			@SuppressWarnings("deprecation")
 			LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, 
 					                                                         LinearLayout.LayoutParams.WRAP_CONTENT);
 			params.weight = 0.5f;
@@ -176,14 +174,12 @@ public class AddInvestmentCheckAcct extends SherlockFragmentActivity
         intent.putExtra("investmentcheck_start_month",  String.valueOf(setMonth));
 	    
         if (requestCode.equals(AcctElements.UPDATE.toString())) {
-    		Log.d("AddInvestment.addInvestment() requestCode", requestCode);
 	        intent.putExtra("investmentcheck_id", investmentId);
 	    }
         
         setResult(AcctElements.INVESTMENTCHECKACCT.getNumber(), intent);
         finish();	
-    }	
-
+    }
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -206,5 +202,4 @@ public class AddInvestmentCheckAcct extends SherlockFragmentActivity
 		}	
 		return super.onOptionsItemSelected(item);
 	}
-
 }

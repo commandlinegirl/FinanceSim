@@ -54,7 +54,7 @@ public class ListAdapterDebtMortgage extends BaseExpandableListAdapter {
 		
 		if (view == null) {
 			LayoutInflater infalInflater = (LayoutInflater) 
-					context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
+					context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			view = infalInflater.inflate(R.layout.list_debtmortgage, null);
 		}
 		

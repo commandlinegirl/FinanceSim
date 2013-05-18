@@ -15,7 +15,6 @@ import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.NavUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -68,11 +67,9 @@ public class AddDebtMortgage extends SherlockFragmentActivity
 	    }
     };	
     
-    private OnClickListener clickSaveListener = new OnClickListener() {
-    	
+    private OnClickListener clickSaveListener = new OnClickListener() {    	
     	@Override
 	    public void onClick(View v) {
-	    	Log.d("saving debt", "Saving ");
 	        addDebt(null);	             	        
 	    }
     };
@@ -98,10 +95,8 @@ public class AddDebtMortgage extends SherlockFragmentActivity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.act_add_debtmortgage);
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-
 		
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-		Log.d("AddDebtMortgage.onCreate()", "called");
 		appState = Finances.getInstance();
 	    
 	    Intent intent = getIntent(); //TODO: check if there are 
@@ -117,7 +112,6 @@ public class AddDebtMortgage extends SherlockFragmentActivity
 	    	
 	    	int id = intent.getIntExtra("debt_id", -1);
 	    	DebtMortgage debt = (DebtMortgage) appState.getAccount().getDebtById(id); // TODO: if id == -1
-	    	Log.d("supposed to be MORTGAGE ID", String.valueOf(id));
 	    	debtId = debt.getId();	    
 
 	    	EditText debt_amount = (EditText) findViewById(R.id.debtmortgage_purchase_price);
@@ -151,6 +145,7 @@ public class AddDebtMortgage extends SherlockFragmentActivity
 	        // - add Save & Delete button view
 			
 			LinearLayout buttons = (LinearLayout) findViewById(R.id.submitDebtButtons);
+			@SuppressWarnings("deprecation")
 			LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, 
 					                                                         LinearLayout.LayoutParams.WRAP_CONTENT);
 			params.weight = 0.5f;		
@@ -265,16 +260,13 @@ public class AddDebtMortgage extends SherlockFragmentActivity
         intent.putExtra("debtmortgage_start_month",  String.valueOf(setMonth));
         
         if (requestCode.equals(AcctElements.UPDATE.toString())) {
-    		Log.d("AddDebt.addDebt() requestCode", requestCode);
 	        intent.putExtra("debt_id", debtId);
 	    }
         
         setResult(AcctElements.DEBTMORTGAGE.getNumber(), intent);
         finish();
 	}
-		
 
-	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getSupportMenuInflater().inflate(R.menu.add_debtloan, menu);
