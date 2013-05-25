@@ -2,6 +2,7 @@ package com.codelemma.finances;
 
 import java.util.ArrayList;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -59,6 +60,7 @@ public class FrgList extends SherlockFragment
     	return inflater.inflate(R.layout.frg_explist, container, false);       
     }
 	
+	@SuppressLint("DefaultLocale")
 	@Override
     public void onActivityCreated(Bundle savedInstanceState) {
     	super.onActivityCreated(savedInstanceState);
@@ -77,7 +79,9 @@ public class FrgList extends SherlockFragment
     		
     		TextView tv = (TextView) getSherlockActivity().findViewById(R.id.add_data_text);
     		String format = getResources().getString(R.string.no_data_info_text);
-    		String value = String.format(format, elementName[currentElement]); 
+    		String value = String.format(format,
+    				elementName[currentElement].substring(0, 1).toUpperCase() + elementName[currentElement].substring(1),
+    				elementName[currentElement]);
     		tv.setText(value);
     		
     		Button button = (Button) getSherlockActivity().findViewById(R.id.add_data_button);

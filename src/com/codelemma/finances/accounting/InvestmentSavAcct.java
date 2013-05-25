@@ -48,7 +48,7 @@ public class InvestmentSavAcct extends Investment {
                       int start_year,
               	      int start_month) {
     	this.name = name;
-        this.init_amount = Money.scale(init_amount);
+        this.init_amount = init_amount;
         this.init_interest_rate = interest_rate;
         this.init_percontrib = percontrib;
         this.init_tax_rate = tax_rate;     
@@ -206,7 +206,7 @@ public class InvestmentSavAcct extends Investment {
 	
 	@Override
 	public void initialize() {
-		amount = init_amount;
+		amount = Money.scale(init_amount);
 		capitalization_counter = 1;
 		hidden_amount = init_amount;  
 		contribution = Money.ZERO;

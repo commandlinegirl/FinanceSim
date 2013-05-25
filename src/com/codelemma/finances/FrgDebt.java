@@ -79,7 +79,6 @@ public class FrgDebt extends SherlockFragment {
     	
     	String action = " added.";
 		if (requestCode == AcctElements.UPDATE.getNumber()) {
-      	
 		    int debt_id = data.getIntExtra("debt_id", -1);    		
 		    DebtLoan debt = (DebtLoan) appState.getAccount().getDebtById(debt_id); 
 		    appState.getAccount().removeDebt(debt);

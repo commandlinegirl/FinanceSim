@@ -35,7 +35,7 @@ public class DebtLoan extends Debt {
     	this.remaining_amount = Money.scale(amount);
     	this.init_interest_rate = interest_rate;  
     	this.interest_rate_decimal_monthly = interest_rate.divide(new BigDecimal(1200), Money.RATE_DECIMALS, Money.ROUNDING_MODE);
-    	this.extra_payment = Money.scale(extra_payment);
+    	this.extra_payment = extra_payment;
     	
     	this.term = term; 
     	this.term_months = term * 12; 

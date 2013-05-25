@@ -48,7 +48,7 @@ public class InvestmentCheckAcct extends Investment {
                       int start_year,
               	      int start_month) {
     	this.name = name;
-        this.init_amount = Money.scale(init_amount);
+        this.init_amount = init_amount;
         this.init_interest_rate = interest_rate;
         this.init_tax_rate = tax_rate;      
         this.tax_rate = Money.scaleRate(tax_rate);

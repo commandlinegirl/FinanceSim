@@ -118,8 +118,9 @@ public class DatePickerPreference extends DialogPreference
             	Log.d("alert", "ALERT");
             	new AlertDialog.Builder(context) 
             	    .setTitle("Date input incorrect")
-                    .setMessage("The simulation start date should not be earlier than calculation start date ("+months[appState.getAccount().getCalculationStartMonth()]+"/"+appState.getAccount().getCalculationStartYear()+"). Calculation start date is the earliest start date of one" +
-                    		" of your instruments.\n\nPlease set date to ("+months[appState.getAccount().getCalculationStartMonth()]+"/"+appState.getAccount().getCalculationStartYear()+") earliest.")
+                    .setMessage("The start date of the simulation should not be earlier than the earliest start date of any of your instruments " +
+                    		"("+months[appState.getAccount().getCalculationStartMonth()]+"/"+appState.getAccount().getCalculationStartYear()+")." +
+                    		"\n\nPlease set date to "+months[appState.getAccount().getCalculationStartMonth()]+"/"+appState.getAccount().getCalculationStartYear()+" earliest.")
                     .setNeutralButton("OK", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                      	   dialog.cancel();

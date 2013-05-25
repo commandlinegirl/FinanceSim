@@ -6,6 +6,7 @@ import com.actionbarsherlock.app.SherlockFragment;
 import com.codelemma.finances.accounting.HistoryNew;
 import com.codelemma.finances.accounting.PlotVisitor;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
@@ -50,6 +51,7 @@ public class FrgChart extends SherlockFragment
     }
  
 
+	@SuppressLint("DefaultLocale")
 	@Override
     public void onActivityCreated(Bundle savedInstanceState) {
     	super.onActivityCreated(savedInstanceState);
@@ -90,7 +92,9 @@ public class FrgChart extends SherlockFragment
     		
     		TextView tv = (TextView) getSherlockActivity().findViewById(R.id.add_data_text);
     		String format = getResources().getString(R.string.chart_no_data_info_text);
-    		String value = String.format(format, elementName[currentElement]);
+    		String value = String.format(format,
+    				elementName[currentElement].substring(0, 1).toUpperCase() + elementName[currentElement].substring(1),
+    				elementName[currentElement]);
     		tv.setText(value);
     		
     		Button button = (Button) getSherlockActivity().findViewById(R.id.add_data_button);

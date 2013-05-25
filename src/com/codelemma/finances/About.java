@@ -36,10 +36,6 @@ public class About extends SherlockActivity {
 		case android.R.id.home:
 			NavUtils.navigateUpFromSameTask(this);						
 			return true;
-		case R.id.menu_about:
-			Intent intent = new Intent(this, About.class);					
-		    startActivity(intent);	
-			return true;
 		case R.id.menu_feedback:
 			Intent intent2 = new Intent(this, Feedback.class);					
 		    startActivity(intent2);	

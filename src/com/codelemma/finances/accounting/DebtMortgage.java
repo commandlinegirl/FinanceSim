@@ -33,12 +33,12 @@ public class DebtMortgage extends Debt {
     private BigDecimal property_insurance_decimal_monthly;
     private BigDecimal property_tax_decimal_monthly;
     private BigDecimal pmi_decimal_monthly;
-    
+
     private BigDecimal outstanding_loan;   
     private BigDecimal loan_amount;
     private int month_counter = 1;
     private String name;
-       
+
     private HistoryDebtMortgage history;
     
     private int start_year;
@@ -56,17 +56,17 @@ public class DebtMortgage extends Debt {
     	    int start_month) {
     	this.name = name;
     	this.purchase_price = purchase_price;
-    	this.downpayment = Money.scale(downpayment);
+    	this.downpayment = downpayment;
     	this.loan_amount = Money.scale(purchase_price.subtract(downpayment));
     	this.outstanding_loan = loan_amount; //TODO check if not < 0!
-    	
+
     	this.init_interest_rate = interest_rate;  
     	this.interest_rate_decimal_monthly = interest_rate.divide(new BigDecimal(1200), Money.RATE_DECIMALS, Money.ROUNDING_MODE);
-    	
+
     	this.property_insurance = property_insurance;
     	this.property_insurance_decimal_monthly = property_insurance.divide(new BigDecimal(1200), Money.RATE_DECIMALS, Money.ROUNDING_MODE);
     	this.insurance_amount = Money.getPercentage(purchase_price, property_insurance_decimal_monthly);
-    	
+
     	this.property_tax = property_tax;
     	this.property_tax_decimal_monthly = property_tax.divide(new BigDecimal(1200), Money.RATE_DECIMALS, Money.ROUNDING_MODE);
     	this.tax_amount = Money.getPercentage(purchase_price, property_tax_decimal_monthly);

@@ -2,6 +2,7 @@ package com.codelemma.finances;
 
 import android.app.Application;
 import android.preference.PreferenceManager;
+import android.util.Log;
 
 import com.codelemma.finances.accounting.Account;
 import com.codelemma.finances.accounting.AccountSaver;
@@ -10,6 +11,7 @@ import com.codelemma.finances.accounting.AccountStorage;
 import com.codelemma.finances.accounting.History;
 import com.codelemma.finances.accounting.SafeAccountFactory;
 import com.codelemma.finances.accounting.Storage;
+import com.codelemma.finances.accounting.Storage.StorageException;
 
 public class Finances extends Application {
     private static Finances appInstance;
@@ -18,7 +20,6 @@ public class Finances extends Application {
     private Account account;
     private History history;    
 	private boolean needToRecalculate = true;
-	private int showPopupWindow = 1;	
 	private int numberOfMonthsInChart = 60; //5*12;
 	//needed to save the user's spinner setting across chart & table fragments	 
     private int spinnerPosition = 0;
@@ -90,10 +91,33 @@ public class Finances extends Application {
 	}
 
 	public void setShowStartupWindow(int i) {
-		showPopupWindow = i;
+		Storage storage = StorageFactory.create(
+				PreferenceManager.getDefaultSharedPreferences(
+						getApplicationContext()));
+		try {
+        	storage.open(Storage.OpenState.WRITE);
+        	storage.putInt("#", "start_popup_window", i);
+        } catch (StorageException e) {
+			e.printStackTrace();
+		} finally {
+            storage.close();
+		}
 	}
 
 	public int showStartupWindow() {
-		return showPopupWindow;
+		Storage storage = StorageFactory.create(
+				PreferenceManager.getDefaultSharedPreferences(
+						getApplicationContext()));
+		int i = 0;
+		try {
+        	storage.open(Storage.OpenState.READ);
+        	i = storage.getInt("#", "start_popup_window");   
+        } catch (StorageException e) {
+        	i = 1;
+			e.printStackTrace();
+		} finally {
+            storage.close();
+		}
+		return i;
 	}
 }

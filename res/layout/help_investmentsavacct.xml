@@ -36,12 +36,6 @@
         android:layout_height="wrap_content"
         android:layout_width="fill_parent"
         android:text="@string/investmentsavacct_help_capitalization">                      
-    </TextView>  
-
-    <TextView
-        android:layout_height="wrap_content"
-        android:layout_width="fill_parent"
-        android:text="@string/investmentsavacct_help_start_date">                      
-    </TextView> 
+    </TextView>
 
 </LinearLayout>

@@ -61,7 +61,7 @@ public class History {
     	cashflows.clear();   	    	
     	net_worth.clear();    	    	    	
     }
-
+   
 	public void removeIncomeHistory(HistoryNew inc) {
 		boolean t = incomes.remove(inc);
 		Log.d("Income hist removed", String.valueOf(t));		

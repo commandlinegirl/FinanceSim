@@ -20,6 +20,7 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.drawable.Drawable;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 
@@ -55,7 +56,7 @@ public class Main extends SherlockFragmentActivity
 	    if (appState.getHistory() == null) {
 		    appState.setHistory();
 	    }
-	    	    
+
 	    optionsMenuIds[0][0] = R.layout.expl_income_add;
 	    optionsMenuIds[0][1] = R.layout.expl_income_chart;
 	    optionsMenuIds[0][2] = R.layout.expl_income_table;
@@ -74,16 +75,6 @@ public class Main extends SherlockFragmentActivity
 	    optionsMenuIds[5][0] = R.layout.expl_networth_add;
 	    optionsMenuIds[5][1] = R.layout.expl_networth_chart;
 	    optionsMenuIds[5][2] = R.layout.expl_networth_table;
-	}
-
-	protected void showStartPopup() {		
-		if (appState.showStartupWindow() == 1) {
-			Dialog dialog = new Dialog(this, R.style.FullHeightDialog);
-			dialog.setContentView(R.layout.start_popup);
-			dialog.setCanceledOnTouchOutside(true);
-			dialog.show();
-			appState.setShowStartupWindow(0);
-		}
 	}
 
 	@Override
@@ -143,9 +134,11 @@ public class Main extends SherlockFragmentActivity
 		ft.commit();
 	}
 	
+	
 	@Override
 	public void onPause() {
 		super.onPause();
+		Log.d("#### SAVINGS", "savings account");
         Preconditions.checkNotNull(Finances.getInstance(), "Finances instance doesn't exist");
 	    Finances.getInstance().saveAccount();
 		// close dialog before exiting activity
@@ -442,7 +435,7 @@ public class Main extends SherlockFragmentActivity
 	    currentMenuItem.setIcon(menuItems.get(currentMenuItem));
 	    currentMenuItem = menuChart;
 	}
-	
+
 	public void showTable(View view) {
         currentIcon = 2;       
         if (appState.needToRecalculate() == true) {
@@ -457,14 +450,14 @@ public class Main extends SherlockFragmentActivity
 	    currentMenuItem.setIcon(menuItems.get(currentMenuItem));
 	    currentMenuItem = menuTable;
 	}
-	/*
-	private void showPopupAtFirstRun() {
-        SharedPreferences settings = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
-        if (settings.getBoolean("isFirstRun", true)) {
-            showDialog(DIALOG_HELP);
-            SharedPreferences.Editor editor = settings.edit();
-            editor.putBoolean("isFirstRun", false);
-            editor.commit();
-        }
-    }*/
+
+	protected void showStartPopup() {	
+		if (appState.showStartupWindow() == 1) {
+			Dialog dialog = new Dialog(this, R.style.FullHeightDialog);
+			dialog.setContentView(R.layout.start_popup);
+			dialog.setCanceledOnTouchOutside(true);
+			dialog.show();
+			appState.setShowStartupWindow(0); //TODO: set to 0!!
+		}
+	}
 }

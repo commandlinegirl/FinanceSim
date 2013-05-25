@@ -3,8 +3,6 @@ package com.codelemma.finances.accounting;
 import java.util.HashMap;
 import java.util.Map;
 
-import android.util.Log;
-
 import com.codelemma.finances.accounting.Storage.OpenState;
 import com.codelemma.finances.accounting.Storage.StorageException;
 
@@ -110,12 +108,9 @@ public class AccountStorage implements AccountFactory, AccountSaver {
 
     private void mendIncomeWithInvestment401k(Account account) {
     	for(Investment investment : account.getInvestments()) {
-    		//Log.d("investment name", investment.getName());
 			int income_previous_id = investment.getStoredIncomePreviousId();
-			//Log.d("income_id", String.valueOf(income_previous_id));
 			Income income = account.getIncomeByPreviousId(income_previous_id);
 			if (income != null) {
-				//Log.d("income name", income.getName());
 	    		investment.setIncome(income);
 	    		income.setInvestment401k(investment);
 			}
@@ -165,7 +160,6 @@ public class AccountStorage implements AccountFactory, AccountSaver {
     }
 
     private void writeAccountData(Account account) throws StorageException {
-    	Log.d("writing account data", "writing");
     	storage.putInt("", SIMULATION_START_YEAR, account.getSimulationStartYear());
     	storage.putInt("", SIMULATION_START_MONTH, account.getSimulationStartMonth());
     	storage.putInt("", CALCULATION_START_YEAR, account.getCalculationStartYear());

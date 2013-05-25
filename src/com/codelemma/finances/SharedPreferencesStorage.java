@@ -1,9 +1,10 @@
 package com.codelemma.finances;
 
 import java.math.BigDecimal;
-
+import java.util.Map;
 import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import com.codelemma.finances.accounting.Storage;
 
@@ -73,9 +74,19 @@ class SharedPreferencesStorage implements Storage {
 	@Override
 	public void clear() throws StorageException {
 		ensureOpenForWriting();
-		editor.clear();
+		Map<String,?> all_preferences = preferences.getAll();
+		for(Map.Entry<String,?> entry : all_preferences.entrySet()) {
+			String key = entry.getKey();
+			Log.d("key", key);
+			if (!key.startsWith("#")) {
+				editor.remove(key);
+				Log.d("key remove", key);
+			}
+		}
+		editor.commit();
+		//editor.clear();
 	}
-	
+
 	@Override
 	public String getString(String prefix, String key) throws StorageException {
 		ensureOpenForReading();

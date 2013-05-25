@@ -147,7 +147,7 @@ public class AddInvestment401k extends SherlockFragmentActivity
 	    	
 	    	int id = intent.getIntExtra("investment_id", -1);
 	    	Investment401k investment = (Investment401k) appState.getAccount().getInvestmentById(id); // TODO: if id == -1
-	    	
+	    		    	
 	    	investmentId = investment.getId();	    
 	    	
 			EditText name = (EditText) findViewById(R.id.investment401k_name);

@@ -53,8 +53,8 @@ public class Investment401k extends Investment {
               	      int start_month) {
     	this.name = name;
         
-    	this.init_amount = Money.scale(init_amount);
-        this.amount = this.init_amount;
+    	this.init_amount = init_amount;
+        this.amount = Money.scale(this.init_amount);
         
         this.init_percontrib =  percontrib;  
         this.init_interest_rate =  interest_rate;  

@@ -2,16 +2,90 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:orientation="vertical"    
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin" >
-    
+    android:paddingTop="@dimen/activity_vertical_margin" 
+    android:background="@drawable/start_popup">    
+
     <TextView
         android:layout_height="wrap_content"
         android:layout_width="fill_parent"
-        android:text="@string/start_popup_intro">
-    </TextView>
-      
+        android:text="@string/start_popup_intro"
+        android:textColor="#FF771100">
+    </TextView>    
+        
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ico_add">    
+        </ImageView>
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="4"
+            android:text="@string/start_popup_input"
+            android:textColor="#FF771100"
+            android:layout_gravity="center_vertical">
+        </TextView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ico_chart">
+        </ImageView>
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="4"
+            android:text="@string/start_popup_chart"
+            android:textColor="#FF771100"
+            android:layout_gravity="center_vertical">
+        </TextView>
+    </LinearLayout>    
+    
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ico_table">    
+        </ImageView>
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="4"
+            android:text="@string/start_popup_table"
+            android:textColor="#FF771100"
+            android:layout_gravity="center_vertical">
+        </TextView>
+    </LinearLayout>    
+    <TextView
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:text="@string/start_popup_ending"
+        android:textColor="#FF771100">
+    </TextView>    
+
 </LinearLayout>

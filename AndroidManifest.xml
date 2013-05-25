@@ -128,10 +128,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.codelemma.finances.Main" />
         </activity>
-        <activity
-            android:name="com.codelemma.finances.StartPopup"
-            android:label="@string/title_activity_start_popup" >
-        </activity>
     </application>
 
 </manifest>

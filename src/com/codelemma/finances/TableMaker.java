@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import android.graphics.Color;
+import android.util.Log;
 import android.view.Gravity;
 import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
@@ -94,7 +95,10 @@ public class TableMaker implements TableVisitor {
     		}
     		i++;
     		prevYear = currYear;
-    	}    	    	        
+    	}
+    	gru1.setItems(list2);
+		list.add(gru1);
+		list2 = new ArrayList<ListChildExpenseGeneric>();
         return list;
 		
     }		
@@ -139,8 +143,6 @@ public class TableMaker implements TableVisitor {
         expandedList.setAdapter(ExpAdapter);                
 	}
 	
-
-
 	public ArrayList<ListGroupIncomeGeneric> setGroupsIncomeGeneric(HistoryIncomeGeneric historyIncomeGeneric) {
     	ArrayList<ListGroupIncomeGeneric> list = new ArrayList<ListGroupIncomeGeneric>();
     	ArrayList<ListChildIncomeGeneric> list2 = new ArrayList<ListChildIncomeGeneric>();
@@ -149,7 +151,13 @@ public class TableMaker implements TableVisitor {
     	BigDecimal[] gross_incomes = historyIncomeGeneric.getGrossIncomeHistory();
     	BigDecimal[] taxes = historyIncomeGeneric.getTaxHistory();
     	BigDecimal[] net_incomes = historyIncomeGeneric.getNetIncomeHistory();
-    	
+
+    	Log.d("-------------------", dates.toString());
+    	for (String i: dates) {
+    		Log.d("dates", i);
+    	}    	
+    	Log.d("-------------------", dates.toString());
+
     	int datesLen = dates.length;
     	String prevYear = dates[0].substring(3);
     	String currYear;
@@ -160,9 +168,8 @@ public class TableMaker implements TableVisitor {
     	gru1.setTax(formatter.formatNumber(taxes[i]));
 		gru1.setNetIncome(formatter.formatNumber(net_incomes[i])); 
         i++;
-    	while(i < datesLen) {    		
+    	while(i < datesLen) {   		
     		currYear = dates[i].substring(3);
-    		
     		if (prevYear.equals(currYear)) {
     			ListChildIncomeGeneric ch1_1 = new ListChildIncomeGeneric();
     			ch1_1.setDate(dates[i]);
@@ -182,10 +189,12 @@ public class TableMaker implements TableVisitor {
     		}
     		i++;
     		prevYear = currYear;
-    	}    	    	        
+    	}
+    	gru1.setItems(list2);
+		list.add(gru1);
+		list2 = new ArrayList<ListChildIncomeGeneric>();
         return list;
-		
-    }			
+    }
 
 	@Override
     public void makeTableIncomeWithPreTaxInv(HistoryIncomeGeneric historyIncomeGeneric) {
@@ -279,7 +288,10 @@ public class TableMaker implements TableVisitor {
     		}
     		i++;
     		prevYear = currYear;
-    	}    	    	        
+    	}
+    	gru1.setItems(list2);
+		list.add(gru1);
+		list2 = new ArrayList<ListChildIncomeGeneric>();
         return list;
 		
     }			
@@ -377,7 +389,10 @@ public class TableMaker implements TableVisitor {
     		}
     		i++;
     		prevYear = currYear;
-    	}    	    	        
+    	}
+		gru1.setItems(list2);
+		list.add(gru1);
+		list2 = new ArrayList<ListChildInvestment401k>();
         return list;
     }
 
@@ -473,7 +488,10 @@ public class TableMaker implements TableVisitor {
     		}
     		i++;
     		prevYear = currYear;
-    	}    	    	        
+    	}
+		gru1.setItems(list2);
+		list.add(gru1);
+		list2 = new ArrayList<ListChildInvestmentSavAcct>();
         return list;
     }
 
@@ -569,7 +587,10 @@ public class TableMaker implements TableVisitor {
     		}
     		i++;
     		prevYear = currYear;
-    	}    	    	        
+    	}
+		gru1.setItems(list2);
+		list.add(gru1);
+		list2 = new ArrayList<ListChildInvestmentCheckAcct>();    	
         return list;
     }
 
@@ -683,7 +704,10 @@ public class TableMaker implements TableVisitor {
     		}
     		i++;
     		prevYear = currYear;
-    	}    	    	        
+    	}
+		gru1.setItems(list2);
+		list.add(gru1);
+		list2 = new ArrayList<ListChildDebtMortgage>();    	
         return list;
     }
 
@@ -786,7 +810,10 @@ public class TableMaker implements TableVisitor {
     		}
     		i++;
     		prevYear = currYear;
-    	}    	    	        
+    	}
+		gru1.setItems(list2);
+		list.add(gru1);
+		list2 = new ArrayList<ListChildDebtLoan>();
         return list;
     }
 
@@ -901,7 +928,10 @@ public class TableMaker implements TableVisitor {
     		}
     		i++;
     		prevYear = currYear;
-    	}    	    	        
+    	}
+		gru1.setItems(list2);
+		list.add(gru1);
+		list2 = new ArrayList<ListChildCashflows>();
         return list;
     }
 
@@ -992,9 +1022,9 @@ public class TableMaker implements TableVisitor {
     		i++;
     		prevYear = currYear;
     	}    	    	        
+		gru1.setItems(list2);
+		list.add(gru1);
+		list2 = new ArrayList<ListChildNetWorth>();    	
         return list;
     }
-
-	
-	
 }
