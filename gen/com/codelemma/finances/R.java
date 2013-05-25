@@ -1267,6 +1267,8 @@ containing a value of this type.
         public static final int about_text4=0x7f0a0045;
         public static final int about_text5=0x7f0a0047;
         public static final int about_text6=0x7f0a0049;
+        /**  About window 
+         */
         public static final int about_title1=0x7f0a003d;
         public static final int about_title1_moreinfo=0x7f0a003e;
         public static final int about_title2=0x7f0a0040;
@@ -1402,13 +1404,19 @@ containing a value of this type.
         public static final int expl_income_table_intro=0x7f0a00fc;
         public static final int expl_net_worth_add_intro=0x7f0a0109;
         public static final int expl_net_worth_table_intro=0x7f0a010a;
+        /**  Feedback window 
+         */
         public static final int feedback_text1=0x7f0a003b;
         public static final int feedback_text2=0x7f0a003c;
+        public static final int frg_debts_add_multiple_info=0x7f0a0116;
+        public static final int frg_expenses_add_multiple_info=0x7f0a0114;
+        public static final int frg_income_add_multiple_info=0x7f0a0113;
         public static final int frg_investment_add_salary_neutral=0x7f0a0112;
         public static final int frg_investment_add_salary_text=0x7f0a0111;
         /**  Alert dialogs 
          */
         public static final int frg_investment_add_salary_title=0x7f0a0110;
+        public static final int frg_savings_add_multiple_info=0x7f0a0115;
         public static final int income_description=0x7f0a005a;
         public static final int income_help_income_term=0x7f0a0072;
         public static final int income_help_installments=0x7f0a0070;
@@ -1535,12 +1543,12 @@ containing a value of this type.
         public static final int no_income_info=0x7f0a0027;
         public static final int no_investment_info=0x7f0a0026;
         public static final int percent=0x7f0a002d;
-        public static final int pref_description_social_recommendations=0x7f0a0116;
+        public static final int pref_description_social_recommendations=0x7f0a011a;
         /**  Strings related to Settings 
  Example General settings 
          */
-        public static final int pref_header_general=0x7f0a0114;
-        public static final int pref_simulation_start_date=0x7f0a0115;
+        public static final int pref_header_general=0x7f0a0118;
+        public static final int pref_simulation_start_date=0x7f0a0119;
         public static final int progress_bar_info=0x7f0a002f;
         public static final int savings_expl_add_intro=0x7f0a0100;
         public static final int savings_expl_chart_intro=0x7f0a0101;
@@ -1553,6 +1561,8 @@ containing a value of this type.
         public static final int start_popup_chart=0x7f0a010d;
         public static final int start_popup_ending=0x7f0a010f;
         public static final int start_popup_input=0x7f0a010c;
+        /**  At-startup-popup info 
+         */
         public static final int start_popup_intro=0x7f0a010b;
         public static final int start_popup_table=0x7f0a010e;
         public static final int title_activity_about=0x7f0a0023;
@@ -1568,7 +1578,7 @@ containing a value of this type.
         public static final int title_activity_feedback=0x7f0a0024;
         public static final int title_activity_list_fragment=0x7f0a0025;
         public static final int title_activity_main=0x7f0a0019;
-        public static final int title_activity_settings=0x7f0a0113;
+        public static final int title_activity_settings=0x7f0a0117;
         public static final int view_chart=0x7f0a004d;
         public static final int view_table=0x7f0a004e;
         public static final int welcome_message_title=0x7f0a0010;

@@ -679,9 +679,13 @@ int string expl_net_worth_add_intro 0x7f0a0109
 int string expl_net_worth_table_intro 0x7f0a010a
 int string feedback_text1 0x7f0a003b
 int string feedback_text2 0x7f0a003c
+int string frg_debts_add_multiple_info 0x7f0a0116
+int string frg_expenses_add_multiple_info 0x7f0a0114
+int string frg_income_add_multiple_info 0x7f0a0113
 int string frg_investment_add_salary_neutral 0x7f0a0112
 int string frg_investment_add_salary_text 0x7f0a0111
 int string frg_investment_add_salary_title 0x7f0a0110
+int string frg_savings_add_multiple_info 0x7f0a0115
 int string income_description 0x7f0a005a
 int string income_help_income_term 0x7f0a0072
 int string income_help_installments 0x7f0a0070
@@ -808,9 +812,9 @@ int string no_expense_info 0x7f0a0028
 int string no_income_info 0x7f0a0027
 int string no_investment_info 0x7f0a0026
 int string percent 0x7f0a002d
-int string pref_description_social_recommendations 0x7f0a0116
-int string pref_header_general 0x7f0a0114
-int string pref_simulation_start_date 0x7f0a0115
+int string pref_description_social_recommendations 0x7f0a011a
+int string pref_header_general 0x7f0a0118
+int string pref_simulation_start_date 0x7f0a0119
 int string progress_bar_info 0x7f0a002f
 int string savings_expl_add_intro 0x7f0a0100
 int string savings_expl_chart_intro 0x7f0a0101
@@ -838,7 +842,7 @@ int string title_activity_add_investmentstock 0x7f0a001f
 int string title_activity_feedback 0x7f0a0024
 int string title_activity_list_fragment 0x7f0a0025
 int string title_activity_main 0x7f0a0019
-int string title_activity_settings 0x7f0a0113
+int string title_activity_settings 0x7f0a0117
 int string view_chart 0x7f0a004d
 int string view_table 0x7f0a004e
 int string welcome_message_title 0x7f0a0010

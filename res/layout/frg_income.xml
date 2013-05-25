@@ -3,7 +3,6 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical"
-
     tools:context=".FrgIncome"
     android:id="@+id/frg_income" >
     
@@ -15,9 +14,7 @@
         android:gravity="center"
         android:textColor="#FF771100"
         android:background="#FFE6E6E6"/>
-        
-    
-    
+
     <ScrollView 
         android:layout_height="0dp"
         android:layout_weight="1"
@@ -51,8 +48,16 @@
                 android:background="@drawable/button_green"                                         
                 android:onClick="addIncome" />
             
-          
-            
+            <TextView
+                android:layout_height="22dp"        
+                android:layout_width="fill_parent"
+                android:text="@string/frg_income_add_multiple_info"
+                android:textSize="11sp"
+                android:gravity="center"
+                android:textStyle="italic"
+                android:layout_marginTop="10dp"
+                android:textColor="#FFCCCCCC"/>
+        
         </LinearLayout>                         
     </ScrollView>   
        

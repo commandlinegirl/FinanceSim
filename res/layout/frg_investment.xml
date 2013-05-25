@@ -64,6 +64,16 @@
                 android:layout_alignParentRight="true"                                                                                   
                 android:onClick="addInvestment" />
       
+           <TextView
+                android:layout_height="22dp"        
+                android:layout_width="fill_parent"
+                android:text="@string/frg_savings_add_multiple_info"
+                android:textSize="11sp"
+                android:gravity="center"
+                android:textStyle="italic"
+                android:layout_below="@id/investment_401k"       
+                android:layout_marginTop="10dp"
+                android:textColor="#FFCCCCCC"/>
          </RelativeLayout>
            
     </ScrollView>

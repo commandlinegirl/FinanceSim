@@ -45,6 +45,15 @@
                 android:background="@drawable/button_green"                                         
                 android:onClick="addExpense" />
             
+            <TextView
+                android:layout_height="22dp"        
+                android:layout_width="fill_parent"
+                android:text="@string/frg_expenses_add_multiple_info"
+                android:textSize="11sp"
+                android:gravity="center"
+                android:textStyle="italic"
+                android:layout_marginTop="10dp"
+                android:textColor="#FFCCCCCC"/>
         </LinearLayout>                         
     </ScrollView>    
     

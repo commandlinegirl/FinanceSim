@@ -44,8 +44,14 @@
     <string name="add_expense">Add expense</string>
     <string name="acct_object">acct_object</string>
     <string name="action_settings">Settings</string>
+    
+    <!-- Feedback window -->
+    
     <string name="feedback_text1">If you have any comments, questions, complaints please send an email to: <b>finances@codelemma.com</b>.</string>
     <string name="feedback_text2">We will answer you back as soon as we can.\n\nPlease, rate <b>FinanceSim</b> in GooglePlay.</string>
+    
+    <!-- About window -->
+    
     <string name="about_title1"><b>Financial simulator</b></string>
     <string name="about_title1_moreinfo"><b>More info</b></string>
     <string name="about_text1"><b>FinanceSim</b> simulates your future financial situation based on all the earnings (capital 
@@ -71,6 +77,7 @@
     <string name="about_text6"><b>FinanceSim</b> serves informative functions only and may not be used as a replacement of legal advice. Although every precaution
         has been taken in preparation of the app, the author assumes no responsibility for errors or omissions and the app is provided without any guarantees,
         conditions or warranties as to its accuracy.</string>
+
     <string name="chart_no_data_info_text"><b>%s</b> chart empty.\n\n No %s data has yet been added.</string>
     <string name="no_data_info_text"><b>%s</b> table empty.\n\n No %s data has yet been added.</string>
     <string name="no_data_info_button">Add %s data</string>
@@ -318,6 +325,9 @@
     <string name="expl_net_worth_table_intro"><b>Savings</b> is the sum of money accumulated up to a given point in time.
         This includes 401(k) savings, while the tax on the 401(k) earnings is subtracted from the savings at 401(k) withdrawal time.
         \n\n<b>Outstanding debts</b> is a sum of all your debts at a given point in time. \n\n<b>Net worth</b> = savings - debts.</string>
+    
+    <!-- At-startup-popup info -->
+    
     <string name="start_popup_intro"><b>FinanceSim</b> projects your future financial situation based on your current earnings and spendings.\n</string>
     <string name="start_popup_input">enter or modify input data (income, expenses, savings, debts)</string>        
     <string name="start_popup_chart">results in chart</string>        
@@ -325,8 +335,14 @@
     <string name="start_popup_ending">\nPlease, rate the app in Google Play.</string>
     
     <!-- Alert dialogs -->
+    
     <string name="frg_investment_add_salary_title">Adding 401(k) requires income (salary) data</string>
     <string name="frg_investment_add_salary_text">To add a 401(k) account, please add income data first.</string>
     <string name="frg_investment_add_salary_neutral">Add income</string>
+    
+    <string name="frg_income_add_multiple_info">You may add multiple income data.</string>
+    <string name="frg_expenses_add_multiple_info">You may add multiple expense data.</string>
+    <string name="frg_savings_add_multiple_info">You may add multiple savings data.</string>
+    <string name="frg_debts_add_multiple_info">You may add multiple debts data.</string>
     
 </resources>
