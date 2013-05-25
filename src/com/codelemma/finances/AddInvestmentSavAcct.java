@@ -14,7 +14,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.NavUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -22,7 +21,6 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
@@ -30,7 +28,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class AddInvestmentSavAcct extends SherlockFragmentActivity 
-                                  implements OnItemSelectedListener, FrgDatePicker.OnDateSelectedListener {
+                                  implements OnItemSelectedListener {
 
 	private Finances appState;
 	private String requestCode;
@@ -76,8 +74,8 @@ public class AddInvestmentSavAcct extends SherlockFragmentActivity
            })
           .show();	        	         
 	    }
-    };	
-        
+    };
+
     private OnClickListener clickSaveListener = new OnClickListener() {
     	
     	@Override
@@ -86,21 +84,21 @@ public class AddInvestmentSavAcct extends SherlockFragmentActivity
 	    }
     };	
 	
-    public void showDatePickerDialog(View v) {
+    /*public void showDatePickerDialog(View v) {
         DialogFragment newFragment = new FrgDatePicker();
         Bundle b = new Bundle();
         b.putInt("setMonth", setMonth);
         b.putInt("setYear", setYear);        
         newFragment.show(getSupportFragmentManager(), "datePicker");
     }
-    
-	@Override
-	public void onDateSet(DatePicker view, int year, int month, int day) {
-		TextView edit = (TextView) findViewById(R.id.investmentsav_start_date);
-		edit.setText((month+1)+"/"+year);	
-		setYear = year;
-		setMonth = month;
-	}
+    */
+	//@Override
+	//public void onDateSet(DatePicker view, int year, int month, int day) {
+//		TextView edit = (TextView) findViewById(R.id.investmentsav_start_date);
+	//	edit.setText((month+1)+"/"+year);	
+		//setYear = year;
+		//setMonth = month;
+	//}
     
     public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
     	capitalization = capitalization_items[pos];
@@ -130,11 +128,11 @@ public class AddInvestmentSavAcct extends SherlockFragmentActivity
 	    spinner.setSelection(0);
 	    spinner.setOnItemSelectedListener(this);
 	    
-	    TextView start_date = (TextView) findViewById(R.id.investmentsav_start_date);
+	    //TextView start_date = (TextView) findViewById(R.id.investmentsav_start_date);
         final Calendar c = Calendar.getInstance();
         setYear = c.get(Calendar.YEAR);
         setMonth = c.get(Calendar.MONTH);
-		start_date.setText((setMonth+1)+"/"+setYear, TextView.BufferType.EDITABLE);
+		//start_date.setText((setMonth+1)+"/"+setYear, TextView.BufferType.EDITABLE);
 		
         if (requestCode.equals(AcctElements.UPDATE.toString())) {
 	    	
@@ -166,7 +164,7 @@ public class AddInvestmentSavAcct extends SherlockFragmentActivity
 					
 			setYear = investment.getStartYear();
 			setMonth = investment.getStartMonth() ;			
-			start_date.setText((setMonth+1)+"/"+setYear, TextView.BufferType.EDITABLE);
+			//start_date.setText((setMonth+1)+"/"+setYear, TextView.BufferType.EDITABLE);
 				
 		
 	        // Add Save & Delete button view
