@@ -7,17 +7,94 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".About" >
-
+    
   <LinearLayout
     android:orientation="vertical"      
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
-      
+    
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="#FF771100"
-        android:text="@string/about_title1" />
+        android:text="@string/about_title1" />      
+      
+   <TextView
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:text="@string/start_popup_intro">
+    </TextView>    
+        
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ico_add">    
+        </ImageView>
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="4"
+            android:text="@string/start_popup_input"
+            android:layout_gravity="center_vertical">
+        </TextView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ico_chart">
+        </ImageView>
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="4"
+            android:text="@string/start_popup_chart"
+            android:layout_gravity="center_vertical">
+        </TextView>
+    </LinearLayout>    
+    
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ico_table">    
+        </ImageView>
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="4"
+            android:text="@string/start_popup_table"
+            android:layout_gravity="center_vertical">
+        </TextView>
+    </LinearLayout>    
+  
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#FF771100"
+        android:text="@string/about_title1_moreinfo"
+        android:paddingTop="10dp"/>
+
 
     <TextView
         android:layout_width="wrap_content"
@@ -28,7 +105,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="#FF771100"
-        android:text="@string/about_title2" />
+        android:text="@string/about_title2"
+        android:paddingTop="10dp"/>
         
     <TextView
         android:layout_width="wrap_content"
@@ -39,7 +117,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="#FF771100"
-        android:text="@string/about_title3" />
+        android:text="@string/about_title3"
+        android:paddingTop="10dp"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -51,7 +130,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="#FF771100"
-        android:text="@string/about_title4" />
+        android:text="@string/about_title4"
+        android:paddingTop="10dp"/>
     
     <TextView
         android:layout_width="wrap_content"
@@ -62,7 +142,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="#FF771100"
-        android:text="@string/about_title5" />
+        android:text="@string/about_title5"
+        android:paddingTop="10dp"/>
     
     <TextView
         android:layout_width="wrap_content"
@@ -73,7 +154,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="#FF771100"
-        android:text="@string/about_title6" />
+        android:text="@string/about_title6"
+        android:paddingTop="10dp"/>
     
     <TextView
         android:layout_width="wrap_content"

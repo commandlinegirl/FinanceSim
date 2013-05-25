@@ -47,6 +47,7 @@
     <string name="feedback_text1">If you have any comments, questions, complaints please send an email to: <b>finances@codelemma.com</b>.</string>
     <string name="feedback_text2">We will answer you back as soon as we can.\n\nPlease, rate <b>FinanceSim</b> in GooglePlay.</string>
     <string name="about_title1"><b>Financial simulator</b></string>
+    <string name="about_title1_moreinfo"><b>More info</b></string>
     <string name="about_text1"><b>FinanceSim</b> simulates your future financial situation based on all the earnings (capital 
         and non-capital income) and spendings (debts and expenses) you incur each month. It generates simulations showing the rate of growth of your 
         assets and liabilities.
