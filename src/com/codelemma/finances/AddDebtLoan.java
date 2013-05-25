@@ -15,6 +15,7 @@ import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.NavUtils;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -246,8 +247,14 @@ public class AddDebtLoan extends SherlockFragmentActivity
 			NavUtils.navigateUpFromSameTask(this);
 			return true;
 		case R.id.menu_help:
-			Dialog dialog = new Dialog(this, R.style.FullHeightDialog);			
-			dialog.setContentView(R.layout.help_debtloan);
+			Dialog dialog = new Dialog(this, R.style.FullHeightDialog) {
+				  @Override
+				  public boolean onTouchEvent(MotionEvent event) {
+				    this.dismiss();
+				    return true;
+				  }
+		    };
+		    dialog.setContentView(R.layout.help_debtloan);
 			dialog.setCanceledOnTouchOutside(true);
 			dialog.show();			
 			return true;					

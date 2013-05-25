@@ -21,6 +21,7 @@ import android.content.pm.ActivityInfo;
 import android.graphics.drawable.Drawable;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ProgressBar;
 
@@ -212,7 +213,13 @@ public class Main extends SherlockFragmentActivity
 		    startActivity(intent3);
 			return true;	
 		case R.id.menu_explain:	
-			Dialog dialog = new Dialog(this, R.style.FullHeightDialog);
+			Dialog dialog = new Dialog(this, R.style.FullHeightDialog) {
+				  @Override
+				  public boolean onTouchEvent(MotionEvent event) {
+				    this.dismiss();
+				    return true;
+				  }
+		    };
 			dialog.setContentView(optionsMenuIds[currentElement][currentIcon]);
 			dialog.setCanceledOnTouchOutside(true);
 			dialog.show();
@@ -453,7 +460,13 @@ public class Main extends SherlockFragmentActivity
 
 	protected void showStartPopup() {	
 		if (appState.showStartupWindow() == 1) {
-			Dialog dialog = new Dialog(this, R.style.FullHeightDialog);
+			Dialog dialog = new Dialog(this, R.style.FullHeightDialog) {
+				  @Override
+				  public boolean onTouchEvent(MotionEvent event) {
+				    this.dismiss();
+				    return true;
+				  }
+		    };
 			dialog.setContentView(R.layout.start_popup);
 			dialog.setCanceledOnTouchOutside(true);
 			dialog.show();

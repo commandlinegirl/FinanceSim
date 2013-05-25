@@ -66,9 +66,9 @@ public class FrgInvestment extends SherlockFragment {
 			
 			if (appState.getAccount().getIncomesSize() == 0) {
 	        	new AlertDialog.Builder(getSherlockActivity())
-	            .setTitle("Adding 401(k) requires an income/salary account")
-                .setMessage("To add a 401(k) account, please, add an income account first.")                
-                .setNeutralButton("Add Income", new DialogInterface.OnClickListener() {
+	            .setTitle(getSherlockActivity().getResources().getText(R.string.frg_investment_add_salary_title))
+                .setMessage(getSherlockActivity().getResources().getText(R.string.frg_investment_add_salary_text))        
+                .setNeutralButton(getSherlockActivity().getResources().getText(R.string.frg_investment_add_salary_neutral), new DialogInterface.OnClickListener() {
                    public void onClick(DialogInterface dialog, int id) {                	   
                 	   ((Main) getSherlockActivity()).setToIncomeTab();
                    }

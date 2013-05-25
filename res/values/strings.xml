@@ -256,6 +256,8 @@
     <string name="investmentstock_dividends_input">Percent contribution (of excess money)</string>
     <string name="investmentstock_dividends_text">0</string>
 
+    <!-- Help (explain) dialogs -->
+    
     <string name="expl_income_add_intro">Here input your regular income sources (salary, income from renting an apartment, etc.)</string>
     <string name="expl_income_chart_intro">The chart shows a net and gross income in a given month.</string>
     <string name="expl_income_table_intro">If 401(k) is associated with a given income account, the 401(k) contribution is subtracted from the account
@@ -320,5 +322,10 @@
     <string name="start_popup_chart">results in chart</string>        
     <string name="start_popup_table">results in table</string>        
     <string name="start_popup_ending">\nPlease, rate the app in Google Play.</string>
+    
+    <!-- Alert dialogs -->
+    <string name="frg_investment_add_salary_title">Adding 401(k) requires income (salary) data</string>
+    <string name="frg_investment_add_salary_text">To add a 401(k) account, please add income data first.</string>
+    <string name="frg_investment_add_salary_neutral">Add income</string>
     
 </resources>
