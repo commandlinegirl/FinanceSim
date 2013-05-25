@@ -195,13 +195,7 @@ public class AddInvestmentCheckAcct extends SherlockFragmentActivity
 			NavUtils.navigateUpFromSameTask(this);
 			return true;
 		case R.id.menu_help:
-			Dialog dialog = new Dialog(this, R.style.FullHeightDialog) {
-				  @Override
-				  public boolean onTouchEvent(MotionEvent event) {
-				    this.dismiss();
-				    return true;
-				  }
-		    };
+			Dialog dialog = new Dialog(this, R.style.FullHeightDialog);
 		    dialog.setContentView(R.layout.help_investmentcheckacct);
 			dialog.setCanceledOnTouchOutside(true);
 			dialog.show();			
