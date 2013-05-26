@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 import com.codelemma.finances.InputListingUpdater;
 
 public class DebtLoan extends Debt {
-	
+
     private BigDecimal init_amount;
     private BigDecimal init_interest_rate;
     private BigDecimal interest_rate_decimal_monthly;
@@ -47,7 +47,7 @@ public class DebtLoan extends Debt {
     	history = new HistoryDebtLoan(this);
     	setValuesBeforeCalculation();
     }
-    
+
     public static DebtLoan create(
     		String name,
     		BigDecimal amount,
@@ -80,7 +80,7 @@ public class DebtLoan extends Debt {
     	BigDecimal monthly_payment = Money.scale(interest_rate_decimal_monthly.multiply(
     			init_amount.multiply(factor.divide(factor_minus_one, Money.RATE_DECIMALS, Money.ROUNDING_MODE)))
     			.add(extra_payment));
-    	return monthly_payment; 
+    	return monthly_payment;
     }
 
     /* event methods*/

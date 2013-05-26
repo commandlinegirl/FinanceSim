@@ -29,14 +29,15 @@ public class ExpenseGeneric extends Expense {
         this.frequency = frequency;        
         this.start_year = start_year;
         this.start_month = start_month;
-        periodic_inflation_rate_decimal = inflation_rate.divide(
+        /*periodic_inflation_rate_decimal = inflation_rate.divide(
         		new BigDecimal(1200/frequency), //TODO: check if not divided by ZERO
                 Money.RATE_DECIMALS,        		
-                Money.ROUNDING_MODE);
+                Money.ROUNDING_MODE);*/
+        periodic_inflation_rate_decimal = Money.scale(new BigDecimal(Math.pow((inflation_rate.doubleValue()/100 + 1), frequency/12.0) - 1));        
         history = new HistoryExpenseGeneric(this);
     	setValuesBeforeCalculation();
     }
-
+    
     public static ExpenseGeneric create(
     		String name,
     		BigDecimal init_expense, 
