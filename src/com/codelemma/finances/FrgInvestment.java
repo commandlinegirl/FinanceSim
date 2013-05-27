@@ -93,7 +93,6 @@ public class FrgInvestment extends SherlockFragment {
 		BigDecimal init_amount = new BigDecimal(data.getStringExtra("investmentsav_init_amount"));
 		BigDecimal tax_rate = new BigDecimal(data.getStringExtra("investmentsav_tax_rate"));
 		BigDecimal percontrib = new BigDecimal(data.getStringExtra("investmentsav_percontrib"));
-		int capitalization = Integer.parseInt(data.getStringExtra("investmentsav_capitalization"));
 		BigDecimal interest_rate = new BigDecimal(data.getStringExtra("investmentsav_interest_rate"));
     	int start_year = Integer.parseInt((data.getStringExtra("investmentsav_start_year")));
     	int start_month = Integer.parseInt((data.getStringExtra("investmentsav_start_month")));
@@ -112,7 +111,6 @@ public class FrgInvestment extends SherlockFragment {
     			init_amount,
     			tax_rate,                
                 percontrib,
-                capitalization,
                 interest_rate,
 		        start_year,
 		    	start_month);                 
@@ -133,7 +131,6 @@ public class FrgInvestment extends SherlockFragment {
 		String name = data.getStringExtra("investmentcheck_name");
 		BigDecimal init_amount = new BigDecimal(data.getStringExtra("investmentcheck_init_amount"));
 		BigDecimal tax_rate = new BigDecimal(data.getStringExtra("investmentcheck_tax_rate"));
-		int capitalization = Integer.parseInt(data.getStringExtra("investmentcheck_capitalization"));
 		BigDecimal interest_rate = new BigDecimal(data.getStringExtra("investmentcheck_interest_rate"));
     	int start_year = appState.getAccount().getSimulationStartYear();
     	int start_month = appState.getAccount().getSimulationStartMonth();
@@ -148,7 +145,6 @@ public class FrgInvestment extends SherlockFragment {
     	InvestmentCheckAcct investment = InvestmentCheckAcct.create(name,
     			init_amount,
     			tax_rate,     
-                capitalization,
                 interest_rate,
 		        start_year,
 		    	start_month);                 

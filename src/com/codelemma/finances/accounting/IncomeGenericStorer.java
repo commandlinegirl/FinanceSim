@@ -10,7 +10,6 @@ public class IncomeGenericStorer implements AccountingElementStorer<IncomeGeneri
 	private static final String INIT_INCOME = "ii";	
 	private static final String TAX_RATE = "tr";
 	private static final String RISE_RATE = "rr";
-	private static final String INSTALLMENTS = "i";
 	private static final String NAME = "n";
 	private static final String TERM = "t";
 	private static final String START_YEAR = "sy";
@@ -34,7 +33,6 @@ public class IncomeGenericStorer implements AccountingElementStorer<IncomeGeneri
 				storage.getBigDecimal(prefix, INIT_INCOME),
 				storage.getBigDecimal(prefix, TAX_RATE),
 				storage.getBigDecimal(prefix, RISE_RATE),
-				storage.getBigDecimal(prefix, INSTALLMENTS),
 				storage.getString(prefix, NAME),
 				storage.getInt(prefix, TERM),
 				storage.getInt(prefix, START_YEAR),
@@ -50,7 +48,6 @@ public class IncomeGenericStorer implements AccountingElementStorer<IncomeGeneri
 		storage.putBigDecimal(prefix, INIT_INCOME, income.getValue());
 		storage.putBigDecimal(prefix, TAX_RATE, income.getInitTaxRate());
 		storage.putBigDecimal(prefix, RISE_RATE, income.getInitRiseRate());
-		storage.putBigDecimal(prefix, INSTALLMENTS, income.getInitInstallments());
 		storage.putString(prefix, NAME, income.getName());
 		storage.putInt(prefix, TERM, income.getTerm());
 		storage.putInt(prefix, START_YEAR, income.getStartYear());
@@ -64,7 +61,6 @@ public class IncomeGenericStorer implements AccountingElementStorer<IncomeGeneri
 		storage.remove(prefix, INIT_INCOME);
 		storage.remove(prefix, TAX_RATE);
 		storage.remove(prefix, RISE_RATE);
-		storage.remove(prefix, INSTALLMENTS);
 		storage.remove(prefix, NAME);
 		storage.remove(prefix, TERM);
 		storage.remove(prefix, START_YEAR);

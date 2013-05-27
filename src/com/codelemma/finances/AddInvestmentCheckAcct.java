@@ -10,26 +10,18 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemSelectedListener;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.Spinner;
 import android.widget.TextView;
 
-public class AddInvestmentCheckAcct extends SherlockFragmentActivity 
-                                  implements OnItemSelectedListener {
+public class AddInvestmentCheckAcct extends SherlockFragmentActivity {
 
 	private Finances appState;
 	private String requestCode;
 	private int investmentId;
-    private int[] capitalization_items = {1, 3, 6, 12, 24}; 
-    private int capitalization = 1;
 	private int setMonth;
 	private int setYear;
 	
@@ -45,16 +37,7 @@ public class AddInvestmentCheckAcct extends SherlockFragmentActivity
 	    public void onClick(View v) {
 	    	addInvestment(null);	             	        
 	    }
-    };	
-    
-    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-    	capitalization = capitalization_items[pos];
-    }
-
-    public void onNothingSelected(AdapterView<?> parent) {
-    	parent.setSelection(1);
-    }
-
+    };
     
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -66,14 +49,6 @@ public class AddInvestmentCheckAcct extends SherlockFragmentActivity
 	    
 	    Intent intent = getIntent(); //TODO: check if there are 
 	    requestCode = intent.getStringExtra("request");
-	    
-	    Spinner spinner = (Spinner) findViewById(R.id.investmentcheck_capitalization);
-	    ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-	         R.array.compounding_spinner, android.R.layout.simple_spinner_item);
-	    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-	    spinner.setAdapter(adapter);
-	    spinner.setSelection(0);
-	    spinner.setOnItemSelectedListener(this);
 				
         if (requestCode.equals(AcctElements.UPDATE.toString())) {
 	    	
@@ -90,11 +65,6 @@ public class AddInvestmentCheckAcct extends SherlockFragmentActivity
 	    	
 			EditText tax = (EditText) findViewById(R.id.investmentcheck_tax_rate);
 			tax.setText(investment.getInitTaxRate().toString(), TextView.BufferType.EDITABLE);
-	    				
-			int capt_index = Utils.getIndex(capitalization_items, investment.getCapitalization());
-			if (capt_index != -1) {
-			    spinner.setSelection(capt_index);
-			}
 			
 			EditText interest_rate = (EditText) findViewById(R.id.investmentcheck_interest_rate);
 			interest_rate.setText(investment.getInitInterestRate().toString(), TextView.BufferType.EDITABLE);
@@ -170,7 +140,6 @@ public class AddInvestmentCheckAcct extends SherlockFragmentActivity
 	    }
 	    intent.putExtra("investmentcheck_interest_rate", investmentInterestRateData);	  
 
-        intent.putExtra("investmentcheck_capitalization", String.valueOf(capitalization));  	
         intent.putExtra("investmentcheck_start_year",  String.valueOf(setYear));
         intent.putExtra("investmentcheck_start_month",  String.valueOf(setMonth));
 	    

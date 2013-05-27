@@ -77,7 +77,6 @@ public class FrgIncome extends SherlockFragment {
 		BigDecimal yearly_income;
 		BigDecimal income_tax_rate;
         BigDecimal yearly_income_rise;
-        BigDecimal income_installments;
         int income_term;
        	int start_year;
     	int start_month;
@@ -121,17 +120,6 @@ public class FrgIncome extends SherlockFragment {
 		    showNotANumberAlertDialog();
 		    return;
 		}
-	     
-		try {
-	        income_installments = new BigDecimal(data.getStringExtra("income_installments"));
-		} catch (NullPointerException npe) {
-			npe.printStackTrace();
-		    return;
-		} catch (NumberFormatException nfe) {
-		    nfe.printStackTrace();
-		    showNotANumberAlertDialog();
-		    return;
-		}
 	
 		try {
 	        income_term = Integer.parseInt((data.getStringExtra("income_term")));
@@ -143,14 +131,6 @@ public class FrgIncome extends SherlockFragment {
 		    showNotANumberAlertDialog();
 		    return;
 		}
-		
-    	if (income_installments.compareTo(new BigDecimal(1)) ==  -1) {
-        	new AlertDialog.Builder(getActivity()).setTitle("Payment frequency must be larger than 0")
-            .setMessage("Please, set frequency to a positive number.")
-            .setNeutralButton("Close", null)
-            .show();
-        	return;
-    	}
 
 		try {
 			start_year = Integer.parseInt((data.getStringExtra("incomegeneric_start_year")));
@@ -187,7 +167,6 @@ public class FrgIncome extends SherlockFragment {
     	IncomeGeneric newIncome = IncomeGeneric.create(yearly_income, 
                 income_tax_rate, 
                 yearly_income_rise,
-                income_installments, 
                 income_name,
                 income_term,
 		        start_year,

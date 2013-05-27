@@ -20,10 +20,8 @@ public class InvestmentSavAcct extends Investment {
     private BigDecimal contribution;
     
     private BigDecimal interest_rate;
-    private int capitalization;
     private BigDecimal amount;
     private BigDecimal hidden_amount;
-    private int capitalization_counter = 1;
     private BigDecimal interest_rate_decimal;
     
     private BigDecimal interests_gross = Money.ZERO;
@@ -43,7 +41,6 @@ public class InvestmentSavAcct extends Investment {
     		          BigDecimal init_amount,
     		          BigDecimal tax_rate,
     		          BigDecimal percontrib,
-    		          int capitalization,
     		          BigDecimal interest_rate,
                       int start_year,
               	      int start_month) {
@@ -56,7 +53,6 @@ public class InvestmentSavAcct extends Investment {
         this.tax_rate_decimal = tax_rate.divide(Money.HUNDRED, Money.RATE_DECIMALS, Money.ROUNDING_MODE);        
         this.percontrib = Money.scaleRate(percontrib);
         percontrib_decimal = this.percontrib.divide(Money.HUNDRED, Money.RATE_DECIMALS, Money.ROUNDING_MODE);
-        this.capitalization = capitalization;
         this.interest_rate = Money.scaleRate(interest_rate);
         this.interest_rate_decimal = this.interest_rate.divide(Money.HUNDRED, Money.RATE_DECIMALS, Money.ROUNDING_MODE);  
         comp_factor_28 = new BigDecimal(Math.exp(this.interest_rate_decimal.doubleValue() * 28.0/365));
@@ -74,7 +70,6 @@ public class InvestmentSavAcct extends Investment {
 	          BigDecimal init_amount,
 	          BigDecimal tax_rate,
 	          BigDecimal percontrib,
-	          int capitalization,
 	          BigDecimal interest_rate,
               int start_year,
   	          int start_month) {
@@ -83,7 +78,6 @@ public class InvestmentSavAcct extends Investment {
 				init_amount,
 				tax_rate,                
 			    percontrib,
-			    capitalization,
 			    interest_rate,
 			    start_year,
 				start_month);
@@ -105,10 +99,6 @@ public class InvestmentSavAcct extends Investment {
 		
 	public BigDecimal getInterestRate() {
 		return interest_rate;
-	}
-	
-	public int getCapitalization() {
-		return capitalization;
 	}
  
     private BigDecimal getCompoundingFactor(int month_length) {   
@@ -207,7 +197,6 @@ public class InvestmentSavAcct extends Investment {
 	@Override
 	public void initialize() {
 		amount = Money.scale(init_amount);
-		capitalization_counter = 1;
 		hidden_amount = init_amount;  
 		contribution = Money.ZERO;
 	}
@@ -228,17 +217,12 @@ public class InvestmentSavAcct extends Investment {
      	/* Calculate the interests of hidden_amount (and add to principal)  */
      	hidden_amount = Money.scale(hidden_amount.multiply(getCompoundingFactor(months[month])));
      	
-     	if (capitalization == capitalization_counter) {
-     		/* calculate and subtract tax on interests */
-     		interests_gross = hidden_amount.subtract(amount);
-     		tax_on_interests = Money.getPercentage(interests_gross, tax_rate_decimal);
-     		hidden_amount = hidden_amount.subtract(tax_on_interests);
-            interests_net = interests_gross.subtract(tax_on_interests);            
-            amount = hidden_amount;
-         	capitalization_counter = 1;        	
-     	} else {
-     		capitalization_counter++;
-     	}
+     	/* calculate and subtract tax on interests */
+ 		interests_gross = hidden_amount.subtract(amount);
+ 		tax_on_interests = Money.getPercentage(interests_gross, tax_rate_decimal);
+ 		hidden_amount = hidden_amount.subtract(tax_on_interests);
+        interests_net = interests_gross.subtract(tax_on_interests);            
+        amount = hidden_amount;	
     }       
 
 	@Override

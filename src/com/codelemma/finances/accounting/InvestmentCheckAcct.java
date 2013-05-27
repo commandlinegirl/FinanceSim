@@ -20,10 +20,8 @@ public class InvestmentCheckAcct extends Investment {
     private BigDecimal contribution;
     
     private BigDecimal interest_rate;
-    private int capitalization;
     private BigDecimal amount;
     private BigDecimal hidden_amount;
-    private int capitalization_counter = 1;
     private BigDecimal interest_rate_decimal;
     
     private BigDecimal interests_gross = Money.ZERO;
@@ -43,7 +41,6 @@ public class InvestmentCheckAcct extends Investment {
     private InvestmentCheckAcct(String name,
     		          BigDecimal init_amount,
     		          BigDecimal tax_rate,
-    		          int capitalization,
     		          BigDecimal interest_rate,
                       int start_year,
               	      int start_month) {
@@ -53,7 +50,6 @@ public class InvestmentCheckAcct extends Investment {
         this.init_tax_rate = tax_rate;      
         this.tax_rate = Money.scaleRate(tax_rate);
         this.tax_rate_decimal = tax_rate.divide(Money.HUNDRED, Money.RATE_DECIMALS, Money.ROUNDING_MODE);        
-        this.capitalization = capitalization;
         this.interest_rate = Money.scaleRate(interest_rate);
         this.interest_rate_decimal = this.interest_rate.divide(Money.HUNDRED, Money.RATE_DECIMALS, Money.ROUNDING_MODE);  
         comp_factor_28 = new BigDecimal(Math.exp(this.interest_rate_decimal.doubleValue() * 28.0/365));
@@ -70,7 +66,6 @@ public class InvestmentCheckAcct extends Investment {
 			String name,
 	          BigDecimal init_amount,
 	          BigDecimal tax_rate,
-	          int capitalization,
 	          BigDecimal interest_rate,
               int start_year,
     	      int start_month) {
@@ -78,7 +73,6 @@ public class InvestmentCheckAcct extends Investment {
         	name,
 		    init_amount,
 		    tax_rate,
-            capitalization,
             interest_rate,
             start_year,
             start_month);
@@ -100,10 +94,6 @@ public class InvestmentCheckAcct extends Investment {
 		
 	public BigDecimal getInterestRate() {
 		return interest_rate;
-	}
-	
-	public int getCapitalization() {
-		return capitalization;
 	}
  
     private BigDecimal getCompoundingFactor(int month_length) {   
@@ -208,7 +198,6 @@ public class InvestmentCheckAcct extends Investment {
  	@Override
  	public void initialize() {
  		amount = init_amount;
- 		capitalization_counter = 1;
  		hidden_amount = init_amount;  
  		contribution = Money.ZERO;
  	}
@@ -231,23 +220,18 @@ public class InvestmentCheckAcct extends Investment {
      	/* Calculates the interests of hidden_amount (and adds to principal)  */
      	hidden_amount = Money.scale(hidden_amount.multiply(getCompoundingFactor(months[month])));// i removed scale..
      	
-     	if (capitalization == capitalization_counter) {
-     		/* calculate and subtract tax on interests */
-     		interests_gross = hidden_amount.subtract(amount);
-     		tax_on_interests = Money.getPercentage(interests_gross, tax_rate_decimal); // I removed scale here
-     		/* Add interests from previous period to the amount */  
-     		interests_gross = interests_gross.max(Money.ZERO);
-     		tax_on_interests = tax_on_interests.max(Money.ZERO);
-     		
-     		if (interests_gross.compareTo(Money.ZERO) != 0) {
-     		    hidden_amount = hidden_amount.subtract(tax_on_interests);     		            
-                interests_net = interests_gross.subtract(tax_on_interests);                 
-                amount = hidden_amount; // hidden amount contains interests!!!
-     		}
-         	capitalization_counter = 1;         	   
-     	} else {
-     		capitalization_counter++;
-     	}
+     	/* calculate and subtract tax on interests */
+ 		interests_gross = hidden_amount.subtract(amount);
+ 		tax_on_interests = Money.getPercentage(interests_gross, tax_rate_decimal); // I removed scale here
+ 		/* Add interests from previous period to the amount */  
+ 		interests_gross = interests_gross.max(Money.ZERO);
+ 		tax_on_interests = tax_on_interests.max(Money.ZERO);
+ 		
+ 		if (interests_gross.compareTo(Money.ZERO) != 0) {
+ 		    hidden_amount = hidden_amount.subtract(tax_on_interests);     		            
+            interests_net = interests_gross.subtract(tax_on_interests);                 
+            amount = hidden_amount; // hidden amount contains interests!!!
+ 		}	
     }
 	
 	@Override

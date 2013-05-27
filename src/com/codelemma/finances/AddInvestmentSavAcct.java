@@ -15,27 +15,19 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemSelectedListener;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class AddInvestmentSavAcct extends SherlockFragmentActivity 
-                                  implements OnItemSelectedListener {
+public class AddInvestmentSavAcct extends SherlockFragmentActivity {
 
 	private Finances appState;
 	private String requestCode;
 	private int investmentId;
-    private int[] capitalization_items = {1, 3, 6, 12, 24}; 
-    private int capitalization = 1;
 	private int setMonth;
 	private int setYear;
 	private BigDecimal currentPercontrib;
@@ -84,31 +76,6 @@ public class AddInvestmentSavAcct extends SherlockFragmentActivity
 	    	addInvestment(null);	             	        
 	    }
     };	
-	
-    /*public void showDatePickerDialog(View v) {
-        DialogFragment newFragment = new FrgDatePicker();
-        Bundle b = new Bundle();
-        b.putInt("setMonth", setMonth);
-        b.putInt("setYear", setYear);        
-        newFragment.show(getSupportFragmentManager(), "datePicker");
-    }
-    */
-	//@Override
-	//public void onDateSet(DatePicker view, int year, int month, int day) {
-//		TextView edit = (TextView) findViewById(R.id.investmentsav_start_date);
-	//	edit.setText((month+1)+"/"+year);	
-		//setYear = year;
-		//setMonth = month;
-	//}
-    
-    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-    	capitalization = capitalization_items[pos];
-    }
-
-    public void onNothingSelected(AdapterView<?> parent) {
-    	parent.setSelection(1);
-    }
-
     
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -120,14 +87,6 @@ public class AddInvestmentSavAcct extends SherlockFragmentActivity
 	    
 	    Intent intent = getIntent();
 	    requestCode = intent.getStringExtra("request");
-	    
-	    Spinner spinner = (Spinner) findViewById(R.id.investmentsav_capitalization);
-	    ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-	         R.array.compounding_spinner, android.R.layout.simple_spinner_item);
-	    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-	    spinner.setAdapter(adapter);
-	    spinner.setSelection(0);
-	    spinner.setOnItemSelectedListener(this);
 	    
 	    //TextView start_date = (TextView) findViewById(R.id.investmentsav_start_date);
         final Calendar c = Calendar.getInstance();
@@ -154,11 +113,6 @@ public class AddInvestmentSavAcct extends SherlockFragmentActivity
 			EditText percontrib = (EditText) findViewById(R.id.investmentsav_percontrib);
 			percontrib.setText(investment.getInitPercontrib().toString(), TextView.BufferType.EDITABLE);
 			currentPercontrib = investment.getInitPercontrib();
-			
-			int capt_index = Utils.getIndex(capitalization_items, investment.getCapitalization());
-			if (capt_index != -1) {
-			    spinner.setSelection(capt_index);
-			}
 			
 			EditText interest_rate = (EditText) findViewById(R.id.investmentsav_interest_rate);
 			interest_rate.setText(investment.getInitInterestRate().toString(), TextView.BufferType.EDITABLE);
@@ -273,8 +227,6 @@ public class AddInvestmentSavAcct extends SherlockFragmentActivity
 	    } else {
             intent.putExtra("investmentsav_percontrib", percontribData);  	
 	    }
-
-        intent.putExtra("investmentsav_capitalization", String.valueOf(capitalization));  	
         
 		EditText investmentInterestRate = (EditText) findViewById(R.id.investmentsav_interest_rate);
 		String investmentInterestRateData = investmentInterestRate.getText().toString();

@@ -17,29 +17,21 @@ import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.NavUtils;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
-import android.widget.AdapterView.OnItemSelectedListener;
 
 public class AddIncomeGeneric extends SherlockFragmentActivity
-                       implements OnItemSelectedListener,
-                                  FrgDatePicker.OnDateSelectedListener {
+                       implements FrgDatePicker.OnDateSelectedListener {
 	
 	private Finances appState;	
 	private String requestCode;
 	private int incomeId;
-	private int[] installments_items = {12, 13}; // in months
-	private int installments;
 	private int setMonth;
 	private int setYear;
 	
@@ -121,14 +113,6 @@ public class AddIncomeGeneric extends SherlockFragmentActivity
 		setYear = year;
 		setMonth = month;
 	}
-    
-    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-    	installments = installments_items[pos];
-    }
-
-    public void onNothingSelected(AdapterView<?> parent) {
-    	parent.setSelection(1);
-    }
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -138,14 +122,6 @@ public class AddIncomeGeneric extends SherlockFragmentActivity
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		appState = Finances.getInstance();
-	    
-	    Spinner spinner = (Spinner) findViewById(R.id.income_installments);
-	    ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-	         R.array.installments_spinner, android.R.layout.simple_spinner_item);
-	    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-	    spinner.setAdapter(adapter);
-	    spinner.setSelection(0);
-	    spinner.setOnItemSelectedListener(this);
 	    
 	    Intent intent = getIntent();
 	    requestCode = intent.getStringExtra("request");
@@ -176,12 +152,6 @@ public class AddIncomeGeneric extends SherlockFragmentActivity
 
 			EditText incomeTerm = (EditText) findViewById(R.id.income_term);
 			incomeTerm.setText(String.valueOf(income.getTerm()), TextView.BufferType.EDITABLE);
-			
-			if (income.getInitInstallments().doubleValue() == 13) {			
-			    spinner.setSelection(1);
-			} else {
-				spinner.setSelection(0);
-			}
 	    
 			setYear = income.getStartYear();
 			setMonth = income.getStartMonth() ;			
@@ -289,7 +259,6 @@ public class AddIncomeGeneric extends SherlockFragmentActivity
 	    }
         intent.putExtra("income_tax_rate", incomeTaxRateData);
 
-        intent.putExtra("income_installments", String.valueOf(installments));
         intent.putExtra("incomegeneric_start_year",  String.valueOf(setYear));
         intent.putExtra("incomegeneric_start_month",  String.valueOf(setMonth));
         

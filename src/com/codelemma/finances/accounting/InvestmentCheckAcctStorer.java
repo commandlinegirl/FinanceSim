@@ -9,7 +9,6 @@ public class InvestmentCheckAcctStorer implements AccountingElementStorer<Invest
 	private static final String NAME = "n";
 	private static final String INIT_AMOUNT = "ia";
 	private static final String TAX_RATE = "tr";
-	private static final String CAPITALIZATION = "c";
 	private static final String INTEREST_RATE = "ir";
 	private static final String START_YEAR = "sy";
 	private static final String START_MONTH = "sm";
@@ -32,7 +31,6 @@ public class InvestmentCheckAcctStorer implements AccountingElementStorer<Invest
 				storage.getString(prefix, NAME),
 				storage.getBigDecimal(prefix, INIT_AMOUNT),
 				storage.getBigDecimal(prefix, TAX_RATE),
-				storage.getInt(prefix, CAPITALIZATION),
 				storage.getBigDecimal(prefix, INTEREST_RATE),
 				storage.getInt(prefix, START_YEAR),
 				storage.getInt(prefix, START_MONTH));
@@ -45,7 +43,6 @@ public class InvestmentCheckAcctStorer implements AccountingElementStorer<Invest
 		storage.putString(prefix, NAME, investment.getName());
 		storage.putBigDecimal(prefix, INIT_AMOUNT, investment.getInitAmount());
 		storage.putBigDecimal(prefix, TAX_RATE, investment.getInitTaxRate());
-		storage.putInt(prefix, CAPITALIZATION, investment.getCapitalization());
 		storage.putBigDecimal(prefix, INTEREST_RATE, investment.getInitInterestRate());
 		storage.putInt(prefix, START_YEAR, investment.getStartYear());
 		storage.putInt(prefix, START_MONTH, investment.getStartMonth());
@@ -57,7 +54,6 @@ public class InvestmentCheckAcctStorer implements AccountingElementStorer<Invest
 		storage.remove(prefix, NAME);
 		storage.remove(prefix, INIT_AMOUNT);
 		storage.remove(prefix, TAX_RATE);
-		storage.remove(prefix, CAPITALIZATION);
 		storage.remove(prefix, INTEREST_RATE);
 		storage.remove(prefix, START_YEAR);
 		storage.remove(prefix, START_MONTH);

@@ -46,7 +46,7 @@
     <string name="action_settings">Settings</string>
     
     <!-- Feedback window -->
-    
+
     <string name="feedback_text1">If you have any comments, questions, complaints please send an email to: <b>codelemma@gmail.com</b>.</string>
     <string name="feedback_text2">We will answer you back as soon as we can.\n\nPlease, rate <b>FinanceSim</b> in GooglePlay.</string>
     
@@ -108,17 +108,13 @@
     <string name="yearly_income_rise_text">5</string>
     <string name="income_tax_rate_input">Tax rate</string>
     <string name="income_tax_rate_text">16</string>
-    <string name="income_installments_input">Payment frequency</string>
-    <string name="income_installments_text">12</string>
     <string name="income_term_input">Income term (years)</string>
     <string name="income_term_text">30</string>
     <string name="income_help_intro">Here add any regular source of income (eg. salary, returns 
         from renting a flat, dividends, etc.).</string>
     <string name="income_help_yearly_income"><b>Income per year</b>\nGross yearly income.</string>
-    <string name="income_help_rise_per_year"><b>Rise per year</b>\nEstimated yearly payment increase 
-        rate.</string>
+    <string name="income_help_rise_per_year"><b>Rise per year</b>\nEstimated yearly payment increase rate.</string>
     <string name="income_help_tax_rate"><b>Tax rate</b>\nTotal tax rate.</string>
-    <string name="income_help_installments"><b>Payment frequency</b>\nNumber of payments in a year (12 - monthly, 13 - monthly with an additional payment at the end of the year).</string>
     <string name="income_help_start_date"><b>Start date</b>\nDate of income commencement. For current salary, specify current month and year.</string>
     <string name="income_help_income_term"><b>Income term</b>\nNumber of years to gather income.</string>
     <string name="debtloan_name_input">Name</string>
@@ -202,8 +198,6 @@
     <string name="investmentcheck_interest_rate_text">0</string>
     <string name="investmentcheck_tax_rate_input">Tax rate</string>
     <string name="investmentcheck_tax_rate_text">19</string>
-    <string name="investmentcheck_capitalization_input">Payment frequency</string>
-    <string name="investmentcheck_capitalization_text">12</string>
     <string name="investmentcheckacct_help_amount"><b>Current amount</b>\nCurrent balance on your account.</string>
     <string name="investmentcheckacct_help_interest_rate"><b>Interest rate</b>\nAnnual interest rate.</string>
     <string name="investmentcheckacct_help_tax_rate"><b>Tax rate</b>\nTax rate on the interest.</string>
@@ -242,23 +236,23 @@
     <string name="expl_income_chart_intro">The chart shows monthly net and gross income.</string>
     <string name="expl_income_table_intro">If 401(k) is associated with a given income account, the 401(k) contribution is subtracted from the account
         before tax.</string>
-            
+
     <!-- Expenses help -->
-    
+
     <string name="expl_expenses_add_intro">Here input your regular expenses, such as monthly spendings, insurance, house or apartment rent, yearly travel 
         budget, etc. \n\nThe submitted amounts are used as starting points in projecting your future expenses with inflation taken into account. 
         Inflation is assumed to be constant over years.</string>
     <string name="expl_expenses_chart_intro">The chart shows the projection of your monthly expenses over years. The rise or fall of the expenses is due to inflation.</string>
     <string name="expl_expenses_table_intro">Each month the expenses you incur rise (or fall) due to inflation.</string>
-    
+
     <!-- Savings help -->
-    
+
     <string name="savings_expl_add_intro">Here input your bank and retirement plan accounts data.
         \n\n<b><i>Checking account</i></b>\nIt is a fixed account used in <b>FinanceSim</b> to deposit all of the remaining monthly income (capital and 
         non-capital) after it has been partitioned into expenses, savings accounts, 401(k) accounts, and debt rates. The interests are
-        compounded continuously.
+        compounded continuously and paid monthly.
         \n\n<b><i>Savings account</i></b>\nIn a savings account you can store a given percentage of your excess money (i.e. the money remaining after it
-        has been partitioned into expenses, 401(k) accounts, and debt rates). Compounding is continuous.
+        has been partitioned into expenses, 401(k) accounts, and debt rates). The interests are compounded continuously and paid monthly.
         \n\n<b><i>401(k) account</i></b>\nContributions to this 401(k) account plan are made on a pre-tax basis so the earnings are tax-deferred. Tax
         is subtracted from the 401(k) earnings on withdrawal and deposited in the checking account.</string>
     <string name="savings_expl_chart_intro">The chart shows a projection of your account balance over years.</string>

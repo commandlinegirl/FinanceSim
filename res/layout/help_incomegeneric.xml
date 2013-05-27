@@ -32,21 +32,13 @@
         android:text="@string/income_help_tax_rate"
         android:layout_marginBottom="10dp">                      
     </TextView>  
-            
+
     <TextView
-        android:layout_height="wrap_content"
-        android:layout_width="fill_parent"
-        android:text="@string/income_help_installments"
-        android:layout_marginBottom="10dp">                      
-    </TextView>
-    
-        <TextView
         android:layout_height="wrap_content"
         android:layout_width="fill_parent"
         android:text="@string/income_help_income_term"
         android:layout_marginBottom="10dp">                      
-    </TextView>    
-    
+    </TextView>
     
     <TextView
         android:layout_height="wrap_content"

@@ -32,7 +32,6 @@ public class DefaultAccountFactory implements AccountFactory {
     			"Checking account",    // name
     			Money.ZERO,            // init_amount
     			new BigDecimal(30),    // tax_rate
-                1,                     // interest capitalization (1 = monthly)
                 new BigDecimal("0.5"), // interest_rate
                 simStartYear,          // calculation start = simulation start
                 simStartMonth);		   // calculation start = simulation start	    	
