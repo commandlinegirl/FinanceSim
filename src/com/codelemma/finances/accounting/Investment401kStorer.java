@@ -1,7 +1,5 @@
 package com.codelemma.finances.accounting;
 
-import android.util.Log;
-
 import com.codelemma.finances.accounting.Storage.StorageException;
 
 public class Investment401kStorer implements AccountingElementStorer<Investment401k> {

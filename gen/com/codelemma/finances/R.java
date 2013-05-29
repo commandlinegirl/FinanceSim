@@ -1326,6 +1326,8 @@ containing a value of this type.
         public static final int add_investmentbond=0x7f0a0034;
         public static final int add_investmentcheckacct=0x7f0a0032;
         public static final int add_investmentsav=0x7f0a0031;
+        public static final int add_investmentsavacct_info=0x7f0a00f5;
+        public static final int add_investmentsavacct_title=0x7f0a00f4;
         public static final int add_investmentstock=0x7f0a0035;
         public static final int app_name=0x7f0a000f;
         public static final int cancel=0x7f0a002c;
@@ -1385,42 +1387,42 @@ containing a value of this type.
         public static final int expenses_title=0x7f0a0057;
         /**  Cashflows help 
          */
-        public static final int expl_cashflows_add_intro=0x7f0a00e7;
-        public static final int expl_cashflows_chart_intro=0x7f0a00e8;
-        public static final int expl_cashflows_table_intro=0x7f0a00e9;
+        public static final int expl_cashflows_add_intro=0x7f0a00e3;
+        public static final int expl_cashflows_chart_intro=0x7f0a00e4;
+        public static final int expl_cashflows_table_intro=0x7f0a00e5;
         /**  Debts help 
          */
-        public static final int expl_debts_add_intro=0x7f0a00e3;
-        public static final int expl_debts_chart_intro=0x7f0a00e4;
-        public static final int expl_debts_table_intro_1=0x7f0a00e5;
-        public static final int expl_debts_table_intro_2=0x7f0a00e6;
+        public static final int expl_debts_add_intro=0x7f0a00df;
+        public static final int expl_debts_chart_intro=0x7f0a00e0;
+        public static final int expl_debts_table_intro_1=0x7f0a00e1;
+        public static final int expl_debts_table_intro_2=0x7f0a00e2;
         /**  Expenses help 
          */
-        public static final int expl_expenses_add_intro=0x7f0a00dc;
-        public static final int expl_expenses_chart_intro=0x7f0a00dd;
-        public static final int expl_expenses_table_intro=0x7f0a00de;
+        public static final int expl_expenses_add_intro=0x7f0a00d8;
+        public static final int expl_expenses_chart_intro=0x7f0a00d9;
+        public static final int expl_expenses_table_intro=0x7f0a00da;
         /**  Help (explain) dialogs 
          */
-        public static final int expl_income_add_intro=0x7f0a00d9;
-        public static final int expl_income_chart_intro=0x7f0a00da;
-        public static final int expl_income_table_intro=0x7f0a00db;
+        public static final int expl_income_add_intro=0x7f0a00d5;
+        public static final int expl_income_chart_intro=0x7f0a00d6;
+        public static final int expl_income_table_intro=0x7f0a00d7;
         /**  Net worth help 
          */
-        public static final int expl_net_worth_add_intro=0x7f0a00ea;
-        public static final int expl_net_worth_table_intro=0x7f0a00eb;
+        public static final int expl_net_worth_add_intro=0x7f0a00e6;
+        public static final int expl_net_worth_table_intro=0x7f0a00e7;
         /**  Feedback window 
          */
         public static final int feedback_text1=0x7f0a003b;
         public static final int feedback_text2=0x7f0a003c;
-        public static final int frg_debts_add_multiple_info=0x7f0a00f7;
-        public static final int frg_expenses_add_multiple_info=0x7f0a00f5;
-        public static final int frg_income_add_multiple_info=0x7f0a00f4;
-        public static final int frg_investment_add_salary_neutral=0x7f0a00f3;
-        public static final int frg_investment_add_salary_text=0x7f0a00f2;
+        public static final int frg_debts_add_multiple_info=0x7f0a00f3;
+        public static final int frg_expenses_add_multiple_info=0x7f0a00f1;
+        public static final int frg_income_add_multiple_info=0x7f0a00f0;
+        public static final int frg_investment_add_salary_neutral=0x7f0a00ef;
+        public static final int frg_investment_add_salary_text=0x7f0a00ee;
         /**  Alert dialogs 
          */
-        public static final int frg_investment_add_salary_title=0x7f0a00f1;
-        public static final int frg_savings_add_multiple_info=0x7f0a00f6;
+        public static final int frg_investment_add_salary_title=0x7f0a00ed;
+        public static final int frg_savings_add_multiple_info=0x7f0a00f2;
         public static final int income_description=0x7f0a005a;
         public static final int income_help_income_term=0x7f0a006f;
         public static final int income_help_intro=0x7f0a006a;
@@ -1439,48 +1441,45 @@ containing a value of this type.
         public static final int inflation_rate_text=0x7f0a009c;
         public static final int init_expense_input=0x7f0a0099;
         public static final int init_expense_text=0x7f0a009a;
-        public static final int investment401k_employer_match_input=0x7f0a00cd;
-        public static final int investment401k_employer_match_text=0x7f0a00ce;
-        public static final int investment401k_help_amount=0x7f0a00d1;
-        public static final int investment401k_help_annual_salary=0x7f0a00d2;
-        public static final int investment401k_help_employer_match=0x7f0a00d4;
-        public static final int investment401k_help_interest_rate=0x7f0a00d7;
-        public static final int investment401k_help_percontrib=0x7f0a00d3;
-        public static final int investment401k_help_period=0x7f0a00d5;
-        public static final int investment401k_help_start_date=0x7f0a00d8;
-        public static final int investment401k_help_withdrawabl_tax_rate=0x7f0a00d6;
-        public static final int investment401k_init_amount_input=0x7f0a00c1;
-        public static final int investment401k_init_amount_text=0x7f0a00c2;
-        public static final int investment401k_interest_rate_input=0x7f0a00cf;
-        public static final int investment401k_interest_rate_text=0x7f0a00d0;
-        public static final int investment401k_name_input=0x7f0a00bf;
-        public static final int investment401k_name_text=0x7f0a00c0;
-        public static final int investment401k_payrise_input=0x7f0a00c9;
-        public static final int investment401k_payrise_text=0x7f0a00ca;
-        public static final int investment401k_percontrib_input=0x7f0a00c5;
-        public static final int investment401k_percontrib_text=0x7f0a00c6;
-        public static final int investment401k_period_input=0x7f0a00c7;
-        public static final int investment401k_period_text=0x7f0a00c8;
-        public static final int investment401k_salary_input=0x7f0a00c3;
-        public static final int investment401k_salary_text=0x7f0a00c4;
-        public static final int investment401k_withdrawal_tax_rate_input=0x7f0a00cb;
-        public static final int investment401k_withdrawal_tax_rate_text=0x7f0a00cc;
-        public static final int investmentcheck_init_amount_input=0x7f0a00b5;
-        public static final int investmentcheck_init_amount_text=0x7f0a00b6;
-        public static final int investmentcheck_interest_rate_input=0x7f0a00b7;
-        public static final int investmentcheck_interest_rate_text=0x7f0a00b8;
-        public static final int investmentcheck_name_input=0x7f0a00b3;
-        public static final int investmentcheck_name_text=0x7f0a00b4;
-        public static final int investmentcheck_tax_rate_input=0x7f0a00b9;
-        public static final int investmentcheck_tax_rate_text=0x7f0a00ba;
-        public static final int investmentcheckacct_help_amount=0x7f0a00bb;
-        public static final int investmentcheckacct_help_capitalization=0x7f0a00be;
-        public static final int investmentcheckacct_help_interest_rate=0x7f0a00bc;
-        public static final int investmentcheckacct_help_tax_rate=0x7f0a00bd;
+        public static final int investment401k_employer_match_input=0x7f0a00c9;
+        public static final int investment401k_employer_match_text=0x7f0a00ca;
+        public static final int investment401k_help_amount=0x7f0a00cd;
+        public static final int investment401k_help_annual_salary=0x7f0a00ce;
+        public static final int investment401k_help_employer_match=0x7f0a00d0;
+        public static final int investment401k_help_interest_rate=0x7f0a00d3;
+        public static final int investment401k_help_percontrib=0x7f0a00cf;
+        public static final int investment401k_help_period=0x7f0a00d1;
+        public static final int investment401k_help_start_date=0x7f0a00d4;
+        public static final int investment401k_help_withdrawabl_tax_rate=0x7f0a00d2;
+        public static final int investment401k_init_amount_input=0x7f0a00bd;
+        public static final int investment401k_init_amount_text=0x7f0a00be;
+        public static final int investment401k_interest_rate_input=0x7f0a00cb;
+        public static final int investment401k_interest_rate_text=0x7f0a00cc;
+        public static final int investment401k_name_input=0x7f0a00bb;
+        public static final int investment401k_name_text=0x7f0a00bc;
+        public static final int investment401k_payrise_input=0x7f0a00c5;
+        public static final int investment401k_payrise_text=0x7f0a00c6;
+        public static final int investment401k_percontrib_input=0x7f0a00c1;
+        public static final int investment401k_percontrib_text=0x7f0a00c2;
+        public static final int investment401k_period_input=0x7f0a00c3;
+        public static final int investment401k_period_text=0x7f0a00c4;
+        public static final int investment401k_salary_input=0x7f0a00bf;
+        public static final int investment401k_salary_text=0x7f0a00c0;
+        public static final int investment401k_withdrawal_tax_rate_input=0x7f0a00c7;
+        public static final int investment401k_withdrawal_tax_rate_text=0x7f0a00c8;
+        public static final int investmentcheck_init_amount_input=0x7f0a00b2;
+        public static final int investmentcheck_init_amount_text=0x7f0a00b3;
+        public static final int investmentcheck_interest_rate_input=0x7f0a00b4;
+        public static final int investmentcheck_interest_rate_text=0x7f0a00b5;
+        public static final int investmentcheck_name_input=0x7f0a00b0;
+        public static final int investmentcheck_name_text=0x7f0a00b1;
+        public static final int investmentcheck_tax_rate_input=0x7f0a00b6;
+        public static final int investmentcheck_tax_rate_text=0x7f0a00b7;
+        public static final int investmentcheckacct_help_amount=0x7f0a00b8;
+        public static final int investmentcheckacct_help_interest_rate=0x7f0a00b9;
+        public static final int investmentcheckacct_help_tax_rate=0x7f0a00ba;
         public static final int investments_description=0x7f0a005f;
         public static final int investments_title=0x7f0a005b;
-        public static final int investmentsav_capitalization_input=0x7f0a00ac;
-        public static final int investmentsav_capitalization_text=0x7f0a00ad;
         public static final int investmentsav_init_amount_input=0x7f0a00a4;
         public static final int investmentsav_init_amount_text=0x7f0a00a5;
         public static final int investmentsav_interest_rate_input=0x7f0a00a6;
@@ -1491,11 +1490,10 @@ containing a value of this type.
         public static final int investmentsav_percontrib_text=0x7f0a00ab;
         public static final int investmentsav_tax_rate_input=0x7f0a00a8;
         public static final int investmentsav_tax_rate_text=0x7f0a00a9;
-        public static final int investmentsavacct_help_amount=0x7f0a00ae;
-        public static final int investmentsavacct_help_capitalization=0x7f0a00b1;
-        public static final int investmentsavacct_help_interest_rate=0x7f0a00af;
-        public static final int investmentsavacct_help_percontrib=0x7f0a00b2;
-        public static final int investmentsavacct_help_tax_rate=0x7f0a00b0;
+        public static final int investmentsavacct_help_amount=0x7f0a00ac;
+        public static final int investmentsavacct_help_interest_rate=0x7f0a00ad;
+        public static final int investmentsavacct_help_percontrib=0x7f0a00af;
+        public static final int investmentsavacct_help_tax_rate=0x7f0a00ae;
         public static final int menu_about=0x7f0a0012;
         public static final int menu_add=0x7f0a0015;
         public static final int menu_chart=0x7f0a0016;
@@ -1514,31 +1512,31 @@ containing a value of this type.
         public static final int no_income_info=0x7f0a0027;
         public static final int no_investment_info=0x7f0a0026;
         public static final int percent=0x7f0a002d;
-        public static final int pref_description_social_recommendations=0x7f0a00fb;
+        public static final int pref_description_social_recommendations=0x7f0a00f9;
         /**  Strings related to Settings 
  Example General settings 
          */
-        public static final int pref_header_general=0x7f0a00f9;
-        public static final int pref_simulation_start_date=0x7f0a00fa;
+        public static final int pref_header_general=0x7f0a00f7;
+        public static final int pref_simulation_start_date=0x7f0a00f8;
         public static final int progress_bar_info=0x7f0a002f;
         /**  Savings help 
          */
-        public static final int savings_expl_add_intro=0x7f0a00df;
-        public static final int savings_expl_chart_intro=0x7f0a00e0;
-        public static final int savings_expl_table_intro_1=0x7f0a00e1;
-        public static final int savings_expl_table_intro_2=0x7f0a00e2;
+        public static final int savings_expl_add_intro=0x7f0a00db;
+        public static final int savings_expl_chart_intro=0x7f0a00dc;
+        public static final int savings_expl_table_intro_1=0x7f0a00dd;
+        public static final int savings_expl_table_intro_2=0x7f0a00de;
         public static final int savings_title=0x7f0a005e;
         public static final int show_chart=0x7f0a002b;
         public static final int show_predictions=0x7f0a002e;
         public static final int show_table=0x7f0a002a;
         public static final int start_date_input=0x7f0a0050;
-        public static final int start_popup_chart=0x7f0a00ee;
-        public static final int start_popup_ending=0x7f0a00f0;
-        public static final int start_popup_input=0x7f0a00ed;
+        public static final int start_popup_chart=0x7f0a00ea;
+        public static final int start_popup_ending=0x7f0a00ec;
+        public static final int start_popup_input=0x7f0a00e9;
         /**  At-startup-popup info 
          */
-        public static final int start_popup_intro=0x7f0a00ec;
-        public static final int start_popup_table=0x7f0a00ef;
+        public static final int start_popup_intro=0x7f0a00e8;
+        public static final int start_popup_table=0x7f0a00eb;
         public static final int title_activity_about=0x7f0a0023;
         public static final int title_activity_add_debtloan=0x7f0a001d;
         public static final int title_activity_add_debtmortgage=0x7f0a0021;
@@ -1552,7 +1550,7 @@ containing a value of this type.
         public static final int title_activity_feedback=0x7f0a0024;
         public static final int title_activity_list_fragment=0x7f0a0025;
         public static final int title_activity_main=0x7f0a0019;
-        public static final int title_activity_settings=0x7f0a00f8;
+        public static final int title_activity_settings=0x7f0a00f6;
         public static final int view_chart=0x7f0a004d;
         public static final int view_table=0x7f0a004e;
         public static final int welcome_message_title=0x7f0a0010;

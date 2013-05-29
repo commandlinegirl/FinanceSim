@@ -7,6 +7,7 @@ import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.codelemma.finances.accounting.InvestmentSavAcct;
+import com.codelemma.finances.accounting.Money;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -15,6 +16,7 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -213,10 +215,15 @@ public class AddInvestmentSavAcct extends SherlockFragmentActivity {
 	    }
 	    
 	    if (totalPercontribToCheck.compareTo(new BigDecimal(100)) > 0) {
+	    	String formatd = this.getResources().getString(R.string.add_investmentsavacct_info);
+	    	NumberFormatter formatter = new NumberFormatter();
+	    	
+	    	String text_msg = String.format(formatd, 
+	    			formatter.formatNumber(Money.HUNDRED.subtract(currentinvestmentsPercontrib.subtract(currentPercontrib))).toString());
 	    	
 	        new AlertDialog.Builder(AddInvestmentSavAcct.this)
-            .setTitle("Investment excess > 100%")
-            .setMessage("Savings from more than 100%!")           // TODO: update this info     
+            .setTitle(AddInvestmentSavAcct.this.getResources().getText(R.string.add_investmentsavacct_title))
+            .setMessage(text_msg) 
             .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                public void onClick(DialogInterface dialog, int id) {
             	   dialog.cancel();

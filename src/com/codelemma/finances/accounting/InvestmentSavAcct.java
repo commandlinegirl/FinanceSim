@@ -46,15 +46,15 @@ public class InvestmentSavAcct extends Investment {
               	      int start_month) {
     	this.name = name;
         this.init_amount = init_amount;
-        this.init_interest_rate = interest_rate;
-        this.init_percontrib = percontrib;
         this.init_tax_rate = tax_rate;     
         this.tax_rate = Money.scaleRate(tax_rate);
-        this.tax_rate_decimal = tax_rate.divide(Money.HUNDRED, Money.RATE_DECIMALS, Money.ROUNDING_MODE);        
+        this.tax_rate_decimal = tax_rate.divide(Money.HUNDRED, Money.RATE_DECIMALS, Money.ROUNDING_MODE);     
+        this.init_percontrib = percontrib;
         this.percontrib = Money.scaleRate(percontrib);
         percontrib_decimal = this.percontrib.divide(Money.HUNDRED, Money.RATE_DECIMALS, Money.ROUNDING_MODE);
-        this.interest_rate = Money.scaleRate(interest_rate);
-        this.interest_rate_decimal = this.interest_rate.divide(Money.HUNDRED, Money.RATE_DECIMALS, Money.ROUNDING_MODE);  
+        this.init_interest_rate = interest_rate;
+        this.interest_rate = interest_rate;
+        this.interest_rate_decimal = Money.scaleRate(this.interest_rate.divide(Money.HUNDRED, Money.RATE_DECIMALS, Money.ROUNDING_MODE));  
         comp_factor_28 = new BigDecimal(Math.exp(this.interest_rate_decimal.doubleValue() * 28.0/365));
         comp_factor_30 = new BigDecimal(Math.exp(this.interest_rate_decimal.doubleValue() * 30.0/365));
         comp_factor_31 = new BigDecimal(Math.exp(this.interest_rate_decimal.doubleValue() * 31.0/365));        	

@@ -223,21 +223,21 @@ public class AddIncomeGeneric extends SherlockFragmentActivity
 
 	public void addIncome(View view) {
 		Intent intent = new Intent(this, Main.class);				
-		
+
 	    EditText incomeName = (EditText) findViewById(R.id.income_name);
 	    String incomeNameData = incomeName.getText().toString();
 	    if (Utils.alertIfEmpty(this, incomeNameData, getResources().getString(R.string.income_name_input))) {
 	    	return;
 	    }
         intent.putExtra("income_name", incomeNameData);                
-        				
+
         EditText income = (EditText) findViewById(R.id.yearly_income);
 	    String incomeData = income.getText().toString();
 	    if (Utils.alertIfEmpty(this, incomeData, getResources().getString(R.string.yearly_income_input))) {
 	    	return;
 	    }
         intent.putExtra("yearly_income", incomeData);
-            
+
 	    EditText incomeRise = (EditText) findViewById(R.id.yearly_income_rise);
 	    String incomeRiseData = incomeRise.getText().toString();
 	    if(Utils.alertIfEmpty(this, incomeRiseData, getResources().getString(R.string.yearly_income_rise_input))) {
@@ -246,13 +246,13 @@ public class AddIncomeGeneric extends SherlockFragmentActivity
 	    if(Utils.alertIfNotInBounds(this, incomeRiseData, 0, 100, getResources().getString(R.string.yearly_income_rise_input))) {
 	    	return;
 	    }
-	    
+
         intent.putExtra("yearly_income_rise", incomeRiseData);
 
 	    EditText incomeTaxRate = (EditText) findViewById(R.id.income_tax_rate);
 	    String incomeTaxRateData = incomeTaxRate.getText().toString();
 	    if (Utils.alertIfEmpty(this, incomeTaxRateData, getResources().getString(R.string.income_tax_rate_input))) {
-	    	return;	    	
+	    	return;
 	    }
 	    if(Utils.alertIfNotInBounds(this, incomeTaxRateData, 0, 100, getResources().getString(R.string.income_tax_rate_input))) {
 	    	return;
@@ -261,13 +261,13 @@ public class AddIncomeGeneric extends SherlockFragmentActivity
 
         intent.putExtra("incomegeneric_start_year",  String.valueOf(setYear));
         intent.putExtra("incomegeneric_start_month",  String.valueOf(setMonth));
-        
+
 	    EditText incomeTerm = (EditText) findViewById(R.id.income_term);
 	    String incomeTermData = incomeTerm.getText().toString();
 	    if (Utils.alertIfEmpty(this, incomeTermData, getResources().getString(R.string.income_term_input))) {
 	    	return;
 	    }
-	    if(Utils.alertIfIntNotInBounds(this, incomeTaxRateData, 1, 100, getResources().getString(R.string.income_term_input))) {
+	    if(Utils.alertIfIntNotInBounds(this, incomeTermData, 1, 100, getResources().getString(R.string.income_term_input))) {
 	    	return;
 	    }
         intent.putExtra("income_term", incomeTermData);

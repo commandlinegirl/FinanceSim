@@ -17,7 +17,6 @@ import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.NavUtils;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;

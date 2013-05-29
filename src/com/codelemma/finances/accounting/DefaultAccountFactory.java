@@ -31,7 +31,7 @@ public class DefaultAccountFactory implements AccountFactory {
     	return InvestmentCheckAcct.create(
     			"Checking account",    // name
     			Money.ZERO,            // init_amount
-    			new BigDecimal(30),    // tax_rate
+    			new BigDecimal(15),    // tax_rate
                 new BigDecimal("0.5"), // interest_rate
                 simStartYear,          // calculation start = simulation start
                 simStartMonth);		   // calculation start = simulation start	    	

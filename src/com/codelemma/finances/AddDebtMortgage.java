@@ -15,7 +15,6 @@ import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.NavUtils;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -212,16 +211,16 @@ public class AddDebtMortgage extends SherlockFragmentActivity
 	    EditText interestRate = (EditText) findViewById(R.id.debtmortgage_interest_rate);
 	    String interestRateData = interestRate.getText().toString();
 	    if (Utils.alertIfEmpty(this, interestRateData, getResources().getString(R.string.debtmortgage_interest_rate_input))) {
-	    	return;	    	
+	    	return;
 	    }	
         intent.putExtra("debtmortgage_interest_rate", interestRateData);   
         
 	    EditText term = (EditText) findViewById(R.id.debtmortgage_term);
 	    String termData = term.getText().toString();
 	    if (Utils.alertIfEmpty(this, termData, getResources().getString(R.string.debtmortgage_term_input))) {
-	    	return;	    	
+	    	return;
 	    }
-	    if (Utils.alertIfNotInBounds(this, termData, 0, 100,
+	    if (Utils.alertIfIntNotInBounds(this, termData, 0, 100,
 	    		getResources().getString(R.string.debtmortgage_term_input))) {
 	    	return;	    	
 	    }
@@ -232,7 +231,7 @@ public class AddDebtMortgage extends SherlockFragmentActivity
 	    if (Utils.alertIfEmpty(this, propertyInsuranceData, getResources().getString(R.string.debtmortgage_property_insurance_input))) {
 	    	return;	    	
 	    }
-	    if (Utils.alertIfIntNotInBounds(this, propertyInsuranceData, 0, 100, getResources().getString(R.string.debtmortgage_property_insurance_input))) {
+	    if (Utils.alertIfNotInBounds(this, propertyInsuranceData, 0, 100, getResources().getString(R.string.debtmortgage_property_insurance_input))) {
 	    	return;	    	
 	    }
         intent.putExtra("debtmortgage_property_insurance", propertyInsuranceData);   

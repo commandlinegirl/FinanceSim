@@ -2,7 +2,6 @@ package com.codelemma.finances;
 
 import android.app.Application;
 import android.preference.PreferenceManager;
-import android.util.Log;
 
 import com.codelemma.finances.accounting.Account;
 import com.codelemma.finances.accounting.AccountSaver;
