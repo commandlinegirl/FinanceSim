@@ -41,9 +41,7 @@ public class InvestmentSavAcct extends Investment {
     		          BigDecimal init_amount,
     		          BigDecimal tax_rate,
     		          BigDecimal percontrib,
-    		          BigDecimal interest_rate,
-                      int start_year,
-              	      int start_month) {
+    		          BigDecimal interest_rate) {
     	this.name = name;
         this.init_amount = init_amount;
         this.init_tax_rate = tax_rate;     
@@ -59,8 +57,6 @@ public class InvestmentSavAcct extends Investment {
         comp_factor_30 = new BigDecimal(Math.exp(this.interest_rate_decimal.doubleValue() * 30.0/365));
         comp_factor_31 = new BigDecimal(Math.exp(this.interest_rate_decimal.doubleValue() * 31.0/365));        	
         
-    	this.start_year = start_year;
-    	this.start_month = start_month;
         history = new HistoryInvestmentSavAcct(this);
     	setValuesBeforeCalculation();
     }
@@ -70,17 +66,13 @@ public class InvestmentSavAcct extends Investment {
 	          BigDecimal init_amount,
 	          BigDecimal tax_rate,
 	          BigDecimal percontrib,
-	          BigDecimal interest_rate,
-              int start_year,
-  	          int start_month) {
+	          BigDecimal interest_rate) {
 		return new InvestmentSavAcct(
 				name,
 				init_amount,
 				tax_rate,                
 			    percontrib,
-			    interest_rate,
-			    start_year,
-				start_month);
+			    interest_rate);
 	}
 
     @Override
@@ -176,33 +168,28 @@ public class InvestmentSavAcct extends Investment {
     public void launchModifyUi(ModifyUiVisitor modifyUiVisitor) {
     	modifyUiVisitor.launchModifyUiForInvestmentSavAcct(this);
     }
-        
+
     @Override
     public void advance(int year, int month, BigDecimal excess, BigDecimal checkingAcctPercontrib) {
-    	if (year == start_year && month == start_month) {
-    		initialize();
     		advanceValues(month, excess);
-    	} else if ((year > start_year) || (year == start_year && month > start_month)) {
-    		advanceValues(month, excess);
-    	}       	
     }
-    
+
     @Override
     public void setValuesBeforeCalculation() {
-        amount = Money.ZERO;	
-        hidden_amount = Money.ZERO;
+        amount = Money.scale(init_amount);	
+        hidden_amount = init_amount;
         contribution = Money.ZERO;
     }
-	
+
 	@Override
 	public void initialize() {
 		amount = Money.scale(init_amount);
 		hidden_amount = init_amount;  
 		contribution = Money.ZERO;
 	}
-    
+
     private void advanceValues(int month, BigDecimal excess) {
-    	
+
         interests_gross = Money.ZERO;
         tax_on_interests = Money.ZERO;
         interests_net = Money.ZERO;

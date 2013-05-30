@@ -41,9 +41,7 @@ public class InvestmentCheckAcct extends Investment {
     private InvestmentCheckAcct(String name,
     		          BigDecimal init_amount,
     		          BigDecimal tax_rate,
-    		          BigDecimal interest_rate,
-                      int start_year,
-              	      int start_month) {
+    		          BigDecimal interest_rate) {
     	this.name = name;
         this.init_amount = init_amount;
         this.init_interest_rate = interest_rate;
@@ -56,26 +54,20 @@ public class InvestmentCheckAcct extends Investment {
         comp_factor_30 = new BigDecimal(Math.exp(this.interest_rate_decimal.doubleValue() * 30.0/365));
         comp_factor_31 = new BigDecimal(Math.exp(this.interest_rate_decimal.doubleValue() * 31.0/365));        	
 
-    	this.start_year = start_year;
-    	this.start_month = start_month;
     	history = new HistoryInvestmentCheckAcct(this);
-    	setValuesBeforeCalculation();
+    	initialize();
     }   
 
 	public static InvestmentCheckAcct create(
 			String name,
 	          BigDecimal init_amount,
 	          BigDecimal tax_rate,
-	          BigDecimal interest_rate,
-              int start_year,
-    	      int start_month) {
+	          BigDecimal interest_rate) {
         return new InvestmentCheckAcct(
         	name,
 		    init_amount,
 		    tax_rate,
-            interest_rate,
-            start_year,
-            start_month);
+            interest_rate);
     }
     
 	@Override
@@ -174,27 +166,18 @@ public class InvestmentCheckAcct extends Investment {
         
     @Override
     public void advance(int year, int month, BigDecimal excess, BigDecimal checkingAcctPercontrib) {
+    	percontrib = checkingAcctPercontrib;
+		percontrib_decimal = checkingAcctPercontrib.divide(Money.HUNDRED, Money.RATE_DECIMALS, Money.ROUNDING_MODE);
+    	advanceValues(month, excess);
+    }
 
-    	if ((year < start_year) || (year == start_year && month < start_month)) {
-    		setValuesBeforeCalculation();
-    	} else if (year == start_year && month == start_month) {
-    		percontrib = checkingAcctPercontrib;
-    		percontrib_decimal = checkingAcctPercontrib.divide(Money.HUNDRED, Money.RATE_DECIMALS, Money.ROUNDING_MODE);
-    		initialize();
-    		advanceValues(month, excess);
-    	} else if ((year > start_year) || (year == start_year && month > start_month)) {
-    		advanceValues(month, excess);
-    	}       	
-    }
-    
-    
- 	@Override
-    public void setValuesBeforeCalculation() {
-        amount = Money.ZERO;	
-        hidden_amount = Money.ZERO;
-        contribution = Money.ZERO;
-    }
-        
+	@Override
+	public void setValuesBeforeCalculation() {
+ 		amount = init_amount;
+ 		hidden_amount = init_amount;  
+ 		contribution = Money.ZERO;
+	}
+	
  	@Override
  	public void initialize() {
  		amount = init_amount;
@@ -231,7 +214,7 @@ public class InvestmentCheckAcct extends Investment {
  		    hidden_amount = hidden_amount.subtract(tax_on_interests);     		            
             interests_net = interests_gross.subtract(tax_on_interests);                 
             amount = hidden_amount; // hidden amount contains interests!!!
- 		}	
+ 		}
     }
 	
 	@Override
@@ -253,6 +236,4 @@ public class InvestmentCheckAcct extends Investment {
 	public void updateInputListing(InputListingUpdater modifier) {
 		modifier.updateInputListingForInvestmentCheckAcct(this);
 	}
-
-
 }

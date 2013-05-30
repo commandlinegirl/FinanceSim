@@ -2,8 +2,6 @@ package com.codelemma.finances.accounting;
 
 import java.math.BigDecimal;
 
-import android.util.Log;
-
 import com.codelemma.finances.InputListingUpdater;
 
 public class Investment401k extends Investment {
@@ -279,7 +277,6 @@ public class Investment401k extends Investment {
     
 	@Override
 	public void initialize() {
-		Log.d("444 Investment401k.initialize called", "called");
 		amount = Money.scale(init_amount);
 		salary = income.getGrossIncome();
 		hidden_interests = Money.ZERO;

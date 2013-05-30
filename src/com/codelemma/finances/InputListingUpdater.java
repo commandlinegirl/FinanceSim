@@ -205,11 +205,11 @@ public class InputListingUpdater implements InputListingVisitor {
 	    relativeParams = new RelativeLayout.LayoutParams(0, 
 	    		RelativeLayout.LayoutParams.WRAP_CONTENT);
 		tv = new TextView(frgActivity);
-		tv.setText("Amount: " + formatter.formatNumber(debt.getInitAmount()));
-		tv.setId(102);		
+		tv.setText("Amount:\n" + formatter.formatNumber(debt.getInitAmount()));
+		tv.setId(102);
 		relativeParams.addRule(RelativeLayout.BELOW, 100);
 		relativeParams.addRule(RelativeLayout.ALIGN_RIGHT, 101);
-		relativeParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);	
+		relativeParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
 	    tv.setLayoutParams(relativeParams);	    
 	    rLayout.addView(tv);
 	    
@@ -217,7 +217,7 @@ public class InputListingUpdater implements InputListingVisitor {
 	    relativeParams = new RelativeLayout.LayoutParams(0, 
 	    		RelativeLayout.LayoutParams.WRAP_CONTENT);
 	    tv = new TextView(frgActivity);
-		tv.setText("Total interest: " + formatter.formatNumber(total_interests));
+		tv.setText("Total interest:\n" + formatter.formatNumber(total_interests));
 		tv.setId(103);
 		relativeParams.addRule(RelativeLayout.BELOW, 100);
 		relativeParams.addRule(RelativeLayout.ALIGN_LEFT, 101);
@@ -237,7 +237,7 @@ public class InputListingUpdater implements InputListingVisitor {
 	    relativeParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.FILL_PARENT, 
 	    		RelativeLayout.LayoutParams.WRAP_CONTENT);
 	    tv = new TextView(frgActivity);
-		tv.setText("Mthly payment: " + formatter.formatNumber(debt.calculateMonthlyPayment()));
+		tv.setText("Monthly payment:\n" + formatter.formatNumber(debt.calculateMonthlyPayment()));
 		tv.setId(105);
 		relativeParams.addRule(RelativeLayout.BELOW, 102);
 		relativeParams.addRule(RelativeLayout.ALIGN_RIGHT, 104);
@@ -248,7 +248,7 @@ public class InputListingUpdater implements InputListingVisitor {
 	    relativeParams = new RelativeLayout.LayoutParams(0, 
 	    		RelativeLayout.LayoutParams.WRAP_CONTENT);
 	    tv = new TextView(frgActivity);
-		tv.setText("Total payment: " + formatter.formatNumber(total_interests.add(debt.getInitAmount())));
+		tv.setText("Total payment:\n" + formatter.formatNumber(total_interests.add(debt.getInitAmount())));
 		tv.setId(106);
 		relativeParams.addRule(RelativeLayout.BELOW, 103);
 		relativeParams.addRule(RelativeLayout.ALIGN_LEFT, 104);
@@ -272,7 +272,6 @@ public class InputListingUpdater implements InputListingVisitor {
         
 		int padding = Utils.px(frgActivity, 10);
 		rLayout.setPadding(padding, padding, padding, padding); // int left, int top, int right, int bottom     
-
 		
 		RelativeLayout.LayoutParams relativeParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.FILL_PARENT, 
 	    		RelativeLayout.LayoutParams.WRAP_CONTENT);
@@ -298,7 +297,7 @@ public class InputListingUpdater implements InputListingVisitor {
 	    relativeParams = new RelativeLayout.LayoutParams(0, 
 	    		RelativeLayout.LayoutParams.WRAP_CONTENT);
 		TextView tv2 = new TextView(frgActivity);
-		tv2.setText("Amount: " + formatter.formatNumber(debt.getLoanAmount()));
+		tv2.setText("Amount:\n" + formatter.formatNumber(debt.getLoanAmount()));
 		tv2.setId(102);
 		tv.setTextColor(Color.parseColor("#FF771100"));
 		relativeParams.addRule(RelativeLayout.BELOW, 100);
@@ -310,7 +309,7 @@ public class InputListingUpdater implements InputListingVisitor {
 	    relativeParams = new RelativeLayout.LayoutParams(0, 
 	    		RelativeLayout.LayoutParams.WRAP_CONTENT);
 	    TextView tv4 = new TextView(frgActivity);
-		tv4.setText("Total interest: " + formatter.formatNumber(debt.getTotalInterestPaid()));
+		tv4.setText("Total interest:\n" + formatter.formatNumber(debt.getTotalInterestPaid()));
 		tv4.setId(103);
 		relativeParams.addRule(RelativeLayout.BELOW, 100);
 		relativeParams.addRule(RelativeLayout.ALIGN_LEFT, 101);
@@ -329,7 +328,7 @@ public class InputListingUpdater implements InputListingVisitor {
 	    relativeParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.FILL_PARENT, 
 	    		RelativeLayout.LayoutParams.WRAP_CONTENT);
 	    TextView tv3 = new TextView(frgActivity);
-		tv3.setText("Total payment: " + formatter.formatNumber(debt.getTotalPayment()));
+		tv3.setText("Total payment:\n" + formatter.formatNumber(debt.getTotalPayment()));
 		tv3.setId(105);
 		relativeParams.addRule(RelativeLayout.BELOW, 102);
 		relativeParams.addRule(RelativeLayout.ALIGN_RIGHT, 104);
@@ -340,7 +339,7 @@ public class InputListingUpdater implements InputListingVisitor {
 	    relativeParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.FILL_PARENT, 
 	    		RelativeLayout.LayoutParams.WRAP_CONTENT);
 	    TextView tv5 = new TextView(frgActivity);
-		tv5.setText("Extra costs: " + formatter.formatNumber(debt.getTotalAdditionalCost()));
+		tv5.setText("Extra costs:\n" + formatter.formatNumber(debt.getTotalAdditionalCost()));
 		tv5.setId(106);
 		relativeParams.addRule(RelativeLayout.BELOW, 103);
 		relativeParams.addRule(RelativeLayout.ALIGN_LEFT, 104);

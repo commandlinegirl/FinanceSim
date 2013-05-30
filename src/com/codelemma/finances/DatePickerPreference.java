@@ -14,7 +14,6 @@ import android.os.Build;
 import android.preference.DialogPreference;
 import android.preference.PreferenceManager;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
 
@@ -43,7 +42,6 @@ public class DatePickerPreference extends DialogPreference
     */
     @Override
     protected View onCreateDialogView() {
-    	Log.d("### onCreateDialogView()", "called");
     	super.onCreateDialogView();
         this.datePicker = new DatePicker(getContext());
         removeCalendarView();
@@ -58,7 +56,6 @@ public class DatePickerPreference extends DialogPreference
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
 	private void removeCalendarView() {
-    	Log.d("### removeCalendarView()", "called");
     	if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
     	    this.datePicker.setCalendarViewShown(false);
     	}
@@ -73,7 +70,6 @@ public class DatePickerPreference extends DialogPreference
      * @return the Calendar for the date picker
      */
     public Calendar getDate() {
-    	Log.d("### getDate()", "called");
         Calendar cal = Calendar.getInstance();
         try {        	
         	storage.open(Storage.OpenState.READ);
@@ -93,7 +89,6 @@ public class DatePickerPreference extends DialogPreference
     * Called when the user changes the date.
     */
     public void onDateChanged(DatePicker view, int year, int month, int day) {
-  	    Log.d("### onDateChanged()", "called");
         this.changedYear = year;
         this.changedMonth = month;
     }
@@ -104,18 +99,11 @@ public class DatePickerPreference extends DialogPreference
    */
     @Override
     protected void onDialogClosed(boolean shouldSave) {
-    	Log.d("### onDialogClosed()", "called");
         if (shouldSave) {
-        	Log.d("### onDialogClosed()", "should Save true");
             int year = changedYear; //Integer.parseInt(this.changedValueCanBeNull.substring(0, 4));
             int month = changedMonth;//Integer.parseInt(this.changedValueCanBeNull.substring(5, 7));
-            Log.d("onDialogClosed year", String.valueOf(year));
-            Log.d("onDialogClosed month", String.valueOf(month));
-            Log.d("onDialogClosed year", String.valueOf(appState.getAccount().getCalculationStartYear()));
-            Log.d("onDialogClosed month", String.valueOf(appState.getAccount().getCalculationStartMonth()));
             if ((appState.getAccount().getCalculationStartYear() == year && appState.getAccount().getCalculationStartMonth() > month) 
         			|| (appState.getAccount().getCalculationStartYear() > year)) {
-            	Log.d("alert", "ALERT");
             	new AlertDialog.Builder(context) 
             	    .setTitle("Date input incorrect")
                     .setMessage("The start date of the simulation should not be earlier than the earliest start date of any of your instruments " +
@@ -136,7 +124,6 @@ public class DatePickerPreference extends DialogPreference
     		        appState.getAccount().setSimulationStartMonth(month); //TODO: change this!!!
     		        appState.getAccount().createDateList();
     		        appState.needToRecalculate(true);
-    		        Log.d("saved to preferences", "preferences");
     	        	setSummary(months[month]+"/"+year); //TODO: throw exception if indexofoutbounds
     	        } catch (StorageException e) {
     		        e.printStackTrace();
@@ -154,7 +141,6 @@ public class DatePickerPreference extends DialogPreference
    * @return the Calendar set to the default date
    */
     public static Calendar defaultCalendar() {
-        Log.d("### defaultCalendar()", "called");
         return new GregorianCalendar(2014, 0, 1);
     }
 }

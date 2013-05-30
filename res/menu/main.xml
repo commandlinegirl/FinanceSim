@@ -1,23 +1,25 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
-    
     <group android:checkableBehavior="single">
-        
       <item android:id="@+id/menu_add"
         android:title="@string/menu_add"
         android:icon="@drawable/ico_add"
         android:checked="true"
         android:showAsAction="always" />
-    
+
       <item android:id="@+id/menu_chart"
         android:title="@string/menu_chart"
         android:icon="@drawable/ico_chart"
         android:showAsAction="always" />
-    
+
       <item android:id="@+id/menu_table"
         android:title="@string/menu_table"
         android:icon="@drawable/ico_table"
         android:showAsAction="always" />
-    
+
+      <item android:id="@+id/menu_explain"
+        android:title="@string/menu_explain"
+        android:icon="@drawable/ico_help"
+        android:showAsAction="always" />
     </group>
 
     <item
@@ -25,23 +27,14 @@
         android:orderInCategory="101"
         android:showAsAction="never"
         android:title="@string/menu_about"/>
-    
     <item
         android:id="@+id/menu_feedback"
         android:orderInCategory="102"
         android:showAsAction="never"
         android:title="@string/menu_feedback"/>
-    
     <item
         android:id="@+id/menu_settings"
         android:orderInCategory="102"
         android:showAsAction="never"
         android:title="@string/menu_settings"/>
-        
-    <item
-        android:id="@+id/menu_explain"
-        android:orderInCategory="102"
-        android:showAsAction="never"
-        android:title="@string/menu_explain"/>
-    
 </menu>

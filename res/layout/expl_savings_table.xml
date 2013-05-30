@@ -33,5 +33,30 @@
         android:paddingBottom="10dp">                      
     </TextView>  
     
+    <LinearLayout
+        android:layout_height="1dp"
+        android:background="#FFCCCCCC"
+        android:layout_width="fill_parent"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"/>
+        
+        <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/ico_add">    
+        </ImageView>
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="@string/update_data_info"
+            android:layout_gravity="center_vertical">
+        </TextView>
+    </LinearLayout>
   </LinearLayout>
 </ScrollView>

@@ -44,18 +44,18 @@
     <string name="add_expense">Add expense</string>
     <string name="acct_object">acct_object</string>
     <string name="action_settings">Settings</string>
-    
+
     <!-- Feedback window -->
 
-    <string name="feedback_text1">If you have any comments, questions, complaints please send an email to: <b>techgusto@gmail.com</b>.</string>
+    <string name="feedback_text1">If you have any comments, questions, complaints please send an email to: <b>codelemma@gmail.com</b>.</string>
     <string name="feedback_text2">We will answer you back as soon as we can.\n\nPlease, rate <b>FinanceSim</b> in GooglePlay.</string>
-    
+
     <!-- About window -->
-    
+
     <string name="about_title1"><b>Financial simulator</b></string>
     <string name="about_title1_moreinfo"><b>More info</b></string>
     <string name="about_text1"><b>FinanceSim</b> simulates your future financial situation based on all the earnings (capital 
-        and non-capital income) and spendings (debts and expenses) you incur each month. It generates simulations showing the rate of growth of your 
+        and non-capital income) and spendings (debts and expenses). It generates simulations showing the rate of growth of your 
         assets and liabilities.
         It will show you: \n
          - when you are going to get your (first) million \n
@@ -71,7 +71,7 @@
         - ability to add bond investments,\n
         - and more.</string>
     <string name="about_title5"><b>Questions, suggestions, bug reports</b></string>
-    <string name="about_text5">I\'ll be happy to hear from you at: <b>techgusto@gmail.com</b></string>
+    <string name="about_text5">I\'ll be happy to hear from you at: <b>codelemma@gmail.com</b></string>
     <string name="about_title6"><b>Disclaimer</b></string>
     <string name="about_text6"><b>FinanceSim</b> serves informative functions only and may not be used as a replacement of legal advice. Although every precaution
         has been taken in preparation of the app, the author assumes no responsibility for errors or omissions and the app is provided without any guarantees,
@@ -104,11 +104,11 @@
     <string name="yearly_income_input">Income per year</string>
     <string name="yearly_income_text"></string>
     <string name="yearly_income_rise_input">Rise per year</string>
-    <string name="yearly_income_rise_text"></string>
+    <string name="yearly_income_rise_text">5</string>
     <string name="income_tax_rate_input">Tax rate</string>
-    <string name="income_tax_rate_text"></string>
+    <string name="income_tax_rate_text">30</string>
     <string name="income_term_input">Income term (years)</string>
-    <string name="income_term_text"></string>
+    <string name="income_term_text">30</string>
     <string name="income_help_intro">Here add any regular source of income (eg. salary, returns 
         from renting a flat, dividends, etc.).</string>
     <string name="income_help_yearly_income"><b>Income per year</b>\nGross yearly income.</string>
@@ -177,16 +177,16 @@
     <string name="investmentsav_name_input">Name</string>
     <string name="investmentsav_name_text">Savings account</string>
     <string name="investmentsav_init_amount_input">Current amount</string>
-    <string name="investmentsav_init_amount_text"></string>
+    <string name="investmentsav_init_amount_text">0</string>
     <string name="investmentsav_interest_rate_input">Interest rate</string>
     <string name="investmentsav_interest_rate_text"></string>
     <string name="investmentsav_tax_rate_input">Tax rate</string>
-    <string name="investmentsav_tax_rate_text">15</string>
+    <string name="investmentsav_tax_rate_text">30</string>
     <string name="investmentsav_percontrib_input">Excess fraction (see HELP)</string>
     <string name="investmentsav_percontrib_text">30</string>
     <string name="investmentsavacct_help_amount"><b>Current amount</b>\nCurrent balance on your account.</string>
     <string name="investmentsavacct_help_interest_rate"><b>Interest rate</b>\nAnnual interest rate.</string>
-    <string name="investmentsavacct_help_tax_rate"><b>Tax rate</b>\nTax rate on the interest.</string>
+    <string name="investmentsavacct_help_tax_rate"><b>Tax rate</b>\nTax rate on the interest. Usually it is taxed at the same rate as wages.</string>
      <string name="investmentsavacct_help_percontrib"><b>Excess fraction</b>\nWhat percentage of your total monthly 
          <i>excess money</i> (i.e. capital and non-capital income minus expenses, debt rates, and retirement plan deposits) you want to put 
          into the savings account. 
@@ -205,20 +205,20 @@
     <string name="investmentcheck_interest_rate_input">Interest rate</string>
     <string name="investmentcheck_interest_rate_text">0.5</string>
     <string name="investmentcheck_tax_rate_input">Tax rate</string>
-    <string name="investmentcheck_tax_rate_text">15</string>
+    <string name="investmentcheck_tax_rate_text">30</string>
     <string name="investmentcheckacct_help_amount"><b>Current amount</b>\nCurrent balance on your account.</string>
     <string name="investmentcheckacct_help_interest_rate"><b>Interest rate</b>\nAnnual interest rate.</string>
-    <string name="investmentcheckacct_help_tax_rate"><b>Tax rate</b>\nTax rate on the interest.</string>
+    <string name="investmentcheckacct_help_tax_rate"><b>Tax rate</b>\nTax rate on the interest. Usually it is taxed at the same rate as wages.</string>
     <string name="investment401k_name_input">Name</string>
     <string name="investment401k_name_text">401(k)</string>
     <string name="investment401k_init_amount_input">Current balance</string>
-    <string name="investment401k_init_amount_text"></string>
+    <string name="investment401k_init_amount_text">0</string>
     <string name="investment401k_salary_input">Salary</string>
     <string name="investment401k_salary_text"></string>
     <string name="investment401k_percontrib_input">Your contribution</string>
     <string name="investment401k_percontrib_text">10</string>
     <string name="investment401k_period_input">Term</string>
-    <string name="investment401k_period_text"></string>
+    <string name="investment401k_period_text">30</string>
     <string name="investment401k_payrise_input">Estimated pay rise (per year)</string>
     <string name="investment401k_payrise_text"></string>
     <string name="investment401k_withdrawal_tax_rate_input">Tax rate at withdrawal</string>
@@ -226,7 +226,7 @@
     <string name="investment401k_employer_match_input">Employer match</string>
     <string name="investment401k_employer_match_text">50</string>
     <string name="investment401k_interest_rate_input">Expected return (per year) </string>
-    <string name="investment401k_interest_rate_text"></string>
+    <string name="investment401k_interest_rate_text">3</string>
     <string name="investment401k_help_amount"><b>Current balance</b>\nCurrent balance on your 401(k) account.</string>
     <string name="investment401k_help_annual_salary"><b>Salary</b>\nSalary account associated with the 401(k) plan.</string>
     <string name="investment401k_help_percontrib"><b>Your contribution</b>\nYour annual contribution rate to the account.</string>
@@ -237,17 +237,18 @@
     <string name="investment401k_help_start_date"><b>Start date</b>\nDate of 401(k) plan commencement (has to start not earlier than the salary start date). The is independent from <i>simulation start date</i>, 
         which is identical for all your instruments and can be set in <b>Settings</b>.</string>
 
-
-    <!-- Help (explain) dialogs -->
+    <string name="update_data_info">modify your input data to change these simulation results.</string>
     
-    <string name="expl_income_add_intro">Here input your regular income sources (salary, income from renting an apartment, dividends, etc.)</string>
+    <!-- Help (explain) dialogs -->
+
+    <string name="expl_income_add_intro">Here input and update your regular income sources (salary, income from renting an apartment, dividends, etc.)</string>
     <string name="expl_income_chart_intro">The chart shows monthly net and gross income.</string>
-    <string name="expl_income_table_intro">If 401(k) is associated with a given income account, the 401(k) contribution is subtracted from the account
-        before tax.</string>
+    <string name="expl_income_table_intro">The table shows monthly net income, gross income and tax. If 401(k) is associated with a given income account, the 401(k) contribution is subtracted from the account
+        before tax. </string>
 
     <!-- Expenses help -->
 
-    <string name="expl_expenses_add_intro">Here input your regular expenses, such as monthly spendings, insurance, house or apartment rent, yearly travel 
+    <string name="expl_expenses_add_intro">Here input and update your regular expenses, such as monthly spendings, insurance, house or apartment rent, yearly travel 
         budget, etc. \n\nThe submitted amounts are used as starting points in projecting your future expenses with inflation taken into account. 
         Inflation is assumed to be constant over years.</string>
     <string name="expl_expenses_chart_intro">The chart shows the projection of your monthly expenses over years. The rise or fall of the expenses is due to inflation.</string>
@@ -255,13 +256,13 @@
 
     <!-- Savings help -->
 
-    <string name="savings_expl_add_intro">Here input your bank and retirement plan accounts data.
+    <string name="savings_expl_add_intro">Here input and update your bank and retirement plan accounts data.
         \n\n<b><i>Checking account</i></b>\nIt is a fixed account used in <b>FinanceSim</b> to deposit all of the remaining monthly income (capital and 
         non-capital) after it has been partitioned into expenses, savings accounts, 401(k) accounts, and debt rates. The interests are
         compounded continuously and paid monthly.
         \n\n<b><i>Savings account</i></b>\nIn a savings account you can store a given percentage of your excess money (i.e. the money remaining after it
         has been partitioned into expenses, 401(k) accounts, and debt rates). The interests are compounded continuously and paid monthly.
-        \n\n<b><i>401(k) account</i></b>\nContributions to this 401(k) account plan are made on a pre-tax basis so the earnings are tax-deferred. Tax
+        \n\n<b><i>401(k) account</i></b>\nIt is a pension plan common in the US. Contributions to the 401(k) account plan are made on a pre-tax basis so the earnings are tax-deferred. Tax
         is subtracted from the 401(k) earnings on withdrawal and deposited in the checking account.</string>
     <string name="savings_expl_chart_intro">The chart shows a projection of your account balance over years.</string>
     
@@ -297,24 +298,24 @@
         \n\n<b>Total interest</b>\nCumulative amount of interest paid up to a given point in time.
         \n\n<b>Remaining amount</b>\nThe loan amount which remains unpaid (exluding interest).</string>
 
-    <!-- Cashflows help -->
+    <!-- Cashflows help -->    
 
     <string name="expl_cashflows_add_intro"><b>Cashflows</b>
         \nThe cashflows show the projections of your monthly budget breakdown into earings, spendings, and money deposited as savings.
     </string>
 
     <string name="expl_cashflows_chart_intro"><b>Net income</b>\nThe sum of all your net income sources in a given month.
-        \n\n<b>Capital gains</b>\nThe sum of the interests and earnings made in a given month, excluding 401(k) earnings (which are deposited in a lump sum  to the Checking Account at withdrawal).
+        \n\n<b>Interest</b>\nThe sum of the interests and earnings made in a given month, excluding 401(k) earnings (which are deposited in a lump sum  to the Checking account at withdrawal).
         \n\n<b>Total expenses</b>\nThe sum of all the spendings made in a given month.
         \n\n<b>Debt service</b>\nThe sum of your monthly debt payments.
-        \n\n<b>Saved</b>\nThe amount of money put away into bank accounts (checking, savings, etc.) in a given month. It includes 401(k) earnings deposited in a lump sum at withdrawal.</string>
+        \n\n<b>Saved</b>\nThe amount of money put away into bank accounts (checking, savings, etc.) in a given month. 401(k) earnings are deposited to Checking account in a lump sum at withdrawal..</string>
 
     <string name="expl_cashflows_table_intro"><b>Net income</b>\nThe sum of all your net income sources in a given month.
-        \n\n<b>Capital gains</b>\nThe sum of the interests and earnings made in a given month, excluding 401(k) earnings (which are deposited in a lump sum to the Checking Account at withdrawal). 
+        \n\n<b>Interest</b>\nThe sum of the interests and earnings made in a given month, excluding 401(k) earnings (which are deposited in a lump sum to the Checking account at withdrawal). 
         \n\n<b>Total expenses</b>\nThe sum of all the spendings made in a given month.
         \n\n<b>Debt service</b>\nThe sum of your monthly debt payments.
-        \n\n<b>Saved</b>\nThe amount of money put away into bank accounts (checking, savings, etc.) in a given month. It includes 401(k) earnings deposited in a lump sum at withdrawal.
-        \n\nThe total of all these amounts in a given month should be 0, except for the case when you have a Savings account with a non-zero excess 
+        \n\n<b>Saved</b>\nThe amount of money put away into bank accounts (checking, savings, etc.) in a given month. 401(k) earnings are deposited to Checking account in a lump sum at withdrawal.
+        \n\nThe total of all these amounts (ie. net income + interest - total expenses - debt service - saved) in a given month should be 0, except for the case when you have a Savings account with a non-zero excess 
         fraction and your income do not cover expenses and debts. See Savings \/ Add savings account \/ HELP.</string>
 
     <!-- Net worth help -->
@@ -333,6 +334,7 @@
     <string name="start_popup_input">enter or modify input data (income, expenses, savings, debts)</string>        
     <string name="start_popup_chart">results in chart</string>        
     <string name="start_popup_table">results in table</string>        
+    <string name="start_popup_help">help</string>
     <string name="start_popup_ending">\nPlease, rate the app in Google Play.</string>
     
     <!-- Alert dialogs -->

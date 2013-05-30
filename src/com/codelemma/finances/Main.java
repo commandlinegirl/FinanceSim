@@ -20,7 +20,6 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.drawable.Drawable;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 
@@ -138,7 +137,6 @@ public class Main extends SherlockFragmentActivity
 	@Override
 	public void onPause() {
 		super.onPause();
-		Log.d("#### SAVINGS", "savings account");
         Preconditions.checkNotNull(Finances.getInstance(), "Finances instance doesn't exist");
 	    Finances.getInstance().saveAccount();
 		// close dialog before exiting activity

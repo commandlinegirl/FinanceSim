@@ -951,34 +951,36 @@ containing a value of this type.
         public static final int ico_chart=0x7f02007f;
         public static final int ico_chart_excl=0x7f020080;
         public static final int ico_chart_on=0x7f020081;
-        public static final int ico_table=0x7f020082;
-        public static final int ico_table_excl=0x7f020083;
-        public static final int ico_table_on=0x7f020084;
-        public static final int list_focused_finances=0x7f020085;
-        public static final int menu_dropdown_panel_finances=0x7f020086;
-        public static final int menu_hardkey_panel_finances=0x7f020087;
-        public static final int networth=0x7f020088;
-        public static final int pred_years=0x7f020089;
-        public static final int pred_yrs_initial=0x7f02008a;
-        public static final int pred_yrs_pressed=0x7f02008b;
-        public static final int pressed_background_finances=0x7f02008c;
-        public static final int progress_bg_finances=0x7f02008d;
-        public static final int progress_horizontal_finances=0x7f02008e;
-        public static final int progress_primary_finances=0x7f02008f;
-        public static final int progress_secondary_finances=0x7f020090;
-        public static final int selectable_background_finances=0x7f020091;
-        public static final int spinner_ab_default_finances=0x7f020092;
-        public static final int spinner_ab_disabled_finances=0x7f020093;
-        public static final int spinner_ab_focused_finances=0x7f020094;
-        public static final int spinner_ab_pressed_finances=0x7f020095;
-        public static final int spinner_background_ab_finances=0x7f020096;
-        public static final int start_popup=0x7f020097;
-        public static final int tab_indicator_ab_finances=0x7f020098;
-        public static final int tab_selected_finances=0x7f020099;
-        public static final int tab_selected_focused_finances=0x7f02009a;
-        public static final int tab_selected_pressed_finances=0x7f02009b;
-        public static final int tab_unselected_focused_finances=0x7f02009c;
-        public static final int tab_unselected_pressed_finances=0x7f02009d;
+        public static final int ico_help=0x7f020082;
+        public static final int ico_help_on=0x7f020083;
+        public static final int ico_table=0x7f020084;
+        public static final int ico_table_excl=0x7f020085;
+        public static final int ico_table_on=0x7f020086;
+        public static final int list_focused_finances=0x7f020087;
+        public static final int menu_dropdown_panel_finances=0x7f020088;
+        public static final int menu_hardkey_panel_finances=0x7f020089;
+        public static final int networth=0x7f02008a;
+        public static final int pred_years=0x7f02008b;
+        public static final int pred_yrs_initial=0x7f02008c;
+        public static final int pred_yrs_pressed=0x7f02008d;
+        public static final int pressed_background_finances=0x7f02008e;
+        public static final int progress_bg_finances=0x7f02008f;
+        public static final int progress_horizontal_finances=0x7f020090;
+        public static final int progress_primary_finances=0x7f020091;
+        public static final int progress_secondary_finances=0x7f020092;
+        public static final int selectable_background_finances=0x7f020093;
+        public static final int spinner_ab_default_finances=0x7f020094;
+        public static final int spinner_ab_disabled_finances=0x7f020095;
+        public static final int spinner_ab_focused_finances=0x7f020096;
+        public static final int spinner_ab_pressed_finances=0x7f020097;
+        public static final int spinner_background_ab_finances=0x7f020098;
+        public static final int start_popup=0x7f020099;
+        public static final int tab_indicator_ab_finances=0x7f02009a;
+        public static final int tab_selected_finances=0x7f02009b;
+        public static final int tab_selected_focused_finances=0x7f02009c;
+        public static final int tab_selected_pressed_finances=0x7f02009d;
+        public static final int tab_unselected_focused_finances=0x7f02009e;
+        public static final int tab_unselected_pressed_finances=0x7f02009f;
     }
     public static final class id {
         public static final int abs__action_bar=0x7f050022;
@@ -1021,7 +1023,7 @@ containing a value of this type.
         public static final int abs__title=0x7f05001b;
         public static final int abs__titleDivider=0x7f05001c;
         public static final int abs__up=0x7f05000b;
-        public static final int action_settings=0x7f0500a2;
+        public static final int action_settings=0x7f0500a3;
         public static final int add_data_button=0x7f050076;
         public static final int add_data_text=0x7f050075;
         public static final int additional_cost=0x7f05008d;
@@ -1105,13 +1107,13 @@ containing a value of this type.
         public static final int legend=0x7f050070;
         public static final int listMode=0x7f050002;
         public static final int main_container=0x7f05009e;
-        public static final int menu_about=0x7f0500a3;
+        public static final int menu_about=0x7f0500a2;
         public static final int menu_add=0x7f0500a4;
         public static final int menu_chart=0x7f0500a5;
-        public static final int menu_explain=0x7f0500a8;
+        public static final int menu_explain=0x7f0500a7;
         public static final int menu_feedback=0x7f0500a0;
         public static final int menu_help=0x7f0500a1;
-        public static final int menu_settings=0x7f0500a7;
+        public static final int menu_settings=0x7f0500a8;
         public static final int menu_table=0x7f0500a6;
         public static final int net_expense=0x7f05008e;
         public static final int net_income=0x7f050091;
@@ -1326,8 +1328,8 @@ containing a value of this type.
         public static final int add_investmentbond=0x7f0a0034;
         public static final int add_investmentcheckacct=0x7f0a0032;
         public static final int add_investmentsav=0x7f0a0031;
-        public static final int add_investmentsavacct_info=0x7f0a00f5;
-        public static final int add_investmentsavacct_title=0x7f0a00f4;
+        public static final int add_investmentsavacct_info=0x7f0a00f7;
+        public static final int add_investmentsavacct_title=0x7f0a00f6;
         public static final int add_investmentstock=0x7f0a0035;
         public static final int app_name=0x7f0a000f;
         public static final int cancel=0x7f0a002c;
@@ -1387,42 +1389,42 @@ containing a value of this type.
         public static final int expenses_title=0x7f0a0057;
         /**  Cashflows help 
          */
-        public static final int expl_cashflows_add_intro=0x7f0a00e3;
-        public static final int expl_cashflows_chart_intro=0x7f0a00e4;
-        public static final int expl_cashflows_table_intro=0x7f0a00e5;
+        public static final int expl_cashflows_add_intro=0x7f0a00e4;
+        public static final int expl_cashflows_chart_intro=0x7f0a00e5;
+        public static final int expl_cashflows_table_intro=0x7f0a00e6;
         /**  Debts help 
          */
-        public static final int expl_debts_add_intro=0x7f0a00df;
-        public static final int expl_debts_chart_intro=0x7f0a00e0;
-        public static final int expl_debts_table_intro_1=0x7f0a00e1;
-        public static final int expl_debts_table_intro_2=0x7f0a00e2;
+        public static final int expl_debts_add_intro=0x7f0a00e0;
+        public static final int expl_debts_chart_intro=0x7f0a00e1;
+        public static final int expl_debts_table_intro_1=0x7f0a00e2;
+        public static final int expl_debts_table_intro_2=0x7f0a00e3;
         /**  Expenses help 
          */
-        public static final int expl_expenses_add_intro=0x7f0a00d8;
-        public static final int expl_expenses_chart_intro=0x7f0a00d9;
-        public static final int expl_expenses_table_intro=0x7f0a00da;
+        public static final int expl_expenses_add_intro=0x7f0a00d9;
+        public static final int expl_expenses_chart_intro=0x7f0a00da;
+        public static final int expl_expenses_table_intro=0x7f0a00db;
         /**  Help (explain) dialogs 
          */
-        public static final int expl_income_add_intro=0x7f0a00d5;
-        public static final int expl_income_chart_intro=0x7f0a00d6;
-        public static final int expl_income_table_intro=0x7f0a00d7;
+        public static final int expl_income_add_intro=0x7f0a00d6;
+        public static final int expl_income_chart_intro=0x7f0a00d7;
+        public static final int expl_income_table_intro=0x7f0a00d8;
         /**  Net worth help 
          */
-        public static final int expl_net_worth_add_intro=0x7f0a00e6;
-        public static final int expl_net_worth_table_intro=0x7f0a00e7;
+        public static final int expl_net_worth_add_intro=0x7f0a00e7;
+        public static final int expl_net_worth_table_intro=0x7f0a00e8;
         /**  Feedback window 
          */
         public static final int feedback_text1=0x7f0a003b;
         public static final int feedback_text2=0x7f0a003c;
-        public static final int frg_debts_add_multiple_info=0x7f0a00f3;
-        public static final int frg_expenses_add_multiple_info=0x7f0a00f1;
-        public static final int frg_income_add_multiple_info=0x7f0a00f0;
-        public static final int frg_investment_add_salary_neutral=0x7f0a00ef;
-        public static final int frg_investment_add_salary_text=0x7f0a00ee;
+        public static final int frg_debts_add_multiple_info=0x7f0a00f5;
+        public static final int frg_expenses_add_multiple_info=0x7f0a00f3;
+        public static final int frg_income_add_multiple_info=0x7f0a00f2;
+        public static final int frg_investment_add_salary_neutral=0x7f0a00f1;
+        public static final int frg_investment_add_salary_text=0x7f0a00f0;
         /**  Alert dialogs 
          */
-        public static final int frg_investment_add_salary_title=0x7f0a00ed;
-        public static final int frg_savings_add_multiple_info=0x7f0a00f2;
+        public static final int frg_investment_add_salary_title=0x7f0a00ef;
+        public static final int frg_savings_add_multiple_info=0x7f0a00f4;
         public static final int income_description=0x7f0a005a;
         public static final int income_help_income_term=0x7f0a006f;
         public static final int income_help_intro=0x7f0a006a;
@@ -1512,31 +1514,32 @@ containing a value of this type.
         public static final int no_income_info=0x7f0a0027;
         public static final int no_investment_info=0x7f0a0026;
         public static final int percent=0x7f0a002d;
-        public static final int pref_description_social_recommendations=0x7f0a00f9;
+        public static final int pref_description_social_recommendations=0x7f0a00fb;
         /**  Strings related to Settings 
  Example General settings 
          */
-        public static final int pref_header_general=0x7f0a00f7;
-        public static final int pref_simulation_start_date=0x7f0a00f8;
+        public static final int pref_header_general=0x7f0a00f9;
+        public static final int pref_simulation_start_date=0x7f0a00fa;
         public static final int progress_bar_info=0x7f0a002f;
         /**  Savings help 
          */
-        public static final int savings_expl_add_intro=0x7f0a00db;
-        public static final int savings_expl_chart_intro=0x7f0a00dc;
-        public static final int savings_expl_table_intro_1=0x7f0a00dd;
-        public static final int savings_expl_table_intro_2=0x7f0a00de;
+        public static final int savings_expl_add_intro=0x7f0a00dc;
+        public static final int savings_expl_chart_intro=0x7f0a00dd;
+        public static final int savings_expl_table_intro_1=0x7f0a00de;
+        public static final int savings_expl_table_intro_2=0x7f0a00df;
         public static final int savings_title=0x7f0a005e;
         public static final int show_chart=0x7f0a002b;
         public static final int show_predictions=0x7f0a002e;
         public static final int show_table=0x7f0a002a;
         public static final int start_date_input=0x7f0a0050;
-        public static final int start_popup_chart=0x7f0a00ea;
-        public static final int start_popup_ending=0x7f0a00ec;
-        public static final int start_popup_input=0x7f0a00e9;
+        public static final int start_popup_chart=0x7f0a00eb;
+        public static final int start_popup_ending=0x7f0a00ee;
+        public static final int start_popup_help=0x7f0a00ed;
+        public static final int start_popup_input=0x7f0a00ea;
         /**  At-startup-popup info 
          */
-        public static final int start_popup_intro=0x7f0a00e8;
-        public static final int start_popup_table=0x7f0a00eb;
+        public static final int start_popup_intro=0x7f0a00e9;
+        public static final int start_popup_table=0x7f0a00ec;
         public static final int title_activity_about=0x7f0a0023;
         public static final int title_activity_add_debtloan=0x7f0a001d;
         public static final int title_activity_add_debtmortgage=0x7f0a0021;
@@ -1550,7 +1553,8 @@ containing a value of this type.
         public static final int title_activity_feedback=0x7f0a0024;
         public static final int title_activity_list_fragment=0x7f0a0025;
         public static final int title_activity_main=0x7f0a0019;
-        public static final int title_activity_settings=0x7f0a00f6;
+        public static final int title_activity_settings=0x7f0a00f8;
+        public static final int update_data_info=0x7f0a00d5;
         public static final int view_chart=0x7f0a004d;
         public static final int view_table=0x7f0a004e;
         public static final int welcome_message_title=0x7f0a0010;

@@ -94,8 +94,7 @@ public class FrgInvestment extends SherlockFragment {
 		BigDecimal tax_rate = new BigDecimal(data.getStringExtra("investmentsav_tax_rate"));
 		BigDecimal percontrib = new BigDecimal(data.getStringExtra("investmentsav_percontrib"));
 		BigDecimal interest_rate = new BigDecimal(data.getStringExtra("investmentsav_interest_rate"));
-    	int start_year = Integer.parseInt((data.getStringExtra("investmentsav_start_year")));
-    	int start_month = Integer.parseInt((data.getStringExtra("investmentsav_start_month")));
+
     	
 		String action = " added.";
     	if (requestCode == AcctElements.UPDATE.getNumber()) {
@@ -111,20 +110,12 @@ public class FrgInvestment extends SherlockFragment {
     			init_amount,
     			tax_rate,                
                 percontrib,
-                interest_rate,
-		        start_year,
-		    	start_month);                 
+                interest_rate);                 
     	appState.getAccount().addInvestment(investment);
     	appState.getAccount().addToInvestmentsPercontrib(percontrib); // update total percent contribution to investments  
     	appState.getAccount().setCheckingAcctPercontrib();
 
         Toast.makeText(getSherlockActivity(), name+action, Toast.LENGTH_SHORT).show();
-        
-        if ((appState.getAccount().getCalculationStartYear() == start_year && appState.getAccount().getCalculationStartMonth() > start_month) 
-    			|| (appState.getAccount().getCalculationStartYear() > start_year)) {    
-        	appState.getAccount().setCalculationStartYear(start_year);
-        	appState.getAccount().setCalculationStartMonth(start_month);
-        }
 	}
 	
 	public void onInvestmentCheckAcctResult(Intent data, int requestCode) {
@@ -132,8 +123,6 @@ public class FrgInvestment extends SherlockFragment {
 		BigDecimal init_amount = new BigDecimal(data.getStringExtra("investmentcheck_init_amount"));
 		BigDecimal tax_rate = new BigDecimal(data.getStringExtra("investmentcheck_tax_rate"));
 		BigDecimal interest_rate = new BigDecimal(data.getStringExtra("investmentcheck_interest_rate"));
-    	int start_year = appState.getAccount().getSimulationStartYear();
-    	int start_month = appState.getAccount().getSimulationStartMonth();
     	
     	if (requestCode == AcctElements.UPDATE.getNumber()) {
     		int investment_id = data.getIntExtra("investmentcheck_id", -1);    		
@@ -145,9 +134,7 @@ public class FrgInvestment extends SherlockFragment {
     	InvestmentCheckAcct investment = InvestmentCheckAcct.create(name,
     			init_amount,
     			tax_rate,     
-                interest_rate,
-		        start_year,
-		    	start_month);                 
+                interest_rate);                 
     	appState.getAccount().addInvestment(investment);
     	appState.getAccount().setCheckingAcct(investment);
         

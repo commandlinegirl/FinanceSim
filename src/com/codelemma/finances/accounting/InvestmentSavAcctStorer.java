@@ -11,8 +11,6 @@ public class InvestmentSavAcctStorer implements AccountingElementStorer<Investme
 	private static final String TAX_RATE = "tr";
 	private static final String PERCONTRIB = "pc";
 	private static final String INTEREST_RATE = "ir";
-	private static final String START_YEAR = "sy";
-	private static final String START_MONTH = "sm";
 
 	private Storage storage;
 	
@@ -33,9 +31,7 @@ public class InvestmentSavAcctStorer implements AccountingElementStorer<Investme
 				storage.getBigDecimal(prefix, INIT_AMOUNT),
 				storage.getBigDecimal(prefix, TAX_RATE),
 				storage.getBigDecimal(prefix, PERCONTRIB),
-				storage.getBigDecimal(prefix, INTEREST_RATE),
-				storage.getInt(prefix, START_YEAR),
-				storage.getInt(prefix, START_MONTH));
+				storage.getBigDecimal(prefix, INTEREST_RATE));
 		return investment;
 	}
 
@@ -47,8 +43,6 @@ public class InvestmentSavAcctStorer implements AccountingElementStorer<Investme
 		storage.putBigDecimal(prefix, TAX_RATE, investment.getInitTaxRate());
 		storage.putBigDecimal(prefix, PERCONTRIB, investment.getInitPercontrib());
 		storage.putBigDecimal(prefix, INTEREST_RATE, investment.getInterestRate());
-		storage.putInt(prefix, START_YEAR, investment.getStartYear());
-		storage.putInt(prefix, START_MONTH, investment.getStartMonth());
 	}
 
 	@Override
@@ -59,7 +53,5 @@ public class InvestmentSavAcctStorer implements AccountingElementStorer<Investme
 		storage.remove(prefix, TAX_RATE);
 		storage.remove(prefix, PERCONTRIB);
 		storage.remove(prefix, INTEREST_RATE);
-		storage.remove(prefix, START_YEAR);
-		storage.remove(prefix, START_MONTH);
 	}
 }

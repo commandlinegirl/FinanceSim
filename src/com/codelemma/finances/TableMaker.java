@@ -4,7 +4,6 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import android.graphics.Color;
-import android.util.Log;
 import android.view.Gravity;
 import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
@@ -151,12 +150,6 @@ public class TableMaker implements TableVisitor {
     	BigDecimal[] gross_incomes = historyIncomeGeneric.getGrossIncomeHistory();
     	BigDecimal[] taxes = historyIncomeGeneric.getTaxHistory();
     	BigDecimal[] net_incomes = historyIncomeGeneric.getNetIncomeHistory();
-
-    	Log.d("-------------------", dates.toString());
-    	for (String i: dates) {
-    		Log.d("dates", i);
-    	}    	
-    	Log.d("-------------------", dates.toString());
 
     	int datesLen = dates.length;
     	String prevYear = dates[0].substring(3);
@@ -843,7 +836,7 @@ public class TableMaker implements TableVisitor {
 		header.addView(tv); 
 		
 		tv = new TextView(frgActivity);
-		tv.setText("Capital\ngains");
+		tv.setText("Interest");
 		tv.setTextColor(Color.parseColor("#FF41924B"));
 		tv.setTextSize(11);
 		tv.setLayoutParams(params);

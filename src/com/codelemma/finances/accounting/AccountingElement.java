@@ -20,12 +20,10 @@ abstract class AccountingElement implements AccountingElementInterface {
 	public void setId(int id) {
 		this.id = id;
 	}
-	
+
 	public abstract BigDecimal getValue();
 	public abstract String getName();
 	public abstract BigDecimal getAmount();
-	//public abstract int getId();
-	//public abstract void setId(int id);
 	public abstract HistoryNew getHistory();
 	
 	public abstract void updateInputListing(InputListingUpdater modifier);

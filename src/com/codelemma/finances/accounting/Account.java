@@ -375,10 +375,10 @@ public class Account {
         }
         return total_expense;
     }
-    
+
     public BigDecimal advanceIncome(int index, int year, int month) {
     	BigDecimal total_income = Money.ZERO;
-    	
+
         for (Income income: incomes) {
             income.advance(year, month, checkingAcct);
     		if ((year > simStartYear) || (year == simStartYear && month >= simStartMonth)) {
@@ -392,40 +392,40 @@ public class Account {
         }
         return total_income;
     }
-    
+
     public void advanceInvestment(int index, BigDecimal excess, int year, int month) {
         BigDecimal capitalGains = Money.ZERO;
         for (Investment investment: investments) {
         	if (!investment.isPreTax()) { // posttax investment (taken from excess money), pretax is incremented in Income!        	
-        		                		
+
         		investment.advance(year, month, excess, checkingAcctPercontrib);
         		// here add capital gains to excess
         		capitalGains = capitalGains.add(investment.getInterestsNet());
-        		       		                       
+
     		    if ((year > simStartYear) || (year == simStartYear && month >= simStartMonth)) {
         		    investment.getHistory().add(index, investment, cashflows, net_worth);
         	    }
         	}
         }
     }
-        
+
     public void advance(int index, int year, int month) {
     	// year and month - starting date of predictions (saved to history here)
         Preconditions.checkInBounds(month, 0, 11, "Month must be in 0..11");
         BigDecimal excess = Money.ZERO; //= prevMonthCapitalGains;
-                
+
         BigDecimal total_income = advanceIncome(index, year, month);
         excess = excess.add(total_income); // total net income
-        
+
         BigDecimal total_debt = advanceDebt(index, year, month);
         excess = excess.subtract(total_debt);
 
         BigDecimal total_expense = advanceExpense(index, year, month);        
         excess = excess.subtract(total_expense);
-                
+
         advanceInvestment(index, excess, year, month);
     }
-    
+
     public void addToHistory(History history) {
     	for (Investment investment: investments) {
     		history.addInvestmentHistory(investment.getHistory());

@@ -67,6 +67,7 @@
         </TextView>
     </LinearLayout>    
     
+
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -87,7 +88,26 @@
             android:layout_gravity="center_vertical">
         </TextView>
     </LinearLayout>    
-  
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ico_help">
+        </ImageView>
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="4"
+            android:text="@string/start_popup_help"
+            android:layout_gravity="center_vertical">
+        </TextView>
+    </LinearLayout>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

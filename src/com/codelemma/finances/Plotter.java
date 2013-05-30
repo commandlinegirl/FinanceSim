@@ -121,7 +121,7 @@ public class Plotter implements PlotVisitor {
         /* If there is no condition set, negative values will be above positive on the chart
          * (min value will be set to 0, max value will be set to negative number */
         if (maxY > 0) {
-    	    mRenderer.setYAxisMin(0.0);
+    	    mRenderer.setYAxisMin(Math.min(minY - minY/5, 0));
     	    mRenderer.setYAxisMax(maxY + maxY/5);
         }
         
@@ -139,8 +139,6 @@ public class Plotter implements PlotVisitor {
     	mRenderer.setAxesColor(Color.WHITE);
         mRenderer.setAxisTitleTextSize(Utils.px(frgActivity, 10));    	
     	mRenderer.setMarginsColor(Color.argb(0xFF, 0xFF, 0xFF, 0xFF));    	
-    	mRenderer.setPanEnabled(false, false);
-    	mRenderer.setZoomEnabled(false, false);
     	mRenderer.setShowGridX(true);
         mRenderer.setGridColor(0x66CCCCCC);                       
         mRenderer.setLabelsColor(Color.DKGRAY);
@@ -153,8 +151,9 @@ public class Plotter implements PlotVisitor {
         mRenderer.setPointSize(Utils.px(frgActivity, 2));          
     	int labelsTextSize = Utils.px(frgActivity, 10);
     	mRenderer.setLabelsTextSize(labelsTextSize);       
-    	mRenderer.setPanEnabled(false, true);
-    	mRenderer.setZoomEnabled(false, true);    	
+    	mRenderer.setPanEnabled(false, false);
+    	mRenderer.setZoomEnabled(false, true);
+    	//mRenderer.setPanLimits(new double[] {mRenderer.getXAxisMin(), mRenderer.getXAxisMax(), mRenderer.getYAxisMin(), mRenderer.getYAxisMax()});
         //return mRenderer;
 	}
 	
@@ -225,7 +224,7 @@ public class Plotter implements PlotVisitor {
 	@Override
 	public void plotDebtMortgage(HistoryDebtMortgage historyDebtMortgage) {         		        
 		HashMap<String,BigDecimal[]> values = new HashMap<String,BigDecimal[]>(1);
-		values.put("Total Interest", historyDebtMortgage.getTotalInterestsHistory());
+		values.put("Total interest", historyDebtMortgage.getTotalInterestsHistory());
 		//values.put("Payment", historyDebtMortgage.getMonthlyPaymentHistory());
 		values.put("Outstanding loan", historyDebtMortgage.getRemainingAmountHistory());
         plot(values, "Mortgage"); 				
@@ -243,7 +242,7 @@ public class Plotter implements PlotVisitor {
 	public void plotCashflows(HistoryCashflows historyCashflows) {
 		HashMap<String,BigDecimal[]> values = new HashMap<String,BigDecimal[]>(1);
 		values.put("Income", historyCashflows.getNetIncomeHistory());
-		values.put("Capital gains", historyCashflows.getCapitalGainsHistory());
+		values.put("Interest", historyCashflows.getCapitalGainsHistory());
 		values.put("Expenses", historyCashflows.getExpensesHistory());
 		values.put("Debt service", historyCashflows.getDebtRatesHistory());
 		values.put("Saved", historyCashflows.getInvestmentRatesHistory());

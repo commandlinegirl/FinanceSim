@@ -42,9 +42,7 @@ public class Investment401kStorer implements AccountingElementStorer<Investment4
 				storage.getBigDecimal(prefix, EMPLOYER_MATCH),
 				storage.getInt(prefix, START_YEAR),
 				storage.getInt(prefix, START_MONTH));
-		//Log.d("income id of 401k", String.valueOf(storage.getInt(prefix, INCOME_ID)));
 		investment.setIncomePreviousId(storage.getInt(prefix, INCOME_ID));
-		//Log.d("investment.getStoredIncomeId()", String.valueOf(investment.getStoredIncomePreviousId()));
 		return investment;
 	}
 

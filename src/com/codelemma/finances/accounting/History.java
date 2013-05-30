@@ -2,8 +2,6 @@ package com.codelemma.finances.accounting;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import android.util.Log;
-
 public class History {
 
 	private ArrayList<HistoryNew> debts = new ArrayList<HistoryNew>();
@@ -63,32 +61,26 @@ public class History {
     }
    
 	public void removeIncomeHistory(HistoryNew inc) {
-		boolean t = incomes.remove(inc);
-		Log.d("Income hist removed", String.valueOf(t));		
+		incomes.remove(inc);
 	}
 
 	public void removeExpenseHistory(HistoryNew hex) {
-		boolean t = expenses.remove(hex);
-		Log.d("Expense hist removed", String.valueOf(t));
+		expenses.remove(hex);
 	}
 
 	public void removeInvestmentHistory(HistoryNew inv) {
-		boolean t = investments.remove(inv);
-		Log.d("Investment hist removed", String.valueOf(t));
+		investments.remove(inv);
 	}
 	
 	public void removeDebtHistory(HistoryNew deb) {
-		boolean t = debts.remove(deb);
-		Log.d("Debt hist removed", String.valueOf(t));
+		debts.remove(deb);
 	}		
 	
 	public void removeCashflowsHistory(HistoryNew cash) {
-		boolean t = cashflows.remove(cash);
-		Log.d("Cashflow hist removed", String.valueOf(t));
+		cashflows.remove(cash);
 	}
 	
 	public void removeNetWorthHistory(HistoryNew netw) {
-		boolean t = net_worth.remove(netw);
-		Log.d("Debt hist removed", String.valueOf(t));
+		net_worth.remove(netw);
 	}
 }   
