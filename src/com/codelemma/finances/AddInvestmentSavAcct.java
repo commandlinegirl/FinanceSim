@@ -13,7 +13,6 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.view.View;
@@ -82,7 +81,6 @@ public class AddInvestmentSavAcct extends SherlockFragmentActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.act_add_investmentsavacct);
-		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		appState = Finances.getInstance();
 	    
@@ -238,7 +236,10 @@ public class AddInvestmentSavAcct extends SherlockFragmentActivity {
 		String investmentInterestRateData = investmentInterestRate.getText().toString();
 		if (Utils.alertIfEmpty(this, investmentInterestRateData, getResources().getString(R.string.investmentsav_interest_rate_input))) {
 	    	return;	    	
-	    }	
+		}
+	    if (Utils.alertIfNotInBounds(this, investmentInterestRateData, 0, 100, getResources().getString(R.string.investmentsav_interest_rate_input))) {
+	    	return;	    	
+	    }
 	    intent.putExtra("investmentsav_interest_rate", investmentInterestRateData);	  
 	    
         intent.putExtra("investmentsav_start_year",  String.valueOf(setYear));

@@ -54,22 +54,13 @@
 
     <string name="about_title1"><b>Financial simulator</b></string>
     <string name="about_title1_moreinfo"><b>More info</b></string>
-    <string name="about_text1"><b>FinanceSim</b> simulates your future financial situation based on all the earnings (capital 
-        and non-capital income) and spendings (debts and expenses). It generates simulations showing the rate of growth of your 
-        assets and liabilities.
-        It will show you: \n
-         - when you are going to get your (first) million \n
-         - how fast will your 401(k) grow \n
-         - and more.</string>
+    <string name="about_text1"><b>FinanceSim</b> takes income, expenses, savings, and debts as input and gives a simulation output (cash flow, 
+        net worth, growth and interrelation of your assets and liabilities) in charts and tables. By playing with input 
+        data you can view different scenarios of your financial future.</string>
     <string name="about_title2"><b>Assumptions</b></string>
     <string name="about_text2">Constant inflation, constant return from 401(k) and other investments or savings account, and constant tax rate.</string>
     <string name="about_title3"><b>What this app is not</b></string>
     <string name="about_text3"><b>FinanceSim</b>  is not an expense, income or debt tracker. It uses the data you may track elsewhere, though, as input for the simulations.</string>
-    <string name="about_title4"><b>Upcoming new features</b></string>
-    <string name="about_text4"> - ability to add 401(k) Roth pension plan,\n
-        - year by year simulation resolution,\n
-        - ability to add bond investments,\n
-        - and more.</string>
     <string name="about_title5"><b>Questions, suggestions, bug reports</b></string>
     <string name="about_text5">I\'ll be happy to hear from you at: <b>codelemma@gmail.com</b></string>
     <string name="about_title6"><b>Disclaimer</b></string>
@@ -321,7 +312,7 @@
     <!-- Net worth help -->
 
     <string name="expl_net_worth_add_intro"><b>Net worth</b>
-        \nNet worth show the projections of the total of your accumulated assets minus the value of your liabilities.
+        \nNet worth shows the projections of the total of your accumulated assets minus the value of your liabilities.
     </string>
 
     <string name="expl_net_worth_table_intro"><b>Savings</b>\nThe sum of money accumulated. It includes 401(k) savings, while the tax on the 401(k) earnings is subtracted from the savings at 401(k) withdrawal time.

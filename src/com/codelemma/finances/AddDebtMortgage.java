@@ -11,7 +11,6 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.NavUtils;
@@ -94,7 +93,6 @@ public class AddDebtMortgage extends SherlockFragmentActivity
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.act_add_debtmortgage);
-		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 		
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		appState = Finances.getInstance();
@@ -213,6 +211,9 @@ public class AddDebtMortgage extends SherlockFragmentActivity
 	    if (Utils.alertIfEmpty(this, interestRateData, getResources().getString(R.string.debtmortgage_interest_rate_input))) {
 	    	return;
 	    }	
+	    if (Utils.alertIfNotInBounds(this, interestRateData, 0, 100, getResources().getString(R.string.debtmortgage_interest_rate_input))) {
+	    	return;	    	
+	    } 
         intent.putExtra("debtmortgage_interest_rate", interestRateData);   
         
 	    EditText term = (EditText) findViewById(R.id.debtmortgage_term);

@@ -13,7 +13,6 @@ import android.app.Dialog;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.NavUtils;
@@ -119,7 +118,6 @@ public class AddIncomeGeneric extends SherlockFragmentActivity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.act_add_incomegeneric);
 		// Show the Up button in the action bar.
-		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		appState = Finances.getInstance();
 	    

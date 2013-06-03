@@ -8,7 +8,6 @@ import com.actionbarsherlock.view.MenuItem;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 
 public class About extends SherlockActivity {
 
@@ -16,7 +15,6 @@ public class About extends SherlockActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.act_about);
-		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 		ActionBar actionbar = getSupportActionBar();		
 		actionbar.setDisplayHomeAsUpEnabled(true);
 	}

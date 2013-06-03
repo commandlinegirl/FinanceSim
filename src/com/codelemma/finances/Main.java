@@ -17,7 +17,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Dialog;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.graphics.drawable.Drawable;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
@@ -43,7 +42,6 @@ public class Main extends SherlockFragmentActivity
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);		
-		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);       
     
         setupActionBar();
 	    appState = Finances.getInstance();

@@ -1,4 +1,4 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -9,6 +9,11 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:id="@+id/frg_networth" >
       
+    <LinearLayout 
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:orientation="vertical">
+    
    <TextView
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
@@ -22,6 +27,8 @@
         android:adjustViewBounds="true"
         android:layout_marginLeft="60dp"
         android:layout_marginRight="60dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
         android:scaleType="fitCenter"
         android:src="@drawable/networth"/>
     
@@ -31,7 +38,7 @@
         android:text="@string/networth2">        
     </TextView>
 
-    <LinearLayout
+      <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -61,8 +68,8 @@
             android:text="@string/view_table"
             android:background="@drawable/button_green" 
             android:onClick="showTable"/>
-    </LinearLayout>
+      </LinearLayout>
     
-   
+    </LinearLayout>   
              
-</LinearLayout>
+</ScrollView>

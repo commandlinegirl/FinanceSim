@@ -7,7 +7,6 @@ import com.codelemma.finances.accounting.InvestmentCheckAcct;
 
 import android.app.Dialog;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.view.View;
@@ -43,7 +42,6 @@ public class AddInvestmentCheckAcct extends SherlockFragmentActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.act_add_investmentcheckacct);
-		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		appState = Finances.getInstance();
 	    
