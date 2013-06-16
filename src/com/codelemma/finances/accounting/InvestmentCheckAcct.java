@@ -184,22 +184,21 @@ public class InvestmentCheckAcct extends Investment {
  		hidden_amount = init_amount;  
  		contribution = Money.ZERO;
  	}
-    
+
     private void advanceValues(int month, BigDecimal excess) {
     	
         interests_gross = Money.ZERO;
         tax_on_interests = Money.ZERO;
         interests_net = Money.ZERO;
-    	        
-                
+
      	/* Add monthly contribution (a given percentage of excess money) to the hidden_amount
      	 * if excess > 0. */       
         contribution = Money.getPercentage(excess, percontrib_decimal).add(withdrawal401k);                  
         withdrawal401k = Money.ZERO; // after adding withdrawn money, init it back to zero for next advancements
-        
+
         amount = amount.add(contribution);                     
         hidden_amount = hidden_amount.add(contribution);
-        
+
      	/* Calculates the interests of hidden_amount (and adds to principal)  */
      	hidden_amount = Money.scale(hidden_amount.multiply(getCompoundingFactor(months[month])));// i removed scale..
      	

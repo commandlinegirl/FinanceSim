@@ -64,8 +64,8 @@ public class AddDebtLoan extends SherlockFragmentActivity
            })
           .show();	 	        	         
 	    }
-    };	
-    
+    };
+
     private OnClickListener clickSaveListener = new OnClickListener() {
     	
     	@Override
@@ -73,7 +73,7 @@ public class AddDebtLoan extends SherlockFragmentActivity
 	        addDebt(null);	             	        
 	    }
     };
-    
+
     public void showDatePickerDialog(View v) {
         DialogFragment newFragment = new FrgDatePicker();
         Bundle b = new Bundle();

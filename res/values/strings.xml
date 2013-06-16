@@ -259,7 +259,7 @@
     
     <string name="savings_expl_table_intro_1"><b><i>Checking and savings account</i></b>\n\n<b>Deposit</b>\nAmount of money added monthly to the account. 
         For a savings account it is a percentage (specified by the user) of the so-called excess money, which is the amount left after expenses, debts and retirement
-        plans served. For a checking account it is the money that remain after expenses, debts, retirement contributions, and savings are made. 
+        plans are served. For a checking account it is the money that remain after expenses, debts, retirement contributions, and savings are made. 
         \n\n<b>Total</b>\nCumulative amount of money stored in an account.
         </string>
     <string name="savings_expl_table_intro_2"><i><b>401(k)</b></i>\n\n<b>Employee and Employer contrib</b>\nMonthly contributions to the account from you and your employer.

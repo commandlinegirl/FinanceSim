@@ -193,24 +193,26 @@ public class InvestmentSavAcct extends Investment {
         interests_gross = Money.ZERO;
         tax_on_interests = Money.ZERO;
         interests_net = Money.ZERO;
-    	         
-        if (excess.compareTo(Money.ZERO) == 1) {
-        	/* Add monthly contribution (a given percentage of excess money) to the hidden_amount
-     	     * if excess > 0. */
-            amount = amount.add(Money.getPercentage(excess, percontrib_decimal));
-            contribution = Money.getPercentage(excess, percontrib_decimal);              
-         	hidden_amount = hidden_amount.add(contribution);   
-        }
+        contribution = Money.ZERO;
+        
+        /* Add monthly contribution (a given percentage of excess money) to the hidden_amount */
+        amount = amount.add(Money.getPercentage(excess, percontrib_decimal));
+        contribution = Money.getPercentage(excess, percontrib_decimal);              
+        hidden_amount = hidden_amount.add(contribution);
+
      	/* Calculate the interests of hidden_amount (and add to principal)  */
      	hidden_amount = Money.scale(hidden_amount.multiply(getCompoundingFactor(months[month])));
      	
      	/* calculate and subtract tax on interests */
  		interests_gross = hidden_amount.subtract(amount);
  		tax_on_interests = Money.getPercentage(interests_gross, tax_rate_decimal);
+ 		interests_gross = interests_gross.max(Money.ZERO);
+ 		tax_on_interests = tax_on_interests.max(Money.ZERO);
+ 		
  		hidden_amount = hidden_amount.subtract(tax_on_interests);
         interests_net = interests_gross.subtract(tax_on_interests);            
-        amount = hidden_amount;	
-    }       
+        amount = hidden_amount;
+    }
 
 	@Override
 	public HistoryInvestmentSavAcct getHistory() {
