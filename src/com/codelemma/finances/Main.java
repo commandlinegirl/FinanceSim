@@ -130,8 +130,7 @@ public class Main extends SherlockFragmentActivity
 		ft.replace(R.id.main_container, getFragment(0, 0));
 		ft.commit();
 	}
-	
-	
+
 	@Override
 	public void onPause() {
 		super.onPause();
@@ -141,8 +140,17 @@ public class Main extends SherlockFragmentActivity
 		if (progressBarDialog != null) {
 		    progressBarDialog.dismiss();
 		}
-	}	
+	}
 	
+	@Override
+	public void onStart() {
+		super.onStart();
+		if (menuChart != null && menuTable != null && appState.needToRecalculate()) {
+		    menuChart.setIcon(R.drawable.ico_chart_excl);
+		    menuTable.setIcon(R.drawable.ico_table_excl);  
+		}
+	}
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		super.onCreateOptionsMenu(menu);
@@ -304,7 +312,7 @@ public class Main extends SherlockFragmentActivity
 	    menuChart.setIcon(R.drawable.ico_chart_excl);
 	    menuTable.setIcon(R.drawable.ico_table_excl);   	    
 	}
-	
+
 	private class AsyncSimGenerator extends AsyncTask<SherlockFragment, Integer, SherlockFragment> {
 
 		@Override
@@ -316,10 +324,10 @@ public class Main extends SherlockFragmentActivity
 	        progressBarDialog.setCanceledOnTouchOutside(true);
 	        progressBarDialog.show();
 	    };
-		
+
 		@Override
 		protected SherlockFragment doInBackground(SherlockFragment... params) {
-			
+
 			SherlockFragment fragment = params[0];
 			appState.getAccount().setInitDebt();
 			appState.getAccount().setInitExpense();
@@ -328,7 +336,7 @@ public class Main extends SherlockFragmentActivity
 			appState.getAccount().setInitCashflow();
 			appState.getAccount().setInitNetworth();
 	        appState.getAccount().clearHistory(appState.getHistory());
-	                                   
+
 	        int month = appState.getAccount().getCalculationStartMonth();
 	        int year = appState.getAccount().getCalculationStartYear();	        	        
 	        appState.getAccount().computeCalculationLength();

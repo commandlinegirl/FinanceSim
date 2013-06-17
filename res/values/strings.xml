@@ -228,7 +228,7 @@
     <string name="investment401k_help_start_date"><b>Start date</b>\nDate of 401(k) plan commencement (has to start not earlier than the salary start date). The is independent from <i>simulation start date</i>, 
         which is identical for all your instruments and can be set in <b>Settings</b>.</string>
 
-    <string name="update_data_info">modify your input data to change these simulation results.</string>
+    <string name="update_data_info">modify your input data to change these simulation results.\n\nChange <b>simulation start</b> in Settings.</string>
     
     <!-- Help (explain) dialogs -->
 
@@ -258,9 +258,11 @@
     <string name="savings_expl_chart_intro">The chart shows a projection of your account balance over years.</string>
     
     <string name="savings_expl_table_intro_1"><b><i>Checking and savings account</i></b>\n\n<b>Deposit</b>\nAmount of money added monthly to the account. 
-        For a savings account it is a percentage (specified by the user) of the so-called excess money, which is the amount left after expenses, debts and retirement
-        plans are served. For a checking account it is the money that remain after expenses, debts, retirement contributions, and savings are made. 
-        \n\n<b>Total</b>\nCumulative amount of money stored in an account.
+        For a savings account it is a percentage (specified by the user) of the so-called excess money, which is the amount left
+        after expenses, debts and retirement plans are served.
+        For a checking account it is the money that remain after expenses, debts, retirement contributions, and savings are made. 
+        If deposit is negative, it is the amount that needs to be subtracted from the account since there is not enough income 
+        to cover expenses and debts.\n\n<b>Total</b>\nCumulative amount of money stored in an account.
         </string>
     <string name="savings_expl_table_intro_2"><i><b>401(k)</b></i>\n\n<b>Employee and Employer contrib</b>\nMonthly contributions to the account from you and your employer.
         </string>
@@ -296,13 +298,13 @@
     </string>
 
     <string name="expl_cashflows_chart_intro"><b>Net income</b>\nThe sum of all your net income sources in a given month.
-        \n\n<b>Interest</b>\nThe sum of the interests and earnings made in a given month, excluding 401(k) earnings (which are deposited in a lump sum  to the Checking account at withdrawal).
+        \n\n<b>Interest</b>\nThe sum of the interests from Savings and Checking accounts made in a given month. This excludes 401(k) interest (earnings), which is deposited in a lump sum  to the Checking account at withdrawal.
         \n\n<b>Total expenses</b>\nThe sum of all the spendings made in a given month.
         \n\n<b>Debt service</b>\nThe sum of your monthly debt payments.
         \n\n<b>Saved</b>\nThe amount of money put away into bank accounts (checking, savings, etc.) in a given month. 401(k) earnings are deposited to Checking account in a lump sum at withdrawal..</string>
 
     <string name="expl_cashflows_table_intro"><b>Net income</b>\nThe sum of all your net income sources in a given month.
-        \n\n<b>Interest</b>\nThe sum of the interests and earnings made in a given month, excluding 401(k) earnings (which are deposited in a lump sum to the Checking account at withdrawal). 
+        \n\n<b>Interest</b>\nThe sum of the interests from Savings and Checking accounts made in a given month. This excludes 401(k) interest (earnings), which is deposited in a lump sum  to the Checking account at withdrawal.
         \n\n<b>Total expenses</b>\nThe sum of all the spendings made in a given month.
         \n\n<b>Debt service</b>\nThe sum of your monthly debt payments.
         \n\n<b>Saved</b>\nThe amount of money put away into bank accounts (checking, savings, etc.) in a given month. 401(k) earnings are deposited to Checking account in a lump sum at withdrawal.
@@ -320,7 +322,7 @@
         \n\n<b>Net worth</b>\nNet worth = savings - debts.</string>
 
     <!-- At-startup-popup info -->
-    
+
     <string name="start_popup_intro"><b>FinanceSim</b> projects your future financial situation based on your current earnings and spendings.\n</string>
     <string name="start_popup_input">enter or modify input data (income, expenses, savings, debts)</string>        
     <string name="start_popup_chart">results in chart</string>        

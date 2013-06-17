@@ -30,4 +30,3 @@ public class DirectToHomeListener implements OnClickListener {
         public void onClickOnEmptySelected(View view, int element);
     }   
 }
-

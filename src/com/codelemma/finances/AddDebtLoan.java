@@ -38,10 +38,10 @@ public class AddDebtLoan extends SherlockFragmentActivity
 	    public void onClick(View v) {
 	        finish();	             	        
 	    }
-    };	
-	
+    };
+
     private OnClickListener clickDeleteListener = new OnClickListener() {
-    	
+
     	@Override
 	    public void onClick(View v) {
 	        final DebtLoan debt = (DebtLoan) v.getTag(R.string.acct_object);

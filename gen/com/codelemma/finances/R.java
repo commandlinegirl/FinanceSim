@@ -169,7 +169,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 <p>May be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
 "<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
          */
-        public static final int backgroundStacked=0x7f01004e;
+        public static final int backgroundStacked=0x7f01004f;
         /**  Small Button style. 
          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
@@ -179,7 +179,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
          */
-        public static final int customNavigationLayout=0x7f01004f;
+        public static final int customNavigationLayout=0x7f010050;
         /**  Options affecting how the action bar is displayed. 
          <p>Must be one or more (separated by '|') of the following constant values.</p>
 <table>
@@ -195,7 +195,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 <tr><td><code>disableHome</code></td><td>0x20</td><td></td></tr>
 </table>
          */
-        public static final int displayOptions=0x7f010049;
+        public static final int displayOptions=0x7f01004a;
         /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
          */
@@ -205,6 +205,10 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
          */
         public static final int dividerVertical=0x7f010038;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static final int dropDownHintAppearance=0x7f010048;
         /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
          */
@@ -228,14 +232,14 @@ containing a value of this type.
          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
          */
-        public static final int expandActivityOverflowButtonDrawable=0x7f01005e;
+        public static final int expandActivityOverflowButtonDrawable=0x7f01005f;
         /**  Default background for the menu header. 
          <p>May be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
 <p>May be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
 "<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
          */
-        public static final int headerBackground=0x7f010058;
+        public static final int headerBackground=0x7f010059;
         /** <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
 Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
 in (inches), mm (millimeters).
@@ -254,17 +258,17 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
          */
-        public static final int homeLayout=0x7f010050;
+        public static final int homeLayout=0x7f010051;
         /**  Default horizontal divider between rows of menu items. 
          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
          */
-        public static final int horizontalDivider=0x7f010056;
+        public static final int horizontalDivider=0x7f010057;
         /**  Specifies the drawable used for the application icon. 
          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
          */
-        public static final int icon=0x7f01004c;
+        public static final int icon=0x7f01004d;
         /**  The default state of the SearchView. If true, it will be iconified when not in
              use and expanded when clicked. 
          <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
@@ -274,12 +278,12 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
          */
-        public static final int iconifiedByDefault=0x7f01005f;
+        public static final int iconifiedByDefault=0x7f010060;
         /**  Specifies a style resource to use for an indeterminate progress spinner. 
          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
          */
-        public static final int indeterminateProgressStyle=0x7f010052;
+        public static final int indeterminateProgressStyle=0x7f010053;
         /**  The maximal number of items initially shown in the activity list. 
          <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
 <p>This may also be a reference to a resource (in the form
@@ -288,14 +292,14 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
          */
-        public static final int initialActivityCount=0x7f01005d;
+        public static final int initialActivityCount=0x7f01005e;
         /**  Default background for each menu item. 
          <p>May be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
 <p>May be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
 "<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
          */
-        public static final int itemBackground=0x7f010059;
+        public static final int itemBackground=0x7f01005a;
         /**  Default disabled icon alpha for each menu item that shows an icon. 
          <p>Must be a floating point value, such as "<code>1.2</code>".
 <p>This may also be a reference to a resource (in the form
@@ -304,7 +308,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
          */
-        public static final int itemIconDisabledAlpha=0x7f01005b;
+        public static final int itemIconDisabledAlpha=0x7f01005c;
         /**  Specifies padding that should be applied to the left and right sides of
              system-provided items in the bar. 
          <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
@@ -316,12 +320,12 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
          */
-        public static final int itemPadding=0x7f010054;
+        public static final int itemPadding=0x7f010055;
         /**  Default appearance of menu item text. 
          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
          */
-        public static final int itemTextAppearance=0x7f010055;
+        public static final int itemTextAppearance=0x7f010056;
         /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
          */
@@ -363,7 +367,7 @@ containing a value of this type.
          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
          */
-        public static final int logo=0x7f01004d;
+        public static final int logo=0x7f01004e;
         /**  The type of navigation to use. 
          <p>Must be one of the following constant values.</p>
 <table>
@@ -376,7 +380,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 <tr><td><code>tabMode</code></td><td>2</td><td> The action bar will use a series of horizontal tabs for navigation. </td></tr>
 </table>
          */
-        public static final int navigationMode=0x7f010048;
+        public static final int navigationMode=0x7f010049;
         /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
          */
@@ -389,7 +393,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
          */
-        public static final int preserveIconSpacing=0x7f01005c;
+        public static final int preserveIconSpacing=0x7f01005d;
         /**  Specifies the horizontal padding on either end for an embedded progress bar. 
          <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
 Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
@@ -400,12 +404,12 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
          */
-        public static final int progressBarPadding=0x7f010053;
+        public static final int progressBarPadding=0x7f010054;
         /**  Specifies a style resource to use for an embedded progress bar. 
          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
          */
-        public static final int progressBarStyle=0x7f010051;
+        public static final int progressBarStyle=0x7f010052;
         /**  An optional query hint string to be displayed in the empty query field. 
          <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
 <p>This may also be a reference to a resource (in the form
@@ -414,7 +418,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
          */
-        public static final int queryHint=0x7f010060;
+        public static final int queryHint=0x7f010061;
         /**  SearchView AutoCompleteTextView style 
          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
@@ -497,7 +501,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
          */
-        public static final int subtitle=0x7f01004b;
+        public static final int subtitle=0x7f01004c;
         /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
          */
@@ -574,7 +578,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
          */
-        public static final int title=0x7f01004a;
+        public static final int title=0x7f01004b;
         /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
          */
@@ -583,7 +587,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
          */
-        public static final int verticalDivider=0x7f010057;
+        public static final int verticalDivider=0x7f010058;
         /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
 <p>This may also be a reference to a resource (in the form
 "<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
@@ -612,7 +616,7 @@ containing a value of this type.
          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
          */
-        public static final int windowAnimationStyle=0x7f01005a;
+        public static final int windowAnimationStyle=0x7f01005b;
         /**  This Drawable is overlaid over the foreground of the Window's content area, usually
              to place a shadow below the title.  
          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
@@ -685,14 +689,11 @@ containing a value of this type.
         public static final int abs__bright_foreground_disabled_holo_light=0x7f070005;
         public static final int abs__bright_foreground_holo_dark=0x7f070002;
         public static final int abs__bright_foreground_holo_light=0x7f070003;
-        public static final int abs__bright_foreground_inverse_holo_dark=0x7f070006;
-        public static final int abs__bright_foreground_inverse_holo_light=0x7f070007;
-        public static final int abs__holo_blue_light=0x7f070008;
-        public static final int abs__primary_text_disable_only_holo_dark=0x7f07000a;
-        public static final int abs__primary_text_disable_only_holo_light=0x7f07000b;
-        public static final int abs__primary_text_holo_dark=0x7f07000c;
-        public static final int abs__primary_text_holo_light=0x7f07000d;
-        public static final int pressed_finances=0x7f070009;
+        public static final int abs__primary_text_disable_only_holo_dark=0x7f070007;
+        public static final int abs__primary_text_disable_only_holo_light=0x7f070008;
+        public static final int abs__primary_text_holo_dark=0x7f070009;
+        public static final int abs__primary_text_holo_light=0x7f07000a;
+        public static final int pressed_finances=0x7f070006;
     }
     public static final class dimen {
         /**  Default height of an action bar. 
@@ -757,11 +758,10 @@ containing a value of this type.
         public static final int abs__action_bar_title_text_size=0x7f080003;
         /**  Minimum width for an action button in the menu area of an action bar 
  Minimum width for an action button in the menu area of an action bar 
+ Minimum width for an action button in the menu area of an action bar 
+ Minimum width for an action button in the menu area of an action bar 
          */
         public static final int abs__action_button_min_width=0x7f080007;
-        /**  Dialog title height 
-         */
-        public static final int abs__alert_dialog_title_height=0x7f080008;
         /**  The maximum width we would prefer dialogs to be.  0 if there is no
          maximum (let them grow as large as the screen).  Actual values are
          specified for -large and -xlarge configurations. 
@@ -770,55 +770,39 @@ containing a value of this type.
         /**  The platform's desired minimum size for a dialog's width when it
          is along the major axis (that is the screen is landscape).  This may
          be either a fraction or a dimension. 
- The platform's desired minimum size for a dialog's width when it
-         is along the major axis (that is the screen is landscape).  This may
-         be either a fraction or a dimension. 
- The platform's desired minimum size for a dialog's width when it
-         is along the major axis (that is the screen is landscape).  This may
-         be either a fraction or a dimension. 
          */
-        public static final int abs__dialog_min_width_major=0x7f080009;
+        public static final int abs__dialog_min_width_major=0x7f08000d;
         /**  The platform's desired minimum size for a dialog's width when it
          is along the minor axis (that is the screen is portrait).  This may
          be either a fraction or a dimension. 
- The platform's desired minimum size for a dialog's width when it
-         is along the minor axis (that is the screen is portrait).  This may
-         be either a fraction or a dimension. 
- The platform's desired minimum size for a dialog's width when it
-         is along the minor axis (that is the screen is portrait).  This may
-         be either a fraction or a dimension. 
          */
-        public static final int abs__dialog_min_width_minor=0x7f08000a;
+        public static final int abs__dialog_min_width_minor=0x7f08000e;
         /**  Width of the icon in a dropdown list 
          */
-        public static final int abs__dropdownitem_icon_width=0x7f08000d;
+        public static final int abs__dropdownitem_icon_width=0x7f08000a;
         /**  Text padding for dropdown items 
          */
-        public static final int abs__dropdownitem_text_padding_left=0x7f08000b;
+        public static final int abs__dropdownitem_text_padding_left=0x7f080008;
         /**  Text padding for dropdown items 
          */
-        public static final int abs__dropdownitem_text_padding_right=0x7f08000c;
+        public static final int abs__dropdownitem_text_padding_right=0x7f080009;
         /**  Preferred width of the search view. 
          */
-        public static final int abs__search_view_preferred_width=0x7f08000f;
+        public static final int abs__search_view_preferred_width=0x7f08000c;
         /**  Minimum width of the search view text entry area. 
          */
-        public static final int abs__search_view_text_min_width=0x7f08000e;
-        /**  Minimum width for an action button in the menu area of an action bar 
- Minimum width for an action button in the menu area of an action bar 
-         */
-        public static final int action_button_min_width=0x7f080010;
+        public static final int abs__search_view_text_min_width=0x7f08000b;
         /**  Default screen margins, per the Android Design guidelines. 
 
          Customize dimensions originally defined in res/values/dimens.xml (such as
          screen margins) for sw720dp devices (e.g. 10" tablets) in landscape here.
     
          */
-        public static final int activity_horizontal_margin=0x7f080011;
-        public static final int activity_vertical_margin=0x7f080012;
-        public static final int explist_horizontal_padding=0x7f080015;
-        public static final int explist_vertical_padding=0x7f080014;
-        public static final int list_text_size=0x7f080013;
+        public static final int activity_horizontal_margin=0x7f08000f;
+        public static final int activity_vertical_margin=0x7f080010;
+        public static final int explist_horizontal_padding=0x7f080013;
+        public static final int explist_vertical_padding=0x7f080012;
+        public static final int list_text_size=0x7f080011;
     }
     public static final class drawable {
         public static final int ab_bottom_solid_finances=0x7f020000;
@@ -855,18 +839,18 @@ containing a value of this type.
         public static final int abs__cab_background_bottom_holo_light=0x7f02001f;
         public static final int abs__cab_background_top_holo_dark=0x7f020020;
         public static final int abs__cab_background_top_holo_light=0x7f020021;
-        public static final int abs__dialog_full_holo_dark=0x7f020022;
-        public static final int abs__dialog_full_holo_light=0x7f020023;
-        public static final int abs__ic_ab_back_holo_dark=0x7f020024;
-        public static final int abs__ic_ab_back_holo_light=0x7f020025;
-        public static final int abs__ic_cab_done_holo_dark=0x7f020026;
-        public static final int abs__ic_cab_done_holo_light=0x7f020027;
-        public static final int abs__ic_clear=0x7f020028;
-        public static final int abs__ic_clear_disabled=0x7f020029;
-        public static final int abs__ic_clear_holo_light=0x7f02002a;
-        public static final int abs__ic_clear_normal=0x7f02002b;
-        public static final int abs__ic_clear_search_api_disabled_holo_light=0x7f02002c;
-        public static final int abs__ic_clear_search_api_holo_light=0x7f02002d;
+        public static final int abs__ic_ab_back_holo_dark=0x7f020022;
+        public static final int abs__ic_ab_back_holo_light=0x7f020023;
+        public static final int abs__ic_cab_done_holo_dark=0x7f020024;
+        public static final int abs__ic_cab_done_holo_light=0x7f020025;
+        public static final int abs__ic_clear=0x7f020026;
+        public static final int abs__ic_clear_disabled=0x7f020027;
+        public static final int abs__ic_clear_holo_light=0x7f020028;
+        public static final int abs__ic_clear_normal=0x7f020029;
+        public static final int abs__ic_clear_search_api_disabled_holo_light=0x7f02002a;
+        public static final int abs__ic_clear_search_api_holo_light=0x7f02002b;
+        public static final int abs__ic_commit_search_api_holo_dark=0x7f02002c;
+        public static final int abs__ic_commit_search_api_holo_light=0x7f02002d;
         public static final int abs__ic_go=0x7f02002e;
         public static final int abs__ic_go_search_api_holo_light=0x7f02002f;
         public static final int abs__ic_menu_moreoverflow_holo_dark=0x7f020030;
@@ -936,23 +920,23 @@ containing a value of this type.
         public static final int abs__textfield_searchview_holo_light=0x7f020070;
         public static final int abs__textfield_searchview_right_holo_dark=0x7f020071;
         public static final int abs__textfield_searchview_right_holo_light=0x7f020072;
-        public static final int button_add=0x7f020073;
-        public static final int button_cancel=0x7f020074;
-        public static final int button_delete=0x7f020075;
-        public static final int button_green=0x7f020076;
-        public static final int cashflows=0x7f020077;
-        public static final int cashflows2=0x7f020078;
-        public static final int chart_bkg=0x7f020079;
-        public static final int controls=0x7f02007a;
-        public static final int header=0x7f02007b;
-        public static final int ic_launcher=0x7f02007c;
-        public static final int ico_add=0x7f02007d;
-        public static final int ico_add_on=0x7f02007e;
-        public static final int ico_chart=0x7f02007f;
-        public static final int ico_chart_excl=0x7f020080;
-        public static final int ico_chart_on=0x7f020081;
-        public static final int ico_help=0x7f020082;
-        public static final int ico_help_on=0x7f020083;
+        public static final int abs__toast_frame=0x7f020073;
+        public static final int button_add=0x7f020074;
+        public static final int button_cancel=0x7f020075;
+        public static final int button_delete=0x7f020076;
+        public static final int button_green=0x7f020077;
+        public static final int cashflows=0x7f020078;
+        public static final int cashflows2=0x7f020079;
+        public static final int chart_bkg=0x7f02007a;
+        public static final int controls=0x7f02007b;
+        public static final int header=0x7f02007c;
+        public static final int ic_launcher=0x7f02007d;
+        public static final int ico_add=0x7f02007e;
+        public static final int ico_add_on=0x7f02007f;
+        public static final int ico_chart=0x7f020080;
+        public static final int ico_chart_excl=0x7f020081;
+        public static final int ico_chart_on=0x7f020082;
+        public static final int ico_help=0x7f020083;
         public static final int ico_table=0x7f020084;
         public static final int ico_table_excl=0x7f020085;
         public static final int ico_table_on=0x7f020086;
@@ -983,19 +967,19 @@ containing a value of this type.
         public static final int tab_unselected_pressed_finances=0x7f02009f;
     }
     public static final class id {
-        public static final int abs__action_bar=0x7f050022;
-        public static final int abs__action_bar_container=0x7f050021;
+        public static final int abs__action_bar=0x7f050020;
+        public static final int abs__action_bar_container=0x7f05001f;
         public static final int abs__action_bar_subtitle=0x7f050011;
         public static final int abs__action_bar_title=0x7f050010;
-        public static final int abs__action_context_bar=0x7f050023;
+        public static final int abs__action_context_bar=0x7f050021;
         public static final int abs__action_menu_divider=0x7f05000c;
         public static final int abs__action_menu_presenter=0x7f05000d;
-        public static final int abs__action_mode_bar=0x7f050026;
-        public static final int abs__action_mode_bar_stub=0x7f050025;
+        public static final int abs__action_mode_bar=0x7f050025;
+        public static final int abs__action_mode_bar_stub=0x7f050024;
         public static final int abs__action_mode_close_button=0x7f050014;
         public static final int abs__activity_chooser_view_content=0x7f050015;
-        public static final int abs__checkbox=0x7f05001e;
-        public static final int abs__content=0x7f05001d;
+        public static final int abs__checkbox=0x7f05001c;
+        public static final int abs__content=0x7f050022;
         public static final int abs__default_activity_button=0x7f050018;
         public static final int abs__expand_activities_button=0x7f050016;
         public static final int abs__home=0x7f05000a;
@@ -1005,153 +989,152 @@ containing a value of this type.
         public static final int abs__list_item=0x7f050019;
         public static final int abs__progress_circular=0x7f05000e;
         public static final int abs__progress_horizontal=0x7f05000f;
-        public static final int abs__radio=0x7f050020;
-        public static final int abs__search_badge=0x7f050029;
-        public static final int abs__search_bar=0x7f050028;
-        public static final int abs__search_button=0x7f05002a;
-        public static final int abs__search_close_btn=0x7f05002f;
-        public static final int abs__search_edit_frame=0x7f05002b;
-        public static final int abs__search_go_btn=0x7f050031;
-        public static final int abs__search_mag_icon=0x7f05002c;
-        public static final int abs__search_plate=0x7f05002d;
-        public static final int abs__search_src_text=0x7f05002e;
-        public static final int abs__search_voice_btn=0x7f050032;
-        public static final int abs__shortcut=0x7f05001f;
-        public static final int abs__split_action_bar=0x7f050024;
-        public static final int abs__submit_area=0x7f050030;
+        public static final int abs__radio=0x7f05001d;
+        public static final int abs__search_badge=0x7f050028;
+        public static final int abs__search_bar=0x7f050027;
+        public static final int abs__search_button=0x7f050029;
+        public static final int abs__search_close_btn=0x7f05002e;
+        public static final int abs__search_edit_frame=0x7f05002a;
+        public static final int abs__search_go_btn=0x7f050030;
+        public static final int abs__search_mag_icon=0x7f05002b;
+        public static final int abs__search_plate=0x7f05002c;
+        public static final int abs__search_src_text=0x7f05002d;
+        public static final int abs__search_voice_btn=0x7f050031;
+        public static final int abs__shortcut=0x7f05001e;
+        public static final int abs__split_action_bar=0x7f050023;
+        public static final int abs__submit_area=0x7f05002f;
         public static final int abs__textButton=0x7f050013;
         public static final int abs__title=0x7f05001b;
-        public static final int abs__titleDivider=0x7f05001c;
         public static final int abs__up=0x7f05000b;
-        public static final int action_settings=0x7f0500a3;
-        public static final int add_data_button=0x7f050076;
-        public static final int add_data_text=0x7f050075;
-        public static final int additional_cost=0x7f05008d;
-        public static final int amount=0x7f05009a;
-        public static final int capital_gains=0x7f050085;
-        public static final int chart_spinner=0x7f050067;
-        public static final int contribution=0x7f050098;
-        public static final int date=0x7f050083;
-        public static final int debt_loan=0x7f050073;
-        public static final int debt_mortgage=0x7f050074;
-        public static final int debt_rates=0x7f050087;
-        public static final int debt_summary=0x7f050071;
-        public static final int debtloan_amount=0x7f050034;
-        public static final int debtloan_extra_payment=0x7f050037;
-        public static final int debtloan_interest_rate=0x7f050035;
-        public static final int debtloan_name=0x7f050033;
-        public static final int debtloan_start_date=0x7f050038;
-        public static final int debtloan_term=0x7f050036;
-        public static final int debtmortgage_downpayment=0x7f05003c;
-        public static final int debtmortgage_interest_rate=0x7f05003d;
-        public static final int debtmortgage_name=0x7f05003a;
-        public static final int debtmortgage_pmi=0x7f050041;
-        public static final int debtmortgage_property_insurance=0x7f05003f;
-        public static final int debtmortgage_property_tax=0x7f050040;
-        public static final int debtmortgage_purchase_price=0x7f05003b;
-        public static final int debtmortgage_start_date=0x7f050042;
-        public static final int debtmortgage_term=0x7f05003e;
+        public static final int action_settings=0x7f0500a2;
+        public static final int add_data_button=0x7f050075;
+        public static final int add_data_text=0x7f050074;
+        public static final int additional_cost=0x7f05008c;
+        public static final int amount=0x7f050099;
+        public static final int capital_gains=0x7f050084;
+        public static final int chart_spinner=0x7f050066;
+        public static final int contribution=0x7f050097;
+        public static final int date=0x7f050082;
+        public static final int debt_loan=0x7f050072;
+        public static final int debt_mortgage=0x7f050073;
+        public static final int debt_rates=0x7f050086;
+        public static final int debt_summary=0x7f050070;
+        public static final int debtloan_amount=0x7f050033;
+        public static final int debtloan_extra_payment=0x7f050036;
+        public static final int debtloan_interest_rate=0x7f050034;
+        public static final int debtloan_name=0x7f050032;
+        public static final int debtloan_start_date=0x7f050037;
+        public static final int debtloan_term=0x7f050035;
+        public static final int debtmortgage_downpayment=0x7f05003b;
+        public static final int debtmortgage_interest_rate=0x7f05003c;
+        public static final int debtmortgage_name=0x7f050039;
+        public static final int debtmortgage_pmi=0x7f050040;
+        public static final int debtmortgage_property_insurance=0x7f05003e;
+        public static final int debtmortgage_property_tax=0x7f05003f;
+        public static final int debtmortgage_purchase_price=0x7f05003a;
+        public static final int debtmortgage_start_date=0x7f050041;
+        public static final int debtmortgage_term=0x7f05003d;
         public static final int disableHome=0x7f050009;
-        public static final int edit_query=0x7f050027;
-        public static final int exp_list=0x7f05007a;
-        public static final int exp_spinner=0x7f050078;
-        public static final int expense_frequency=0x7f050046;
-        public static final int expense_name=0x7f050043;
-        public static final int expense_summary=0x7f050077;
-        public static final int expensegeneric_start_date=0x7f050047;
-        public static final int expenses=0x7f050086;
-        public static final int frg_cashflow=0x7f050063;
-        public static final int frg_chart=0x7f050066;
-        public static final int frg_income=0x7f05007b;
-        public static final int frg_networth=0x7f050081;
-        public static final int gross_income=0x7f05008f;
-        public static final int group_amount=0x7f050097;
-        public static final int group_date=0x7f050093;
-        public static final int group_employee_contribution=0x7f050095;
-        public static final int group_employer_contribution=0x7f050096;
-        public static final int group_salary=0x7f050094;
-        public static final int header=0x7f050079;
+        public static final int edit_query=0x7f050026;
+        public static final int exp_list=0x7f050079;
+        public static final int exp_spinner=0x7f050077;
+        public static final int expense_frequency=0x7f050045;
+        public static final int expense_name=0x7f050042;
+        public static final int expense_summary=0x7f050076;
+        public static final int expensegeneric_start_date=0x7f050046;
+        public static final int expenses=0x7f050085;
+        public static final int frg_cashflow=0x7f050062;
+        public static final int frg_chart=0x7f050065;
+        public static final int frg_income=0x7f05007a;
+        public static final int frg_networth=0x7f050080;
+        public static final int gross_income=0x7f05008e;
+        public static final int group_amount=0x7f050096;
+        public static final int group_date=0x7f050092;
+        public static final int group_employee_contribution=0x7f050094;
+        public static final int group_employer_contribution=0x7f050095;
+        public static final int group_salary=0x7f050093;
+        public static final int header=0x7f050078;
         public static final int homeAsUp=0x7f050006;
-        public static final int income=0x7f050084;
-        public static final int income_add=0x7f05007d;
-        public static final int income_name=0x7f050049;
-        public static final int income_summary=0x7f05007c;
-        public static final int income_tax_rate=0x7f05004c;
-        public static final int income_term=0x7f05004d;
-        public static final int incomegeneric_start_date=0x7f05004e;
-        public static final int inflation_rate=0x7f050045;
-        public static final int init_expense=0x7f050044;
-        public static final int interests_paid=0x7f05008a;
-        public static final int investment401k_employer_match=0x7f050054;
-        public static final int investment401k_init_amount=0x7f050051;
-        public static final int investment401k_interest_rate=0x7f050057;
-        public static final int investment401k_name=0x7f050050;
-        public static final int investment401k_percontrib=0x7f050053;
-        public static final int investment401k_period=0x7f050055;
-        public static final int investment401k_salary=0x7f050052;
-        public static final int investment401k_start_date=0x7f050058;
-        public static final int investment401k_withdrawal_tax_rate=0x7f050056;
-        public static final int investment_401k=0x7f050080;
-        public static final int investment_rates=0x7f050088;
-        public static final int investment_savacct=0x7f05007f;
-        public static final int investment_summary=0x7f05007e;
-        public static final int investmentcheck_init_amount=0x7f05005b;
-        public static final int investmentcheck_interest_rate=0x7f05005c;
-        public static final int investmentcheck_name=0x7f05005a;
-        public static final int investmentcheck_tax_rate=0x7f05005d;
-        public static final int investmentsav_init_amount=0x7f05005f;
-        public static final int investmentsav_interest_rate=0x7f050060;
-        public static final int investmentsav_name=0x7f05005e;
-        public static final int investmentsav_percontrib=0x7f050062;
-        public static final int investmentsav_tax_rate=0x7f050061;
-        public static final int legend=0x7f050070;
+        public static final int income=0x7f050083;
+        public static final int income_add=0x7f05007c;
+        public static final int income_name=0x7f050048;
+        public static final int income_summary=0x7f05007b;
+        public static final int income_tax_rate=0x7f05004b;
+        public static final int income_term=0x7f05004c;
+        public static final int incomegeneric_start_date=0x7f05004d;
+        public static final int inflation_rate=0x7f050044;
+        public static final int init_expense=0x7f050043;
+        public static final int interests_paid=0x7f050089;
+        public static final int investment401k_employer_match=0x7f050053;
+        public static final int investment401k_init_amount=0x7f050050;
+        public static final int investment401k_interest_rate=0x7f050056;
+        public static final int investment401k_name=0x7f05004f;
+        public static final int investment401k_percontrib=0x7f050052;
+        public static final int investment401k_period=0x7f050054;
+        public static final int investment401k_salary=0x7f050051;
+        public static final int investment401k_start_date=0x7f050057;
+        public static final int investment401k_withdrawal_tax_rate=0x7f050055;
+        public static final int investment_401k=0x7f05007f;
+        public static final int investment_rates=0x7f050087;
+        public static final int investment_savacct=0x7f05007e;
+        public static final int investment_summary=0x7f05007d;
+        public static final int investmentcheck_init_amount=0x7f05005a;
+        public static final int investmentcheck_interest_rate=0x7f05005b;
+        public static final int investmentcheck_name=0x7f050059;
+        public static final int investmentcheck_tax_rate=0x7f05005c;
+        public static final int investmentsav_init_amount=0x7f05005e;
+        public static final int investmentsav_interest_rate=0x7f05005f;
+        public static final int investmentsav_name=0x7f05005d;
+        public static final int investmentsav_percontrib=0x7f050061;
+        public static final int investmentsav_tax_rate=0x7f050060;
+        public static final int legend=0x7f05006f;
         public static final int listMode=0x7f050002;
-        public static final int main_container=0x7f05009e;
-        public static final int menu_about=0x7f0500a2;
-        public static final int menu_add=0x7f0500a4;
-        public static final int menu_chart=0x7f0500a5;
-        public static final int menu_explain=0x7f0500a7;
-        public static final int menu_feedback=0x7f0500a0;
-        public static final int menu_help=0x7f0500a1;
-        public static final int menu_settings=0x7f0500a8;
-        public static final int menu_table=0x7f0500a6;
-        public static final int net_expense=0x7f05008e;
-        public static final int net_income=0x7f050091;
-        public static final int net_interests=0x7f050099;
-        public static final int net_worth=0x7f05009d;
+        public static final int main_container=0x7f05009d;
+        public static final int menu_about=0x7f0500a1;
+        public static final int menu_add=0x7f0500a3;
+        public static final int menu_chart=0x7f0500a4;
+        public static final int menu_explain=0x7f0500a6;
+        public static final int menu_feedback=0x7f05009f;
+        public static final int menu_help=0x7f0500a0;
+        public static final int menu_settings=0x7f0500a7;
+        public static final int menu_table=0x7f0500a5;
+        public static final int net_expense=0x7f05008d;
+        public static final int net_income=0x7f050090;
+        public static final int net_interests=0x7f050098;
+        public static final int net_worth=0x7f05009c;
         public static final int normal=0x7f050001;
-        public static final int outstanding_debts=0x7f05009c;
-        public static final int pred1=0x7f05006a;
-        public static final int pred10=0x7f05006c;
-        public static final int pred30=0x7f05006d;
-        public static final int pred5=0x7f05006b;
-        public static final int pred50=0x7f05006e;
-        public static final int predNumYears=0x7f050068;
-        public static final int predText=0x7f050069;
-        public static final int pred_chart=0x7f05006f;
-        public static final int pretax_investment=0x7f050092;
-        public static final int principal_paid=0x7f050089;
-        public static final int progressbar_horizontal=0x7f05009f;
-        public static final int remaining_amount=0x7f05008c;
-        public static final int savings=0x7f05009b;
+        public static final int outstanding_debts=0x7f05009b;
+        public static final int pred1=0x7f050069;
+        public static final int pred10=0x7f05006b;
+        public static final int pred30=0x7f05006c;
+        public static final int pred5=0x7f05006a;
+        public static final int pred50=0x7f05006d;
+        public static final int predNumYears=0x7f050067;
+        public static final int predText=0x7f050068;
+        public static final int pred_chart=0x7f05006e;
+        public static final int pretax_investment=0x7f050091;
+        public static final int principal_paid=0x7f050088;
+        public static final int progressbar_horizontal=0x7f05009e;
+        public static final int remaining_amount=0x7f05008b;
+        public static final int savings=0x7f05009a;
         public static final int showCustom=0x7f050008;
         public static final int showHome=0x7f050005;
         public static final int showTitle=0x7f050007;
-        public static final int show_chart=0x7f050064;
-        public static final int show_table=0x7f050065;
-        public static final int strut=0x7f050072;
-        public static final int submitDebtButtons=0x7f050039;
-        public static final int submitExpenseButtons=0x7f050048;
-        public static final int submitIncomeButtons=0x7f05004f;
-        public static final int submitInvestmentButtons=0x7f050059;
+        public static final int show_chart=0x7f050063;
+        public static final int show_table=0x7f050064;
+        public static final int strut=0x7f050071;
+        public static final int submitDebtButtons=0x7f050038;
+        public static final int submitExpenseButtons=0x7f050047;
+        public static final int submitIncomeButtons=0x7f05004e;
+        public static final int submitInvestmentButtons=0x7f050058;
         public static final int tabMode=0x7f050003;
-        public static final int tax=0x7f050090;
-        public static final int total_interests=0x7f05008b;
-        public static final int tvGroup=0x7f050082;
+        public static final int tax=0x7f05008f;
+        public static final int total_interests=0x7f05008a;
+        public static final int tvGroup=0x7f050081;
         public static final int useLogo=0x7f050004;
         public static final int wrap_content=0x7f050000;
-        public static final int yearly_income=0x7f05004a;
-        public static final int yearly_income_rise=0x7f05004b;
+        public static final int yearly_income=0x7f050049;
+        public static final int yearly_income_rise=0x7f05004a;
     }
     public static final class integer {
         public static final int abs__max_action_buttons=0x7f090000;
@@ -1170,77 +1153,75 @@ containing a value of this type.
         public static final int abs__action_mode_close_item=0x7f030007;
         public static final int abs__activity_chooser_view=0x7f030008;
         public static final int abs__activity_chooser_view_list_item=0x7f030009;
-        public static final int abs__dialog_title_holo=0x7f03000a;
-        public static final int abs__list_menu_item_checkbox=0x7f03000b;
-        public static final int abs__list_menu_item_icon=0x7f03000c;
-        public static final int abs__list_menu_item_layout=0x7f03000d;
-        public static final int abs__list_menu_item_radio=0x7f03000e;
-        public static final int abs__popup_menu_item_layout=0x7f03000f;
-        public static final int abs__screen_action_bar=0x7f030010;
-        public static final int abs__screen_action_bar_overlay=0x7f030011;
-        public static final int abs__screen_simple=0x7f030012;
-        public static final int abs__screen_simple_overlay_action_mode=0x7f030013;
-        public static final int abs__search_dropdown_item_icons_2line=0x7f030014;
-        public static final int abs__search_view=0x7f030015;
-        public static final int abs__simple_dropdown_hint=0x7f030016;
-        public static final int act_about=0x7f030017;
-        public static final int act_add_debtloan=0x7f030018;
-        public static final int act_add_debtmortgage=0x7f030019;
-        public static final int act_add_expensegeneric=0x7f03001a;
-        public static final int act_add_incomegeneric=0x7f03001b;
-        public static final int act_add_investment401k=0x7f03001c;
-        public static final int act_add_investmentcheckacct=0x7f03001d;
-        public static final int act_add_investmentsavacct=0x7f03001e;
-        public static final int act_feedback=0x7f03001f;
-        public static final int expl_cashflows_add=0x7f030020;
-        public static final int expl_cashflows_chart=0x7f030021;
-        public static final int expl_cashflows_table=0x7f030022;
-        public static final int expl_debts_add=0x7f030023;
-        public static final int expl_debts_chart=0x7f030024;
-        public static final int expl_debts_table=0x7f030025;
-        public static final int expl_expenses_add=0x7f030026;
-        public static final int expl_expenses_chart=0x7f030027;
-        public static final int expl_expenses_table=0x7f030028;
-        public static final int expl_income_add=0x7f030029;
-        public static final int expl_income_chart=0x7f03002a;
-        public static final int expl_income_table=0x7f03002b;
-        public static final int expl_networth_add=0x7f03002c;
-        public static final int expl_networth_chart=0x7f03002d;
-        public static final int expl_networth_table=0x7f03002e;
-        public static final int expl_savings_add=0x7f03002f;
-        public static final int expl_savings_chart=0x7f030030;
-        public static final int expl_savings_table=0x7f030031;
-        public static final int frg_cashflows=0x7f030032;
-        public static final int frg_chart=0x7f030033;
-        public static final int frg_debt=0x7f030034;
-        public static final int frg_empty=0x7f030035;
-        public static final int frg_expense=0x7f030036;
-        public static final int frg_explist=0x7f030037;
-        public static final int frg_income=0x7f030038;
-        public static final int frg_investment=0x7f030039;
-        public static final int frg_networth=0x7f03003a;
-        public static final int help_debtloan=0x7f03003b;
-        public static final int help_debtmortgage=0x7f03003c;
-        public static final int help_expensegeneric=0x7f03003d;
-        public static final int help_incomegeneric=0x7f03003e;
-        public static final int help_investment401k=0x7f03003f;
-        public static final int help_investmentcheckacct=0x7f030040;
-        public static final int help_investmentsavacct=0x7f030041;
-        public static final int list_cashflows=0x7f030042;
-        public static final int list_debtloan=0x7f030043;
-        public static final int list_debtmortgage=0x7f030044;
-        public static final int list_expensegeneric=0x7f030045;
-        public static final int list_incomegeneric=0x7f030046;
-        public static final int list_incomegenericwithpretaxinv=0x7f030047;
-        public static final int list_investment401k=0x7f030048;
-        public static final int list_investmentcheckacct=0x7f030049;
-        public static final int list_investmentsavacct=0x7f03004a;
-        public static final int list_networth=0x7f03004b;
-        public static final int main=0x7f03004c;
-        public static final int progress_bar=0x7f03004d;
-        public static final int sherlock_spinner_dropdown_item=0x7f03004e;
-        public static final int sherlock_spinner_item=0x7f03004f;
-        public static final int start_popup=0x7f030050;
+        public static final int abs__list_menu_item_checkbox=0x7f03000a;
+        public static final int abs__list_menu_item_icon=0x7f03000b;
+        public static final int abs__list_menu_item_radio=0x7f03000c;
+        public static final int abs__popup_menu_item_layout=0x7f03000d;
+        public static final int abs__screen_action_bar=0x7f03000e;
+        public static final int abs__screen_action_bar_overlay=0x7f03000f;
+        public static final int abs__screen_simple=0x7f030010;
+        public static final int abs__screen_simple_overlay_action_mode=0x7f030011;
+        public static final int abs__search_dropdown_item_icons_2line=0x7f030012;
+        public static final int abs__search_view=0x7f030013;
+        public static final int abs__simple_dropdown_hint=0x7f030014;
+        public static final int act_about=0x7f030015;
+        public static final int act_add_debtloan=0x7f030016;
+        public static final int act_add_debtmortgage=0x7f030017;
+        public static final int act_add_expensegeneric=0x7f030018;
+        public static final int act_add_incomegeneric=0x7f030019;
+        public static final int act_add_investment401k=0x7f03001a;
+        public static final int act_add_investmentcheckacct=0x7f03001b;
+        public static final int act_add_investmentsavacct=0x7f03001c;
+        public static final int act_feedback=0x7f03001d;
+        public static final int expl_cashflows_add=0x7f03001e;
+        public static final int expl_cashflows_chart=0x7f03001f;
+        public static final int expl_cashflows_table=0x7f030020;
+        public static final int expl_debts_add=0x7f030021;
+        public static final int expl_debts_chart=0x7f030022;
+        public static final int expl_debts_table=0x7f030023;
+        public static final int expl_expenses_add=0x7f030024;
+        public static final int expl_expenses_chart=0x7f030025;
+        public static final int expl_expenses_table=0x7f030026;
+        public static final int expl_income_add=0x7f030027;
+        public static final int expl_income_chart=0x7f030028;
+        public static final int expl_income_table=0x7f030029;
+        public static final int expl_networth_add=0x7f03002a;
+        public static final int expl_networth_chart=0x7f03002b;
+        public static final int expl_networth_table=0x7f03002c;
+        public static final int expl_savings_add=0x7f03002d;
+        public static final int expl_savings_chart=0x7f03002e;
+        public static final int expl_savings_table=0x7f03002f;
+        public static final int frg_cashflows=0x7f030030;
+        public static final int frg_chart=0x7f030031;
+        public static final int frg_debt=0x7f030032;
+        public static final int frg_empty=0x7f030033;
+        public static final int frg_expense=0x7f030034;
+        public static final int frg_explist=0x7f030035;
+        public static final int frg_income=0x7f030036;
+        public static final int frg_investment=0x7f030037;
+        public static final int frg_networth=0x7f030038;
+        public static final int help_debtloan=0x7f030039;
+        public static final int help_debtmortgage=0x7f03003a;
+        public static final int help_expensegeneric=0x7f03003b;
+        public static final int help_incomegeneric=0x7f03003c;
+        public static final int help_investment401k=0x7f03003d;
+        public static final int help_investmentcheckacct=0x7f03003e;
+        public static final int help_investmentsavacct=0x7f03003f;
+        public static final int list_cashflows=0x7f030040;
+        public static final int list_debtloan=0x7f030041;
+        public static final int list_debtmortgage=0x7f030042;
+        public static final int list_expensegeneric=0x7f030043;
+        public static final int list_incomegeneric=0x7f030044;
+        public static final int list_incomegenericwithpretaxinv=0x7f030045;
+        public static final int list_investment401k=0x7f030046;
+        public static final int list_investmentcheckacct=0x7f030047;
+        public static final int list_investmentsavacct=0x7f030048;
+        public static final int list_networth=0x7f030049;
+        public static final int main=0x7f03004a;
+        public static final int progress_bar=0x7f03004b;
+        public static final int sherlock_spinner_dropdown_item=0x7f03004c;
+        public static final int sherlock_spinner_item=0x7f03004d;
+        public static final int start_popup=0x7f03004e;
     }
     public static final class menu {
         public static final int about=0x7f0d0000;
@@ -1258,19 +1239,19 @@ containing a value of this type.
         public static final int start_popup=0x7f0d000c;
     }
     public static final class string {
-        public static final int about_text1=0x7f0a003f;
-        public static final int about_text2=0x7f0a0041;
-        public static final int about_text3=0x7f0a0043;
-        public static final int about_text5=0x7f0a0045;
-        public static final int about_text6=0x7f0a0047;
+        public static final int about_text1=0x7f0a003d;
+        public static final int about_text2=0x7f0a003f;
+        public static final int about_text3=0x7f0a0041;
+        public static final int about_text5=0x7f0a0043;
+        public static final int about_text6=0x7f0a0045;
         /**  About window 
          */
-        public static final int about_title1=0x7f0a003d;
-        public static final int about_title1_moreinfo=0x7f0a003e;
-        public static final int about_title2=0x7f0a0040;
-        public static final int about_title3=0x7f0a0042;
-        public static final int about_title5=0x7f0a0044;
-        public static final int about_title6=0x7f0a0046;
+        public static final int about_title1=0x7f0a003b;
+        public static final int about_title1_moreinfo=0x7f0a003c;
+        public static final int about_title2=0x7f0a003e;
+        public static final int about_title3=0x7f0a0040;
+        public static final int about_title5=0x7f0a0042;
+        public static final int about_title6=0x7f0a0044;
         /**  Content description for the action bar "home" affordance. [CHAR LIMIT=NONE] 
          */
         public static final int abs__action_bar_home_description=0x7f0a0000;
@@ -1283,284 +1264,278 @@ containing a value of this type.
         /**  Label for the "Done" button on the far left of action mode toolbars. 
          */
         public static final int abs__action_mode_done=0x7f0a0003;
-        /**  Title default for a dialog showing possible activities in ActivityChooserView [CHAR LIMIT=25] 
-         */
-        public static final int abs__activity_chooser_view_dialog_title_default=0x7f0a0005;
         /**  Title for a button to expand the list of activities in ActivityChooserView [CHAR LIMIT=25] 
          */
         public static final int abs__activity_chooser_view_see_all=0x7f0a0004;
         /**  Description of the shwoing of a popup window with activities to choose from. [CHAR LIMIT=NONE] 
          */
-        public static final int abs__activitychooserview_choose_application=0x7f0a0007;
+        public static final int abs__activitychooserview_choose_application=0x7f0a0005;
         /**  SearchView accessibility description for clear button [CHAR LIMIT=NONE] 
          */
-        public static final int abs__searchview_description_clear=0x7f0a000c;
+        public static final int abs__searchview_description_clear=0x7f0a000a;
         /**  SearchView accessibility description for search text field [CHAR LIMIT=NONE] 
          */
-        public static final int abs__searchview_description_query=0x7f0a000b;
+        public static final int abs__searchview_description_query=0x7f0a0009;
         /**  SearchView accessibility description for search button [CHAR LIMIT=NONE] 
          */
-        public static final int abs__searchview_description_search=0x7f0a000a;
+        public static final int abs__searchview_description_search=0x7f0a0008;
         /**  SearchView accessibility description for submit button [CHAR LIMIT=NONE] 
          */
-        public static final int abs__searchview_description_submit=0x7f0a000d;
+        public static final int abs__searchview_description_submit=0x7f0a000b;
         /**  SearchView accessibility description for voice button [CHAR LIMIT=NONE] 
          */
-        public static final int abs__searchview_description_voice=0x7f0a000e;
-        /**  Title for a dialog showing possible activities for sharing in ShareActionProvider [CHAR LIMIT=25] 
-         */
-        public static final int abs__share_action_provider_share_with=0x7f0a0006;
+        public static final int abs__searchview_description_voice=0x7f0a000c;
         /**  Description of the choose target button in a ShareActionProvider (share UI). [CHAR LIMIT=NONE] 
          */
-        public static final int abs__shareactionprovider_share_with=0x7f0a0008;
+        public static final int abs__shareactionprovider_share_with=0x7f0a0006;
         /**  Description of a share target (both in the list of such or the default share button) in a ShareActionProvider (share UI). [CHAR LIMIT=NONE] 
          */
-        public static final int abs__shareactionprovider_share_with_application=0x7f0a0009;
-        public static final int acct_object=0x7f0a0039;
-        public static final int action_settings=0x7f0a003a;
-        public static final int add_debtloan=0x7f0a0036;
-        public static final int add_debtmortgage=0x7f0a0037;
-        public static final int add_expense=0x7f0a0038;
-        public static final int add_income=0x7f0a0030;
-        public static final int add_investment401k=0x7f0a0033;
-        public static final int add_investmentbond=0x7f0a0034;
-        public static final int add_investmentcheckacct=0x7f0a0032;
-        public static final int add_investmentsav=0x7f0a0031;
-        public static final int add_investmentsavacct_info=0x7f0a00f5;
-        public static final int add_investmentsavacct_title=0x7f0a00f4;
-        public static final int add_investmentstock=0x7f0a0035;
-        public static final int app_name=0x7f0a000f;
-        public static final int cancel=0x7f0a002c;
-        public static final int cashflow_title=0x7f0a005a;
-        public static final int cashflows1=0x7f0a004f;
-        public static final int cashflows2=0x7f0a0050;
-        public static final int chart_no_data_info_text=0x7f0a0048;
-        public static final int debt_description=0x7f0a0054;
-        public static final int debtloan_amount_input=0x7f0a0070;
-        public static final int debtloan_amount_text=0x7f0a0071;
-        public static final int debtloan_extra_payment_input=0x7f0a0076;
-        public static final int debtloan_extra_payment_text=0x7f0a0077;
-        public static final int debtloan_help_amount=0x7f0a0078;
-        public static final int debtloan_help_extra_payment=0x7f0a007b;
-        public static final int debtloan_help_interest_rate=0x7f0a0079;
-        public static final int debtloan_help_start_date=0x7f0a007c;
-        public static final int debtloan_help_term=0x7f0a007a;
-        public static final int debtloan_interest_rate_input=0x7f0a0072;
-        public static final int debtloan_interest_rate_text=0x7f0a0073;
-        public static final int debtloan_name_input=0x7f0a006e;
-        public static final int debtloan_name_text=0x7f0a006f;
-        public static final int debtloan_term_input=0x7f0a0074;
-        public static final int debtloan_term_text=0x7f0a0075;
-        public static final int debtmortgage_downpayment_input=0x7f0a0081;
-        public static final int debtmortgage_downpayment_text=0x7f0a0082;
-        public static final int debtmortgage_help_amount=0x7f0a008d;
-        public static final int debtmortgage_help_downpayment=0x7f0a008e;
-        public static final int debtmortgage_help_interest_rate=0x7f0a008f;
-        public static final int debtmortgage_help_pmi=0x7f0a0093;
-        public static final int debtmortgage_help_property_insurance=0x7f0a0091;
-        public static final int debtmortgage_help_property_tax=0x7f0a0092;
-        public static final int debtmortgage_help_start_date=0x7f0a0094;
-        public static final int debtmortgage_help_term=0x7f0a0090;
-        public static final int debtmortgage_interest_rate_input=0x7f0a0083;
-        public static final int debtmortgage_interest_rate_text=0x7f0a0084;
-        public static final int debtmortgage_name_input=0x7f0a007d;
-        public static final int debtmortgage_name_text=0x7f0a007e;
-        public static final int debtmortgage_pmi_input=0x7f0a008b;
-        public static final int debtmortgage_pmi_text=0x7f0a008c;
-        public static final int debtmortgage_property_insurance_input=0x7f0a0087;
-        public static final int debtmortgage_property_insurance_text=0x7f0a0088;
-        public static final int debtmortgage_property_tax_input=0x7f0a0089;
-        public static final int debtmortgage_property_tax_text=0x7f0a008a;
-        public static final int debtmortgage_purchase_price_input=0x7f0a007f;
-        public static final int debtmortgage_purchase_price_text=0x7f0a0080;
-        public static final int debtmortgage_term_input=0x7f0a0085;
-        public static final int debtmortgage_term_text=0x7f0a0086;
-        public static final int debts_title=0x7f0a0053;
-        public static final int expense_frequency_input=0x7f0a009b;
-        public static final int expense_help_amount=0x7f0a009c;
-        public static final int expense_help_frequency=0x7f0a009e;
-        public static final int expense_help_inflation_rate=0x7f0a009d;
-        public static final int expense_help_start_date=0x7f0a009f;
-        public static final int expense_name_input=0x7f0a0095;
-        public static final int expense_name_text=0x7f0a0096;
-        public static final int expenses_description=0x7f0a0056;
-        public static final int expenses_title=0x7f0a0055;
+        public static final int abs__shareactionprovider_share_with_application=0x7f0a0007;
+        public static final int acct_object=0x7f0a0037;
+        public static final int action_settings=0x7f0a0038;
+        public static final int add_debtloan=0x7f0a0034;
+        public static final int add_debtmortgage=0x7f0a0035;
+        public static final int add_expense=0x7f0a0036;
+        public static final int add_income=0x7f0a002e;
+        public static final int add_investment401k=0x7f0a0031;
+        public static final int add_investmentbond=0x7f0a0032;
+        public static final int add_investmentcheckacct=0x7f0a0030;
+        public static final int add_investmentsav=0x7f0a002f;
+        public static final int add_investmentsavacct_info=0x7f0a00f3;
+        public static final int add_investmentsavacct_title=0x7f0a00f2;
+        public static final int add_investmentstock=0x7f0a0033;
+        public static final int app_name=0x7f0a000d;
+        public static final int cancel=0x7f0a002a;
+        public static final int cashflow_title=0x7f0a0058;
+        public static final int cashflows1=0x7f0a004d;
+        public static final int cashflows2=0x7f0a004e;
+        public static final int chart_no_data_info_text=0x7f0a0046;
+        public static final int debt_description=0x7f0a0052;
+        public static final int debtloan_amount_input=0x7f0a006e;
+        public static final int debtloan_amount_text=0x7f0a006f;
+        public static final int debtloan_extra_payment_input=0x7f0a0074;
+        public static final int debtloan_extra_payment_text=0x7f0a0075;
+        public static final int debtloan_help_amount=0x7f0a0076;
+        public static final int debtloan_help_extra_payment=0x7f0a0079;
+        public static final int debtloan_help_interest_rate=0x7f0a0077;
+        public static final int debtloan_help_start_date=0x7f0a007a;
+        public static final int debtloan_help_term=0x7f0a0078;
+        public static final int debtloan_interest_rate_input=0x7f0a0070;
+        public static final int debtloan_interest_rate_text=0x7f0a0071;
+        public static final int debtloan_name_input=0x7f0a006c;
+        public static final int debtloan_name_text=0x7f0a006d;
+        public static final int debtloan_term_input=0x7f0a0072;
+        public static final int debtloan_term_text=0x7f0a0073;
+        public static final int debtmortgage_downpayment_input=0x7f0a007f;
+        public static final int debtmortgage_downpayment_text=0x7f0a0080;
+        public static final int debtmortgage_help_amount=0x7f0a008b;
+        public static final int debtmortgage_help_downpayment=0x7f0a008c;
+        public static final int debtmortgage_help_interest_rate=0x7f0a008d;
+        public static final int debtmortgage_help_pmi=0x7f0a0091;
+        public static final int debtmortgage_help_property_insurance=0x7f0a008f;
+        public static final int debtmortgage_help_property_tax=0x7f0a0090;
+        public static final int debtmortgage_help_start_date=0x7f0a0092;
+        public static final int debtmortgage_help_term=0x7f0a008e;
+        public static final int debtmortgage_interest_rate_input=0x7f0a0081;
+        public static final int debtmortgage_interest_rate_text=0x7f0a0082;
+        public static final int debtmortgage_name_input=0x7f0a007b;
+        public static final int debtmortgage_name_text=0x7f0a007c;
+        public static final int debtmortgage_pmi_input=0x7f0a0089;
+        public static final int debtmortgage_pmi_text=0x7f0a008a;
+        public static final int debtmortgage_property_insurance_input=0x7f0a0085;
+        public static final int debtmortgage_property_insurance_text=0x7f0a0086;
+        public static final int debtmortgage_property_tax_input=0x7f0a0087;
+        public static final int debtmortgage_property_tax_text=0x7f0a0088;
+        public static final int debtmortgage_purchase_price_input=0x7f0a007d;
+        public static final int debtmortgage_purchase_price_text=0x7f0a007e;
+        public static final int debtmortgage_term_input=0x7f0a0083;
+        public static final int debtmortgage_term_text=0x7f0a0084;
+        public static final int debts_title=0x7f0a0051;
+        public static final int expense_frequency_input=0x7f0a0099;
+        public static final int expense_help_amount=0x7f0a009a;
+        public static final int expense_help_frequency=0x7f0a009c;
+        public static final int expense_help_inflation_rate=0x7f0a009b;
+        public static final int expense_help_start_date=0x7f0a009d;
+        public static final int expense_name_input=0x7f0a0093;
+        public static final int expense_name_text=0x7f0a0094;
+        public static final int expenses_description=0x7f0a0054;
+        public static final int expenses_title=0x7f0a0053;
         /**  Cashflows help 
          */
-        public static final int expl_cashflows_add_intro=0x7f0a00e2;
-        public static final int expl_cashflows_chart_intro=0x7f0a00e3;
-        public static final int expl_cashflows_table_intro=0x7f0a00e4;
+        public static final int expl_cashflows_add_intro=0x7f0a00e0;
+        public static final int expl_cashflows_chart_intro=0x7f0a00e1;
+        public static final int expl_cashflows_table_intro=0x7f0a00e2;
         /**  Debts help 
          */
-        public static final int expl_debts_add_intro=0x7f0a00de;
-        public static final int expl_debts_chart_intro=0x7f0a00df;
-        public static final int expl_debts_table_intro_1=0x7f0a00e0;
-        public static final int expl_debts_table_intro_2=0x7f0a00e1;
+        public static final int expl_debts_add_intro=0x7f0a00dc;
+        public static final int expl_debts_chart_intro=0x7f0a00dd;
+        public static final int expl_debts_table_intro_1=0x7f0a00de;
+        public static final int expl_debts_table_intro_2=0x7f0a00df;
         /**  Expenses help 
          */
-        public static final int expl_expenses_add_intro=0x7f0a00d7;
-        public static final int expl_expenses_chart_intro=0x7f0a00d8;
-        public static final int expl_expenses_table_intro=0x7f0a00d9;
+        public static final int expl_expenses_add_intro=0x7f0a00d5;
+        public static final int expl_expenses_chart_intro=0x7f0a00d6;
+        public static final int expl_expenses_table_intro=0x7f0a00d7;
         /**  Help (explain) dialogs 
          */
-        public static final int expl_income_add_intro=0x7f0a00d4;
-        public static final int expl_income_chart_intro=0x7f0a00d5;
-        public static final int expl_income_table_intro=0x7f0a00d6;
+        public static final int expl_income_add_intro=0x7f0a00d2;
+        public static final int expl_income_chart_intro=0x7f0a00d3;
+        public static final int expl_income_table_intro=0x7f0a00d4;
         /**  Net worth help 
          */
-        public static final int expl_net_worth_add_intro=0x7f0a00e5;
-        public static final int expl_net_worth_table_intro=0x7f0a00e6;
+        public static final int expl_net_worth_add_intro=0x7f0a00e3;
+        public static final int expl_net_worth_table_intro=0x7f0a00e4;
         /**  Feedback window 
          */
-        public static final int feedback_text1=0x7f0a003b;
-        public static final int feedback_text2=0x7f0a003c;
-        public static final int frg_debts_add_multiple_info=0x7f0a00f3;
-        public static final int frg_expenses_add_multiple_info=0x7f0a00f1;
-        public static final int frg_income_add_multiple_info=0x7f0a00f0;
-        public static final int frg_investment_add_salary_neutral=0x7f0a00ef;
-        public static final int frg_investment_add_salary_text=0x7f0a00ee;
+        public static final int feedback_text1=0x7f0a0039;
+        public static final int feedback_text2=0x7f0a003a;
+        public static final int frg_debts_add_multiple_info=0x7f0a00f1;
+        public static final int frg_expenses_add_multiple_info=0x7f0a00ef;
+        public static final int frg_income_add_multiple_info=0x7f0a00ee;
+        public static final int frg_investment_add_salary_neutral=0x7f0a00ed;
+        public static final int frg_investment_add_salary_text=0x7f0a00ec;
         /**  Alert dialogs 
          */
-        public static final int frg_investment_add_salary_title=0x7f0a00ed;
-        public static final int frg_savings_add_multiple_info=0x7f0a00f2;
-        public static final int income_description=0x7f0a0058;
-        public static final int income_help_income_term=0x7f0a006d;
-        public static final int income_help_intro=0x7f0a0068;
-        public static final int income_help_rise_per_year=0x7f0a006a;
-        public static final int income_help_start_date=0x7f0a006c;
-        public static final int income_help_tax_rate=0x7f0a006b;
-        public static final int income_help_yearly_income=0x7f0a0069;
-        public static final int income_name_input=0x7f0a005e;
-        public static final int income_name_text=0x7f0a005f;
-        public static final int income_tax_rate_input=0x7f0a0064;
-        public static final int income_tax_rate_text=0x7f0a0065;
-        public static final int income_term_input=0x7f0a0066;
-        public static final int income_term_text=0x7f0a0067;
-        public static final int income_title=0x7f0a0057;
-        public static final int inflation_rate_input=0x7f0a0099;
-        public static final int inflation_rate_text=0x7f0a009a;
-        public static final int init_expense_input=0x7f0a0097;
-        public static final int init_expense_text=0x7f0a0098;
-        public static final int investment401k_employer_match_input=0x7f0a00c7;
-        public static final int investment401k_employer_match_text=0x7f0a00c8;
-        public static final int investment401k_help_amount=0x7f0a00cb;
-        public static final int investment401k_help_annual_salary=0x7f0a00cc;
-        public static final int investment401k_help_employer_match=0x7f0a00ce;
-        public static final int investment401k_help_interest_rate=0x7f0a00d1;
-        public static final int investment401k_help_percontrib=0x7f0a00cd;
-        public static final int investment401k_help_period=0x7f0a00cf;
-        public static final int investment401k_help_start_date=0x7f0a00d2;
-        public static final int investment401k_help_withdrawabl_tax_rate=0x7f0a00d0;
-        public static final int investment401k_init_amount_input=0x7f0a00bb;
-        public static final int investment401k_init_amount_text=0x7f0a00bc;
-        public static final int investment401k_interest_rate_input=0x7f0a00c9;
-        public static final int investment401k_interest_rate_text=0x7f0a00ca;
-        public static final int investment401k_name_input=0x7f0a00b9;
-        public static final int investment401k_name_text=0x7f0a00ba;
-        public static final int investment401k_payrise_input=0x7f0a00c3;
-        public static final int investment401k_payrise_text=0x7f0a00c4;
-        public static final int investment401k_percontrib_input=0x7f0a00bf;
-        public static final int investment401k_percontrib_text=0x7f0a00c0;
-        public static final int investment401k_period_input=0x7f0a00c1;
-        public static final int investment401k_period_text=0x7f0a00c2;
-        public static final int investment401k_salary_input=0x7f0a00bd;
-        public static final int investment401k_salary_text=0x7f0a00be;
-        public static final int investment401k_withdrawal_tax_rate_input=0x7f0a00c5;
-        public static final int investment401k_withdrawal_tax_rate_text=0x7f0a00c6;
-        public static final int investmentcheck_init_amount_input=0x7f0a00b0;
-        public static final int investmentcheck_init_amount_text=0x7f0a00b1;
-        public static final int investmentcheck_interest_rate_input=0x7f0a00b2;
-        public static final int investmentcheck_interest_rate_text=0x7f0a00b3;
-        public static final int investmentcheck_name_input=0x7f0a00ae;
-        public static final int investmentcheck_name_text=0x7f0a00af;
-        public static final int investmentcheck_tax_rate_input=0x7f0a00b4;
-        public static final int investmentcheck_tax_rate_text=0x7f0a00b5;
-        public static final int investmentcheckacct_help_amount=0x7f0a00b6;
-        public static final int investmentcheckacct_help_interest_rate=0x7f0a00b7;
-        public static final int investmentcheckacct_help_tax_rate=0x7f0a00b8;
-        public static final int investments_description=0x7f0a005d;
-        public static final int investments_title=0x7f0a0059;
-        public static final int investmentsav_init_amount_input=0x7f0a00a2;
-        public static final int investmentsav_init_amount_text=0x7f0a00a3;
-        public static final int investmentsav_interest_rate_input=0x7f0a00a4;
-        public static final int investmentsav_interest_rate_text=0x7f0a00a5;
-        public static final int investmentsav_name_input=0x7f0a00a0;
-        public static final int investmentsav_name_text=0x7f0a00a1;
-        public static final int investmentsav_percontrib_input=0x7f0a00a8;
-        public static final int investmentsav_percontrib_text=0x7f0a00a9;
-        public static final int investmentsav_tax_rate_input=0x7f0a00a6;
-        public static final int investmentsav_tax_rate_text=0x7f0a00a7;
-        public static final int investmentsavacct_help_amount=0x7f0a00aa;
-        public static final int investmentsavacct_help_interest_rate=0x7f0a00ab;
-        public static final int investmentsavacct_help_percontrib=0x7f0a00ad;
-        public static final int investmentsavacct_help_tax_rate=0x7f0a00ac;
-        public static final int menu_about=0x7f0a0012;
-        public static final int menu_add=0x7f0a0015;
-        public static final int menu_chart=0x7f0a0016;
-        public static final int menu_explain=0x7f0a0014;
-        public static final int menu_feedback=0x7f0a0013;
-        public static final int menu_help=0x7f0a0018;
-        public static final int menu_settings=0x7f0a0011;
-        public static final int menu_table=0x7f0a0017;
-        public static final int net_worth_title=0x7f0a005b;
-        public static final int networth1=0x7f0a0051;
-        public static final int networth2=0x7f0a0052;
-        public static final int no_data_info_button=0x7f0a004a;
-        public static final int no_data_info_text=0x7f0a0049;
-        public static final int no_debt_info=0x7f0a0029;
-        public static final int no_expense_info=0x7f0a0028;
-        public static final int no_income_info=0x7f0a0027;
-        public static final int no_investment_info=0x7f0a0026;
-        public static final int percent=0x7f0a002d;
-        public static final int pref_description_social_recommendations=0x7f0a00f9;
+        public static final int frg_investment_add_salary_title=0x7f0a00eb;
+        public static final int frg_savings_add_multiple_info=0x7f0a00f0;
+        public static final int income_description=0x7f0a0056;
+        public static final int income_help_income_term=0x7f0a006b;
+        public static final int income_help_intro=0x7f0a0066;
+        public static final int income_help_rise_per_year=0x7f0a0068;
+        public static final int income_help_start_date=0x7f0a006a;
+        public static final int income_help_tax_rate=0x7f0a0069;
+        public static final int income_help_yearly_income=0x7f0a0067;
+        public static final int income_name_input=0x7f0a005c;
+        public static final int income_name_text=0x7f0a005d;
+        public static final int income_tax_rate_input=0x7f0a0062;
+        public static final int income_tax_rate_text=0x7f0a0063;
+        public static final int income_term_input=0x7f0a0064;
+        public static final int income_term_text=0x7f0a0065;
+        public static final int income_title=0x7f0a0055;
+        public static final int inflation_rate_input=0x7f0a0097;
+        public static final int inflation_rate_text=0x7f0a0098;
+        public static final int init_expense_input=0x7f0a0095;
+        public static final int init_expense_text=0x7f0a0096;
+        public static final int investment401k_employer_match_input=0x7f0a00c5;
+        public static final int investment401k_employer_match_text=0x7f0a00c6;
+        public static final int investment401k_help_amount=0x7f0a00c9;
+        public static final int investment401k_help_annual_salary=0x7f0a00ca;
+        public static final int investment401k_help_employer_match=0x7f0a00cc;
+        public static final int investment401k_help_interest_rate=0x7f0a00cf;
+        public static final int investment401k_help_percontrib=0x7f0a00cb;
+        public static final int investment401k_help_period=0x7f0a00cd;
+        public static final int investment401k_help_start_date=0x7f0a00d0;
+        public static final int investment401k_help_withdrawabl_tax_rate=0x7f0a00ce;
+        public static final int investment401k_init_amount_input=0x7f0a00b9;
+        public static final int investment401k_init_amount_text=0x7f0a00ba;
+        public static final int investment401k_interest_rate_input=0x7f0a00c7;
+        public static final int investment401k_interest_rate_text=0x7f0a00c8;
+        public static final int investment401k_name_input=0x7f0a00b7;
+        public static final int investment401k_name_text=0x7f0a00b8;
+        public static final int investment401k_payrise_input=0x7f0a00c1;
+        public static final int investment401k_payrise_text=0x7f0a00c2;
+        public static final int investment401k_percontrib_input=0x7f0a00bd;
+        public static final int investment401k_percontrib_text=0x7f0a00be;
+        public static final int investment401k_period_input=0x7f0a00bf;
+        public static final int investment401k_period_text=0x7f0a00c0;
+        public static final int investment401k_salary_input=0x7f0a00bb;
+        public static final int investment401k_salary_text=0x7f0a00bc;
+        public static final int investment401k_withdrawal_tax_rate_input=0x7f0a00c3;
+        public static final int investment401k_withdrawal_tax_rate_text=0x7f0a00c4;
+        public static final int investmentcheck_init_amount_input=0x7f0a00ae;
+        public static final int investmentcheck_init_amount_text=0x7f0a00af;
+        public static final int investmentcheck_interest_rate_input=0x7f0a00b0;
+        public static final int investmentcheck_interest_rate_text=0x7f0a00b1;
+        public static final int investmentcheck_name_input=0x7f0a00ac;
+        public static final int investmentcheck_name_text=0x7f0a00ad;
+        public static final int investmentcheck_tax_rate_input=0x7f0a00b2;
+        public static final int investmentcheck_tax_rate_text=0x7f0a00b3;
+        public static final int investmentcheckacct_help_amount=0x7f0a00b4;
+        public static final int investmentcheckacct_help_interest_rate=0x7f0a00b5;
+        public static final int investmentcheckacct_help_tax_rate=0x7f0a00b6;
+        public static final int investments_description=0x7f0a005b;
+        public static final int investments_title=0x7f0a0057;
+        public static final int investmentsav_init_amount_input=0x7f0a00a0;
+        public static final int investmentsav_init_amount_text=0x7f0a00a1;
+        public static final int investmentsav_interest_rate_input=0x7f0a00a2;
+        public static final int investmentsav_interest_rate_text=0x7f0a00a3;
+        public static final int investmentsav_name_input=0x7f0a009e;
+        public static final int investmentsav_name_text=0x7f0a009f;
+        public static final int investmentsav_percontrib_input=0x7f0a00a6;
+        public static final int investmentsav_percontrib_text=0x7f0a00a7;
+        public static final int investmentsav_tax_rate_input=0x7f0a00a4;
+        public static final int investmentsav_tax_rate_text=0x7f0a00a5;
+        public static final int investmentsavacct_help_amount=0x7f0a00a8;
+        public static final int investmentsavacct_help_interest_rate=0x7f0a00a9;
+        public static final int investmentsavacct_help_percontrib=0x7f0a00ab;
+        public static final int investmentsavacct_help_tax_rate=0x7f0a00aa;
+        public static final int menu_about=0x7f0a0010;
+        public static final int menu_add=0x7f0a0013;
+        public static final int menu_chart=0x7f0a0014;
+        public static final int menu_explain=0x7f0a0012;
+        public static final int menu_feedback=0x7f0a0011;
+        public static final int menu_help=0x7f0a0016;
+        public static final int menu_settings=0x7f0a000f;
+        public static final int menu_table=0x7f0a0015;
+        public static final int net_worth_title=0x7f0a0059;
+        public static final int networth1=0x7f0a004f;
+        public static final int networth2=0x7f0a0050;
+        public static final int no_data_info_button=0x7f0a0048;
+        public static final int no_data_info_text=0x7f0a0047;
+        public static final int no_debt_info=0x7f0a0027;
+        public static final int no_expense_info=0x7f0a0026;
+        public static final int no_income_info=0x7f0a0025;
+        public static final int no_investment_info=0x7f0a0024;
+        public static final int percent=0x7f0a002b;
+        public static final int pref_description_social_recommendations=0x7f0a00f7;
         /**  Strings related to Settings 
  Example General settings 
          */
-        public static final int pref_header_general=0x7f0a00f7;
-        public static final int pref_simulation_start_date=0x7f0a00f8;
-        public static final int progress_bar_info=0x7f0a002f;
+        public static final int pref_header_general=0x7f0a00f5;
+        public static final int pref_simulation_start_date=0x7f0a00f6;
+        public static final int progress_bar_info=0x7f0a002d;
         /**  Savings help 
          */
-        public static final int savings_expl_add_intro=0x7f0a00da;
-        public static final int savings_expl_chart_intro=0x7f0a00db;
-        public static final int savings_expl_table_intro_1=0x7f0a00dc;
-        public static final int savings_expl_table_intro_2=0x7f0a00dd;
-        public static final int savings_title=0x7f0a005c;
-        public static final int show_chart=0x7f0a002b;
-        public static final int show_predictions=0x7f0a002e;
-        public static final int show_table=0x7f0a002a;
-        public static final int start_date_input=0x7f0a004e;
-        public static final int start_popup_chart=0x7f0a00e9;
-        public static final int start_popup_ending=0x7f0a00ec;
-        public static final int start_popup_help=0x7f0a00eb;
-        public static final int start_popup_input=0x7f0a00e8;
+        public static final int savings_expl_add_intro=0x7f0a00d8;
+        public static final int savings_expl_chart_intro=0x7f0a00d9;
+        public static final int savings_expl_table_intro_1=0x7f0a00da;
+        public static final int savings_expl_table_intro_2=0x7f0a00db;
+        public static final int savings_title=0x7f0a005a;
+        public static final int show_chart=0x7f0a0029;
+        public static final int show_predictions=0x7f0a002c;
+        public static final int show_table=0x7f0a0028;
+        public static final int start_date_input=0x7f0a004c;
+        public static final int start_popup_chart=0x7f0a00e7;
+        public static final int start_popup_ending=0x7f0a00ea;
+        public static final int start_popup_help=0x7f0a00e9;
+        public static final int start_popup_input=0x7f0a00e6;
         /**  At-startup-popup info 
          */
-        public static final int start_popup_intro=0x7f0a00e7;
-        public static final int start_popup_table=0x7f0a00ea;
-        public static final int title_activity_about=0x7f0a0023;
-        public static final int title_activity_add_debtloan=0x7f0a001d;
-        public static final int title_activity_add_debtmortgage=0x7f0a0021;
-        public static final int title_activity_add_expensegeneric=0x7f0a001b;
-        public static final int title_activity_add_incomegeneric=0x7f0a001c;
-        public static final int title_activity_add_investment401k=0x7f0a001e;
-        public static final int title_activity_add_investment_check_acct=0x7f0a0022;
-        public static final int title_activity_add_investmentbond=0x7f0a0020;
-        public static final int title_activity_add_investmentsavacct=0x7f0a001a;
-        public static final int title_activity_add_investmentstock=0x7f0a001f;
-        public static final int title_activity_feedback=0x7f0a0024;
-        public static final int title_activity_list_fragment=0x7f0a0025;
-        public static final int title_activity_main=0x7f0a0019;
-        public static final int title_activity_settings=0x7f0a00f6;
-        public static final int update_data_info=0x7f0a00d3;
-        public static final int view_chart=0x7f0a004b;
-        public static final int view_table=0x7f0a004c;
-        public static final int welcome_message_title=0x7f0a0010;
-        public static final int yearly_income_input=0x7f0a0060;
-        public static final int yearly_income_rise_input=0x7f0a0062;
-        public static final int yearly_income_rise_text=0x7f0a0063;
-        public static final int yearly_income_text=0x7f0a0061;
-        public static final int years=0x7f0a004d;
+        public static final int start_popup_intro=0x7f0a00e5;
+        public static final int start_popup_table=0x7f0a00e8;
+        public static final int title_activity_about=0x7f0a0021;
+        public static final int title_activity_add_debtloan=0x7f0a001b;
+        public static final int title_activity_add_debtmortgage=0x7f0a001f;
+        public static final int title_activity_add_expensegeneric=0x7f0a0019;
+        public static final int title_activity_add_incomegeneric=0x7f0a001a;
+        public static final int title_activity_add_investment401k=0x7f0a001c;
+        public static final int title_activity_add_investment_check_acct=0x7f0a0020;
+        public static final int title_activity_add_investmentbond=0x7f0a001e;
+        public static final int title_activity_add_investmentsavacct=0x7f0a0018;
+        public static final int title_activity_add_investmentstock=0x7f0a001d;
+        public static final int title_activity_feedback=0x7f0a0022;
+        public static final int title_activity_list_fragment=0x7f0a0023;
+        public static final int title_activity_main=0x7f0a0017;
+        public static final int title_activity_settings=0x7f0a00f4;
+        public static final int update_data_info=0x7f0a00d1;
+        public static final int view_chart=0x7f0a0049;
+        public static final int view_table=0x7f0a004a;
+        public static final int welcome_message_title=0x7f0a000e;
+        public static final int yearly_income_input=0x7f0a005e;
+        public static final int yearly_income_rise_input=0x7f0a0060;
+        public static final int yearly_income_rise_text=0x7f0a0061;
+        public static final int yearly_income_text=0x7f0a005f;
+        public static final int years=0x7f0a004b;
     }
     public static final class style {
         /** 
@@ -1589,14 +1564,11 @@ containing a value of this type.
  All customizations that are NOT specific to a particular API-level can go here. 
          */
         public static final int AppTheme=0x7f0b005a;
-        public static final int DialogWindowTitle_Sherlock=0x7f0b0036;
-        public static final int DialogWindowTitle_Sherlock_Light=0x7f0b0037;
         public static final int FullHeightDialog=0x7f0b005b;
-        public static final int Sherlock___TextAppearance_Small=0x7f0b004a;
-        public static final int Sherlock___Theme=0x7f0b004e;
-        public static final int Sherlock___Theme_DarkActionBar=0x7f0b0050;
-        public static final int Sherlock___Theme_Dialog=0x7f0b0051;
-        public static final int Sherlock___Theme_Light=0x7f0b004f;
+        public static final int Sherlock___TextAppearance_Small=0x7f0b0046;
+        public static final int Sherlock___Theme=0x7f0b0051;
+        public static final int Sherlock___Theme_DarkActionBar=0x7f0b0053;
+        public static final int Sherlock___Theme_Light=0x7f0b0052;
         public static final int Sherlock___Widget_ActionBar=0x7f0b0001;
         public static final int Sherlock___Widget_ActionMode=0x7f0b0016;
         public static final int Sherlock___Widget_ActivityChooserView=0x7f0b001e;
@@ -1604,34 +1576,37 @@ containing a value of this type.
         public static final int Sherlock___Widget_Holo_ListView=0x7f0b0026;
         public static final int Sherlock___Widget_Holo_Spinner=0x7f0b0023;
         public static final int Sherlock___Widget_SearchAutoCompleteTextView=0x7f0b0033;
-        public static final int TextAppearance_Sherlock_DialogWindowTitle=0x7f0b0048;
-        public static final int TextAppearance_Sherlock_Light_DialogWindowTitle=0x7f0b0049;
-        public static final int TextAppearance_Sherlock_Light_Small=0x7f0b004c;
-        public static final int TextAppearance_Sherlock_Light_Widget_PopupMenu_Large=0x7f0b0043;
-        public static final int TextAppearance_Sherlock_Light_Widget_PopupMenu_Small=0x7f0b0045;
-        public static final int TextAppearance_Sherlock_Small=0x7f0b004b;
-        public static final int TextAppearance_Sherlock_Widget_ActionBar_Menu=0x7f0b0038;
-        public static final int TextAppearance_Sherlock_Widget_ActionBar_Subtitle=0x7f0b003b;
-        public static final int TextAppearance_Sherlock_Widget_ActionBar_Subtitle_Inverse=0x7f0b003c;
-        public static final int TextAppearance_Sherlock_Widget_ActionBar_Title=0x7f0b0039;
-        public static final int TextAppearance_Sherlock_Widget_ActionBar_Title_Inverse=0x7f0b003a;
-        public static final int TextAppearance_Sherlock_Widget_ActionMode_Subtitle=0x7f0b003f;
-        public static final int TextAppearance_Sherlock_Widget_ActionMode_Subtitle_Inverse=0x7f0b0040;
-        public static final int TextAppearance_Sherlock_Widget_ActionMode_Title=0x7f0b003d;
-        public static final int TextAppearance_Sherlock_Widget_ActionMode_Title_Inverse=0x7f0b003e;
-        public static final int TextAppearance_Sherlock_Widget_DropDownHint=0x7f0b004d;
-        public static final int TextAppearance_Sherlock_Widget_DropDownItem=0x7f0b0047;
-        public static final int TextAppearance_Sherlock_Widget_PopupMenu=0x7f0b0041;
-        public static final int TextAppearance_Sherlock_Widget_PopupMenu_Large=0x7f0b0042;
-        public static final int TextAppearance_Sherlock_Widget_PopupMenu_Small=0x7f0b0044;
-        public static final int TextAppearance_Sherlock_Widget_TextView_SpinnerItem=0x7f0b0046;
-        public static final int Theme_Sherlock=0x7f0b0052;
-        public static final int Theme_Sherlock_Dialog=0x7f0b0057;
-        public static final int Theme_Sherlock_Light=0x7f0b0053;
-        public static final int Theme_Sherlock_Light_DarkActionBar=0x7f0b0054;
-        public static final int Theme_Sherlock_Light_Dialog=0x7f0b0058;
-        public static final int Theme_Sherlock_Light_NoActionBar=0x7f0b0056;
-        public static final int Theme_Sherlock_NoActionBar=0x7f0b0055;
+        public static final int TextAppearance_Sherlock=0x7f0b004a;
+        public static final int TextAppearance_Sherlock_Light_SearchResult=0x7f0b004e;
+        public static final int TextAppearance_Sherlock_Light_SearchResult_Subtitle=0x7f0b0050;
+        public static final int TextAppearance_Sherlock_Light_SearchResult_Title=0x7f0b004f;
+        public static final int TextAppearance_Sherlock_Light_Small=0x7f0b0048;
+        public static final int TextAppearance_Sherlock_Light_Widget_PopupMenu_Large=0x7f0b0041;
+        public static final int TextAppearance_Sherlock_Light_Widget_PopupMenu_Small=0x7f0b0043;
+        public static final int TextAppearance_Sherlock_SearchResult=0x7f0b004b;
+        public static final int TextAppearance_Sherlock_SearchResult_Subtitle=0x7f0b004d;
+        public static final int TextAppearance_Sherlock_SearchResult_Title=0x7f0b004c;
+        public static final int TextAppearance_Sherlock_Small=0x7f0b0047;
+        public static final int TextAppearance_Sherlock_Widget_ActionBar_Menu=0x7f0b0036;
+        public static final int TextAppearance_Sherlock_Widget_ActionBar_Subtitle=0x7f0b0039;
+        public static final int TextAppearance_Sherlock_Widget_ActionBar_Subtitle_Inverse=0x7f0b003a;
+        public static final int TextAppearance_Sherlock_Widget_ActionBar_Title=0x7f0b0037;
+        public static final int TextAppearance_Sherlock_Widget_ActionBar_Title_Inverse=0x7f0b0038;
+        public static final int TextAppearance_Sherlock_Widget_ActionMode_Subtitle=0x7f0b003d;
+        public static final int TextAppearance_Sherlock_Widget_ActionMode_Subtitle_Inverse=0x7f0b003e;
+        public static final int TextAppearance_Sherlock_Widget_ActionMode_Title=0x7f0b003b;
+        public static final int TextAppearance_Sherlock_Widget_ActionMode_Title_Inverse=0x7f0b003c;
+        public static final int TextAppearance_Sherlock_Widget_DropDownHint=0x7f0b0049;
+        public static final int TextAppearance_Sherlock_Widget_DropDownItem=0x7f0b0045;
+        public static final int TextAppearance_Sherlock_Widget_PopupMenu=0x7f0b003f;
+        public static final int TextAppearance_Sherlock_Widget_PopupMenu_Large=0x7f0b0040;
+        public static final int TextAppearance_Sherlock_Widget_PopupMenu_Small=0x7f0b0042;
+        public static final int TextAppearance_Sherlock_Widget_TextView_SpinnerItem=0x7f0b0044;
+        public static final int Theme_Sherlock=0x7f0b0054;
+        public static final int Theme_Sherlock_Light=0x7f0b0055;
+        public static final int Theme_Sherlock_Light_DarkActionBar=0x7f0b0056;
+        public static final int Theme_Sherlock_Light_NoActionBar=0x7f0b0058;
+        public static final int Theme_Sherlock_NoActionBar=0x7f0b0057;
         public static final int Theme_finances=0x7f0b005c;
         /**  this style is only referenced in a Light.DarkActionBar based theme 
          */
@@ -1744,10 +1719,10 @@ containing a value of this type.
          */
         public static final int[] SherlockActionBar = {
             0x7f010000, 0x7f010001, 0x7f010002, 0x7f010003,
-            0x7f010004, 0x7f010005, 0x7f010048, 0x7f010049,
-            0x7f01004a, 0x7f01004b, 0x7f01004c, 0x7f01004d,
-            0x7f01004e, 0x7f01004f, 0x7f010050, 0x7f010051,
-            0x7f010052, 0x7f010053, 0x7f010054
+            0x7f010004, 0x7f010005, 0x7f010049, 0x7f01004a,
+            0x7f01004b, 0x7f01004c, 0x7f01004d, 0x7f01004e,
+            0x7f01004f, 0x7f010050, 0x7f010051, 0x7f010052,
+            0x7f010053, 0x7f010054, 0x7f010055
         };
         /**
           <p>
@@ -2155,7 +2130,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
            @see #SherlockActivityChooserView_initialActivityCount
          */
         public static final int[] SherlockActivityChooserView = {
-            0x010100d4, 0x7f01005d, 0x7f01005e
+            0x010100d4, 0x7f01005e, 0x7f01005f
         };
         /**
           <p>This symbol is the offset where the {@link com.codelemma.finances.R.attr#android_background}
@@ -2498,8 +2473,8 @@ containing a value of this type.
            @see #SherlockMenuView_windowAnimationStyle
          */
         public static final int[] SherlockMenuView = {
-            0x7f010055, 0x7f010056, 0x7f010057, 0x7f010058,
-            0x7f010059, 0x7f01005a, 0x7f01005b, 0x7f01005c
+            0x7f010056, 0x7f010057, 0x7f010058, 0x7f010059,
+            0x7f01005a, 0x7f01005b, 0x7f01005c, 0x7f01005d
         };
         /**
           <p>
@@ -2628,8 +2603,8 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
            @see #SherlockSearchView_queryHint
          */
         public static final int[] SherlockSearchView = {
-            0x0101011f, 0x01010220, 0x01010264, 0x7f01005f,
-            0x7f010060
+            0x0101011f, 0x01010220, 0x01010264, 0x7f010060,
+            0x7f010061
         };
         /**
           <p>
@@ -2820,9 +2795,9 @@ containing a value of this type.
            <tr><td><code>{@link #SherlockTheme_actionSpinnerItemStyle com.codelemma.finances:actionSpinnerItemStyle}</code></td><td></td></tr>
            <tr><td><code>{@link #SherlockTheme_activatedBackgroundIndicator com.codelemma.finances:activatedBackgroundIndicator}</code></td><td> Drawable used as a background for activated items.</td></tr>
            <tr><td><code>{@link #SherlockTheme_activityChooserViewStyle com.codelemma.finances:activityChooserViewStyle}</code></td><td> Default ActivityChooserView style.</td></tr>
-           <tr><td><code>{@link #SherlockTheme_android_windowIsFloating com.codelemma.finances:android_windowIsFloating}</code></td><td></td></tr>
            <tr><td><code>{@link #SherlockTheme_buttonStyleSmall com.codelemma.finances:buttonStyleSmall}</code></td><td> Small Button style.</td></tr>
            <tr><td><code>{@link #SherlockTheme_dividerVertical com.codelemma.finances:dividerVertical}</code></td><td> Drawable to use for generic vertical dividers.</td></tr>
+           <tr><td><code>{@link #SherlockTheme_dropDownHintAppearance com.codelemma.finances:dropDownHintAppearance}</code></td><td></td></tr>
            <tr><td><code>{@link #SherlockTheme_dropDownListViewStyle com.codelemma.finances:dropDownListViewStyle}</code></td><td></td></tr>
            <tr><td><code>{@link #SherlockTheme_dropdownListPreferredItemHeight com.codelemma.finances:dropdownListPreferredItemHeight}</code></td><td></td></tr>
            <tr><td><code>{@link #SherlockTheme_homeAsUpIndicator com.codelemma.finances:homeAsUpIndicator}</code></td><td></td></tr>
@@ -2889,9 +2864,9 @@ containing a value of this type.
            @see #SherlockTheme_actionSpinnerItemStyle
            @see #SherlockTheme_activatedBackgroundIndicator
            @see #SherlockTheme_activityChooserViewStyle
-           @see #SherlockTheme_android_windowIsFloating
            @see #SherlockTheme_buttonStyleSmall
            @see #SherlockTheme_dividerVertical
+           @see #SherlockTheme_dropDownHintAppearance
            @see #SherlockTheme_dropDownListViewStyle
            @see #SherlockTheme_dropdownListPreferredItemHeight
            @see #SherlockTheme_homeAsUpIndicator
@@ -2934,23 +2909,23 @@ containing a value of this type.
            @see #SherlockTheme_windowSplitActionBar
          */
         public static final int[] SherlockTheme = {
-            0x01010057, 0x7f010006, 0x7f010007, 0x7f010008,
-            0x7f010009, 0x7f01000a, 0x7f01000b, 0x7f01000c,
-            0x7f01000d, 0x7f01000e, 0x7f01000f, 0x7f010010,
-            0x7f010011, 0x7f010012, 0x7f010013, 0x7f010014,
-            0x7f010015, 0x7f010016, 0x7f010017, 0x7f010018,
-            0x7f010019, 0x7f01001a, 0x7f01001b, 0x7f01001c,
-            0x7f01001d, 0x7f01001e, 0x7f01001f, 0x7f010020,
-            0x7f010021, 0x7f010022, 0x7f010023, 0x7f010024,
-            0x7f010025, 0x7f010026, 0x7f010027, 0x7f010028,
-            0x7f010029, 0x7f01002a, 0x7f01002b, 0x7f01002c,
-            0x7f01002d, 0x7f01002e, 0x7f01002f, 0x7f010030,
-            0x7f010031, 0x7f010032, 0x7f010033, 0x7f010034,
-            0x7f010035, 0x7f010036, 0x7f010037, 0x7f010038,
-            0x7f010039, 0x7f01003a, 0x7f01003b, 0x7f01003c,
-            0x7f01003d, 0x7f01003e, 0x7f01003f, 0x7f010040,
-            0x7f010041, 0x7f010042, 0x7f010043, 0x7f010044,
-            0x7f010045, 0x7f010046, 0x7f010047
+            0x7f010006, 0x7f010007, 0x7f010008, 0x7f010009,
+            0x7f01000a, 0x7f01000b, 0x7f01000c, 0x7f01000d,
+            0x7f01000e, 0x7f01000f, 0x7f010010, 0x7f010011,
+            0x7f010012, 0x7f010013, 0x7f010014, 0x7f010015,
+            0x7f010016, 0x7f010017, 0x7f010018, 0x7f010019,
+            0x7f01001a, 0x7f01001b, 0x7f01001c, 0x7f01001d,
+            0x7f01001e, 0x7f01001f, 0x7f010020, 0x7f010021,
+            0x7f010022, 0x7f010023, 0x7f010024, 0x7f010025,
+            0x7f010026, 0x7f010027, 0x7f010028, 0x7f010029,
+            0x7f01002a, 0x7f01002b, 0x7f01002c, 0x7f01002d,
+            0x7f01002e, 0x7f01002f, 0x7f010030, 0x7f010031,
+            0x7f010032, 0x7f010033, 0x7f010034, 0x7f010035,
+            0x7f010036, 0x7f010037, 0x7f010038, 0x7f010039,
+            0x7f01003a, 0x7f01003b, 0x7f01003c, 0x7f01003d,
+            0x7f01003e, 0x7f01003f, 0x7f010040, 0x7f010041,
+            0x7f010042, 0x7f010043, 0x7f010044, 0x7f010045,
+            0x7f010046, 0x7f010047, 0x7f010048
         };
         /**
           <p>
@@ -2963,7 +2938,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>This is a private symbol.
           @attr name android:actionBarDivider
         */
-        public static final int SherlockTheme_actionBarDivider = 9;
+        public static final int SherlockTheme_actionBarDivider = 8;
         /**
           <p>
           @attr description
@@ -2975,7 +2950,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>This is a private symbol.
           @attr name android:actionBarItemBackground
         */
-        public static final int SherlockTheme_actionBarItemBackground = 10;
+        public static final int SherlockTheme_actionBarItemBackground = 9;
         /**
           <p>
           @attr description
@@ -3002,7 +2977,7 @@ containing a value of this type.
           <p>This is a private symbol.
           @attr name android:actionBarSize
         */
-        public static final int SherlockTheme_actionBarSize = 8;
+        public static final int SherlockTheme_actionBarSize = 7;
         /**
           <p>
           @attr description
@@ -3017,7 +2992,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>This is a private symbol.
           @attr name android:actionBarSplitStyle
         */
-        public static final int SherlockTheme_actionBarSplitStyle = 6;
+        public static final int SherlockTheme_actionBarSplitStyle = 5;
         /**
           <p>
           @attr description
@@ -3029,7 +3004,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>This is a private symbol.
           @attr name android:actionBarStyle
         */
-        public static final int SherlockTheme_actionBarStyle = 5;
+        public static final int SherlockTheme_actionBarStyle = 4;
         /**
           <p>This symbol is the offset where the {@link com.codelemma.finances.R.attr#actionBarTabBarStyle}
           attribute's value can be found in the {@link #SherlockTheme} array.
@@ -3039,7 +3014,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name android:actionBarTabBarStyle
         */
-        public static final int SherlockTheme_actionBarTabBarStyle = 2;
+        public static final int SherlockTheme_actionBarTabBarStyle = 1;
         /**
           <p>
           @attr description
@@ -3051,7 +3026,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>This is a private symbol.
           @attr name android:actionBarTabStyle
         */
-        public static final int SherlockTheme_actionBarTabStyle = 1;
+        public static final int SherlockTheme_actionBarTabStyle = 0;
         /**
           <p>This symbol is the offset where the {@link com.codelemma.finances.R.attr#actionBarTabTextStyle}
           attribute's value can be found in the {@link #SherlockTheme} array.
@@ -3061,7 +3036,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name android:actionBarTabTextStyle
         */
-        public static final int SherlockTheme_actionBarTabTextStyle = 3;
+        public static final int SherlockTheme_actionBarTabTextStyle = 2;
         /**
           <p>
           @attr description
@@ -3079,7 +3054,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>This is a private symbol.
           @attr name android:actionBarWidgetTheme
         */
-        public static final int SherlockTheme_actionBarWidgetTheme = 7;
+        public static final int SherlockTheme_actionBarWidgetTheme = 6;
         /**
           <p>This symbol is the offset where the {@link com.codelemma.finances.R.attr#actionButtonStyle}
           attribute's value can be found in the {@link #SherlockTheme} array.
@@ -3089,7 +3064,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name android:actionButtonStyle
         */
-        public static final int SherlockTheme_actionButtonStyle = 53;
+        public static final int SherlockTheme_actionButtonStyle = 52;
         /**
           <p>This symbol is the offset where the {@link com.codelemma.finances.R.attr#actionDropDownStyle}
           attribute's value can be found in the {@link #SherlockTheme} array.
@@ -3099,7 +3074,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name android:actionDropDownStyle
         */
-        public static final int SherlockTheme_actionDropDownStyle = 52;
+        public static final int SherlockTheme_actionDropDownStyle = 51;
         /**
           <p>
           @attr description
@@ -3112,7 +3087,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>This is a private symbol.
           @attr name android:actionMenuTextAppearance
         */
-        public static final int SherlockTheme_actionMenuTextAppearance = 11;
+        public static final int SherlockTheme_actionMenuTextAppearance = 10;
         /**
           <p>
           @attr description
@@ -3126,7 +3101,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>This is a private symbol.
           @attr name android:actionMenuTextColor
         */
-        public static final int SherlockTheme_actionMenuTextColor = 12;
+        public static final int SherlockTheme_actionMenuTextColor = 11;
         /**
           <p>
           @attr description
@@ -3138,7 +3113,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>This is a private symbol.
           @attr name android:actionModeBackground
         */
-        public static final int SherlockTheme_actionModeBackground = 15;
+        public static final int SherlockTheme_actionModeBackground = 14;
         /**
           <p>This symbol is the offset where the {@link com.codelemma.finances.R.attr#actionModeCloseButtonStyle}
           attribute's value can be found in the {@link #SherlockTheme} array.
@@ -3148,7 +3123,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name android:actionModeCloseButtonStyle
         */
-        public static final int SherlockTheme_actionModeCloseButtonStyle = 14;
+        public static final int SherlockTheme_actionModeCloseButtonStyle = 13;
         /**
           <p>
           @attr description
@@ -3160,7 +3135,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>This is a private symbol.
           @attr name android:actionModeCloseDrawable
         */
-        public static final int SherlockTheme_actionModeCloseDrawable = 17;
+        public static final int SherlockTheme_actionModeCloseDrawable = 16;
         /**
           <p>
           @attr description
@@ -3172,7 +3147,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>This is a private symbol.
           @attr name android:actionModePopupWindowStyle
         */
-        public static final int SherlockTheme_actionModePopupWindowStyle = 19;
+        public static final int SherlockTheme_actionModePopupWindowStyle = 18;
         /**
           <p>
           @attr description
@@ -3184,7 +3159,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>This is a private symbol.
           @attr name android:actionModeShareDrawable
         */
-        public static final int SherlockTheme_actionModeShareDrawable = 18;
+        public static final int SherlockTheme_actionModeShareDrawable = 17;
         /**
           <p>
           @attr description
@@ -3196,7 +3171,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>This is a private symbol.
           @attr name android:actionModeSplitBackground
         */
-        public static final int SherlockTheme_actionModeSplitBackground = 16;
+        public static final int SherlockTheme_actionModeSplitBackground = 15;
         /**
           <p>This symbol is the offset where the {@link com.codelemma.finances.R.attr#actionModeStyle}
           attribute's value can be found in the {@link #SherlockTheme} array.
@@ -3206,7 +3181,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name android:actionModeStyle
         */
-        public static final int SherlockTheme_actionModeStyle = 13;
+        public static final int SherlockTheme_actionModeStyle = 12;
         /**
           <p>This symbol is the offset where the {@link com.codelemma.finances.R.attr#actionOverflowButtonStyle}
           attribute's value can be found in the {@link #SherlockTheme} array.
@@ -3216,7 +3191,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name android:actionOverflowButtonStyle
         */
-        public static final int SherlockTheme_actionOverflowButtonStyle = 4;
+        public static final int SherlockTheme_actionOverflowButtonStyle = 3;
         /**
           <p>This symbol is the offset where the {@link com.codelemma.finances.R.attr#actionSpinnerItemStyle}
           attribute's value can be found in the {@link #SherlockTheme} array.
@@ -3226,7 +3201,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name android:actionSpinnerItemStyle
         */
-        public static final int SherlockTheme_actionSpinnerItemStyle = 58;
+        public static final int SherlockTheme_actionSpinnerItemStyle = 57;
         /**
           <p>
           @attr description
@@ -3238,7 +3213,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>This is a private symbol.
           @attr name android:activatedBackgroundIndicator
         */
-        public static final int SherlockTheme_activatedBackgroundIndicator = 66;
+        public static final int SherlockTheme_activatedBackgroundIndicator = 65;
         /**
           <p>
           @attr description
@@ -3250,13 +3225,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>This is a private symbol.
           @attr name android:activityChooserViewStyle
         */
-        public static final int SherlockTheme_activityChooserViewStyle = 65;
-        /**
-          <p>This symbol is the offset where the {@link com.codelemma.finances.R.attr#android_windowIsFloating}
-          attribute's value can be found in the {@link #SherlockTheme} array.
-          @attr name android:android_windowIsFloating
-        */
-        public static final int SherlockTheme_android_windowIsFloating = 0;
+        public static final int SherlockTheme_activityChooserViewStyle = 64;
         /**
           <p>
           @attr description
@@ -3268,7 +3237,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>This is a private symbol.
           @attr name android:buttonStyleSmall
         */
-        public static final int SherlockTheme_buttonStyleSmall = 20;
+        public static final int SherlockTheme_buttonStyleSmall = 19;
         /**
           <p>
           @attr description
@@ -3280,7 +3249,17 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>This is a private symbol.
           @attr name android:dividerVertical
         */
-        public static final int SherlockTheme_dividerVertical = 51;
+        public static final int SherlockTheme_dividerVertical = 50;
+        /**
+          <p>This symbol is the offset where the {@link com.codelemma.finances.R.attr#dropDownHintAppearance}
+          attribute's value can be found in the {@link #SherlockTheme} array.
+
+
+          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+          @attr name android:dropDownHintAppearance
+        */
+        public static final int SherlockTheme_dropDownHintAppearance = 66;
         /**
           <p>This symbol is the offset where the {@link com.codelemma.finances.R.attr#dropDownListViewStyle}
           attribute's value can be found in the {@link #SherlockTheme} array.
@@ -3290,7 +3269,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name android:dropDownListViewStyle
         */
-        public static final int SherlockTheme_dropDownListViewStyle = 55;
+        public static final int SherlockTheme_dropDownListViewStyle = 54;
         /**
           <p>This symbol is the offset where the {@link com.codelemma.finances.R.attr#dropdownListPreferredItemHeight}
           attribute's value can be found in the {@link #SherlockTheme} array.
@@ -3306,7 +3285,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name android:dropdownListPreferredItemHeight
         */
-        public static final int SherlockTheme_dropdownListPreferredItemHeight = 57;
+        public static final int SherlockTheme_dropdownListPreferredItemHeight = 56;
         /**
           <p>This symbol is the offset where the {@link com.codelemma.finances.R.attr#homeAsUpIndicator}
           attribute's value can be found in the {@link #SherlockTheme} array.
@@ -3316,7 +3295,7 @@ containing a value of this type.
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name android:homeAsUpIndicator
         */
-        public static final int SherlockTheme_homeAsUpIndicator = 54;
+        public static final int SherlockTheme_homeAsUpIndicator = 53;
         /**
           <p>This symbol is the offset where the {@link com.codelemma.finances.R.attr#listPopupWindowStyle}
           attribute's value can be found in the {@link #SherlockTheme} array.
@@ -3326,7 +3305,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name android:listPopupWindowStyle
         */
-        public static final int SherlockTheme_listPopupWindowStyle = 64;
+        public static final int SherlockTheme_listPopupWindowStyle = 63;
         /**
           <p>
           @attr description
@@ -3344,7 +3323,7 @@ containing a value of this type.
           <p>This is a private symbol.
           @attr name android:listPreferredItemHeightSmall
         */
-        public static final int SherlockTheme_listPreferredItemHeightSmall = 45;
+        public static final int SherlockTheme_listPreferredItemHeightSmall = 44;
         /**
           <p>
           @attr description
@@ -3362,7 +3341,7 @@ containing a value of this type.
           <p>This is a private symbol.
           @attr name android:listPreferredItemPaddingLeft
         */
-        public static final int SherlockTheme_listPreferredItemPaddingLeft = 46;
+        public static final int SherlockTheme_listPreferredItemPaddingLeft = 45;
         /**
           <p>
           @attr description
@@ -3380,7 +3359,7 @@ containing a value of this type.
           <p>This is a private symbol.
           @attr name android:listPreferredItemPaddingRight
         */
-        public static final int SherlockTheme_listPreferredItemPaddingRight = 47;
+        public static final int SherlockTheme_listPreferredItemPaddingRight = 46;
         /**
           <p>This symbol is the offset where the {@link com.codelemma.finances.R.attr#popupMenuStyle}
           attribute's value can be found in the {@link #SherlockTheme} array.
@@ -3390,7 +3369,7 @@ containing a value of this type.
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name android:popupMenuStyle
         */
-        public static final int SherlockTheme_popupMenuStyle = 56;
+        public static final int SherlockTheme_popupMenuStyle = 55;
         /**
           <p>
           @attr description
@@ -3402,7 +3381,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>This is a private symbol.
           @attr name android:searchAutoCompleteTextView
         */
-        public static final int SherlockTheme_searchAutoCompleteTextView = 31;
+        public static final int SherlockTheme_searchAutoCompleteTextView = 30;
         /**
           <p>
           @attr description
@@ -3414,7 +3393,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>This is a private symbol.
           @attr name android:searchDropdownBackground
         */
-        public static final int SherlockTheme_searchDropdownBackground = 32;
+        public static final int SherlockTheme_searchDropdownBackground = 31;
         /**
           <p>
           @attr description
@@ -3432,7 +3411,7 @@ containing a value of this type.
           <p>This is a private symbol.
           @attr name android:searchResultListItemHeight
         */
-        public static final int SherlockTheme_searchResultListItemHeight = 42;
+        public static final int SherlockTheme_searchResultListItemHeight = 41;
         /**
           <p>
           @attr description
@@ -3444,7 +3423,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>This is a private symbol.
           @attr name android:searchViewCloseIcon
         */
-        public static final int SherlockTheme_searchViewCloseIcon = 33;
+        public static final int SherlockTheme_searchViewCloseIcon = 32;
         /**
           <p>
           @attr description
@@ -3456,7 +3435,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>This is a private symbol.
           @attr name android:searchViewEditQuery
         */
-        public static final int SherlockTheme_searchViewEditQuery = 37;
+        public static final int SherlockTheme_searchViewEditQuery = 36;
         /**
           <p>
           @attr description
@@ -3468,7 +3447,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>This is a private symbol.
           @attr name android:searchViewEditQueryBackground
         */
-        public static final int SherlockTheme_searchViewEditQueryBackground = 38;
+        public static final int SherlockTheme_searchViewEditQueryBackground = 37;
         /**
           <p>
           @attr description
@@ -3480,7 +3459,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>This is a private symbol.
           @attr name android:searchViewGoIcon
         */
-        public static final int SherlockTheme_searchViewGoIcon = 34;
+        public static final int SherlockTheme_searchViewGoIcon = 33;
         /**
           <p>
           @attr description
@@ -3492,7 +3471,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>This is a private symbol.
           @attr name android:searchViewSearchIcon
         */
-        public static final int SherlockTheme_searchViewSearchIcon = 35;
+        public static final int SherlockTheme_searchViewSearchIcon = 34;
         /**
           <p>
           @attr description
@@ -3504,7 +3483,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>This is a private symbol.
           @attr name android:searchViewTextField
         */
-        public static final int SherlockTheme_searchViewTextField = 39;
+        public static final int SherlockTheme_searchViewTextField = 38;
         /**
           <p>
           @attr description
@@ -3516,7 +3495,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>This is a private symbol.
           @attr name android:searchViewTextFieldRight
         */
-        public static final int SherlockTheme_searchViewTextFieldRight = 40;
+        public static final int SherlockTheme_searchViewTextFieldRight = 39;
         /**
           <p>
           @attr description
@@ -3528,7 +3507,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>This is a private symbol.
           @attr name android:searchViewVoiceIcon
         */
-        public static final int SherlockTheme_searchViewVoiceIcon = 36;
+        public static final int SherlockTheme_searchViewVoiceIcon = 35;
         /**
           <p>
           @attr description
@@ -3540,7 +3519,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>This is a private symbol.
           @attr name android:selectableItemBackground
         */
-        public static final int SherlockTheme_selectableItemBackground = 21;
+        public static final int SherlockTheme_selectableItemBackground = 20;
         /**
           <p>This symbol is the offset where the {@link com.codelemma.finances.R.attr#spinnerDropDownItemStyle}
           attribute's value can be found in the {@link #SherlockTheme} array.
@@ -3550,7 +3529,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name android:spinnerDropDownItemStyle
         */
-        public static final int SherlockTheme_spinnerDropDownItemStyle = 30;
+        public static final int SherlockTheme_spinnerDropDownItemStyle = 29;
         /**
           <p>This symbol is the offset where the {@link com.codelemma.finances.R.attr#spinnerItemStyle}
           attribute's value can be found in the {@link #SherlockTheme} array.
@@ -3560,7 +3539,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name android:spinnerItemStyle
         */
-        public static final int SherlockTheme_spinnerItemStyle = 29;
+        public static final int SherlockTheme_spinnerItemStyle = 28;
         /**
           <p>
           @attr description
@@ -3572,7 +3551,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>This is a private symbol.
           @attr name android:textAppearanceLargePopupMenu
         */
-        public static final int SherlockTheme_textAppearanceLargePopupMenu = 23;
+        public static final int SherlockTheme_textAppearanceLargePopupMenu = 22;
         /**
           <p>
           @attr description
@@ -3584,7 +3563,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>This is a private symbol.
           @attr name android:textAppearanceListItemSmall
         */
-        public static final int SherlockTheme_textAppearanceListItemSmall = 48;
+        public static final int SherlockTheme_textAppearanceListItemSmall = 47;
         /**
           <p>
           @attr description
@@ -3596,7 +3575,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>This is a private symbol.
           @attr name android:textAppearanceSearchResultSubtitle
         */
-        public static final int SherlockTheme_textAppearanceSearchResultSubtitle = 44;
+        public static final int SherlockTheme_textAppearanceSearchResultSubtitle = 43;
         /**
           <p>
           @attr description
@@ -3608,7 +3587,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>This is a private symbol.
           @attr name android:textAppearanceSearchResultTitle
         */
-        public static final int SherlockTheme_textAppearanceSearchResultTitle = 43;
+        public static final int SherlockTheme_textAppearanceSearchResultTitle = 42;
         /**
           <p>
           @attr description
@@ -3620,7 +3599,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>This is a private symbol.
           @attr name android:textAppearanceSmall
         */
-        public static final int SherlockTheme_textAppearanceSmall = 25;
+        public static final int SherlockTheme_textAppearanceSmall = 24;
         /**
           <p>
           @attr description
@@ -3632,7 +3611,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>This is a private symbol.
           @attr name android:textAppearanceSmallPopupMenu
         */
-        public static final int SherlockTheme_textAppearanceSmallPopupMenu = 24;
+        public static final int SherlockTheme_textAppearanceSmallPopupMenu = 23;
         /**
           <p>This symbol is the offset where the {@link com.codelemma.finances.R.attr#textColorPrimary}
           attribute's value can be found in the {@link #SherlockTheme} array.
@@ -3647,7 +3626,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name android:textColorPrimary
         */
-        public static final int SherlockTheme_textColorPrimary = 26;
+        public static final int SherlockTheme_textColorPrimary = 25;
         /**
           <p>This symbol is the offset where the {@link com.codelemma.finances.R.attr#textColorPrimaryDisableOnly}
           attribute's value can be found in the {@link #SherlockTheme} array.
@@ -3662,7 +3641,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name android:textColorPrimaryDisableOnly
         */
-        public static final int SherlockTheme_textColorPrimaryDisableOnly = 27;
+        public static final int SherlockTheme_textColorPrimaryDisableOnly = 26;
         /**
           <p>This symbol is the offset where the {@link com.codelemma.finances.R.attr#textColorPrimaryInverse}
           attribute's value can be found in the {@link #SherlockTheme} array.
@@ -3677,7 +3656,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name android:textColorPrimaryInverse
         */
-        public static final int SherlockTheme_textColorPrimaryInverse = 28;
+        public static final int SherlockTheme_textColorPrimaryInverse = 27;
         /**
           <p>
           @attr description
@@ -3691,7 +3670,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>This is a private symbol.
           @attr name android:textColorSearchUrl
         */
-        public static final int SherlockTheme_textColorSearchUrl = 41;
+        public static final int SherlockTheme_textColorSearchUrl = 40;
         /**
           <p>This symbol is the offset where the {@link com.codelemma.finances.R.attr#windowActionBar}
           attribute's value can be found in the {@link #SherlockTheme} array.
@@ -3705,7 +3684,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name android:windowActionBar
         */
-        public static final int SherlockTheme_windowActionBar = 60;
+        public static final int SherlockTheme_windowActionBar = 59;
         /**
           <p>This symbol is the offset where the {@link com.codelemma.finances.R.attr#windowActionBarOverlay}
           attribute's value can be found in the {@link #SherlockTheme} array.
@@ -3719,7 +3698,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name android:windowActionBarOverlay
         */
-        public static final int SherlockTheme_windowActionBarOverlay = 61;
+        public static final int SherlockTheme_windowActionBarOverlay = 60;
         /**
           <p>This symbol is the offset where the {@link com.codelemma.finances.R.attr#windowActionModeOverlay}
           attribute's value can be found in the {@link #SherlockTheme} array.
@@ -3733,7 +3712,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name android:windowActionModeOverlay
         */
-        public static final int SherlockTheme_windowActionModeOverlay = 62;
+        public static final int SherlockTheme_windowActionModeOverlay = 61;
         /**
           <p>
           @attr description
@@ -3746,7 +3725,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>This is a private symbol.
           @attr name android:windowContentOverlay
         */
-        public static final int SherlockTheme_windowContentOverlay = 22;
+        public static final int SherlockTheme_windowContentOverlay = 21;
         /**
           <p>This symbol is the offset where the {@link com.codelemma.finances.R.attr#windowMinWidthMajor}
           attribute's value can be found in the {@link #SherlockTheme} array.
@@ -3762,7 +3741,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name android:windowMinWidthMajor
         */
-        public static final int SherlockTheme_windowMinWidthMajor = 49;
+        public static final int SherlockTheme_windowMinWidthMajor = 48;
         /**
           <p>This symbol is the offset where the {@link com.codelemma.finances.R.attr#windowMinWidthMinor}
           attribute's value can be found in the {@link #SherlockTheme} array.
@@ -3778,7 +3757,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name android:windowMinWidthMinor
         */
-        public static final int SherlockTheme_windowMinWidthMinor = 50;
+        public static final int SherlockTheme_windowMinWidthMinor = 49;
         /**
           <p>This symbol is the offset where the {@link com.codelemma.finances.R.attr#windowNoTitle}
           attribute's value can be found in the {@link #SherlockTheme} array.
@@ -3792,7 +3771,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name android:windowNoTitle
         */
-        public static final int SherlockTheme_windowNoTitle = 59;
+        public static final int SherlockTheme_windowNoTitle = 58;
         /**
           <p>This symbol is the offset where the {@link com.codelemma.finances.R.attr#windowSplitActionBar}
           attribute's value can be found in the {@link #SherlockTheme} array.
@@ -3806,7 +3785,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name android:windowSplitActionBar
         */
-        public static final int SherlockTheme_windowSplitActionBar = 63;
+        public static final int SherlockTheme_windowSplitActionBar = 62;
         /** Attributes that can be used with a SherlockView.
            <p>Includes the following attributes:</p>
            <table>
