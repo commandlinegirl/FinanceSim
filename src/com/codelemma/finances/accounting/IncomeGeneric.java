@@ -104,10 +104,9 @@ public class IncomeGeneric extends Income {
     }
 
     public void advanceValues(int year, int month, InvestmentCheckAcct checkingAcct) {
-        /* 13th salary paid in December;
-         * salary rise in January
-         */
-    	
+        /* 13th salary paid in December; salary rise in January
+        */
+
     	if (counter < term_months) {
     		if (month == 0) {
             	yearly_income = yearly_income.add(riseAmount());        	
@@ -115,20 +114,24 @@ public class IncomeGeneric extends Income {
             	taxable_income = gross_income;
             	tax = Money.getPercentage(taxable_income, tax_rate_decimal);
             }
-            if (investment401k != null) {
-                investment401k.advance(year, month, checkingAcct);
+    	}
+    	
+    	if (counter == term_months) {
+    		setValuesBeforeCalculation();
+    	}
+    	
+    	if (investment401k != null) {
+            investment401k.advance(year, month, checkingAcct);
+            if (counter < term_months) {
                 if (month == 0 || (year == investment401k.getStartYear() && month == investment401k.getStartMonth())) {
                     taxable_income = taxable_income.subtract(investment401k.getEmployeeContribution());
                     tax = Money.getPercentage(taxable_income, tax_rate_decimal);
-                }		        		    	    
+                }        	
             }
-            counter++;
-    	} else if (counter == term_months) {
-    		setValuesBeforeCalculation();
-    		counter++;
-    	}
+        }
+		counter++;
     }
-    
+
     @Override
     public BigDecimal getNetIncome() {
         return taxable_income.subtract(tax);

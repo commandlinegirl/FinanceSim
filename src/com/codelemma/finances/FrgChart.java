@@ -8,7 +8,6 @@ import com.codelemma.finances.accounting.PlotVisitor;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.util.Log;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,15 +37,11 @@ public class FrgChart extends SherlockFragment
 
         currentElement = ((Main) getSherlockActivity()).getCurrentElement();
     	appState = Finances.getInstance();
-    	
-    	Log.d("currentElement", String.valueOf(currentElement));
-        
+    	        
         for (HistoryNew i : appState.getHistory().getHistory(currentElement)) {
         	historyItems.add(i);
         }
-    	
-        Log.d("historyItems size", String.valueOf(historyItems.size()));
-        
+    	        
     	if (historyItems.size() == 0) {
 
     		//Toast.makeText(getSherlockActivity(), "Chart empty. Please add data to get started.", Toast.LENGTH_SHORT).show();

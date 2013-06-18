@@ -27,16 +27,15 @@ public class HistoryInvestment401k extends HistoryNew {
 		    salary[index] = investment.getSalary();
 		    employeeContribution[index] = investment.getEmployeeContribution();
 		    employerContribution[index] = investment.getEmployerContribution();
-		    
+
 		    cashflows.addInvestment401k(index, investment);
 		    net_worth.addInvestment401k(index, investment);
-		    
+
 		} catch (IndexOutOfBoundsException e) {
 			e.printStackTrace();
 		}
 	}	
-		
-	
+
 	public String getName() {
 		return name;
 	}

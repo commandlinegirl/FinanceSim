@@ -143,27 +143,27 @@ public class Account {
     }
     
     public void addExpense(Expense expense) {
-    	Preconditions.checkNotNull(expense, "Missing expense");
+    	//Preconditions.checkNotNull(expense, "Missing expense");
         expenses.add(expense);
     }   
 
     public void addInvestment(Investment investment) {
-    	Preconditions.checkNotNull(investment, "Missing investment");
+    	//Preconditions.checkNotNull(investment, "Missing investment");
         investments.add(investment);        
     }   
 
     public void addIncome(Income income) {
-        Preconditions.checkNotNull(income, "Missing income");    	
+        //Preconditions.checkNotNull(income, "Missing income");    	
         incomes.add(income);       
     }
 
     public void addDebt(Debt debt) {
-    	Preconditions.checkNotNull(debt, "Missing debt");
+    	//Preconditions.checkNotNull(debt, "Missing debt");
         debts.add(debt);       
     }
 
     public void addAccountingElement(AccountingElement accountingElement) {
-    	Preconditions.checkNotNull(accountingElement, "Missing accounting element");
+    	//Preconditions.checkNotNull(accountingElement, "Missing accounting element");
     	accountingElement.addToAccount(this);
     }
 
@@ -394,13 +394,10 @@ public class Account {
     }
 
     public void advanceInvestment(int index, BigDecimal excess, int year, int month) {
-        BigDecimal capitalGains = Money.ZERO;
         for (Investment investment: investments) {
         	if (!investment.isPreTax()) { // posttax investment (taken from excess money), pretax is incremented in Income!        	
 
         		investment.advance(year, month, excess, checkingAcctPercontrib);
-        		// here add capital gains to excess
-        		capitalGains = capitalGains.add(investment.getInterestsNet());
 
     		    if ((year > simStartYear) || (year == simStartYear && month >= simStartMonth)) {
         		    investment.getHistory().add(index, investment, cashflows, net_worth);
@@ -411,8 +408,8 @@ public class Account {
 
     public void advance(int index, int year, int month) {
     	// year and month - starting date of predictions (saved to history here)
-        Preconditions.checkInBounds(month, 0, 11, "Month must be in 0..11");
-        BigDecimal excess = Money.ZERO; //= prevMonthCapitalGains;
+        //Preconditions.checkInBounds(month, 0, 11, "Month must be in 0..11");
+        BigDecimal excess = Money.ZERO; 
 
         BigDecimal total_income = advanceIncome(index, year, month);
         excess = excess.add(total_income); // total net income

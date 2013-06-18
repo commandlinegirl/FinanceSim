@@ -32,8 +32,8 @@ public class Plotter implements PlotVisitor {
 
 	private SherlockFragmentActivity frgActivity;
     private int currentColor = 0;
-    private String[] colors = {"#ff00ff00", "#ff0099ff", "#ffFF0080", "#ff8C489F", 
-    		                   "#ff9CAA9C", "#ffffff00", "#ff66CCFF",  "#ffcccccc"};    
+    private String[] colors = {"#ff92CD00", "#ffFF6600", "#ff0099FF", "#ff666666", 
+    		                   "#ffFFCC00", "#ffffff00", "#ff66CCFF",  "#ffcccccc"};    
     private String[] dates;
     
 	public Plotter(SherlockFragmentActivity sherlockFragmentActivity, String[] dates) {
@@ -151,7 +151,7 @@ public class Plotter implements PlotVisitor {
         mRenderer.setPointSize(Utils.px(frgActivity, 2));          
     	int labelsTextSize = Utils.px(frgActivity, 10);
     	mRenderer.setLabelsTextSize(labelsTextSize);       
-    	mRenderer.setPanEnabled(false, false);
+    	mRenderer.setPanEnabled(false, true);
     	mRenderer.setZoomEnabled(false, true);
     	//mRenderer.setPanLimits(new double[] {mRenderer.getXAxisMin(), mRenderer.getXAxisMax(), mRenderer.getYAxisMin(), mRenderer.getYAxisMax()});
         //return mRenderer;

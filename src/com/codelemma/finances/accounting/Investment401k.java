@@ -2,6 +2,7 @@ package com.codelemma.finances.accounting;
 
 import java.math.BigDecimal;
 
+
 import com.codelemma.finances.InputListingUpdater;
 
 public class Investment401k extends Investment {
@@ -33,7 +34,7 @@ public class Investment401k extends Investment {
     private int income_previous_id;
     private BigDecimal salary;
     
-    private int counter = 0;
+    private int counter = 1;
     private int period_months;
         
     private int start_year;
@@ -154,7 +155,7 @@ public class Investment401k extends Investment {
 	}
 		
 	public BigDecimal getSalary() {
-		return salary;
+		return income.getGrossIncome();
 	}
 	
 	public BigDecimal getInitPercontrib() {
@@ -228,7 +229,7 @@ public class Investment401k extends Investment {
     public void launchModifyUi(ModifyUiVisitor modifyUiVisitor) {
     	modifyUiVisitor.launchModifyUiForInvestment401k(this);
     }
-	          
+
     @Override
     public void advance(int year, int month, InvestmentCheckAcct checkingAcct) {
 
@@ -247,28 +248,42 @@ public class Investment401k extends Investment {
 		hidden_interests = Money.ZERO;
 		monthly_employee_contribution = Money.ZERO;
 		monthly_employer_contribution = Money.ZERO;
-    }    
-    
-    private void advanceValues(int month, InvestmentCheckAcct checkingAcct) {	   
-    	if (counter < period_months) {
-    		salary = income.getGrossIncome();
-        	/* Calculate monthly contribution of employee and employer */    		
+    }
+
+    private void setValuesAfterCalculation() {
+		amount = Money.ZERO;
+		hidden_interests = Money.ZERO;
+		monthly_employee_contribution = Money.ZERO;
+		monthly_employer_contribution = Money.ZERO;
+    }
+
+    private void advanceValues(int month, InvestmentCheckAcct checkingAcct) {
+    	salary = getSalary();
+    	if (counter < period_months) {    
+        	/* Calculate monthly contribution of employee and employer */    
         	monthly_employee_contribution = Money.getPercentage(salary, percontrib_decimal);
         	monthly_employer_contribution = Money.getPercentage(monthly_employee_contribution, employer_match_decimal);   	    	
         	amount = amount.add(monthly_employee_contribution).add(monthly_employer_contribution);        	
         	BigDecimal interests_gross = Money.getPercentage(amount, interest_rate_decimal_monthly);
             amount = amount.add(interests_gross);
             hidden_interests = hidden_interests.add(interests_gross);
-            counter++;
+
         } else if (counter == period_months) {
-            // withdraw money to savings acct and pay tax
+        	 // withdraw money to savings acct and pay tax
+        	monthly_employee_contribution = Money.getPercentage(salary, percontrib_decimal);
+        	monthly_employer_contribution = Money.getPercentage(monthly_employee_contribution, employer_match_decimal);   	    	
+        	amount = amount.add(monthly_employee_contribution).add(monthly_employer_contribution);        	
+        	BigDecimal interests_gross = Money.getPercentage(amount, interest_rate_decimal_monthly);
+            amount = amount.add(interests_gross);
+            hidden_interests = hidden_interests.add(interests_gross);
     		BigDecimal tax = getInterestsTax(hidden_interests);
-    		capital_gain = calculateInterestsNet(hidden_interests, tax);    	
+    		capital_gain = calculateInterestsNet(hidden_interests, tax);
     		amount = amount.subtract(tax); // pay tax for the interests gained
     		checkingAcct.add401kWithdrawal(amount); // add net 401(k) gathered amount to checking account
-    		setValuesBeforeCalculation();
-    		counter++;
+        } else if (counter == (period_months+1)) {
+        	setValuesAfterCalculation();
         }
+    	counter++;
     }
         
 	public BigDecimal getAccumulatedSavings() {
@@ -280,7 +295,7 @@ public class Investment401k extends Investment {
 		amount = Money.scale(init_amount);
 		salary = income.getGrossIncome();
 		hidden_interests = Money.ZERO;
-		counter = 0;	
+		counter = 1;	
         monthly_employee_contribution = Money.getPercentage(salary, percontrib_decimal);
         employer_match = Money.scaleRate(employer_match);
         employer_match_decimal = employer_match.divide(Money.HUNDRED, Money.RATE_DECIMALS, Money.ROUNDING_MODE);

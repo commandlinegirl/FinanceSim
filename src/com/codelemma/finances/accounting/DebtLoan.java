@@ -117,7 +117,6 @@ public class DebtLoan extends Debt {
             if (remaining_amount.compareTo(monthly_payment) == -1) {
             	monthly_payment = remaining_amount.add(interests_paid);
             }
-          
             principal_paid = monthly_payment.subtract(interests_paid);
             total_interests = total_interests.add(interests_paid);
             remaining_amount = remaining_amount.subtract(principal_paid);

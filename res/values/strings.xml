@@ -76,7 +76,9 @@
     <string name="years">Years: </string>
     <string name="start_date_input">Start date</string>
     <string name="cashflows1">Here no input is necessary. All your income, expenses, savings, and debts will be accounted for automatically.</string>
-    <string name="cashflows2">Cashflow chart and table depict monthly inflow and outflow of your capital.</string>
+    <string name="cashflows2">Monthly budget surplus is divided between saving accounts according to the specified "surplus fraction", ie. each savings 
+        account takes a percentage of monthly savings. If anything is left, it goes to the checking account.\n\n\*Retirement savings and earnings are only added
+        to the checking account at withdrawal.</string>
     <string name="networth1">Here no input is necessary. All your income, expenses, savings, and debts will be accounted for automatically. </string>
     <string name="networth2">Net worth chart and table depict your accumulated savings, total debt, and their difference.</string>
     <string name="debts_title">DEBTS</string>
@@ -91,11 +93,11 @@
     <string name="savings_title">SAVINGS</string>
     <string name="investments_description">Savings accounts, 401(k), etc.</string>
     <string name="income_name_input">Name</string>
-    <string name="income_name_text"></string>
+    <string name="income_name_text">Salary</string>
     <string name="yearly_income_input">Income per year</string>
     <string name="yearly_income_text"></string>
     <string name="yearly_income_rise_input">Rise per year</string>
-    <string name="yearly_income_rise_text">5</string>
+    <string name="yearly_income_rise_text">3</string>
     <string name="income_tax_rate_input">Tax rate</string>
     <string name="income_tax_rate_text">30</string>
     <string name="income_term_input">Income term (years)</string>
@@ -127,11 +129,11 @@
     <string name="debtmortgage_name_input">Name</string>
     <string name="debtmortgage_name_text">Mortgage</string>
     <string name="debtmortgage_purchase_price_input">Purchase price</string>
-    <string name="debtmortgage_purchase_price_text"></string>
+    <string name="debtmortgage_purchase_price_text">200000</string>
     <string name="debtmortgage_downpayment_input">Down payment</string>
-    <string name="debtmortgage_downpayment_text"></string>
+    <string name="debtmortgage_downpayment_text">20000</string>
     <string name="debtmortgage_interest_rate_input">Interest rate (per yr)</string>
-    <string name="debtmortgage_interest_rate_text"></string>
+    <string name="debtmortgage_interest_rate_text">5</string>
     <string name="debtmortgage_term_input">Mortgage term (years)</string>
     <string name="debtmortgage_term_text">30</string>
     <string name="debtmortgage_property_insurance_input">Property insurance</string>
@@ -154,7 +156,7 @@
     <string name="debtmortgage_help_start_date"><b>Start date</b>\nDate of loan commencement. The is independent from <i>simulation start date</i>, 
         which is identical for all your instruments and can be set in <b>Settings</b>.</string>
     <string name="expense_name_input">Name</string>
-    <string name="expense_name_text"></string>
+    <string name="expense_name_text">Expense 1</string>
     <string name="init_expense_input">Amount</string>
     <string name="init_expense_text"></string>
     <string name="inflation_rate_input">Inflation rate (yr)</string>
@@ -173,22 +175,22 @@
     <string name="investmentsav_interest_rate_text"></string>
     <string name="investmentsav_tax_rate_input">Tax rate</string>
     <string name="investmentsav_tax_rate_text">30</string>
-    <string name="investmentsav_percontrib_input">Excess fraction (see HELP)</string>
+    <string name="investmentsav_percontrib_input">Surplus fraction (see HELP)</string>
     <string name="investmentsav_percontrib_text">30</string>
     <string name="investmentsavacct_help_amount"><b>Current amount</b>\nCurrent balance on your account.</string>
     <string name="investmentsavacct_help_interest_rate"><b>Interest rate</b>\nAnnual interest rate.</string>
     <string name="investmentsavacct_help_tax_rate"><b>Tax rate</b>\nTax rate on the interest. Usually it is taxed at the same rate as wages.</string>
-     <string name="investmentsavacct_help_percontrib"><b>Excess fraction</b>\nWhat percentage of your total monthly 
-         <i>excess money</i> (i.e. capital and non-capital income minus expenses, debt rates, and retirement plan deposits) you want to put 
+     <string name="investmentsavacct_help_percontrib"><b>Surplus fraction</b>\nWhat percentage of your total monthly 
+         <i>surplus money</i> (i.e. capital and non-capital income minus expenses, debt rates, and retirement plan deposits) you want to put 
          into the savings account. 
-         \n\nIf excess fraction is set to 0%%, no deposits to Savings account will be made and the balance will grow only due to interest rate. 
-         \n\nIf excess fraction is more than 0%%, this fraction of the <i>excess money</i> will be saved to the Savings account and the rest will 
-         be kept in Checking account. For example, if you have a Savings account with 30%% excess fraction, 30%% of the <i>excess money</i> will 
-         be saved to Savings account. All the rest will be kept in Checking account (unless you have other Savings accounts with non-zero excess fraction).
-         \n\nIf excess fraction is 100%%, all the <i>excess money</i> is saved in the Savings account.
-         \n\nYou may have many Saving accounts but their total excess fraction may not be higher than 100%%. For example, you may have Savings account A 
-         with 30%% excess fraction, and a Savings account B with 40%% excess fraction. This means that altogether 70%% of your <i>excess money</i> is saved
-         for the Savings account. This money will not be used then for servicing debts and other spendings if income does not cover them.</string>
+         \n\nIf surplus fraction is set to 0%%, no deposits to the Savings account will be made and the balance will grow only due to interest rate. 
+         \n\nIf surplus fraction is more than 0%%, this fraction of the <i>surplus money</i> will be saved to the Savings account and the rest will 
+         be kept in the Checking account. For example, if you have a Savings account with 30%% surplus fraction, 30%% of the <i>surplus money</i> will 
+         be saved to the Savings account. All the rest will be kept in the Checking account (unless you have other Savings accounts with non-zero surplus fraction).
+         \n\nIf surplus fraction is 100%%, all the <i>surplus money</i> is saved in the Savings account.
+         \n\nYou may have many Saving accounts but their total surplus fraction may not be higher than 100%%. For example, you may have a Savings account A 
+         with 30%% surplus fraction, and a Savings account B with 40%% surplus fraction. This means that altogether 70%% of your <i>surplus money</i> is saved
+         in the Savings accounts. This money will be used (according to surplus fraction) for servicing debts and expenses if income does not cover them.</string>
     <string name="investmentcheck_name_input">Name</string>
     <string name="investmentcheck_name_text">Checking account</string>
     <string name="investmentcheck_init_amount_input">Current amount</string>
@@ -238,8 +240,8 @@
         before tax. </string>
 
     <!-- Expenses help -->
-
-    <string name="expl_expenses_add_intro">Here input and update your regular expenses, such as monthly spendings, insurance, house or apartment rent, yearly travel 
+    
+    <string name="expl_expenses_add_intro">Here input and update your regular expenses, such as monthly spending, insurance, house or apartment rent, yearly travel 
         budget, etc. \n\nThe submitted amounts are used as starting points in projecting your future expenses with inflation taken into account. 
         Inflation is assumed to be constant over years.</string>
     <string name="expl_expenses_chart_intro">The chart shows the projection of your monthly expenses over years. The rise or fall of the expenses is due to inflation.</string>
@@ -251,14 +253,18 @@
         \n\n<b><i>Checking account</i></b>\nIt is a fixed account used in <b>FinanceSim</b> to deposit all of the remaining monthly income (capital and 
         non-capital) after it has been partitioned into expenses, savings accounts, 401(k) accounts, and debt rates. The interests are
         compounded continuously and paid monthly.
-        \n\n<b><i>Savings account</i></b>\nIn a savings account you can store a given percentage of your excess money (i.e. the money remaining after it
+        \n\n<b><i>Savings account</i></b>\nIn a savings account you can store a given percentage of your surplus money (i.e. the money remaining after it
         has been partitioned into expenses, 401(k) accounts, and debt rates). The interests are compounded continuously and paid monthly.
         \n\n<b><i>401(k) account</i></b>\nIt is a pension plan common in the US. Contributions to the 401(k) account plan are made on a pre-tax basis so the earnings are tax-deferred. Tax
         is subtracted from the 401(k) earnings on withdrawal and deposited in the checking account.</string>
-    <string name="savings_expl_chart_intro">The chart shows a projection of your account balance over years.</string>
+    <string name="savings_expl_chart_intro">The chart shows a projection of your account balance over years.
+        \n\n<i><b>Checking account</b></i>\nThis is the account to which the 401(k) retirement savings are transferred after the plan term is complete.
+        \n\n<i><b>401(k) account</b></i>\nAfter the 401(k) plan is completed, it\'s earnings are transferred to the Checking account. The tax on interest
+        is subtracted before transfer.
+        </string>
     
     <string name="savings_expl_table_intro_1"><b><i>Checking and savings account</i></b>\n\n<b>Deposit</b>\nAmount of money added monthly to the account. 
-        For a savings account it is a percentage (specified by the user) of the so-called excess money, which is the amount left
+        For a savings account it is a percentage (specified by the user) of the so-called surplus money, which is the amount left
         after expenses, debts and retirement plans are served.
         For a checking account it is the money that remain after expenses, debts, retirement contributions, and savings are made. 
         If deposit is negative, it is the amount that needs to be subtracted from the account since there is not enough income 
@@ -294,7 +300,7 @@
     <!-- Cashflows help -->    
 
     <string name="expl_cashflows_add_intro"><b>Cashflows</b>
-        \nThe cashflows show the projections of your monthly budget breakdown into earings, spendings, and money deposited as savings.
+        \nThe cashflows show the projections of your monthly budget breakdown into earings, spending, and money deposited as savings.
     </string>
 
     <string name="expl_cashflows_chart_intro"><b>Net income</b>\nThe sum of all your net income sources in a given month.
@@ -308,7 +314,7 @@
         \n\n<b>Total expenses</b>\nThe sum of all the spendings made in a given month.
         \n\n<b>Debt service</b>\nThe sum of your monthly debt payments.
         \n\n<b>Saved</b>\nThe amount of money put away into bank accounts (checking, savings, etc.) in a given month. 401(k) earnings are deposited to Checking account in a lump sum at withdrawal.
-        \n\nThe total of all these amounts (ie. net income + interest - total expenses - debt service - saved) in a given month should be 0, except for the case when you have a Savings account with a non-zero excess 
+        \n\nThe total of all these amounts (ie. net income + interest - total expenses - debt service - saved) in a given month should be 0, except for the case when you have a Savings account with a non-zero surplus 
         fraction and your income do not cover expenses and debts. See Savings \/ Add savings account \/ HELP.</string>
 
     <!-- Net worth help -->
@@ -323,7 +329,7 @@
 
     <!-- At-startup-popup info -->
 
-    <string name="start_popup_intro"><b>FinanceSim</b> projects your future financial situation based on your current earnings and spendings.\n</string>
+    <string name="start_popup_intro"><b>FinanceSim</b> projects your future financial situation based on your current earnings and spending.\n</string>
     <string name="start_popup_input">enter or modify input data (income, expenses, savings, debts)</string>        
     <string name="start_popup_chart">results in chart</string>        
     <string name="start_popup_table">results in table</string>        
@@ -341,8 +347,8 @@
     <string name="frg_savings_add_multiple_info">You may add multiple savings data.</string>
     <string name="frg_debts_add_multiple_info">You may add multiple debts data.</string>
 
-    <string name="add_investmentsavacct_title">Error: Total excess fraction higher than 100%</string>
-    <string name="add_investmentsavacct_info">Total excess fraction from all your Savings accounts cannot be higher than 100%%. 
-        Please set excess fraction to %s or lower. See HELP for more information.</string>
+    <string name="add_investmentsavacct_title">Error: Total surplus fraction higher than 100%</string>
+    <string name="add_investmentsavacct_info">Total surplus fraction from all your Savings accounts cannot be higher than 100%%. 
+        Please set surplus fraction to %s or lower. See HELP for more information.</string>
 
 </resources>

@@ -163,8 +163,12 @@ public class FrgInvestment extends SherlockFragment {
     		/* Before removing investment account, set the income with which it is associated
     		 * to null.
     		 */
-    		investment.getIncome().setInvestment401k(null);
-    		appState.getAccount().removeInvestment(investment);
+    		if (investment != null) {
+    			if (investment.getIncome() != null) {
+    		        investment.getIncome().setInvestment401k(null);
+    		        appState.getAccount().removeInvestment(investment);
+    			}
+    		}
     		action = " updated.";
 
       	}

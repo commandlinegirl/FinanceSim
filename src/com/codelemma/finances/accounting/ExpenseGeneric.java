@@ -9,10 +9,8 @@ public class ExpenseGeneric extends Expense {
     private BigDecimal init_inflation_rate;
     private BigDecimal periodic_expense;
     private BigDecimal periodic_inflation_rate_decimal;
-    private BigDecimal hidden_periodic_expense;    
     private String name;
     private int frequency;
-    private int[] monthNumbersForDisplay = {12, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11};
     private int start_year;
     private int start_month;
     private HistoryExpenseGeneric history;
@@ -29,10 +27,6 @@ public class ExpenseGeneric extends Expense {
         this.frequency = frequency;        
         this.start_year = start_year;
         this.start_month = start_month;
-        /*periodic_inflation_rate_decimal = inflation_rate.divide(
-        		new BigDecimal(1200/frequency), //TODO: check if not divided by ZERO
-                Money.RATE_DECIMALS,        		
-                Money.ROUNDING_MODE);*/
         periodic_inflation_rate_decimal = Money.scale(new BigDecimal(Math.pow((inflation_rate.doubleValue()/100 + 1), frequency/12.0) - 1));        
         history = new HistoryExpenseGeneric(this);
     	setValuesBeforeCalculation();
@@ -55,17 +49,15 @@ public class ExpenseGeneric extends Expense {
     }
 
     @Override
-    public void initialize() { 
-    	periodic_expense = Money.scale(init_expense);
-    	hidden_periodic_expense = periodic_expense;
+    public void initialize() {
+    	periodic_expense = init_expense.divide(new BigDecimal(frequency), Money.DECIMALS, Money.ROUNDING_MODE);
     }
         
     @Override
     public void setValuesBeforeCalculation() {
     	periodic_expense = Money.ZERO;
-    	hidden_periodic_expense = Money.ZERO;
     }
-    
+
     @Override
     public void advance(int year, int month) {
     	if (year == start_year && month == start_month) {
@@ -74,25 +66,19 @@ public class ExpenseGeneric extends Expense {
     		advanceValues(year, month);
     	}       	
     }
-    
+
     public void advanceValues(int year, int month) {
-    	if ((monthNumbersForDisplay[month] % frequency) == 0 ) {  
-    		hidden_periodic_expense = hidden_periodic_expense.add(
-    				Money.getPercentage(hidden_periodic_expense, periodic_inflation_rate_decimal));
-    		periodic_expense = hidden_periodic_expense;
-    	} else {
-    		periodic_expense = Money.ZERO;
-    	}
-    }   
-    
+    	periodic_expense = periodic_expense.add(Money.getPercentage(periodic_expense, periodic_inflation_rate_decimal));
+    }
+
     public BigDecimal getInitInflationRate() {
     	return init_inflation_rate;
     }
-  
+
     public int getFrequency() {
         return frequency;
     }    
-    
+
     @Override
     public String getName() {
         return name;

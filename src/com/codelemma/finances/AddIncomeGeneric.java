@@ -5,6 +5,7 @@ import java.util.Calendar;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
+import com.codelemma.finances.accounting.Income;
 import com.codelemma.finances.accounting.IncomeGeneric;
 import com.codelemma.finances.accounting.Investment401k;
 
@@ -260,6 +261,9 @@ public class AddIncomeGeneric extends SherlockFragmentActivity
         intent.putExtra("incomegeneric_start_year",  String.valueOf(setYear));
         intent.putExtra("incomegeneric_start_month",  String.valueOf(setMonth));
 
+        
+        
+        
 	    EditText incomeTerm = (EditText) findViewById(R.id.income_term);
 	    String incomeTermData = incomeTerm.getText().toString();
 	    if (Utils.alertIfEmpty(this, incomeTermData, getResources().getString(R.string.income_term_input))) {
@@ -272,9 +276,27 @@ public class AddIncomeGeneric extends SherlockFragmentActivity
 
     	if (requestCode.equals(AcctElements.UPDATE.toString())) {
 	        intent.putExtra("income_id", incomeId);
+	        
+	        // check that associated 401(k) must not start earlier than income
+	        Income inc = appState.getAccount().getIncomeById(incomeId);
+	        Investment401k inv = inc.getInvestment401k();
+	        if (inv != null) {
+	        	if (inv.getStartYear() < setYear || (inv.getStartYear() == setYear && inv.getStartMonth() < setMonth)) {
+	        		alertIfWrongDate(inv.getStartYear(), inv.getStartMonth());
+	        		return;
+	        	}
+	        }
     	}
 
         setResult(AcctElements.INCOME.getNumber(), intent);
         finish();
+	}
+	
+	private void alertIfWrongDate(int year, int month) {
+		new AlertDialog.Builder(this).setTitle("Incorrect date")
+            .setMessage("The date of income start should not be later than the associated 401(k) account start date. Please, fill the date earlier or equal to " 
+		           + String.valueOf(month+1)+"/"+String.valueOf(year)+".")
+            .setNeutralButton("Close", null)
+            .show();
 	}
 }

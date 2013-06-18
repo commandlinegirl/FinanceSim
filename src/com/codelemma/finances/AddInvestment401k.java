@@ -313,7 +313,7 @@ public class AddInvestment401k extends SherlockFragmentActivity
     }	
 	
 	private void alertIfWrongDate(int year, int month) {
-		new AlertDialog.Builder(this).setTitle("Wrong date")
+		new AlertDialog.Builder(this).setTitle("Incorrect date")
             .setMessage("Date should not be earlier than date of income onset. Please, fill the date later or equal to " 
 		           + String.valueOf(month+1)+"/"+String.valueOf(year)+".")
             .setNeutralButton("Close", null)

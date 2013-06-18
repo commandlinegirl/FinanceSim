@@ -13,7 +13,10 @@ public class NumberFormatter {
 		numberFormat.setMaximumFractionDigits( 2 );
 	}
 	
-	public String formatNumber(BigDecimal num) {		
+	public String formatNumber(BigDecimal num) {	
+		if (num == null) {
+			return "0";
+		}
 		return numberFormat.format(num);
 	}
 }
