@@ -33,7 +33,7 @@ public class AddExpenseGeneric extends SherlockFragmentActivity
 	private Finances appState;
 	private String requestCode;
 	private int expenseId;
-	private int[] frequency_items = {1, 3, 6, 12}; // in months (frequency in every nth month per year)
+	private int[] frequency_items = {1, 3, 6, 12}; // in months (frequency in every nth month per year) {monthly, quarterly, semi-annually, annually}
 	int frequency = 1;
 	private int setMonth;
 	private int setYear;

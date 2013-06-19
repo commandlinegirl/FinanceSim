@@ -1,10 +1,12 @@
 package com.codelemma.finances.accounting;
 import java.math.BigDecimal;
 
+import android.util.Log;
+
 import com.codelemma.finances.InputListingUpdater;
 
 public class ExpenseGeneric extends Expense {
-		
+
     private BigDecimal init_expense;
     private BigDecimal init_inflation_rate;
     private BigDecimal periodic_expense;
@@ -21,13 +23,13 @@ public class ExpenseGeneric extends Expense {
     		int frequency,
             int start_year,
     	    int start_month) {
-        this.name = name;    	
-        this.init_expense = init_expense;        
+        this.name = name;
+        this.init_expense = init_expense;
         this.init_inflation_rate = inflation_rate;
         this.frequency = frequency;        
         this.start_year = start_year;
         this.start_month = start_month;
-        periodic_inflation_rate_decimal = Money.scale(new BigDecimal(Math.pow((inflation_rate.doubleValue()/100 + 1), frequency/12.0) - 1));        
+        periodic_inflation_rate_decimal = Money.scale(new BigDecimal(Math.pow(inflation_rate.doubleValue()/100 + 1, 1.0/12.0) - 1));
         history = new HistoryExpenseGeneric(this);
     	setValuesBeforeCalculation();
     }
@@ -64,10 +66,11 @@ public class ExpenseGeneric extends Expense {
     		initialize();
     	} else if ((year > start_year) || (year == start_year && month > start_month)) {
     		advanceValues(year, month);
-    	}       	
+    	}
     }
 
     public void advanceValues(int year, int month) {
+    	Log.d("periodic_inflation_rate_decimal", periodic_inflation_rate_decimal.toString());
     	periodic_expense = periodic_expense.add(Money.getPercentage(periodic_expense, periodic_inflation_rate_decimal));
     }
 
