@@ -128,6 +128,11 @@ public class AccountStorage implements AccountFactory, AccountSaver {
 
     private int[] readIds() throws StorageException {
     	String idsAsString = storage.getString("", ACCOUNTING_ELEMENTS_ID_LIST);
+
+        if (idsAsString.equals("")) {
+            return new int[]{};
+        }
+
     	String[] idsAsStrings = idsAsString.split(",");
     	int[] ids = new int[idsAsStrings.length];
     	try {
@@ -146,7 +151,9 @@ public class AccountStorage implements AccountFactory, AccountSaver {
     		idsBuilder.append(Integer.toString(accountingElement.getId()));
     		idsBuilder.append(',');
     	}
-    	idsBuilder.deleteCharAt(idsBuilder.length() - 1);
+        if (idsBuilder.length() > 0) {
+       	    idsBuilder.deleteCharAt(idsBuilder.length() - 1);
+        }
     	storage.putString("", ACCOUNTING_ELEMENTS_ID_LIST, idsBuilder.toString());
     }
 

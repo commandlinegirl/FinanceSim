@@ -184,10 +184,10 @@ public class Plotter implements PlotVisitor {
 			currentColor++;
 		}		
 	}
-	
+
 	@Override
 	public void plotIncomeGeneric(HistoryIncomeGeneric historyIncomeGeneric) {
-		HashMap<String,BigDecimal[]> values = new HashMap<String,BigDecimal[]>(1);
+		HashMap<String,BigDecimal[]> values = new HashMap<String,BigDecimal[]>();
 		values.put("Net income (per month)", historyIncomeGeneric.getNetIncomeHistory());
 		values.put("Gross income (per month)", historyIncomeGeneric.getGrossIncomeHistory());
         plot(values, "Income"); 		
@@ -195,35 +195,35 @@ public class Plotter implements PlotVisitor {
 
 	@Override
 	public void plotExpenseGeneric(HistoryExpenseGeneric historyExpenseGeneric) {
-		HashMap<String,BigDecimal[]> values = new HashMap<String,BigDecimal[]>(1);
+		HashMap<String,BigDecimal[]> values = new HashMap<String,BigDecimal[]>();
 		values.put(historyExpenseGeneric.getName()+ " (per month)", historyExpenseGeneric.getAmountHistory());
         plot(values, "Expense"); 				
 	}
 
 	@Override
 	public void plotInvestment401k(HistoryInvestment401k historyInvestment401k) {
-		HashMap<String,BigDecimal[]> values = new HashMap<String,BigDecimal[]>(1);
+		HashMap<String,BigDecimal[]> values = new HashMap<String,BigDecimal[]>();
 		values.put(historyInvestment401k.getName()+ " (cumulative)", historyInvestment401k.getAmountHistory());
         plot(values, "Investment"); 				
 	}
 
 	@Override
 	public void plotInvestmentSavAcct(HistoryInvestmentSavAcct historyInvestmentSavAcct) {
-		HashMap<String,BigDecimal[]> values = new HashMap<String,BigDecimal[]>(1);
+		HashMap<String,BigDecimal[]> values = new HashMap<String,BigDecimal[]>();
 		values.put(historyInvestmentSavAcct.getName()+ " (cumulative)", historyInvestmentSavAcct.getAmountHistory());
         plot(values, "Investment"); 				
 	}
 
 	@Override
 	public void plotInvestmentCheckAcct(HistoryInvestmentCheckAcct historyInvestmentCheckAcct) {
-		HashMap<String,BigDecimal[]> values = new HashMap<String,BigDecimal[]>(1);
+		HashMap<String,BigDecimal[]> values = new HashMap<String,BigDecimal[]>();
 		values.put(historyInvestmentCheckAcct.getName()+ " (cumulative)", historyInvestmentCheckAcct.getAmountHistory());
         plot(values, "Investment"); 						
 	}
 	
 	@Override
 	public void plotDebtMortgage(HistoryDebtMortgage historyDebtMortgage) {         		        
-		HashMap<String,BigDecimal[]> values = new HashMap<String,BigDecimal[]>(1);
+		HashMap<String,BigDecimal[]> values = new HashMap<String,BigDecimal[]>();
 		values.put("Total interest", historyDebtMortgage.getTotalInterestsHistory());
 		//values.put("Payment", historyDebtMortgage.getMonthlyPaymentHistory());
 		values.put("Outstanding loan", historyDebtMortgage.getRemainingAmountHistory());
@@ -232,7 +232,7 @@ public class Plotter implements PlotVisitor {
 
 	@Override
 	public void plotDebtLoan(HistoryDebtLoan historyDebtLoan) {
-		HashMap<String,BigDecimal[]> values = new HashMap<String,BigDecimal[]>(1);		
+		HashMap<String,BigDecimal[]> values = new HashMap<String,BigDecimal[]>();		
 		values.put("Outstanding loan", historyDebtLoan.getRemainingAmountHistory());
 		values.put("Total interest", historyDebtLoan.getTotalInterestsHistory());
         plot(values, "Loan"); 		
@@ -240,7 +240,7 @@ public class Plotter implements PlotVisitor {
 
 	@Override
 	public void plotCashflows(HistoryCashflows historyCashflows) {
-		HashMap<String,BigDecimal[]> values = new HashMap<String,BigDecimal[]>(1);
+		HashMap<String,BigDecimal[]> values = new HashMap<String,BigDecimal[]>();
 		values.put("Income", historyCashflows.getNetIncomeHistory());
 		values.put("Interest", historyCashflows.getCapitalGainsHistory());
 		values.put("Expenses", historyCashflows.getExpensesHistory());
@@ -251,7 +251,7 @@ public class Plotter implements PlotVisitor {
 
 	@Override
 	public void plotNetWorth(HistoryNetWorth historyNetWorth) {
-		HashMap<String,BigDecimal[]> values = new HashMap<String,BigDecimal[]>(1);
+		HashMap<String,BigDecimal[]> values = new HashMap<String,BigDecimal[]>();
 		values.put("Savings", historyNetWorth.getSavingsHistory());
 		values.put("Outstanding debts", historyNetWorth.getOutstandingDebtsHistory());
 		values.put("Net worth", historyNetWorth.getNetWorthHistory());
